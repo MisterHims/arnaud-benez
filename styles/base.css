@@ -1,0 +1,14 @@
+@layer base {
+
+  :root {
+    --mob-main-navbar-height: 64px;
+    --desktop-main-navbar-height: 64px;
+    --desktop-main-navbar-width: 72px;
+    --top-navbar-height: 64px;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+}

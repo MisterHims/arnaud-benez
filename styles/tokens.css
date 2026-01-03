@@ -1,0 +1,49 @@
+/**
+ * Design Tokens
+ *
+ * Central definition of all design tokens used throughout the application.
+ * These tokens are defined using Tailwind CSS v4's @theme directive.
+ *
+ * Extracted from globals.css for better organization and maintainability.
+ */
+
+@theme {
+   /* ========================================
+     BREAKPOINTS
+     ======================================== */
+
+   --breakpoint-3xl: 2048px;
+
+   /* ========================================
+     FONTS - FAMILIES
+     ======================================== */
+
+   --font-family-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+   --font-family-serif: var(--font-serif), ui-serif, Georgia, serif;
+   --font-family-mono: var(--font-mono), ui-monospace, monospace;
+   --font-family-condensed: var(--font-condensed);
+
+   /* ========================================
+     FONTS - WEIGHTS
+     ======================================== */
+
+   --font-weight-hairline: 100;
+   --font-weight-extralight: 200;
+   --font-weight-light: 300;
+   --font-weight-mono: 200;
+   --font-weight-normal: 400;
+   --font-weight-primary: 400;
+   --font-weight-medium: 500;
+   --font-weight-semibold: 600;
+   --font-weight-bold: 700;
+   --font-weight-extra-bold: 800;
+   --font-weight-black: 900;
+
+   /* ========================================
+     CONTAINER SETTINGS
+     ======================================== */
+
+   --container-center: true;
+   --container-padding: 2rem;
+   --container-screens-2xl: 1400px;
+}
