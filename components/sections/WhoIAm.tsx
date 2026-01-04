@@ -3,7 +3,7 @@
 import { Button } from '@heroui/react';
 import { SlideNextButton } from '@/components/swipper/SlideNextButton';
 
-export const WhatIDo = () => {
+export const WhoIAm = () => {
   return (
     // PURE DARK BACKGROUND (#0c0c0c)
     // It will merge with the bottom of the SVG of the Spacer section

@@ -1,36 +1,67 @@
-// components/hero/Mountains.tsx
 'use client';
 
-import { motion, MotionValue } from 'framer-motion';
+import { motion, MotionValue, useTransform } from 'framer-motion';
 
 interface MountainsProps {
-  y?: MotionValue<string>; // Note: C'est une string ('100%') pas un number
+  progress: MotionValue<number>;
+  mouseRotateX: MotionValue<number>;
 }
 
-export const Mountains = ({ y }: MountainsProps) => {
-  return (
-    // On enveloppe le tout dans une motion.div qui reçoit le 'y'
-    <motion.div
-      style={{ y }}
-      className='absolute bottom-[-1px] left-0 w-full z-30 overflow-hidden leading-[0]'
-    >
-      <svg
-        className='w-full h-auto min-h-[100px] md:min-h-[150px]'
-        // ... le reste de votre SVG reste identique ...
-        viewBox='0 0 1440 320'
-        preserveAspectRatio='none'
-        xmlns='http://www.w3.org/2000/svg'
-      >
-        <path fill='#111' fillOpacity='1' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'></path>
-        {/* J'ai mis le fill en blanc solide pour l'effet "neige" de votre image, ajustez si besoin */}
-        <path fill='#ffffff' fillOpacity='1' d='M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,197.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'></path>
-      </svg>
+export const Mountains = ({ progress, mouseRotateX }: MountainsProps) => {
 
-      {/* Le bouton scroll down peut être masqué au début et apparaître avec les montagnes si vous voulez, pour l'instant je le laisse */}
-      <div className='absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2'>
-        <div className='w-[1px] h-8 bg-white/30'></div>
+  // 1. Logique d'animation (Scroll)
+  const y = useTransform(progress, [0, 1], ['100%', '0%']);
+  const rotateXFromScroll = useTransform(progress, [0, 1], [90, 0]);
+  const opacity = useTransform(progress, [0, 0.2], [0, 1]);
+
+  return (
+    <motion.div
+      style={{
+        y,
+        rotateX: rotateXFromScroll,
+        opacity,
+        transformOrigin: "bottom center",
+        transformStyle: "preserve-3d",
+      }}
+      // J'ai retiré 'left-0 w-full' et ajouté des valeurs pour centrer et élargir
+      // left-1/2 -translate-x-1/2 : Centre le conteneur
+      // w-[140%] : Le conteneur fait 140% de la largeur de l'écran (donc dépasse de 20% de chaque côté)
+      className='absolute -bottom-px left-1/2 -translate-x-1/2 w-[140%] z-40 overflow-visible leading-0'
+    >
+      {/* 2. Logique d'interaction (Souris) */}
+      <motion.div
+        style={{
+          rotateX: mouseRotateX,
+          transformOrigin: "bottom center",
+          transformStyle: "preserve-3d",
+        }}
+        className="w-full h-full"
+      >
+        <svg
+          className='w-full h-auto min-h-[150px]'
+          viewBox='0 0 1800 600'
+          // On garde le slice pour que ça remplisse bien la hauteur
+          preserveAspectRatio='xMidYMax slice'
+          xmlns='http://www.w3.org/2000/svg'
+          // IMPORTANT : overflow-visible permet au SVG de dessiner hors de sa boite
+          style={{ overflow: 'visible' }}
+        >
+
+          {/* Tes chemins SVG (inchangés) */}
+          <path d="M0 550L78 459L157 545L235 465L313 496L391 444L470 499L548 447L626 516L704 538L783 473L861 472L939 512L1017 415L1096 539L1174 528L1252 422L1330 475L1409 537L1487 519L1565 505L1643 458L1722 492L1800 550L1800 601L1722 601L1643 601L1565 601L1487 601L1409 601L1330 601L1252 601L1174 601L1096 601L1017 601L939 601L861 601L783 601L704 601L626 601L548 601L470 601L391 601L313 601L235 601L157 601L78 601L0 601Z" fill="#bdbdbd"></path>
+          <path d="M0 464L78 497L157 500L235 559L313 515L391 468L470 489L548 508L626 490L704 555L783 466L861 514L939 518L1017 501L1096 560L1174 518L1252 529L1330 463L1409 541L1487 515L1565 540L1643 492L1722 485L1800 478L1800 601L1722 601L1643 601L1565 601L1487 601L1409 601L1330 601L1252 601L1174 601L1096 601L1017 601L939 601L861 601L783 601L704 601L626 601L548 601L470 601L391 601L313 601L235 601L157 601L78 601L0 601Z" fill="#dadada"></path>
+          <path d="M0 571L78 572L157 512L235 560L313 545L391 531L470 517L548 559L626 529L704 551L783 540L861 509L939 567L1017 530L1096 543L1174 540L1252 524L1330 561L1409 518L1487 531L1565 503L1643 570L1722 574L1800 544L1800 601L1722 601L1643 601L1565 601L1487 601L1409 601L1330 601L1252 601L1174 601L1096 601L1017 601L939 601L861 601L783 601L704 601L626 601L548 601L470 601L391 601L313 601L235 601L157 601L78 601L0 601Z" fill="#f8f8f8"></path>
+        </svg>
+      </motion.div>
+
+      {/* Indicateur Scroll (On le remet à 100% de large pour qu'il soit bien centré sur l'écran, pas sur le SVG élargi) */}
+      <motion.div
+        style={{ opacity }}
+        className='absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 w-screen'
+      >
+        <div className='w-px h-8 bg-white/30'></div>
         <span className='text-[10px] text-white/50 tracking-widest uppercase'>Scroll Down</span>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

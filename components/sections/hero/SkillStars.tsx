@@ -44,8 +44,8 @@ export const SkillStars = ({ x, y, onStarClick }: SkillStarsProps) => {
             {/* Effet 'Star Cross' pour les majeures */}
             {skill.type === 'major' && (
               <>
-                <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40px] h-[1px] bg-white/50' />
-                <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-[40px] bg-white/50' />
+                <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40px] h-px bg-white/50' />
+                <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-[40px] bg-white/50' />
               </>
             )}
           </div>

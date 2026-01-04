@@ -11,7 +11,7 @@ export const IdentityBlock = () => {
       </div>
 
       {/* SÉPARATEUR VERTICAL */}
-      <div className='hidden md:block h-[120px] w-[1px] bg-white/50'></div>
+      <div className='hidden md:block h-[120px] w-px bg-white/50'></div>
 
       {/* TEXTES TYPOGRAPHIE */}
       <div className='text-center md:text-left text-white'>
@@ -20,7 +20,7 @@ export const IdentityBlock = () => {
         </h1>
         <div className='font-normal text-[16px] md:text-[23px] text-gray-300 mt-4 uppercase tracking-widest flex items-center justify-center md:justify-start gap-3'>
           <span>UI/UX Designer</span>
-          <span className='h-6 w-[1px] bg-gray-500 hidden md:block'></span>
+          <span className='h-6 w-px bg-gray-500 hidden md:block'></span>
           <span>Front-End Developer</span>
         </div>
       </div>
