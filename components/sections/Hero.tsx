@@ -60,7 +60,7 @@ export const Hero = () => {
     <section
       onMouseMove={handleMouseMove}
       onWheelCapture={handleWheel}
-      className='relative w-full h-full bg-black overflow-hidden flex flex-col items-center justify-center'
+      className='relative w-full h-full overflow-hidden flex flex-col items-center justify-center'
     >
       <IdentityBlock />
       <StarryBackground x={xBack} y={yBack} />

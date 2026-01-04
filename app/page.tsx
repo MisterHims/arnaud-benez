@@ -42,7 +42,7 @@ export default function Home() {
   };
 
   return (
-    <main className="h-screen w-full bg-black">
+    <main className="h-screen w-full bg-[#050505]">
       <Swiper
         direction="vertical"
         modules={[Mousewheel]}
@@ -66,32 +66,32 @@ export default function Home() {
         className="h-full w-full"
       >
         {/* SECTION 1: HERO */}
-        <SwiperSlide className="overflow-y-auto no-scrollbar">
+        <SwiperSlide>
           <Hero />
         </SwiperSlide>
 
         {/* SECTION 2: SPACER (Transition) */}
-        <SwiperSlide className="h-full w-full bg-[#f8f8f8]">
+        <SwiperSlide className="bg-[#f8f8f8]">
           <Spacer />
         </SwiperSlide>
 
         {/* SECTION 3: WHO I AM */}
-        <SwiperSlide className="h-full w-full bg-[#0c0c0c]">
+        <SwiperSlide>
           <WhoIAm />
         </SwiperSlide>
 
         {/* SECTION 4: WHAT I DO */}
-        <SwiperSlide className="h-full w-full bg-[#0c0c0c]">
+        <SwiperSlide>
           <WhatIDo />
         </SwiperSlide>
 
         {/* SECTION   5: WORKS */}
-        <SwiperSlide className="h-full w-full bg-[#0c0c0c]">
+        <SwiperSlide>
           <Works />
         </SwiperSlide>
 
         {/* SECTION 6: CONTACT */}
-        <SwiperSlide className="h-full w-full bg-[#0c0c0c]">
+        <SwiperSlide>
           <Contact />
         </SwiperSlide>
       </Swiper>

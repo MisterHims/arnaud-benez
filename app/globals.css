@@ -23,6 +23,12 @@
 @theme {
   /* On remplace la police "sans" par défaut par notre variable Inter */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --max-width-8xl: 88rem;
+  /* 1408px */
+  --max-width-9xl: 96rem;
+  /* 1536px */
+  --max-width-ultra: 120rem;
+  /* 1920px */
 }
 
 

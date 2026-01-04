@@ -2,8 +2,8 @@
 
 export const Spacer = () => {
   return (
-    // Set section background to white (#f8f8f8) for safety
-    <section className='relative h-full w-full bg-[#f8f8f8] overflow-hidden flex flex-col justify-end'>
+    // Set section background to white for safety
+    <section className='relative h-full w-full overflow-hidden flex flex-col justify-end'>
 
       {/* Optional decorative element in center (Ghost text) */}
       <div className='absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none'>
