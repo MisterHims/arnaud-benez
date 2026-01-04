@@ -21,14 +21,19 @@
 @import '../styles/utilities.css';
 
 @theme {
-  /* On remplace la police "sans" par défaut par notre variable Inter */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --max-width-8xl: 88rem;
+  --font-sans: var(--font-inter), sans-serif;
   /* 1408px */
-  --max-width-9xl: 96rem;
+  --max-width-8xl: 88rem;
   /* 1536px */
-  --max-width-ultra: 120rem;
+  --max-width-9xl: 96rem;
   /* 1920px */
+  --max-width-ultra: 120rem;
+}
+
+@theme inline {
+  /* Pour intégrer de nouvelles polices, il faut passer par layout.tsx pour les définir */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-roboto-mono), sans-serif;
 }
 
 
