@@ -49,7 +49,7 @@ export const WhoIAm = () => {
       </BlockContent>
 
       {/* RIGHT ZONE: Portrait Image */}
-      <BlockContent colSpan={6} className="md:col-start-7">
+      <BlockContent colSpan={5} className="md:col-start-7">
         <Image
           src="/assets/portrait.png"
           alt="Arnaud Benez"

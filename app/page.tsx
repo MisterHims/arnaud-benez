@@ -21,6 +21,7 @@ export default function Home() {
       <Swiper
         direction="vertical"
         mousewheel={true}
+        simulateTouch={false}
         pagination={{
           clickable: true,
         }}
