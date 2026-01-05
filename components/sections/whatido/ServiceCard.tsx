@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { Chip, Card } from '@heroui/react'; // 1. Import de Card
+import { Card, Chip } from '@heroui/react';
 
 interface ServiceCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -36,50 +36,51 @@ export const ServiceCard = ({
   const handleMouseLeave = () => setOpacity(0);
 
   return (
-    // 2. Utilisation de Card comme conteneur racine
     <Card
       ref={divRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      // On désactive le shadow et le background par défaut de HeroUI
-      // pour laisser tes effets gérer le design.
       className={cn(
-        'break-inside-avoid',
-        // 'bg-transparent' et 'border-none' sont cruciaux ici pour ne pas avoir 
-        // le fond blanc/gris par défaut de la Card HeroUI.
-        'relative p-[2px] rounded-2xl overflow-hidden group bg-transparent border-none',
+        // 1. max-w-full : Empêche strictement la carte de dépasser sa colonne de grille
+        'p-0 break-inside-avoid relative flex flex-col rounded-2xl overflow-hidden group bg-[#050505] max-w-full',
         className
       )}
       {...props}
     >
-      {/* --- 1. COUCHE BORDURE STATIQUE --- */}
+      {/* --- 1. COUCHE ARRIÈRE-PLAN (Visible sur les bords de 2px) --- */}
       <div className="absolute inset-0 bg-white/10" />
 
-      {/* --- 2. SPOTLIGHT STATIQUE --- */}
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-500"
         style={{
           opacity: opacity === 1 ? 0 : 1,
-          background: `radial-gradient(400px circle at 0px 0px, rgba(${color}, 0.6), transparent 40%)`,
+          background: `radial-gradient(500px circle at 0px 0px, rgba(${color}, 0.6), transparent 40%)`,
         }}
       />
 
-      {/* --- 3. SPOTLIGHT DYNAMIQUE --- */}
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-300"
         style={{
           opacity,
-          background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(${color}, 1), transparent 40%)`,
+          background: `radial-gradient(500px circle at ${position.x}px ${position.y}px, rgba(${color}, 1), transparent 40%)`,
         }}
       />
 
-      {/* --- 4. LE CONTENU (Fond noir) --- */}
-      {/* On garde cette div car elle sert de masque (cutout) pour créer la bordure de 2px. 
-          HeroUI Card ne gère pas nativement ce type de bordure "interne". */}
-      <div className="relative z-10 flex flex-col grow bg-[#050505] rounded-[14px] overflow-hidden">
+      {/* --- 2. LE CONTENU --- */}
+      <div
+        className={cn(
+          "relative flex flex-col grow bg-[#050505] rounded-[14px] overflow-hidden z-10",
+          // CORRECTION CRUCIALE ICI :
+          // Au lieu de margin ou padding, on centre l'élément et on calcule sa taille exacte.
+          // 1. mx-auto my-[2px] : Centre horizontalement, marge de 2px en haut/bas.
+          // 2. w-[calc(100%-4px)] : La largeur est EXACTEMENT 100% moins 4px (2px gauche + 2px droite).
+          //    Cela empêche mathématiquement tout débordement hors du parent.
+          "mx-auto my-[2px] w-[calc(100%-4px)]"
+        )}
+      >
 
-        {/* Dégradé du bas */}
+        {/* Dégradé interne */}
         <div className="pointer-events-none absolute bottom-0 right-0 left-0 h-1/3 bg-linear-to-tl from-white/5 to-transparent z-0" />
 
         {iconSrc && (
@@ -98,31 +99,35 @@ export const ServiceCard = ({
           </div>
         )}
 
-        <Card.Header className="px-6 pb-6 flex flex-col grow z-10">
-          {/* Tu peux utiliser Card.Header ici si tu veux, mais ton layout actuel est plus flexible avec des balises simples */}
-          <h3 className='text-xl font-bold text-[#EDEDED]'>
-            {title}
-          </h3>
-        </Card.Header>
-        <Card.Content className="px-6 pb-6 flex flex-col grow z-10">
-          <p className='text-[#A8A8A8] text-base leading-6 font-extralight'>
-            {description}
-          </p>
-        </Card.Content>
-        <Card.Footer className="px-6 pb-6 flex flex-col grow z-10">
-          {tags.length > 0 && (
-            <div className='flex gap-2 mt-auto flex-wrap'>
-              {tags.map((tag, index) => (
-                <Chip
-                  key={index}
-                  className="px-2 py-0.8 text-[#A8A8A8] border-3 border-[#27272B] bg-white/5 font-light"
-                >
-                  {tag}
-                </Chip>
-              ))}
-            </div>
-          )}
-        </Card.Footer>
+        <div className="flex flex-col grow z-10">
+          <Card.Header className="px-6 pb-2 pt-0">
+            <h3 className='text-xl font-bold text-[#EDEDED]'>
+              {title}
+            </h3>
+          </Card.Header>
+
+          {/* Note: Si Card.Content ne marche pas (selon la version de HeroUI), utilise Card.Body */}
+          <Card.Content className="px-6 py-2 overflow-visible">
+            <p className='text-[#A8A8A8] text-base leading-6 font-extralight'>
+              {description}
+            </p>
+          </Card.Content>
+
+          <Card.Footer className="px-6 pt-2 pb-6 mt-auto">
+            {tags.length > 0 && (
+              <div className='flex gap-2 flex-wrap'>
+                {tags.map((tag, index) => (
+                  <Chip
+                    key={index}
+                    className="px-2.5 py-1 h-auto text-sm text-[#A8A8A8] border border-[#27272B] bg-white/5 font-light"
+                  >
+                    {tag}
+                  </Chip>
+                ))}
+              </div>
+            )}
+          </Card.Footer>
+        </div>
       </div>
     </Card>
   );

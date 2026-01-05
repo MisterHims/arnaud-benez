@@ -27,9 +27,9 @@ export const WhatIDo = () => {
 
       <SectionShell
         variant="contained"
-        className="col-start-1 row-start-1 z-10 h-auto! bg-transparent relative"
+        className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 col-start-1 row-start-1 z-10 h-auto! bg-transparent relative"
       >
-        <BlockContent isSticky colSpan={5} className="order-1 md:order-2">
+        <BlockContent isSticky colSpan={5} className="order-1 md:order-2 pb-36">
           <h2 className='text-xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
             What I Do
           </h2>
@@ -47,7 +47,7 @@ export const WhatIDo = () => {
           </div>
         </BlockContent>
 
-        <BlockContent colSpan={6} className="order-2 md:order-1">
+        <BlockContent colSpan={6} className="order-2 md:order-1 pb-36">
           <ServiceList />
         </BlockContent>
 

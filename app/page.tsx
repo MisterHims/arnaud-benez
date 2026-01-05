@@ -14,6 +14,7 @@ import { WhoIAm } from "@/components/sections/WhoIAm";
 import { WhatIDo } from "@/components/sections/WhatIDo";
 import { Contact } from "@/components/sections/Contact";
 import { Works } from "@/components/sections/Works";
+import { Experience } from "@/components/sections/Experience";
 
 export default function Home() {
   return (
@@ -63,14 +64,21 @@ export default function Home() {
           </SlideContent>
         </SwiperSlide>
 
-        {/* Slide 5 : Works */}
+        {/* Slide 5 : Experience */}
+        <SwiperSlide>
+          <SlideContent isScrollable>
+            <Experience />
+          </SlideContent>
+        </SwiperSlide>
+
+        {/* Slide 6 : Works */}
         <SwiperSlide>
           <SlideContent isScrollable>
             <Works />
           </SlideContent>
         </SwiperSlide>
 
-        {/* Slide 6 : Contact */}
+        {/* Slide 7 : Contact */}
         <SwiperSlide>
           <SlideContent isScrollable>
             <Contact />

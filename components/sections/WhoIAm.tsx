@@ -11,7 +11,7 @@ import { BookOpen02Icon } from "../ui/icons/BookOpen02Icon";
 
 export const WhoIAm = () => {
   return (
-    <SectionShell variant="contained">
+    <SectionShell variant="contained" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14">
       {/* LEFT ZONE: Text Content */}
       <BlockContent colSpan={6}>
         <h2 className='text-7xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>

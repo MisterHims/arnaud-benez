@@ -36,7 +36,6 @@ const BlockContent: React.FC<BlockContentProps> = ({
     <div
       className={cn(
         'w-full h-full',
-        'pb-36',
         colSpan ? colSpanClasses[colSpan] : 'md:col-span-12',
         className // Les classes externes (order, etc.) s'appliquent ici
       )}
