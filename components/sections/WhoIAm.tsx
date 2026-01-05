@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@heroui/react';
 import Image from 'next/image';
 import { SlideNextButton } from '@/components/swipper/SlideNextButton';
 import BlockContent from "../layouts/BlockContent";
@@ -34,16 +33,16 @@ export const WhoIAm = () => {
         </div>
 
         <div className='flex gap-4 pt-4'>
-          <Button
+          <span
             className='border-white/30 hover:bg-white hover:text-black rounded-full px-6 py-6 transition-all text-sm uppercase tracking-wider'
           >
             Télécharger mon CV
-          </Button>
-          <Button
+          </span>
+          <span
             className='border-white/30 hover:bg-white hover:text-black rounded-full px-6 py-6 transition-all text-sm uppercase tracking-wider'
           >
             Télécharger mon book
-          </Button>
+          </span>
         </div>
       </BlockContent>
 

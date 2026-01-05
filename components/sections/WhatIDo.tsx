@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@heroui/react';
 import BlockContent from "../layouts/BlockContent";
 import SectionShell from "../layouts/SectionShell";
 import { ServiceCard } from "./whatido/ServiceCard";
@@ -32,12 +31,12 @@ export const WhatIDo = () => {
         </div>
 
         <div className='flex flex-wrap gap-4 pt-8'>
-          <Button className='border-white/30 text-white hover:bg-white hover:text-black hover:border-white rounded-full px-8 py-6 transition-all text-sm uppercase tracking-wider font-medium'>
+          <span className='border-white/30 text-white hover:bg-white hover:text-black hover:border-white rounded-full px-8 py-6 transition-all text-sm uppercase tracking-wider font-medium'>
             Télécharger mon CV
-          </Button>
-          <Button className='border-white/30 text-white hover:bg-white hover:text-black hover:border-white rounded-full px-8 py-6 transition-all text-sm uppercase tracking-wider font-medium'>
+          </span>
+          <span className='border-white/30 text-white hover:bg-white hover:text-black hover:border-white rounded-full px-8 py-6 transition-all text-sm uppercase tracking-wider font-medium'>
             Voir mon book
-          </Button>
+          </span>
         </div>
       </BlockContent>
 

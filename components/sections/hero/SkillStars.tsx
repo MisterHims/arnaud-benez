@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, MotionValue } from 'framer-motion';
-import { cn } from '@heroui/react'; // Ou ta fonction utilitaire
+import { cn } from '@/lib/utils';
 
 interface SkillStarsProps {
   x: MotionValue<number>;
