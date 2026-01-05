@@ -1,9 +1,11 @@
 'use client';
 
+import SectionShell from "../layouts/SectionShell";
+
 export const Spacer = () => {
   return (
     // Set section background to white for safety
-    <section className='relative h-full w-full overflow-hidden flex flex-col justify-end'>
+    <SectionShell className='relative h-full w-full overflow-hidden flex flex-col justify-end'>
 
       {/* Optional decorative element in center (Ghost text) */}
       <div className='absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none'>
@@ -36,6 +38,6 @@ export const Spacer = () => {
           <path d="M0 558L78 554L157 512L235 575L313 554L391 507L470 518L548 560L626 572L704 537L783 562L861 550L939 513L1017 529L1096 548L1174 525L1252 571L1330 506L1409 539L1487 562L1565 555L1643 546L1722 528L1800 506L1800 601L1722 601L1643 601L1565 601L1487 601L1409 601L1330 601L1252 601L1174 601L1096 601L1017 601L939 601L861 601L783 601L704 601L626 601L548 601L470 601L391 601L313 601L235 601L157 601L78 601L0 601Z" fill="#0c0c0c"></path>
         </svg>
       </div>
-    </section>
+    </SectionShell>
   );
 };

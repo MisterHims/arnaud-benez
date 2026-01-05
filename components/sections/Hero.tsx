@@ -9,6 +9,7 @@ import { IdentityBlock } from './hero/IdentityBlock';
 import { StarryBackground } from './hero/StarryBackground';
 import { SkillStars } from './hero/SkillStars';
 import { Mountains } from './hero/Mountains';
+import SectionShell from "../layouts/SectionShell";
 
 export const Hero = () => {
   const swiper = useSwiper();
@@ -57,10 +58,10 @@ export const Hero = () => {
   };
 
   return (
-    <section
+    <SectionShell
       onMouseMove={handleMouseMove}
       onWheelCapture={handleWheel}
-      className='relative w-full h-full overflow-hidden flex flex-col items-center justify-center'
+      className='min-h-screen relative w-full h-full overflow-hidden flex flex-col items-center justify-center'
     >
       <IdentityBlock />
       <StarryBackground x={xBack} y={yBack} />
@@ -79,6 +80,6 @@ export const Hero = () => {
           mouseRotateX={mouseRotateX}
         />
       </div>
-    </section>
+    </SectionShell>
   );
 };

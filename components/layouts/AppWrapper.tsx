@@ -16,7 +16,7 @@ const AppWrapper: React.FC<AppWrapperProps> = ({
   return (
     <div
       className={cn(
-        "flex min-h-screen",
+        "flex",
         className
       )}
     >

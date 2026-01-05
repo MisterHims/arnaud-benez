@@ -3,14 +3,14 @@
 import { Button } from '@heroui/react';
 import Image from 'next/image';
 import { SlideNextButton } from '@/components/swipper/SlideNextButton';
-import Section from "../layouts/Section";
 import BlockContent from "../layouts/BlockContent";
+import SectionShell from "../layouts/SectionShell";
 
 export const WhoIAm = () => {
   return (
-    <Section>
+    <SectionShell variant="contained">
       {/* LEFT ZONE: Text Content */}
-      <BlockContent>
+      <BlockContent colSpan={6}>
         <h2 className='text-7xl md:text-8xl font-black text-[#EDEDED] tracking-tight'>
           Who I Am
         </h2>
@@ -48,18 +48,18 @@ export const WhoIAm = () => {
       </BlockContent>
 
       {/* RIGHT ZONE: Portrait Image */}
-      <BlockContent>
+      <BlockContent colSpan={6} className="md:col-start-7">
         <Image
           src="/assets/portrait.png"
           alt="Arnaud Benez"
-          width={800}
-          height={1000}
-          className="object-contain object-bottom h-[40vh] md:h-[60vh] w-auto"
+          width={703}
+          height={757}
+          className="object-contain object-bottom w-auto border-2 border-white"
           priority
         />
       </BlockContent>
 
       <SlideNextButton />
-    </Section>
+    </SectionShell>
   );
 };

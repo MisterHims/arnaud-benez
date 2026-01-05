@@ -1,18 +1,46 @@
 'use client';
 
 import { Button } from '@heroui/react';
-import { SlideNextButton } from '@/components/swipper/SlideNextButton';
-import Section from "../layouts/Section";
 import BlockContent from "../layouts/BlockContent";
+import SectionShell from "../layouts/SectionShell";
 
 export const WhatIDo = () => {
   return (
-    // PURE DARK BACKGROUND (#0c0c0c)
-    // It will merge with the bottom of the SVG of the Spacer section
-    <Section>
-      {/* LEFT ZONE: Internal Scroll */}
-      <BlockContent
-      >
+    <SectionShell variant="contained">
+      <BlockContent colSpan={7} className="order-1 md:order-2">
+        <h2 className='text-6xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
+          What I Do
+        </h2>
+
+        <div className='text-lg space-y-6 leading-relaxed font-extralight text-gray-300'>
+          <p>
+            Bonjour et bienvenue sur mon portfolio. Je m'appelle Arnaud et je suis <strong className='font-semibold text-white'>UI/UX Designer</strong> & <strong className='font-semibold text-white'>Développeur Front-End</strong> basé dans le <strong className='font-semibold text-white'>Val de Marne</strong>.
+          </p>
+
+          <p>
+            Depuis plus de 15 ans, je mets mon expertise au service de <strong className='font-semibold text-white'>projets e-commerce</strong> en pilotant leur gestion, leur évolution et leur intégration, tout en garantissant une <strong className='font-semibold text-white'>expérience utilisateur</strong> optimale grâce à un <strong className='font-semibold text-white'>design</strong> réfléchi et efficace.
+          </p>
+
+          <p>
+            M'efforçant à toujours être en veille et à exploiter les <strong className='font-semibold text-white'>outils et méthodologies les plus actuels</strong>, je propose des <strong className='font-semibold text-white'>solutions performantes</strong>, <strong className='font-semibold text-white'>pérennes</strong> et <strong className='font-semibold text-white'>pensées</strong> pour l'utilisateur.
+          </p>
+
+          <p className="opacity-80 italic text-base">
+            Et quand je ne suis pas devant Figma ou VSCode, je suis probablement en train de courir, de randonner dans les bois, de danser maladroitement ou de sauver le royaume dans une campagne de jeu de rôle.
+          </p>
+        </div>
+
+        <div className='flex flex-wrap gap-4 pt-8'>
+          <Button className='border-white/30 text-white hover:bg-white hover:text-black hover:border-white rounded-full px-8 py-6 transition-all text-sm uppercase tracking-wider font-medium'>
+            Télécharger mon CV
+          </Button>
+          <Button className='border-white/30 text-white hover:bg-white hover:text-black hover:border-white rounded-full px-8 py-6 transition-all text-sm uppercase tracking-wider font-medium'>
+            Voir mon book
+          </Button>
+        </div>
+      </BlockContent>
+
+      <BlockContent colSpan={5} className="order-2 md:order-1 space-y-12">
         {/* Card 1 */}
         <div className='p-8 rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-600 transition-colors'>
           <h3 className='text-xl font-bold mb-4 text-white'>UI/UX Design</h3>
@@ -37,6 +65,7 @@ export const WhatIDo = () => {
           </div>
         </div>
 
+        {/* Card 3 */}
         <div className='p-8 rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-600 transition-colors'>
           <h3 className='text-xl font-bold mb-4 text-white'>Gestion de Projet</h3>
           <p className='text-gray-400 text-sm leading-relaxed'>
@@ -44,31 +73,22 @@ export const WhatIDo = () => {
           </p>
         </div>
 
+        {/* Card 4 */}
         <div className='p-8 rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-600 transition-colors'>
           <h3 className='text-xl font-bold mb-4 text-white'>Direction Artistique</h3>
           <p className='text-gray-400 text-sm leading-relaxed'>
             Création d'identités visuelles fortes.
           </p>
         </div>
-      </BlockContent>
 
-      {/* RIGHT ZONE: Text */}
-      <BlockContent className='md:col-span-7 flex flex-col justify-center text-left'>
-        <h2 className='text-5xl md:text-7xl font-bold mb-8 text-white'>
-          What I Do
-        </h2>
-        <div className='space-y-6 text-gray-400 text-lg leading-relaxed max-w-2xl'>
-          <p>
-            Expertise en <strong>React, Next.js et TailwindCSS</strong>.
+        {/* Extra Card to prove scrolling works */}
+        <div className='p-8 rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-600 transition-colors'>
+          <h3 className='text-xl font-bold mb-4 text-white'>E-Commerce</h3>
+          <p className='text-gray-400 text-sm leading-relaxed'>
+            Optimisation des parcours d'achat et conversion.
           </p>
-          <div className='pt-6'>
-            <Button size='lg'>
-              En savoir plus
-            </Button>
-          </div>
         </div>
       </BlockContent>
-      <SlideNextButton />
-    </Section>
+    </SectionShell>
   );
 };
