@@ -46,7 +46,7 @@ export const SlideContent = ({
 
         isScrollable
           ? "overflow-y-auto" // Par défaut pour le scrollable
-          : "min-h-screen", // Par défaut pour le standard (centré)
+          : "", // Par défaut pour le standard (centré)
 
         className
       )}

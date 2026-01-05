@@ -17,7 +17,7 @@ const SectionShell: React.FC<SectionShellProps> = ({
 }) => {
 
   const containedClasses = [
-    'mx-auto my-[20vh] px-4 md:px-0',
+    'h-full mx-auto mt-[20vh] pb-36 px-4 md:px-0',
     'grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14',
     'max-w-8xl xl:max-w-7xl lg:max-w-6xl md:max-w-5xl sm:max-w-4xl'
   ];

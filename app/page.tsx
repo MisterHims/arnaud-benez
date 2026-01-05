@@ -1,7 +1,7 @@
 'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Mousewheel, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Keyboard, Mousewheel, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -24,10 +24,13 @@ export default function Home() {
         pagination={{
           clickable: true,
         }}
+        keyboard={{
+          enabled: true,
+        }}
         // scrollbar={{
         //   draggable: true,
         // }}
-        modules={[Navigation, Pagination, Mousewheel, Scrollbar]}
+        modules={[Navigation, Pagination, Mousewheel, Scrollbar, Keyboard]}
         navigation
         className="h-screen overflow-hidden">
 

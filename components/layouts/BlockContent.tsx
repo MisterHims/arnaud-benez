@@ -4,11 +4,10 @@ import { cn } from '@/lib/utils';
 interface BlockContentProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
-  // On définit strictement les nombres acceptés pour l'autocomplétion
   colSpan?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  isSticky?: boolean;
 }
 
-// Mapping statique pour que Tailwind détecte les classes
 const colSpanClasses: Record<number, string> = {
   1: 'md:col-span-1',
   2: 'md:col-span-2',
@@ -28,20 +27,31 @@ const BlockContent: React.FC<BlockContentProps> = ({
   children,
   className,
   colSpan,
+  isSticky = false,
   ...props
 }) => {
   return (
+    // 1. DIV PARENTE (Le conteneur Grille / Le Rail)
+    // Elle prend la hauteur 100% de la ligne de la grille (h-full)
     <div
       className={cn(
+        'w-full h-full',
         'pb-36',
-        // Si colSpan est fourni, on va chercher la classe correspondante
-        // Sinon, on peut mettre une valeur par défaut ou rien
         colSpan ? colSpanClasses[colSpan] : 'md:col-span-12',
-        className
+        className // Les classes externes (order, etc.) s'appliquent ici
       )}
       {...props}
     >
-      {children}
+      {/* 2. DIV ENFANT (Le Contenu / Le Wagon) 
+         Elle est TOUJOURS là. Si isSticky est true, elle devient collante.
+      */}
+      <div
+        className={cn(
+          isSticky && "md:sticky md:top-24"
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 };

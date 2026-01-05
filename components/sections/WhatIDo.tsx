@@ -3,11 +3,12 @@
 import { Button } from '@heroui/react';
 import BlockContent from "../layouts/BlockContent";
 import SectionShell from "../layouts/SectionShell";
+import { ServiceCard } from "./whatido/ServiceCard";
 
 export const WhatIDo = () => {
   return (
     <SectionShell variant="contained">
-      <BlockContent colSpan={7} className="order-1 md:order-2">
+      <BlockContent isSticky colSpan={7} className="order-1 md:order-2">
         <h2 className='text-6xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
           What I Do
         </h2>
@@ -40,53 +41,67 @@ export const WhatIDo = () => {
         </div>
       </BlockContent>
 
-      <BlockContent colSpan={5} className="order-2 md:order-1 space-y-12">
-        {/* Card 1 */}
-        <div className='p-8 rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-600 transition-colors'>
-          <h3 className='text-xl font-bold mb-4 text-white'>UI/UX Design</h3>
-          <p className='text-gray-400 text-sm leading-relaxed'>
-            Je conçois des interfaces claires, ergonomiques et intuitives.
-          </p>
-          <div className='flex gap-2 mt-4 flex-wrap'>
-            <span className='badge-tech'>Figma</span>
-            <span className='badge-tech'>Design System</span>
-          </div>
-        </div>
+      <BlockContent colSpan={5} className="order-2 md:order-1">
+        <div className='space-y-12'>
+          <ServiceCard
+            title="UI/UX Design"
+            description="Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs."
+            tags={['Figma', 'Design System']}
+          />
 
-        {/* Card 2 */}
-        <div className='p-8 rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-600 transition-colors'>
-          <h3 className='text-xl font-bold mb-4 text-white'>Front-End</h3>
-          <p className='text-gray-400 text-sm leading-relaxed'>
-            Architecture React et Next.js avancée.
-          </p>
-          <div className='flex gap-2 mt-4 flex-wrap'>
-            <span className='badge-tech'>React</span>
-            <span className='badge-tech'>Tailwind v4</span>
-          </div>
-        </div>
+          <ServiceCard
+            title="Front-End"
+            description="Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs."
+            tags={['Figma', 'Design System']}
+          />
 
-        {/* Card 3 */}
-        <div className='p-8 rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-600 transition-colors'>
-          <h3 className='text-xl font-bold mb-4 text-white'>Gestion de Projet</h3>
-          <p className='text-gray-400 text-sm leading-relaxed'>
-            Méthodologie Agile et rigueur.
-          </p>
-        </div>
+          <ServiceCard
+            title="Gestion de Projet"
+            description="Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs."
+            tags={['Figma', 'Design System']}
+          />
 
-        {/* Card 4 */}
-        <div className='p-8 rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-600 transition-colors'>
-          <h3 className='text-xl font-bold mb-4 text-white'>Direction Artistique</h3>
-          <p className='text-gray-400 text-sm leading-relaxed'>
-            Création d'identités visuelles fortes.
-          </p>
-        </div>
+          <ServiceCard
+            title="Direction Artistique"
+            description="Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs."
+            tags={['Figma', 'Design System']}
+          />
 
-        {/* Extra Card to prove scrolling works */}
-        <div className='p-8 rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-600 transition-colors'>
-          <h3 className='text-xl font-bold mb-4 text-white'>E-Commerce</h3>
-          <p className='text-gray-400 text-sm leading-relaxed'>
-            Optimisation des parcours d'achat et conversion.
-          </p>
+          <ServiceCard
+            title="E-Commerce"
+            description="Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs."
+            tags={['Figma', 'Design System']}
+          />
+
+          <ServiceCard
+            title="UI/UX Design"
+            description="Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs."
+            tags={['Figma', 'Design System']}
+          />
+
+          <ServiceCard
+            title="Front-End"
+            description="Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs."
+            tags={['Figma', 'Design System']}
+          />
+
+          <ServiceCard
+            title="Gestion de Projet"
+            description="Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs."
+            tags={['Figma', 'Design System']}
+          />
+
+          <ServiceCard
+            title="Direction Artistique"
+            description="Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs."
+            tags={['Figma', 'Design System']}
+          />
+
+          <ServiceCard
+            title="E-Commerce"
+            description="Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs."
+            tags={['Figma', 'Design System']}
+          />
         </div>
       </BlockContent>
     </SectionShell>

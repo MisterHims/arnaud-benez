@@ -11,11 +11,11 @@ export const WhoIAm = () => {
     <SectionShell variant="contained">
       {/* LEFT ZONE: Text Content */}
       <BlockContent colSpan={6}>
-        <h2 className='text-7xl md:text-8xl font-black text-[#EDEDED] tracking-tight'>
+        <h2 className='text-7xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
           Who I Am
         </h2>
 
-        <div className='text-lg space-y-6 leading-relaxed font-extralight'>
+        <div className='text-lg space-y-6 leading-relaxed font-extralight mb-8'>
           <p>
             Bonjour et bienvenue sur mon portfolio. Je m'appelle Arnaud et je suis <strong className='font-semibold'>UI/UX Designer</strong> & <strong className='font-semibold'>Développeur Front-End</strong> basé dans le <strong className='font-semibold'>Val de Marne</strong>.
           </p>
