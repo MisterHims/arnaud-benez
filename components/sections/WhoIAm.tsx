@@ -4,6 +4,10 @@ import Image from 'next/image';
 import { SlideNextButton } from '@/components/swipper/SlideNextButton';
 import BlockContent from "../layouts/BlockContent";
 import SectionShell from "../layouts/SectionShell";
+import { Button } from "@heroui/react";
+import { CustomButton } from "../CustomButton";
+import { IdVerifiedIcon } from "../ui/icons/IdVerifiedIcon";
+import { BookOpen02Icon } from "../ui/icons/BookOpen02Icon";
 
 export const WhoIAm = () => {
   return (
@@ -33,16 +37,14 @@ export const WhoIAm = () => {
         </div>
 
         <div className='flex gap-4 pt-4'>
-          <span
-            className='border-white/30 hover:bg-white hover:text-black rounded-full px-6 py-6 transition-all text-sm uppercase tracking-wider'
-          >
+          <CustomButton variant="secondary" size="lg">
+            <IdVerifiedIcon className="w-6 h-6" />
             Télécharger mon CV
-          </span>
-          <span
-            className='border-white/30 hover:bg-white hover:text-black rounded-full px-6 py-6 transition-all text-sm uppercase tracking-wider'
-          >
+          </CustomButton>
+          <CustomButton variant="secondary" size="lg">
+            <BookOpen02Icon className="w-6 h-6" />
             Télécharger mon book
-          </span>
+          </CustomButton>
         </div>
       </BlockContent>
 
@@ -53,7 +55,7 @@ export const WhoIAm = () => {
           alt="Arnaud Benez"
           width={703}
           height={757}
-          className="object-contain object-bottom w-auto border-2 border-white"
+          className="object-contain object-bottom w-auto"
           priority
         />
       </BlockContent>

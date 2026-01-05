@@ -27,6 +27,8 @@
   /* 1536px */
   --max-width-9xl: 96rem;
   /* 1920px */
+  --max-width-10xl: 104rem;
+  /* 2048px */
   --max-width-ultra: 120rem;
 }
 
@@ -34,6 +36,16 @@
   /* Pour intégrer de nouvelles polices, il faut passer par layout.tsx pour les définir */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-roboto-mono), sans-serif;
+}
+
+@layer components {
+  .button {
+    @apply bg-purple-500 text-white hover:bg-purple-600;
+  }
+
+  .button--icon-only {
+    @apply rounded-lg bg-blue-500;
+  }
 }
 
 
