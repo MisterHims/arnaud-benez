@@ -3,14 +3,14 @@
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Card } from "@heroui/react";
-// Assure-toi que le chemin d'import correspond bien à l'endroit où tu as créé le fichier icône
-import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
+import { ReactNode } from 'react';
+import { Icon } from "@/components/ui/Icon";
 
 interface WorkCardProps {
   title: string;
   category?: string;
   imageSrc?: string;
-  logo?: string;
+  logo?: string | ReactNode;
   className?: string;
 }
 
@@ -34,7 +34,7 @@ export const WorkCard = ({
     return (
       <Card className={cn(containerClasses, "flex flex-col justify-between p-8 bg-[#050505]")}>
         <div className="h-12 w-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-white/10 transition-colors">
-          <ArrowRightIcon className="text-white" size={20} />
+          <Icon name="ArrowRight" className="text-white" size={20} />
         </div>
         <div>
           <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
@@ -101,7 +101,7 @@ export const WorkCard = ({
       {/* On l'affiche uniquement pour la carte texture 'all-real' */}
       {imageSrc.includes('all-real') && (
         <div className="absolute bottom-6 right-6 z-30 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/10 transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/20">
-          <ArrowRightIcon className="text-white" size={20} />
+          <Icon name="ArrowRight" className="text-white" size={20} />
         </div>
       )}
 

@@ -1,6 +1,7 @@
 'use client';
 
 import SectionShell from "../layouts/SectionShell";
+import { Logo } from "../ui/Logo";
 import { WorkCard } from "./works/WorkCard";
 
 export const Works = () => {
@@ -24,10 +25,10 @@ export const Works = () => {
 
           {/* 1. TOP LEFT */}
           <WorkCard
-            className="md:col-span-2 md:rounded-tl-3xl" // Arrondi en haut à gauche
+            className="md:col-span-2 md:rounded-tl-3xl"
             title="Mouvement E.Leclerc"
             category="Travel Agency"
-            logo="Mouvement E.Leclerc"
+            logo={<Logo name="Leclerc" className="w-28 h-auto" />}
             imageSrc="/assets/works/voyages-leclerc.jpg"
           />
 
@@ -36,7 +37,7 @@ export const Works = () => {
             className="md:rounded-tr-3xl" // Arrondi en haut à droite
             title="HeroUI"
             category="Library"
-            logo="HeroUI"
+            logo={<Logo name="HeroUI" className="w-28 h-auto" />}
             imageSrc="/assets/works/heroui.jpg"
           />
 

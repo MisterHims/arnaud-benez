@@ -6,8 +6,7 @@ import BlockContent from "../layouts/BlockContent";
 import SectionShell from "../layouts/SectionShell";
 import { Button } from "@heroui/react";
 import { CustomButton } from "../CustomButton";
-import { IdVerifiedIcon } from "../ui/icons/IdVerifiedIcon";
-import { BookOpen02Icon } from "../ui/icons/BookOpen02Icon";
+import { Icon } from "../ui/Icon";
 
 export const WhoIAm = () => {
   return (
@@ -38,11 +37,11 @@ export const WhoIAm = () => {
 
         <div className='flex gap-4 pt-4'>
           <CustomButton variant="secondary" size="lg">
-            <IdVerifiedIcon className="w-6 h-6" />
+            <Icon name="IdVerified" className="w-6 h-6" />
             Télécharger mon CV
           </CustomButton>
           <CustomButton variant="secondary" size="lg">
-            <BookOpen02Icon className="w-6 h-6" />
+            <Icon name="BookOpen" className="w-6 h-6" />
             Télécharger mon book
           </CustomButton>
         </div>
