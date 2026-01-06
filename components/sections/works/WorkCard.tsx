@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Card } from "@heroui/react";
+// Assure-toi que le chemin d'import correspond bien à l'endroit où tu as créé le fichier icône
+import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 
 interface WorkCardProps {
   title: string;
@@ -27,11 +29,12 @@ export const WorkCard = ({
     className
   );
 
+  // Cas de secours (si pas d'image du tout)
   if (isCta) {
     return (
       <Card className={cn(containerClasses, "flex flex-col justify-between p-8 bg-[#050505]")}>
         <div className="h-12 w-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-white/10 transition-colors">
-          --
+          <ArrowRightIcon className="text-white" size={20} />
         </div>
         <div>
           <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
@@ -43,6 +46,7 @@ export const WorkCard = ({
     );
   }
 
+  // Cas Principal (Avec Image)
   return (
     <Card className={containerClasses}>
 
@@ -52,7 +56,6 @@ export const WorkCard = ({
           src={imageSrc!}
           alt={title}
           fill
-          // Ajout de 'grayscale' si c'est la carte all-real.jpg pour l'effet texture
           className={cn(
             "object-cover transition-transform duration-500 group-hover:scale-105",
             imageSrc.includes('all-real') ? "opacity-40 grayscale" : "opacity-80"
@@ -62,7 +65,7 @@ export const WorkCard = ({
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
       </div>
 
-      {/* 2. Centered Logo */}
+      {/* 2. Centered Logo (Masqué sur la carte texture) */}
       {!imageSrc.includes('all-real') && (
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
           <div className="bg-white text-black px-5 py-2 rounded-full font-bold text-sm shadow-xl transform transition-transform duration-300 group-hover:-translate-y-2 group-hover:scale-105">
@@ -71,9 +74,8 @@ export const WorkCard = ({
         </div>
       )}
 
-      {/* 3. Bottom Text */}
+      {/* 3. Bottom Text (Gauche) */}
       <Card.Footer
-        // If it's the texture card, show the text always, otherwise on hover
         className={cn(
           "absolute bottom-6 left-6 z-20 transition-all duration-300 pointer-events-none",
           imageSrc.includes('all-real')
@@ -94,6 +96,14 @@ export const WorkCard = ({
           )}
         </div>
       </Card.Footer>
+
+      {/* 4. Arrow Icon (Droite) - AJOUTÉ ICI */}
+      {/* On l'affiche uniquement pour la carte texture 'all-real' */}
+      {imageSrc.includes('all-real') && (
+        <div className="absolute bottom-6 right-6 z-30 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/10 transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/20">
+          <ArrowRightIcon className="text-white" size={20} />
+        </div>
+      )}
 
     </Card>
   );
