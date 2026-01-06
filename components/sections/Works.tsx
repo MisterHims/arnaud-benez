@@ -1,21 +1,16 @@
 'use client';
 
-import BlockContent from "../layouts/BlockContent";
 import SectionShell from "../layouts/SectionShell";
 import { WorkCard } from "./works/WorkCard";
 
 export const Works = () => {
   return (
-    // AJOUT CRUCIAL : On ajoute 'grid grid-cols-1 md:grid-cols-12' ici.
-    // C'est ce qui permet au BlockContent colSpan={12} de fonctionner correctement.
-    <SectionShell
-      variant="contained"
-      className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14"
-    >
-      <BlockContent colSpan={12} className="text-center">
+    <SectionShell variant="contained" className="block relative z-10">
 
-        {/* En-tête */}
-        <div className="mb-16 mt-12 md:mt-24">
+      <div className="flex flex-col gap-12 w-full">
+
+        {/* HEADER */}
+        <div className="text-center">
           <h2 className='text-6xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-4'>
             Works
           </h2>
@@ -24,67 +19,78 @@ export const Works = () => {
           </p>
         </div>
 
-        {/* GRILLE DES PROJETS */}
-        {/* Correction : grid-cols-1 sur mobile, grid-cols-3 sur desktop */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[280px] pb-36">
+        {/* --- BENTO COMPACT --- */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 w-full auto-rows-[300px] pb-36">
 
-          {/* 1. Grande Carte (2 colonnes) */}
+          {/* 1. TOP LEFT */}
           <WorkCard
-            className="md:col-span-2"
-            title="Voyages E.Leclerc"
+            className="md:col-span-2 md:rounded-tl-3xl" // Arrondi en haut à gauche
+            title="Mouvement E.Leclerc"
             category="Travel Agency"
-            logo="VOYAGES E.Leclerc"
-            imageSrc="/assets/works/heroui.jpg"
+            logo="Mouvement E.Leclerc"
+            imageSrc="/assets/works/voyages-leclerc.jpg"
           />
 
-          {/* 2. Petite Carte */}
+          {/* 2. TOP RIGHT */}
           <WorkCard
+            className="md:rounded-tr-3xl" // Arrondi en haut à droite
             title="HeroUI"
             category="Library"
             logo="HeroUI"
             imageSrc="/assets/works/heroui.jpg"
           />
 
-          {/* 3. Petite Carte */}
+          {/* 3. MIDDLE LEFT */}
           <WorkCard
             title="MajiTV"
             category="Streaming"
             logo="MajiTV"
-            imageSrc="/assets/works/heroui.jpg"
+            imageSrc="/assets/works/maji.jpg"
           />
 
-          {/* 4. Petite Carte */}
+          {/* 4. MIDDLE */}
           <WorkCard
             title="Questix"
             category="SaaS"
             logo="Questix"
-            imageSrc="/assets/works/heroui.jpg"
+            imageSrc="/assets/works/questix.jpg"
           />
 
-          {/* 5. Petite Carte */}
+          {/* 5. MIDDLE RIGHT */}
           <WorkCard
             title="Delaveine"
             category="E-commerce"
             logo="delaveine"
-            imageSrc="/assets/works/heroui.jpg"
+            imageSrc="/assets/works/delaveine.jpg"
           />
 
-          {/* 6. Petite Carte */}
+          {/* 6. BOTTOM LEFT */}
           <WorkCard
+            className="md:rounded-bl-3xl" // Arrondi en bas à gauche
             title="Vocajob"
             category="Recruitment"
-            logo="Vocajob ?"
+            logo="Vocajob"
             imageSrc="/assets/works/vocajob.jpg"
           />
 
-          {/* 7. Carte CTA (Sans image = carte noire) */}
+          {/* 7. BOTTOM MIDDLE */}
           <WorkCard
+            title="FoundryVTT"
+            category="Collaboration"
+            logo="FoundryVTT"
+            imageSrc="/assets/works/fvtt.webp"
+          />
+
+          {/* 8. BOTTOM RIGHT */}
+          <WorkCard
+            className="md:rounded-br-3xl bg-[#050505]" // Arrondi en bas à droite
             title="Toutes mes réalisations"
             category="Voir le portfolio complet"
-            className="bg-[#050505]"
+            imageSrc="/assets/works/all-real.png"
           />
+
         </div>
-      </BlockContent>
+      </div>
     </SectionShell>
   );
 };
