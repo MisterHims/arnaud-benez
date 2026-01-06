@@ -3,7 +3,6 @@
 import BlockContent from "../layouts/BlockContent";
 import SectionShell from "../layouts/SectionShell";
 import { ServiceList } from "./whatido/ServiceList";
-// On utilise le composant optimisé de Next.js
 import Image from "next/image";
 
 export const WhatIDo = () => {
