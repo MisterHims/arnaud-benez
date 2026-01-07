@@ -2,6 +2,7 @@
 
 import { CustomButton } from "@/components/CustomButton";
 import { Button, TextField, Label, Input, TextArea, FieldError, Surface } from "@heroui/react";
+import React from "react";
 
 export const ContactForm = () => {
   // 1. Style du Label (au-dessus du champ)
@@ -10,6 +11,7 @@ export const ContactForm = () => {
   // 2. Style des Champs (Input & Textarea)
   // On applique tout directement ici : fond, bordure, arrondi, texte, etc.
   const fieldClass = "w-full bg-zinc-900/50 border border-3 border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-white/40 hover:border-white/20 transition-colors shadow-none";
+  const [value, setValue] = React.useState("");
 
   return (
     <Surface className="w-full bg-transparent p-0 shadow-none">
@@ -48,27 +50,31 @@ export const ContactForm = () => {
           <Label className={labelClass}>Your message</Label>
           <TextArea
             className={`${fieldClass} min-h-[150px] resize-none`}
-          // placeholder="Hello..."
+            aria-describedby="textarea-controlled-description"
+            aria-label="Announcement"
+            placeholder="Compose an announcement..."
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+            style={{ resize: "vertical" }}
           />
         </TextField>
 
         {/* Footer du Formulaire */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mt-2">
-          <div className="text-[#A0A0A0] text-base font-extralight leading-6">
-            <span className="block mb-4"><span className="text-red-500 mr-1">*</span>Required</span>
+        <div className="flex flex-col md:flex-row items-end justify-between gap-6 mt-2">
+          <div className="text-[#A0A0A0] text-base font-extralight leading-5.5">
+            <span className="block mb-2 text-sm italic"><span className="text-red-500 mr-1">*</span>Required</span>
             <p>Envie de discuter design, projets ou passions ?<br />
               On ne sait jamais ce qu'un simple message peut déclencher.</p>
           </div>
-          <CustomButton variant="primary" size="lg">
-            Envoyer
-          </CustomButton>
-          {/* <Button
+          <CustomButton
             type="submit"
+            variant="primary"
             size="lg"
-            className="bg-white text-black font-bold rounded-full px-12 py-3 w-full md:w-auto hover:scale-105 transition-transform"
+            className="w-full max-w-xs"
           >
             Envoyer
-          </Button> */}
+          </CustomButton>
+
         </div>
 
       </form>
