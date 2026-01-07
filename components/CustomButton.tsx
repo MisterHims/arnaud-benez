@@ -8,7 +8,7 @@ import { tv } from "tailwind-variants";
 
 // 1. Définition des variantes personnalisées
 const myButtonVariants = tv({
-  base: "text-md font-normal shadow-md text-shadow-lg data-[pending=true]:opacity-40 gap-2",
+  base: "text-md font-normal shadow-md text-shadow-lg data-[pending=true]:opacity-40 leading-none pt-[2px]",
   defaultVariants: {
     radius: "full",
     variant: "primary",
@@ -22,14 +22,14 @@ const myButtonVariants = tv({
       sm: "rounded-sm",
     },
     size: {
-      lg: "h-12 px-8",
-      md: "h-11 px-6",
-      sm: "h-10 px-4",
-      xl: "h-13 px-10",
+      sm: "h-10 px-4 text-sm gap-2",
+      md: "h-11 px-5 text-md gap-2",
+      lg: "h-12 px-5 text-lg gap-2",
+      xl: "h-13 px-7 text-xl gap-2",
     },
     variant: {
-      primary: "bg-[#ededed] text-black font-semibold hover:bg-white transition-color",
-      secondary: "text-white font-normal text-lg border-3 border-white/30 bg-transparent hover:bg-white hover:text-black hover:border-white px-6 transition-all duration-400 ease-in-out",
+      primary: "bg-[#ededed] text-black hover:bg-white transition-color",
+      secondary: "text-white border-3 border-white/30 bg-transparent hover:bg-white hover:text-black hover:border-white transition-all duration-400 ease-in-out",
     },
   },
 });

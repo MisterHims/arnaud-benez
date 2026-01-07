@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Card, Button } from "@heroui/react";
 import { Icon } from "@/components/ui/Icon";
+import { CustomButton } from "@/components/CustomButton";
 
 export const ContactCard = () => {
   return (
@@ -72,11 +73,10 @@ export const ContactCard = () => {
 
       {/* BOUTON FLOTTANT (Download Contact Card) */}
       <div className="absolute -bottom-5 right-8 z-20">
-        <Button
-          className="bg-[#1a1a1a] border border-white/10 text-zinc-400 text-xs font-medium px-6 py-2 rounded-full hover:bg-white hover:text-black hover:border-white transition-all shadow-xl backdrop-blur-md"
-        >
+        <CustomButton variant="secondary" size="sm" className="bg-[#1a1a1a]">
+          <Icon name="Download" className="w-5 h-5 mt-[3px]" />
           Download Contact Card
-        </Button>
+        </CustomButton>
       </div>
 
     </div>

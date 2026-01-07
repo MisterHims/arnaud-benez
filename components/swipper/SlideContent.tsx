@@ -42,7 +42,7 @@ export const SlideContent = ({
     <section
       ref={containerRef}
       className={cn(
-        "flex h-full w-full",
+        "h-full w-full",
 
         isScrollable
           ? "overflow-y-auto" // Par défaut pour le scrollable

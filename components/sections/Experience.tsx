@@ -53,10 +53,10 @@ export const Experience = () => {
   return (
     <SectionShell
       variant="contained"
-      className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 col-start-1 row-start-1 z-10 h-auto! bg-transparent relative"
+      className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 col-start-1 row-start-1 z-10 bg-transparent relative"
     >
       {/* COLONNE GAUCHE : La Timeline des expériences */}
-      <BlockContent colSpan={6} className="order-2 md:order-1 pb-36">
+      <BlockContent colSpan={6} className="order-2 md:order-1">
         <div className="flex flex-col mt-12 md:mt-0">
           {EXPERIENCES.map((exp, index) => (
             <ExperienceItem
@@ -69,7 +69,7 @@ export const Experience = () => {
       </BlockContent>
 
       {/* COLONNE DROITE (Sticky) : Titre + Stack Technique */}
-      <BlockContent isSticky colSpan={5} className="order-1 md:order-2 pb-36">
+      <BlockContent isSticky colSpan={5} className="order-1 md:order-2">
         <h2 className='text-xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
           Experience
         </h2>

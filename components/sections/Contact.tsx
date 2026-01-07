@@ -7,7 +7,7 @@ import { ContactForm } from "./contact/ContactForm";
 
 export const Contact = () => {
   return (
-    <SectionShell variant="contained" className="h-full grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 pb-36">
+    <SectionShell variant="contained" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14">
 
       {/* 1. HEADER (Titre & Sous-titre) */}
       <BlockContent colSpan={12} className="mb-8">

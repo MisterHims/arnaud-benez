@@ -37,11 +37,11 @@ export const WhoIAm = () => {
 
         <div className='flex gap-4 pt-4'>
           <CustomButton variant="secondary" size="lg">
-            <Icon name="IdVerified" className="w-6 h-6" />
+            <Icon name="IdVerified" className="w-6 h-6 mt-[2px]" />
             Télécharger mon CV
           </CustomButton>
           <CustomButton variant="secondary" size="lg">
-            <Icon name="BookOpen" className="w-6 h-6" />
+            <Icon name="BookOpen" className="w-6 h-6 mt-[2px]" />
             Télécharger mon book
           </CustomButton>
         </div>
