@@ -20,12 +20,12 @@ export const Contact = () => {
       </BlockContent>
 
       {/* 2. ZONE GAUCHE : CARTE DE VISITE */}
-      <BlockContent colSpan={5} className="flex justify-center md:justify-start">
+      <BlockContent colSpan={6} className="flex justify-center md:justify-start">
         <ContactCard />
       </BlockContent>
 
       {/* 3. ZONE DROITE : FORMULAIRE */}
-      <BlockContent colSpan={7} className="md:pl-10 flex items-center">
+      <BlockContent colSpan={6} className="flex md:pl-10 items-center">
         <ContactForm />
       </BlockContent>
 
