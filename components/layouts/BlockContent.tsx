@@ -32,20 +32,18 @@ const BlockContent: React.FC<BlockContentProps> = ({
 }) => {
   return (
     // 1. DIV PARENTE (Le conteneur Grille / Le Rail)
-    // Elle prend la hauteur 100% de la ligne de la grille (h-full)
     <div
       className={cn(
         'w-full h-full',
         colSpan ? colSpanClasses[colSpan] : 'md:col-span-12',
-        className // Les classes externes (order, etc.) s'appliquent ici
+        className // Les classes externes s'appliquent ici
       )}
       {...props}
     >
-      {/* 2. DIV ENFANT (Le Contenu / Le Wagon) 
-         Elle est TOUJOURS là. Si isSticky est true, elle devient collante.
-      */}
+      {/* 2. DIV ENFANT (Le Contenu / Le Wagon) */}
       <div
         className={cn(
+          "w-full h-full",
           isSticky && "md:sticky md:top-24"
         )}
       >

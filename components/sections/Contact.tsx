@@ -1,11 +1,34 @@
 'use client';
 
+import BlockContent from "../layouts/BlockContent";
 import SectionShell from "../layouts/SectionShell";
+import { ContactCard } from "./contact/ContactCard";
+import { ContactForm } from "./contact/ContactForm";
 
 export const Contact = () => {
   return (
-    <SectionShell variant="contained">
-      <h2 className='text-4xl text-gray-500'>Selected Contact</h2>
+    <SectionShell variant="contained" className="h-full grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 pb-36">
+
+      {/* 1. HEADER (Titre & Sous-titre) */}
+      <BlockContent colSpan={12} className="mb-8">
+        <h2 className='text-7xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-4'>
+          Contact
+        </h2>
+        <p className="text-zinc-400 text-lg max-w-2xl font-light">
+          Une question ? Un projet ? Ou simplement envie d'échanger ? Je suis toujours ouvert à la discussion.
+        </p>
+      </BlockContent>
+
+      {/* 2. ZONE GAUCHE : CARTE DE VISITE */}
+      <BlockContent colSpan={5} className="flex justify-center md:justify-start">
+        <ContactCard />
+      </BlockContent>
+
+      {/* 3. ZONE DROITE : FORMULAIRE */}
+      <BlockContent colSpan={7} className="md:pl-10 flex items-center">
+        <ContactForm />
+      </BlockContent>
+
     </SectionShell>
   );
 };
