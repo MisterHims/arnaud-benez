@@ -2,6 +2,7 @@
 
 import SectionShell from "../layouts/SectionShell";
 import { Logo, LogoName } from "../ui/Logo";
+import { TrustedBy } from "./works/TrustedBy";
 import { WorkCard } from "./works/WorkCard";
 import Image from "next/image"; // 1. Ne pas oublier l'import
 
@@ -30,6 +31,7 @@ export const Works = () => {
           <h2 className='text-6xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-4'>
             Works
           </h2>
+
           <h3 className="text-[#A8A8A8] text-2xl md:text-3xl font-bold">
             Take a look at my showcase
           </h3>
@@ -108,46 +110,9 @@ export const Works = () => {
         </div>
 
       </SectionShell>
-      <SectionShell
-        variant="full"
-      >
-
-        {/* --- BANDEAU INFINI "ILS M'ONT FAIT CONFIANCE" --- */}
-        <div className="w-full flex flex-col items-center py-24 md:py-36 bg-[#101010] overflow-hidden">
-
-          <h3 className="text-[#c2c2c2] text-2xl md:text-3xl font-bold mb-24 text-center px-4">
-            Ils m'ont fait confiance
-          </h3>
-
-          {/* Wrapper du Slider avec effet de fondu sur les côtés */}
-          <div className="relative w-full max-w-[100vw] overflow-hidden group">
-
-            {/* Masques de fondu à gauche et à droite */}
-            <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 z-10 bg-linear-to-r from-[#101010] to-transparent pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 z-10 bg-linear-to-l from-[#101010] to-transparent pointer-events-none"></div>
-
-            {/* Le conteneur qui défile (Flex) */}
-            <div className="flex w-max items-center gap-16 md:gap-64 animate-infinite-scroll pl-16 md:pl-32">
-
-              {/* LISTE 1 */}
-              {TRUSTED_LOGOS.map((logo, index) => (
-                <div key={`logo-1-${index}`} className="opacity-50 hover:opacity-100 transition-opacity duration-300 shrink-0">
-                  <Logo name={logo.name} className={`${logo.className} text-white`} />
-                </div>
-              ))}
-
-              {/* LISTE 2 (Duplication pour la boucle) */}
-              {TRUSTED_LOGOS.map((logo, index) => (
-                <div key={`logo-2-${index}`} className="opacity-50 hover:opacity-100 transition-opacity duration-300 shrink-0">
-                  <Logo name={logo.name} className={`${logo.className} text-white`} />
-                </div>
-              ))}
-
-            </div>
-          </div>
-
-        </div>
-
+      {/* 2. Infinite Scroll Section (Composant isolé) */}
+      <SectionShell variant="full">
+        <TrustedBy />
       </SectionShell>
     </div>
   );
