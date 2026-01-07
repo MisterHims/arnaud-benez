@@ -22,14 +22,26 @@
 
 @theme {
   --font-sans: var(--font-inter), sans-serif;
-  /* 1408px */
   --max-width-8xl: 88rem;
-  /* 1536px */
   --max-width-9xl: 96rem;
-  /* 1920px */
   --max-width-10xl: 104rem;
-  /* 2048px */
   --max-width-ultra: 120rem;
+
+  /* --- ANIMATION TAILWIND V4 --- */
+
+  /* 1. On enregistre l'animation comme variable (Tailwind créera la classe 'animate-infinite-scroll') */
+  --animate-infinite-scroll: infinite-scroll 160s linear infinite;
+
+  /* 2. Keyframes : On va jusqu'à -50% seulement car la liste est dupliquée */
+  @keyframes infinite-scroll {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-100%);
+    }
+  }
 }
 
 @theme inline {
@@ -37,15 +49,6 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-roboto-mono), sans-serif;
 }
-
-
-
-
-
-
-
-
-
 
 
 
