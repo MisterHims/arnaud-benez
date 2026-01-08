@@ -44,7 +44,7 @@ const BlockContent: React.FC<BlockContentProps> = ({
       <div
         className={cn(
           "w-full h-full",
-          isSticky && "md:sticky md:top-24"
+          isSticky && "h-auto md:sticky md:top-24"
         )}
       >
         {children}
