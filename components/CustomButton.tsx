@@ -29,7 +29,7 @@ const myButtonVariants = tv({
     },
     variant: {
       primary: "bg-[#ededed] text-black hover:bg-white transition-color",
-      secondary: "text-white border-3 border-white/30 bg-transparent hover:bg-white hover:text-black hover:border-white transition-all duration-400 ease-in-out",
+      secondary: "bg-[#1a1a1a] backdrop-blur-md text-white border-3 border-white/30 hover:bg-white hover:text-black hover:border-white transition-all duration-400 ease-in-out",
     },
   },
 });
