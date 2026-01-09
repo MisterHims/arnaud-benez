@@ -70,7 +70,7 @@ export const ContactForm = () => {
             type="submit"
             variant="primary"
             size="lg"
-            className="w-full max-w-xs"
+            className="w-full max-w-[200px]"
           >
             Envoyer
           </CustomButton>
