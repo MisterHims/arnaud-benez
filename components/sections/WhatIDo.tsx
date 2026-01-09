@@ -46,7 +46,7 @@ export const WhatIDo = () => {
           </div>
         </BlockContent>
 
-        <BlockContent colSpan={6} className="order-2 md:order-1">
+        <BlockContent colSpan={6} className="order-2 md:order-1 h-[calc(100%-2px)]">
           <ServiceList />
         </BlockContent>
 
