@@ -1,52 +1,53 @@
 'use client';
 
-import { Chip } from "@heroui/react";
+import React from 'react';
 
-interface ExperienceItemProps {
-  date: string;
-  role: string;
-  company: string;
-  description: string;
-  tags?: string[];
-  isLast?: boolean;
+// Définition des props attendues pour un item
+interface ExperienceItemsProps {
+  type: string;        // ex: "Collaboration", "Job"
+  date: string;        // ex: "September 2024"
+  role: string;        // ex: "Co-Founder"
+  company: string;     // ex: "CloudCastle"
+  description: string; // Le paragraphe
+  isLast?: boolean;    // Pour gérer la ligne verticale si besoin
 }
 
-export const ExperienceItem = ({ date, role, company, description, tags, isLast }: ExperienceItemProps) => {
+export const ExperienceItems = ({
+  type,
+  date,
+  role,
+  company,
+  description,
+}: ExperienceItemsProps) => {
   return (
-    <div className="relative pl-8 pb-12 last:pb-0">
-      {/* Ligne verticale (connecteur) */}
-      {!isLast && (
-        <div className="absolute left-[11px] top-2 bottom-0 w-px bg-white/10" />
-      )}
+    <div className="relative pl-8 md:pl-12 group">
 
-      {/* Point sur la ligne */}
-      <div className="absolute left-0 top-2 h-[22px] w-[22px] rounded-full border border-white/10 bg-[#050505] flex items-center justify-center">
-        <div className="h-1.5 w-1.5 rounded-full bg-white/40" />
-      </div>
+      {/* LE POINT SUR LA LIGNE (Timeline Dot) */}
+      {/* Positionné en absolu par rapport au conteneur parent pour se caler sur la bordure de la liste */}
+      <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-zinc-800 ring-4 ring-black group-hover:bg-white transition-colors duration-300" />
 
-      <div className="flex flex-col gap-2">
-        <span className="text-xs font-mono text-[#A8A8A8] uppercase tracking-wider">
+      {/* HEADER : Type (Pill) + Date */}
+      <div className="flex items-center gap-3 mb-2">
+        <span className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-[10px] text-zinc-400 uppercase tracking-wider font-medium">
+          {type}
+        </span>
+        <span className="text-zinc-500 text-xs font-mono">
           {date}
         </span>
-
-        <h3 className="text-xl font-bold text-[#EDEDED]">
-          {role} <span className="text-[#A8A8A8] font-normal">@ {company}</span>
-        </h3>
-
-        <p className="text-[#A8A8A8] font-light leading-relaxed text-sm">
-          {description}
-        </p>
-
-        {tags && tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-2">
-            {tags.map((tag, i) => (
-              <Chip key={i} size="sm" className="border-white/10 text-[#A8A8A8] bg-white/5 font-light text-xs">
-                {tag}
-              </Chip>
-            ))}
-          </div>
-        )}
       </div>
+
+      {/* TITRE + ENTREPRISE */}
+      <h3 className="text-2xl font-bold text-white mb-1">
+        {role}
+      </h3>
+      <p className="text-zinc-400 text-sm mb-4 font-medium">
+        {company}
+      </p>
+
+      {/* DESCRIPTION */}
+      <p className="text-zinc-500 text-sm leading-relaxed font-light max-w-lg">
+        {description}
+      </p>
     </div>
   );
 };
