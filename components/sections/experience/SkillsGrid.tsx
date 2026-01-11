@@ -8,22 +8,23 @@ interface SkillCategoryProps {
   icons: LogoName[];
 }
 
-const SkillCard = ({ title, icons, className }: SkillCategoryProps & { className?: string }) => (
-  <div className={`bg-[#0A0A0A] border border-white/5 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 hover:border-white/10 transition-colors group ${className}`}>
+const SkillCard = ({ title, icons }: SkillCategoryProps) => (
+  <div className="bg-linear-to-br from-[#141414] to-[#0A0A0A] border-3 border-white/10 rounded-xl p-6 pb-3 flex flex-col items-center justify-center gap-4 grow sm:grow-0">
 
-    <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+    <div className="flex justify-center gap-4 md:gap-6">
       {icons.map((iconName, i) => (
         <div key={i} className="relative flex items-center justify-center">
 
-          <Tooltip delay={0}>
-            <Tooltip.Trigger>
-              <Logo
-                name={iconName}
-                className="w-full h-full max-w-10 max-h-10"
-              />
+          <Tooltip delay={0} closeDelay={0}>
+            <Tooltip.Trigger className="cursor-help outline-none">
+              <div className="w-10 h-10 flex items-center justify-center">
+                <Logo
+                  name={iconName}
+                  className="w-full h-full object-contain grayscale-25 hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
+                />
+              </div>
             </Tooltip.Trigger>
-            <Tooltip.Content showArrow offset={13}>
-              <Tooltip.Arrow />
+            <Tooltip.Content showArrow>
               {iconName}
             </Tooltip.Content>
           </Tooltip>
@@ -32,7 +33,7 @@ const SkillCard = ({ title, icons, className }: SkillCategoryProps & { className
       ))}
     </div>
 
-    <span className="text-xs text-zinc-500 font-medium tracking-wide mt-2">
+    <span className="text-[15px] text-white/95 font-medium tracking-wide mt-2 whitespace-nowrap">
       {title}
     </span>
   </div>
@@ -40,55 +41,47 @@ const SkillCard = ({ title, icons, className }: SkillCategoryProps & { className
 
 export const SkillsGrid = () => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-wrap gap-4 justify-start">
 
-      {/* LIGNE 1 : Front-End (Large) */}
       <SkillCard
         title="Front-End Development"
         icons={['TypeScript', 'Tailwind CSS', 'MUI', 'React', 'Vite', 'NextJS']}
       />
 
-      {/* LIGNE 2 : Design (Large) */}
       <SkillCard
         title="Design & Animation"
         icons={['Figma', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Audition']}
       />
 
-      {/* LIGNE 3 : Project (Moitié) + Back-End (Moitié) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <SkillCard
-          title="Project Management"
-          icons={['Linear', 'Microsoft Project', 'Notion', 'Trello', 'Obsidian']}
-        />
-        <SkillCard
-          title="Backend Development"
-          icons={['JavaScript']}
-        />
-      </div>
+      <SkillCard
+        title="Project Management"
+        icons={['Linear', 'Microsoft Project', 'Notion', 'Trello', 'Obsidian']}
+      />
 
-      {/* LIGNE 4 : CMS (Moitié) + Database (Moitié) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <SkillCard
-          title="CMS & E-Commerce"
-          icons={['ContentSquare', 'Google Analytics', 'Wordpress', 'Shopify']}
-        />
-        <SkillCard
-          title="Database"
-          icons={['SQLite', 'MongoDB', 'NeonDB', 'Prisma']}
-        />
-      </div>
+      <SkillCard
+        title="Backend Development"
+        icons={['JavaScript']}
+      />
 
-      {/* LIGNE 5 : DevOps (Moitié) + DevTools (Moitié) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <SkillCard
-          title="Dev Ops"
-          icons={['Docker', 'Nginx', 'Vercel']}
-        />
-        <SkillCard
-          title="Dev Tools"
-          icons={['VSCode', 'Git', 'GitHub', 'Stripo', 'NPM']}
-        />
-      </div>
+      <SkillCard
+        title="CMS & E-Commerce"
+        icons={['ContentSquare', 'Google Analytics', 'Wordpress', 'Shopify']}
+      />
+
+      <SkillCard
+        title="Database"
+        icons={['SQLite', 'MongoDB', 'NeonDB', 'Prisma']}
+      />
+
+      <SkillCard
+        title="Dev Ops"
+        icons={['Docker', 'Nginx', 'Vercel']}
+      />
+
+      <SkillCard
+        title="Dev Tools"
+        icons={['VSCode', 'Git', 'Stripo', 'NPM']} // J'ai retiré Github/Copilot car pas dans la liste des LogoName mis à jour précédemment, à remettre si ajoutés
+      />
 
     </div>
   );
