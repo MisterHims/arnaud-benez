@@ -32,7 +32,6 @@ export const WhatIDo = () => {
           <h2 className='text-xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
             What I Do
           </h2>
-          {/* ... Texte ... */}
           <div className='text-lg space-y-6 leading-relaxed font-extralight text-gray-300'>
             <p>
               Avec une expertise en React, Next.js et TailwindCSS, je développe des interfaces web performantes et des applications SaaS sur mesure, optimisées pour l’UX/UI et l’accessibilité (WCAG).

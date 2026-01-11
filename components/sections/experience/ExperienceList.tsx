@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Chip } from "@heroui/react";
 import { ExperienceItems } from "./ExperienceItems";
 
@@ -19,7 +18,6 @@ const TIMELINE_DATA = [
     company: "HeroUI",
     description: "Supported the development of HeroUI, a component library inspired by Material Design. Worked on cross-framework portability, debugging complex UI behaviors, and aligning accessibility with EU compliance standards."
   },
-  // Ajoute tes autres expériences ici...
 ];
 
 export const ExperienceList = () => {
@@ -27,7 +25,7 @@ export const ExperienceList = () => {
     <div className="flex flex-col h-full">
 
       {/* TITRE */}
-      <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8">
+      <h2 className='text-xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
         Experience
       </h2>
 
