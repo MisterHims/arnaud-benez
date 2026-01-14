@@ -15,7 +15,7 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
       {icons.map((iconName, i) => (
         <div key={i} className="relative flex items-center justify-center">
 
-          <Tooltip delay={0} closeDelay={0}>
+          <Tooltip delay={0} closeDelay={20000}>
             <Tooltip.Trigger className="cursor-help outline-none">
               <div className="w-10 h-10 flex items-center justify-center">
                 <Logo
@@ -24,7 +24,8 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
                 />
               </div>
             </Tooltip.Trigger>
-            <Tooltip.Content showArrow>
+            <Tooltip.Content offset={15} showArrow className="bg-white text-black">
+              <Tooltip.Arrow className="[&_path]:fill-white" />
               {iconName}
             </Tooltip.Content>
           </Tooltip>

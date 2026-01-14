@@ -74,7 +74,7 @@ export const ExperienceItem = ({
         </h3>
 
         {/* ENTREPRISE */}
-        <span className="text-[#949494] text-xl">
+        <span className="text-[#dfdfdf] text-xl font-light">
           {company}
         </span>
 

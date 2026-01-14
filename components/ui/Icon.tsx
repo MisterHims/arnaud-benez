@@ -16,7 +16,8 @@ export type IconName =
   | 'Slack'
   | 'Job'
   | 'Formation'
-  | 'Collaboration';
+  | 'Collaboration'
+  | 'ArrowDown';
 
 interface IconProps extends SVGProps<SVGSVGElement> {
   name: IconName;
@@ -37,7 +38,7 @@ export const Icon = ({ name, size = 24, className, ...props }: IconProps) => {
   // 2. Le Dictionnaire des Icônes
   const ICONS: Record<IconName, React.ReactNode> = {
 
-    // --- ARROW RIGHT (Basé sur Fill) ---
+    // --- ARROW RIGHT ---
     'ArrowRight': (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -50,6 +51,24 @@ export const Icon = ({ name, size = 24, className, ...props }: IconProps) => {
       >
         <path
           d="M12.293 5.29273C12.6591 4.92662 13.2381 4.90402 13.6309 5.22437L13.707 5.29273L19.707 11.2927L19.7754 11.3689C20.0957 11.7617 20.0731 12.3407 19.707 12.7068L13.707 18.7068C13.3165 19.0973 12.6835 19.0973 12.293 18.7068C11.9025 18.3163 11.9025 17.6833 12.293 17.2927L16.5859 12.9998H5C4.44772 12.9998 4 12.552 4 11.9998C4 11.4475 4.44772 10.9998 5 10.9998H16.5859L12.293 6.7068L12.2246 6.63063C11.9043 6.23785 11.9269 5.65885 12.293 5.29273Z"
+          fill="currentColor"
+        />
+      </svg>
+    ),
+
+    // --- ARROW DOWN ---
+    'ArrowDown': (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width={width}
+        height={height}
+        fill="none"
+        className={baseClasses}
+        {...props}
+      >
+        <path
+          d="M18.593 8.19486C19.0376 8.52237 19.1326 9.14837 18.8051 9.59306C18.5507 9.93847 18.2963 10.2668 18.0731 10.5528C17.6276 11.1236 17.0143 11.8882 16.3479 12.6556C15.6859 13.4181 14.9518 14.2064 14.2666 14.8119C13.9251 15.1136 13.5721 15.3911 13.2279 15.5986C12.9112 15.7895 12.476 16 11.9999 16C11.5238 16 11.0885 15.7895 10.7718 15.5986C10.4276 15.3911 10.0747 15.1136 9.7332 14.8119C9.04791 14.2064 8.31387 13.4181 7.65183 12.6556C6.98548 11.8882 6.37216 11.1236 5.92664 10.5528C5.70347 10.2668 5.44902 9.93847 5.19463 9.59307C4.86712 9.14837 4.96211 8.52237 5.4068 8.19486C5.58556 8.0632 5.79362 7.99983 5.99982 8L11.9999 8L17.9999 8C18.2061 7.99983 18.4142 8.0632 18.593 8.19486Z"
           fill="currentColor"
         />
       </svg>
