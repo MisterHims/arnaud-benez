@@ -46,10 +46,10 @@ export const ExperienceItem = ({
     <div className="relative pl-12 group">
 
       {/* --- ICON ON TIMELINE --- */}
-      <div className="absolute -left-[17px] top-0 w-8 h-8 p-0.5 rounded-full bg-zinc-900 flex items-center justify-center align-center text-zinc-400 z-10 shadow-[0_-4px_0_4px_black]">
+      <div className="absolute -left-[16px] top-0 w-8.25 h-8.25 p-0.5 rounded-full bg-zinc-900 flex items-center justify-center align-center text-zinc-400 z-10 shadow-[0_-4px_0_4px_black]">
         <Icon
           name={getIconName(type)}
-          size={18}
+          size={17}
           className={cn(
             "text-zinc-400 group-hover:text-white transition-colors",
             getIconAlignment(type)

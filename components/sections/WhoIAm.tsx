@@ -35,7 +35,7 @@ export const WhoIAm = () => {
           </p>
         </div>
 
-        <div className='flex gap-4 pt-4'>
+        <div className='flex gap-8 pt-4'>
           <CustomButton variant="secondary" size="lg">
             <Icon name="IdVerified" className="w-6 h-6 mt-[2px]" />
             Télécharger mon CV

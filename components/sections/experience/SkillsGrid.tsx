@@ -9,34 +9,47 @@ interface SkillCategoryProps {
 }
 
 const SkillCard = ({ title, icons }: SkillCategoryProps) => (
-  <div className="bg-linear-to-br from-[#141414] to-[#0A0A0A] border-3 border-white/10 rounded-xl p-6 pb-3 flex flex-col items-center justify-center gap-4 grow sm:grow-0">
+  <div className="relative group rounded-2xl bg-linear-to-br from-[#121212] to-[#050505] grow sm:grow-0">
+    <div
+      className="absolute inset-0 rounded-2xl pointer-events-none z-20"
+      style={{
+        padding: '2px',
+        background: 'linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 75%, rgba(255,255,255,0) 100%)',
+        mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+        maskComposite: 'exclude',
+        WebkitMaskComposite: 'xor', // Essential for Chrome/Safari
+      }}
+    />
+    <div className="relative p-6 pb-3 flex flex-col items-center justify-center gap-4 z-10">
 
-    <div className="flex justify-center gap-4 md:gap-6">
-      {icons.map((iconName, i) => (
-        <div key={i} className="relative flex items-center justify-center">
+      {/* Glow effect (Top) */}
+      <div className="absolute top-0 inset-x-4 h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
 
-          <Tooltip delay={0} closeDelay={20000}>
-            <Tooltip.Trigger className="cursor-help outline-none">
-              <div className="w-10 h-10 flex items-center justify-center">
-                <Logo
-                  name={iconName}
-                  className="w-full h-full object-contain grayscale-25 hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
-                />
-              </div>
-            </Tooltip.Trigger>
-            <Tooltip.Content offset={15} showArrow className="bg-white text-black">
-              <Tooltip.Arrow className="[&_path]:fill-white" />
-              {iconName}
-            </Tooltip.Content>
-          </Tooltip>
+      <div className="flex justify-center gap-4 md:gap-6">
+        {icons.map((iconName, i) => (
+          <div key={i} className="relative flex items-center justify-center">
+            <Tooltip delay={0}>
+              <Tooltip.Trigger className="cursor-help outline-none">
+                <div className="w-10 h-10 flex items-center justify-center">
+                  <Logo
+                    name={iconName}
+                    className="w-full h-full object-contain grayscale-25 hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
+                  />
+                </div>
+              </Tooltip.Trigger>
+              <Tooltip.Content offset={15} showArrow className="bg-white text-black">
+                <Tooltip.Arrow className="[&_path]:fill-white" />
+                {iconName}
+              </Tooltip.Content>
+            </Tooltip>
+          </div>
+        ))}
+      </div>
 
-        </div>
-      ))}
+      <span className="text-[15px] text-white/95 font-medium tracking-wide mt-2 whitespace-nowrap">
+        {title}
+      </span>
     </div>
-
-    <span className="text-[15px] text-white/95 font-medium tracking-wide mt-2 whitespace-nowrap">
-      {title}
-    </span>
   </div>
 );
 

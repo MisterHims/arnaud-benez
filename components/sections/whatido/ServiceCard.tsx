@@ -42,15 +42,11 @@ export const ServiceCard = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        // 1. max-w-full : Empêche strictement la carte de dépasser sa colonne de grille
-        'p-0 break-inside-avoid relative flex flex-col rounded-2xl overflow-hidden group bg-[#050505] max-w-full',
+        'p-[2.25px] border-none break-inside-avoid relative flex flex-col rounded-2xl overflow-hidden group bg-[#363636/80] max-w-full',
         className
       )}
       {...props}
     >
-      {/* --- 1. COUCHE ARRIÈRE-PLAN (Visible sur les bords de 2px) --- */}
-      <div className="absolute inset-0 bg-white/10" />
-
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-500"
         style={{
@@ -67,16 +63,10 @@ export const ServiceCard = ({
         }}
       />
 
-      {/* --- 2. LE CONTENU --- */}
       <div
         className={cn(
           "relative flex flex-col grow bg-[#050505] rounded-[14px] overflow-hidden z-10",
-          // CORRECTION CRUCIALE ICI :
-          // Au lieu de margin ou padding, on centre l'élément et on calcule sa taille exacte.
-          // 1. mx-auto my-[2px] : Centre horizontalement, marge de 2px en haut/bas.
-          // 2. w-[calc(100%-4px)] : La largeur est EXACTEMENT 100% moins 4px (2px gauche + 2px droite).
-          //    Cela empêche mathématiquement tout débordement hors du parent.
-          "mx-auto my-[2px] w-[calc(100%-4px)]"
+          "h-full w-full"
         )}
       >
 
@@ -106,7 +96,6 @@ export const ServiceCard = ({
             </h3>
           </Card.Header>
 
-          {/* Note: Si Card.Content ne marche pas (selon la version de HeroUI), utilise Card.Body */}
           <Card.Content className="px-6 py-2 overflow-visible">
             <p className='text-[#A8A8A8] text-base leading-6 font-extralight'>
               {description}
