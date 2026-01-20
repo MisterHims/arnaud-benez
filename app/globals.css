@@ -29,10 +29,10 @@
 
   /* --- ANIMATION TAILWIND V4 --- */
 
-  /* 1. On enregistre l'animation comme variable (Tailwind créera la classe 'animate-infinite-scroll') */
+  /* 1. We register the animation as a variable (Tailwind will create the 'animate-infinite-scroll' class) */
   --animate-infinite-scroll: infinite-scroll 160s linear infinite;
 
-  /* 2. Keyframes : On va jusqu'à -50% seulement car la liste est dupliquée */
+  /* 2. Keyframes: We only go to -50% because the list is duplicated */
   @keyframes infinite-scroll {
     from {
       transform: translateX(0);
@@ -45,7 +45,7 @@
 }
 
 @theme inline {
-  /* Pour intégrer de nouvelles polices, il faut passer par layout.tsx pour les définir */
+  /* To integrate new fonts, you need to go through layout.tsx to define them */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-roboto-mono), sans-serif;
 }

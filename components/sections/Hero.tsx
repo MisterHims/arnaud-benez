@@ -17,35 +17,35 @@ export const Hero = () => {
   const targetScroll = useMotionValue(0);
   const scrollRef = useRef(0);
 
-  // Smooth dampener (unchanged)
   const smoothScroll = useSpring(targetScroll, { stiffness: 60, damping: 20 });
 
-  const { handleMouseMove, xBack, yBack, xFront, yFront, mouseY } = useMouseParallax();
-  const mouseRotateX = useTransform(mouseY, [-0.5, 0.5], [15, -5]);
+  const { handleMouseMove, xFront, yFront, mouseY } = useMouseParallax();
 
-  // 1. ANIMATION DURATION
-  // Keep 1500 to have a slow and majestic rise (~15 steps)
+  // --- MODIFICATION 1 : Rotation sensitivity (Mountains) ---
+  // Before: [15, -5] (Amplitude of 20 degrees)
+  // After: [4, -2] (Amplitude of 6 degrees -> much more subtle)
+  const mouseRotateX = useTransform(mouseY, [-0.5, 0.5], [4, -2]);
+
+  // --- MODIFICATION 2 : Movement sensitivity (SkillStars) ---
+  // We create new transformed values to reduce movement.
+  // Factor 0.25 = Movement is reduced to 25% of its initial speed.
+  // You can change 0.25 to whatever you want (0.1 = very slow, 0.9 = fast)
+  const dampedXFront = useTransform(xFront, (value) => value * 0.25);
+  const dampedYFront = useTransform(yFront, (value) => value * 0.25);
+
   const animationProgress = useTransform(smoothScroll, [0, 1500], [0, 1], { clamp: true });
 
   const handleWheel = (e: React.WheelEvent) => {
-    // 2. RELEASE THRESHOLD
-    // THIS IS THE CHANGE: We utilize the same value as the animation (1500).
-    // Result: As soon as the animation finishes (1500px), we stop blocking.
-    // No pause, immediate transition.
     const DELTA_SEUIL_TOTAL = 1500;
-
     const sensitivity = 1;
 
     if (e.deltaY > 0) {
-      // As long as the animation isn't finished...
       if (scrollRef.current < DELTA_SEUIL_TOTAL) {
-        e.stopPropagation(); // Block Swiper
+        e.stopPropagation();
         const newValue = Math.min(scrollRef.current + (e.deltaY * sensitivity), DELTA_SEUIL_TOTAL);
         scrollRef.current = newValue;
         targetScroll.set(newValue);
       }
-      // Once we are at 1500 or more, we don't enter the IF.
-      // 'stopPropagation' is not executed, so Swiper receives the info and changes slide.
     }
     else if (e.deltaY < 0) {
       if (scrollRef.current > 0) {
@@ -63,11 +63,16 @@ export const Hero = () => {
       onWheelCapture={handleWheel}
       className='min-h-screen relative w-full h-full overflow-hidden flex flex-col items-center justify-center'
     >
+      <div className="absolute inset-0 z-0">
+        <StarryBackground />
+      </div>
+
       <IdentityBlock />
-      <StarryBackground x={xBack} y={yBack} />
+
+      {/* We pass the "damped" values instead of raw values */}
       <SkillStars
-        x={xFront}
-        y={yFront}
+        x={dampedXFront}
+        y={dampedYFront}
         onStarClick={() => swiper && swiper.slideNext()}
       />
 

@@ -15,7 +15,6 @@ import { WhatIDo } from "@/components/sections/WhatIDo";
 import { Contact } from "@/components/sections/Contact";
 import { Works } from "@/components/sections/Works";
 import { Experience } from "@/components/sections/Experience";
-import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (

@@ -1,6 +1,6 @@
 // src/data/experience.ts
 
-// 1. On définit la structure type d'une expérience
+// 1. We define the type structure of an experience
 export interface Experience {
   type: string;
   date: string;
@@ -9,7 +9,7 @@ export interface Experience {
   description: string;
 }
 
-// 2. On exporte les données
+// 2. We export the data
 export const TIMELINE_DATA: Experience[] = [
   {
     type: "Collaboration",

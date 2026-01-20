@@ -65,7 +65,7 @@ export const WorkCard = ({
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
       </div>
 
-      {/* 2. Centered Logo (Masqué sur la carte texture) */}
+      {/* 2. Centered Logo (Hidden on texture card) */}
       {!imageSrc.includes('all-real') && (
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
           <div className="bg-white text-black px-5 py-2 rounded-full font-bold text-sm shadow-xl transform transition-transform duration-300 group-hover:-translate-y-2 group-hover:scale-105">
@@ -97,8 +97,8 @@ export const WorkCard = ({
         </div>
       </Card.Footer>
 
-      {/* 4. Arrow Icon (Droite) - AJOUTÉ ICI */}
-      {/* On l'affiche uniquement pour la carte texture 'all-real' */}
+      {/* 4. Arrow Icon (Right) - ADDED HERE */}
+      {/* We only display it for the 'all-real' texture card */}
       {imageSrc.includes('all-real') && (
         <div className="absolute bottom-6 right-6 z-30 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/10 transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/20">
           <Icon name="ArrowRight" className="text-white" size={20} />

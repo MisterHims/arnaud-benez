@@ -70,7 +70,7 @@ export const ServiceCard = ({
         )}
       >
 
-        {/* Dégradé interne */}
+        {/* Internal gradient */}
         <div className="pointer-events-none absolute bottom-0 right-0 left-0 h-1/3 bg-linear-to-tl from-white/5 to-transparent z-0" />
 
         {iconSrc && (

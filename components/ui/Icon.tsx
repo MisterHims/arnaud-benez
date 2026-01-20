@@ -1,7 +1,7 @@
 import React, { SVGProps } from "react";
 import { cn } from "@/lib/utils";
 
-// 1. Liste des noms d'icônes disponibles
+// 1. List of available icon names
 export type IconName =
   | 'ArrowRight'
   | 'BookOpen'
@@ -27,15 +27,15 @@ interface IconProps extends SVGProps<SVGSVGElement> {
 
 export const Icon = ({ name, size = 24, className, ...props }: IconProps) => {
 
-  // Gestion de la taille (width/height ou size par défaut)
+  // Size management (width/height or default size)
   const width = props.width || size;
   const height = props.height || size;
 
-  // Classes de base pour assurer que l'icône prend la couleur du texte parent
-  // On ne force pas "fill-none" ou "stroke-current" ici pour laisser la liberté à chaque SVG
+  // Base classes to ensure the icon takes the parent text color
+  // We don't force "fill-none" or "stroke-current" here to give freedom to each SVG
   const baseClasses = cn("text-current", className);
 
-  // 2. Le Dictionnaire des Icônes
+  // 2. The Icon Dictionary
   const ICONS: Record<IconName, React.ReactNode> = {
 
     // --- ARROW RIGHT ---
@@ -74,7 +74,7 @@ export const Icon = ({ name, size = 24, className, ...props }: IconProps) => {
       </svg>
     ),
 
-    // --- BOOK OPEN (Basé sur Stroke) ---
+    // --- BOOK OPEN (Based on Stroke) ---
     'BookOpen': (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +95,7 @@ export const Icon = ({ name, size = 24, className, ...props }: IconProps) => {
       </svg>
     ),
 
-    // --- ID VERIFIED (Basé sur Stroke) ---
+    // --- ID VERIFIED (Based on Stroke) ---
     'IdVerified': (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -187,7 +187,7 @@ export const Icon = ({ name, size = 24, className, ...props }: IconProps) => {
         height={height}
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.25" // Épaisseur spécifique à ce SVG
+        strokeWidth="1.25" // Specific thickness for this SVG
         strokeLinecap="round"
         strokeLinejoin="round"
         className={baseClasses}
@@ -236,7 +236,7 @@ export const Icon = ({ name, size = 24, className, ...props }: IconProps) => {
       >
         <path opacity="0.4" d="M5.83203 8.33301V14.1663" />
         <path opacity="0.4" d="M9.16797 10.833V14.1663M9.16797 10.833C9.16797 9.45226 10.2872 8.33301 11.668 8.33301C13.0487 8.33301 14.168 9.45226 14.168 10.833V14.1663M9.16797 10.833V8.33301" />
-        {/* Le point du 'i' est un peu plus épais dans ton SVG original (2px) */}
+        {/* The dot of the 'i' is a bit thicker in your original SVG (2px) */}
         <path opacity="0.4" d="M5.84102 5.83301H5.83203" strokeWidth="2" />
         <path d="M2.08203 9.99968C2.08203 6.26772 2.08203 4.40175 3.2414 3.24237C4.40077 2.08301 6.26675 2.08301 9.9987 2.08301C13.7306 2.08301 15.5966 2.08301 16.756 3.24237C17.9154 4.40175 17.9154 6.26772 17.9154 9.99968C17.9154 13.7316 17.9154 15.5976 16.756 16.757C15.5966 17.9163 13.7306 17.9163 9.9987 17.9163C6.26675 17.9163 4.40077 17.9163 3.2414 16.757C2.08203 15.5976 2.08203 13.7316 2.08203 9.99968Z" />
       </svg>

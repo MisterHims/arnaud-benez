@@ -6,7 +6,7 @@ import type { VariantProps } from "tailwind-variants";
 import { Button, buttonVariants } from "@heroui/react";
 import { tv } from "tailwind-variants";
 
-// 1. Définition des variantes personnalisées
+// 1. Definition of custom variants
 const myButtonVariants = tv({
   base: "text-md font-normal shadow-md text-shadow-lg data-[pending=true]:opacity-40 leading-none pt-[2px]",
   defaultVariants: {
@@ -34,14 +34,14 @@ const myButtonVariants = tv({
   },
 });
 
-// 2. Création des types
+// 2. Type creation
 type MyButtonVariants = VariantProps<typeof myButtonVariants>;
 
-// On fusionne les props natives du Button avec nos variantes
+// We merge the native Button props with our variants
 export type CustomButtonProps = Omit<ButtonProps, "className"> &
   MyButtonVariants & { className?: string };
 
-// 3. Le composant final
+// 3. The final component
 export const CustomButton = ({ className, radius, variant, size, ...props }: CustomButtonProps) => {
   return (
     <Button

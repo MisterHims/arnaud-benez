@@ -21,15 +21,15 @@ export const FullPageSlider = ({ children }: FullPageSliderProps) => {
       spaceBetween={0}
       mousewheel={{
         sensitivity: 1,
-        releaseOnEdges: true, // Permet le scroll natif en bout de course
+        releaseOnEdges: true, // Allows native scroll at the end
       }}
       speed={1000}
       pagination={{ clickable: true }}
       modules={[Mousewheel, Pagination, EffectFade]}
       className='h-screen w-full bg-black'
     >
-      {/* Magie React : On parcourt chaque enfant passé au composant
-        et on l'enveloppe automatiquement dans une SwiperSlide.
+      {/* React magic: We iterate through each child passed to the component
+        and automatically wrap it in a SwiperSlide.
       */}
       {Children.map(children, (child, index) => (
         <SwiperSlide key={index} className='bg-black overflow-hidden'>

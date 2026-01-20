@@ -9,7 +9,7 @@ import { Icon } from "@/components/ui/Icon";
 
 export const ExperienceList = () => {
 
-  // 2. État pour gérer l'affichage complet ou limité
+  // 2. State to manage full or limited display
   const [isExpanded, setIsExpanded] = useState(false);
 
   const filters = [
@@ -31,7 +31,7 @@ export const ExperienceList = () => {
         defaultSelectedKey="all"
         className="w-full"
         orientation="horizontal"
-        // 3. IMPORTANT : On replie la liste quand on change d'onglet pour éviter des bugs d'affichage
+        // 3. IMPORTANT: We collapse the list when changing tabs to avoid display bugs
         onSelectionChange={() => setIsExpanded(false)}
       >
         <Tabs.ListContainer>
@@ -80,11 +80,11 @@ export const ExperienceList = () => {
           const showButton = categoryItems.length > 8;
           const displayedItems = isExpanded ? categoryItems : categoryItems.slice(0, 8);
 
-          // LOGIQUE DU FONDU :
-          // On applique le fondu SEULEMENT SI :
-          // 1. Il n'y a pas de bouton (liste courte)
-          // OU
-          // 2. La liste est entièrement dépliée
+          // FADE LOGIC:
+          // We apply the fade ONLY IF:
+          // 1. There's no button (short list)
+          // OR
+          // 2. The list is fully expanded
           const shouldFade = !showButton || isExpanded;
 
           return (
@@ -101,7 +101,7 @@ export const ExperienceList = () => {
                         maskImage: 'linear-gradient(to bottom, black calc(100% - 100px), transparent 100%)',
                         WebkitMaskImage: 'linear-gradient(to bottom, black calc(100% - 100px), transparent 100%)'
                       }
-                      : undefined // Si bouton affiché => Pas de masque => Ligne solide
+                      : undefined // If button displayed => No mask => Solid line
                   }
                 />
 

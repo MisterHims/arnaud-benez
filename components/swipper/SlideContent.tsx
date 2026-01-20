@@ -17,7 +17,7 @@ export const SlideContent = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // --- LOGIQUE DE SCROLL (Inchangée) ---
+  // --- SCROLL LOGIC (Unchanged) ---
   useEffect(() => {
     if (!isScrollable) return;
 
@@ -45,8 +45,8 @@ export const SlideContent = ({
         "h-full w-full",
 
         isScrollable
-          ? "overflow-y-auto" // Par défaut pour le scrollable
-          : "", // Par défaut pour le standard (centré)
+          ? "overflow-y-auto" // Default for scrollable
+          : "", // Default for standard (centered)
 
         className
       )}

@@ -15,7 +15,7 @@ const TRUSTED_LOGOS: { name: LogoName; className: string }[] = [
 ];
 
 export const TrustedBy = () => {
-  const seamlessLogos = [...TRUSTED_LOGOS, ...TRUSTED_LOGOS, ...TRUSTED_LOGOS, ...TRUSTED_LOGOS]; // Pas utilisé ici car on boucle manuellement dans le JSX, mais bonne pratique si tu refactorises
+  const seamlessLogos = [...TRUSTED_LOGOS, ...TRUSTED_LOGOS, ...TRUSTED_LOGOS, ...TRUSTED_LOGOS]; // Not used here as we loop manually in JSX, but good practice if you refactor
 
   return (
     <div className="w-full flex flex-col items-center py-24 md:py-36 bg-radial-[at_25%_25%] from-[#080808] to-[#121212] to-75% overflow-hidden">
@@ -41,7 +41,7 @@ export const TrustedBy = () => {
                 <Logo name={logo.name} className={`${logo.className} text-white`} />
               </div>
             ))}
-            {/* Répétition pour la largeur */}
+            {/* Repetition for width */}
             {TRUSTED_LOGOS.map((logo, index) => (
               <div key={`a2-${index}`} className="shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <Logo name={logo.name} className={`${logo.className} text-white`} />
@@ -56,7 +56,7 @@ export const TrustedBy = () => {
                 <Logo name={logo.name} className={`${logo.className} text-white`} />
               </div>
             ))}
-            {/* Répétition pour la largeur */}
+            {/* Repetition for width */}
             {TRUSTED_LOGOS.map((logo, index) => (
               <div key={`b2-${index}`} className="shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <Logo name={logo.name} className={`${logo.className} text-white`} />

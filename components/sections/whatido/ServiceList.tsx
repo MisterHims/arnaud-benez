@@ -37,7 +37,7 @@ const SERVICES = [
     description: "J’accompagne les équipes et les entreprises dans la gestion de leurs projets digitaux, de la stratégie à la livraison. Grâce à ma double compétence en design et développement, je facilite la coordination entre les différents intervenants et assure la cohérence globale des projets. Mon approche est orientée solution avec un focus sur l’expérience utilisateur et l’innovation.",
     tags: ['Digital Strategy', 'Agile', 'UX Research', 'Sprint Planning'],
     iconSrc: "/assets/cards/project-management-card-illustration.png",
-    color: "16, 185, 129", // Vert émeraude
+    color: "16, 185, 129", // Emerald green
   },
   {
     title: "E-commerce",
@@ -49,8 +49,8 @@ const SERVICES = [
 ];
 
 export const ServiceList = () => {
-  // ... (le reste du composant avec la logique des colonnes ne change pas)
-  // Le {...service} passera automatiquement la nouvelle prop 'color'
+  // ... (the rest of the component with column logic doesn't change)
+  // The {...service} will automatically pass the new 'color' prop
   const halfIndex = Math.ceil(SERVICES.length / 2);
   const leftColumnServices = SERVICES.slice(0, halfIndex);
   const rightColumnServices = SERVICES.slice(halfIndex);

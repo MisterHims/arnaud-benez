@@ -7,7 +7,7 @@ import { CustomButton } from "@/components/CustomButton";
 
 export const ContactCard = () => {
   return (
-    // 1. LE CONTENEUR MAÎTRE
+    // 1. THE MASTER CONTAINER
     <div className="relative w-full max-w-[640px] aspect-640/416 mx-auto md:mx-0">
 
       {/* 2. LA CARTE */}
@@ -58,7 +58,7 @@ export const ContactCard = () => {
           </div>
         </Card.Header>
 
-        {/* INFO LIST - ÉPURÉE (Sans cercles) */}
+        {/* INFO LIST - CLEANED (Without circles) */}
         <Card.Content className="flex flex-col gap-3 sm:gap-4 mt-1.5">
 
           {/* EMAIL */}
@@ -80,10 +80,10 @@ export const ContactCard = () => {
           </div>
         </Card.Content>
 
-        {/* LE SÉPARATEUR DEMANDÉ */}
+        {/* THE REQUESTED SEPARATOR */}
         <div className="w-30 h-[2px] bg-white/10"></div>
 
-        {/* FOOTER : SÉPARATEUR + SOCIAL ICONS */}
+        {/* FOOTER: SEPARATOR + SOCIAL ICONS */}
         <div className="relative z-10 flex flex-col gap-6 pl-1">
 
           <div className="flex gap-8">

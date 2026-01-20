@@ -6,7 +6,7 @@ import { TrustedBy } from "./works/TrustedBy";
 import { WorkCard } from "./works/WorkCard";
 import Image from "next/image"; // 1. Ne pas oublier l'import
 
-// Liste des logos à faire défiler (Ordre que tu souhaites)
+// List of logos to scroll (Order you want)
 const TRUSTED_LOGOS: { name: LogoName; className: string }[] = [
   { name: "Leclerc-custom", className: "h-13 w-auto" },
   { name: "Ticketmaster", className: "h-10 w-auto" },
@@ -110,7 +110,7 @@ export const Works = () => {
         </div>
 
       </SectionShell>
-      {/* 2. Infinite Scroll Section (Composant isolé) */}
+      {/* 2. Infinite Scroll Section (Isolated component) */}
       <SectionShell variant="full">
         <TrustedBy />
       </SectionShell>
