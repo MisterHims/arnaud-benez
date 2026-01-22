@@ -1,36 +1,45 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { MotionValue } from 'framer-motion';
 
-// Type definitions for TypeScript
+interface StarryBackgroundProps {
+  scrollProgress: MotionValue<number>;
+}
+
 interface Star {
   angle: number;
   radius: number;
-  speed: number;
+  orbitalSpeed: number;
+  x: number;
+  y: number;
+  warpSpeed: number;
   size: number;
+  baseAlpha: number;
 }
 
 interface ShootingStar {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  life: number;
-  initialLife: number;
+  x: number; y: number; vx: number; vy: number; life: number; initialLife: number;
 }
 
-export const StarryBackground = () => {
+export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const progressRef = useRef(0);
+
+  useEffect(() => {
+    const unsubscribe = scrollProgress.on('change', (latestValue) => {
+      progressRef.current = latestValue;
+    });
+    return () => unsubscribe();
+  }, [scrollProgress]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     // --- CONFIGURATION ---
-    // I reduced the number of stars to "lighten" the background and avoid overload
     const numStars = 250;
     let stars: Star[] = [];
     const shootingStars: ShootingStar[] = [];
@@ -38,31 +47,37 @@ export const StarryBackground = () => {
     let lastShootingStarTime = 0;
     const SHOOTING_STAR_COOLDOWN = 10000;
 
-    // 1. Dimension initialization
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       initStars();
     };
 
-    // 2. Star creation
     const initStars = () => {
-      stars = Array.from({ length: numStars }, () => ({
-        angle: Math.random() * Math.PI * 2,
-        // We calculate a radius sufficient to cover the corners from the CENTER
-        radius: Math.random() * (Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 1.5),
-        speed: Math.random() * 0.0001 + 0.00003,
-        size: Math.random() * 1.0 + 0.5,
-      }));
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+
+      stars = Array.from({ length: numStars }, () => {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = Math.random() * (Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 1.5);
+        const size = Math.random() * 1.0 + 0.5;
+
+        return {
+          angle,
+          radius,
+          orbitalSpeed: Math.random() * 0.0001 + 0.00003,
+          x: centerX + radius * Math.cos(angle),
+          y: centerY + radius * Math.sin(angle),
+          size,
+          warpSpeed: 2 + (size * 4),
+          baseAlpha: Math.random() * 0.5 + 0.5
+        };
+      });
     };
 
-    // 3. Shooting stars logic (unchanged)
     const spawnShootingStar = () => {
       const now = Date.now();
-      if (
-        shootingStars.length === 0 &&
-        now - lastShootingStarTime >= SHOOTING_STAR_COOLDOWN
-      ) {
+      if (shootingStars.length === 0 && now - lastShootingStarTime >= SHOOTING_STAR_COOLDOWN) {
         shootingStars.push({
           x: Math.random() * canvas.width * 0.5,
           y: Math.random() * canvas.height * 0.5,
@@ -75,83 +90,114 @@ export const StarryBackground = () => {
       }
     };
 
-    // 4. Boucle d'animation
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // --- MAJOR CORRECTION HERE ---
-      // Before it was: canvas.width (bottom right corner)
-      // Now: We take the CENTER of the screen as pivot
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-
-      // Radius of the protected zone around the content (in pixels)
-      // Adjust this value: 350px creates a nice empty space around your central text
       const safeZoneRadius = 350;
 
-      // B. Drawing orbiting stars
-      stars.forEach((star, i) => {
-        star.angle += star.speed;
+      const progress = progressRef.current;
+      let warpFactor = Math.pow(progress, 3);
 
-        // Position calculation relative to the CENTER
-        const x = centerX + star.radius * Math.cos(star.angle);
-        const y = centerY + star.radius * Math.sin(star.angle);
+      // --- LOGIQUE DE FREINAGE (AJUSTÉE) ---
+      const brakeStart = 0.6;
+      const brakeEnd = 1.0;
 
-        // --- CENTRAL EXCLUSION LOGIC (Safe Zone) ---
-        // We calculate the distance between the star and the exact center
-        const distFromCenter = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+      if (progress > brakeStart) {
+        const rawBrake = Math.max(0, (brakeEnd - progress) / (brakeEnd - brakeStart));
 
-        // Opacity calculation (Fade out)
-        // If the star is in the safety zone (< 350px), it becomes transparent
-        let zoneOpacity = 1;
-        if (distFromCenter < safeZoneRadius) {
-          // Creation of a smooth appearance gradient
-          // (dist - 100) allows keeping a totally empty zone of 100px at the core
-          zoneOpacity = Math.max(0, (distFromCenter - 100) / (safeZoneRadius - 100));
-          zoneOpacity = Math.pow(zoneOpacity, 2); // Exponential smoothing
+        // MODIFICATION 1 : QUADRATIQUE (Puissance 2)
+        // C'est le juste milieu entre Linéaire (glisse trop) et Cubique (pile trop sec)
+        const brake = Math.pow(rawBrake, 2);
+
+        warpFactor *= brake;
+      }
+      // -------------------------------------
+
+      const isMoving = warpFactor > 0.001;
+
+      stars.forEach((star) => {
+        if (isMoving) {
+          // --- MODE WARP ---
+          star.y -= star.warpSpeed * warpFactor * 15;
+
+          if (star.y < 0) {
+            star.y = canvas.height + 10;
+            star.x = Math.random() * canvas.width;
+          }
+
+          const dx = star.x - centerX;
+          const dy = star.y - centerY;
+          star.radius = Math.sqrt(dx * dx + dy * dy);
+          star.angle = Math.atan2(dy, dx);
+
+        } else {
+          // --- MODE ORBITE ---
+          star.angle += star.orbitalSpeed;
+          star.x = centerX + star.radius * Math.cos(star.angle);
+          star.y = centerY + star.radius * Math.sin(star.angle);
         }
 
-        // If the star is visible, we draw it
-        if (zoneOpacity > 0.01) {
-          const flicker = (0.4 + Math.abs(Math.sin(Date.now() * 0.0015 + i)) * 0.5) * zoneOpacity;
+        // --- OPACITÉ & SAFE ZONE ---
+        const distFromCenter = Math.sqrt(Math.pow(star.x - centerX, 2) + Math.pow(star.y - centerY, 2));
+        let zoneOpacity = 1;
+        if (distFromCenter < safeZoneRadius) {
+          zoneOpacity = Math.max(0, (distFromCenter - 100) / (safeZoneRadius - 100));
+          zoneOpacity = Math.pow(zoneOpacity, 2);
+        }
 
+        // --- FIX SCINTILLEMENT (AJUSTÉ) ---
+        // MODIFICATION 2 : On adoucit la transition de stabilité (* 25 au lieu de * 50).
+        // Cela permet au scintillement de revenir un peu plus progressivement à la fin.
+        const stability = Math.min(1, warpFactor * 25);
+
+        const sineWave = 0.4 + Math.abs(Math.sin(Date.now() * 0.0015 + star.x)) * 0.5;
+        const brightness = (1 * stability) + (sineWave * (1 - stability));
+
+        const finalAlpha = star.baseAlpha * brightness * zoneOpacity;
+
+        // --- RENDU HYBRIDE ---
+        if (finalAlpha > 0.01) {
           ctx.beginPath();
-          ctx.fillStyle = `rgba(255, 255, 255, ${flicker})`;
-          ctx.arc(x, y, star.size, 0, Math.PI * 2);
+
+          // 1. POINT
+          ctx.fillStyle = `rgba(255, 255, 255, ${finalAlpha})`;
+          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
           ctx.fill();
+
+          // 2. TRAÎNÉE
+          if (warpFactor > 0.02) {
+            const trailLength = star.warpSpeed * warpFactor * 10;
+
+            ctx.beginPath();
+            const grad = ctx.createLinearGradient(star.x, star.y, star.x, star.y + trailLength);
+            grad.addColorStop(0, `rgba(255, 255, 255, ${finalAlpha})`);
+            grad.addColorStop(1, `rgba(255, 255, 255, 0)`);
+
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = star.size * 1.5;
+            ctx.moveTo(star.x, star.y);
+            ctx.lineTo(star.x, star.y + trailLength);
+            ctx.stroke();
+          }
         }
       });
 
-      // C. Drawing shooting stars
-      spawnShootingStar();
+      // --- ÉTOILES FILANTES ---
+      if (warpFactor < 0.1) spawnShootingStar();
 
       for (let i = shootingStars.length - 1; i >= 0; i--) {
         const s = shootingStars[i];
         const opacity = s.life / s.initialLife;
-
-        const grad = ctx.createLinearGradient(
-          s.x,
-          s.y,
-          s.x - s.vx * 35,
-          s.y - s.vy * 35
-        );
+        const grad = ctx.createLinearGradient(s.x, s.y, s.x - s.vx * 35, s.y - s.vy * 35);
         grad.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
         grad.addColorStop(1, `rgba(255, 255, 255, 0)`);
-
         ctx.strokeStyle = grad;
         ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(s.x, s.y);
-        ctx.lineTo(s.x - s.vx * 18, s.y - s.vy * 18);
-        ctx.stroke();
-
-        s.x += s.vx;
-        s.y += s.vy;
-        s.life -= 1;
-
-        if (s.life <= 0) {
-          shootingStars.splice(i, 1);
-        }
+        ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(s.x - s.vx * 18, s.y - s.vy * 18); ctx.stroke();
+        s.x += s.vx; s.y += s.vy; s.life -= 1;
+        if (s.life <= 0) shootingStars.splice(i, 1);
       }
 
       animationId = requestAnimationFrame(animate);
