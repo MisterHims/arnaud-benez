@@ -21,7 +21,12 @@ export default function Home() {
     <main>
       <Swiper
         direction="vertical"
-        mousewheel={true}
+        mousewheel={{
+          forceToAxis: true, // Prevents scrolling when scrolling diagonally/horizontally
+          sensitivity: 0.5, // You can lower to 0.5 or 0.8 if it's still too fast
+          thresholdDelta: 110, // MUST scroll "50px" before it changes. Increase this value (e.g., 70 or 100) to make the change more "hard".
+          thresholdTime: 350, // (Optional) Minimum mousewheel scroll time delta (in ms) to trigger swiper slide change
+        }}
         simulateTouch={false}
         pagination={{
           clickable: true,
