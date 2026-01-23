@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useSwiper } from 'swiper/react';
-import { useTransform, useSpring, useMotionValue, motion, MotionValue } from 'framer-motion';
+import { useTransform, useSpring, useMotionValue, useMotionValueEvent, motion, MotionValue } from 'framer-motion';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 
+import { cn } from '@/lib/utils';
 import { IdentityBlock } from './hero/IdentityBlock';
 import { StarryBackground } from './hero/StarryBackground';
 import { SkillStars } from './hero/SkillStars';
@@ -43,75 +44,34 @@ const ScrollIndicator = ({ opacity }: { opacity: MotionValue<number> }) => (
   </motion.div>
 );
 
-const IntroText = ({ opacity, scale, filter }: { opacity: MotionValue<number>, scale: MotionValue<number>, filter: MotionValue<string> }) => {
+const IntroText = ({ opacity, isVisible }: { opacity: MotionValue<number>; isVisible: boolean }) => {
   return (
     <motion.div
-      style={{ opacity, scale, filter }}
-      className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+      style={{ opacity }}
+      className={cn(
+        'absolute inset-0 flex items-center justify-center z-20',
+        isVisible ? 'pointer-events-auto select-text' : 'pointer-events-none'
+      )}
     >
       <div className="relative text-center px-4">
-        {/* Subtle glow effect */}
-        <motion.div
-          animate={{
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute inset-0 blur-3xl"
-          style={{
-            background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)',
-            transform: 'scale(1.8)',
-          }}
-        />
-        
         <h1 className="text-white text-2xl md:text-4xl lg:text-6xl font-extrabold tracking-[0.2em] md:tracking-[0.2635em] uppercase text-center relative z-10">
-          {/* First line: "Designing Universe" */}
           <motion.span
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ 
-              opacity: 1, 
-              y: [15, 0, -3],
-            }}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: [8, 0, -4] }}
             transition={{
-              opacity: {
-                delay: 0,
-                duration: 2,
-                ease: [0.4, 0, 0.2, 1], // Slow start for gentle fade-in
-              },
-              y: {
-                delay: 0,
-                duration: 1.2,
-                ease: [0.16, 1, 0.3, 1],
-                times: [0, 0.5, 1],
-              },
+              opacity: { delay: 0, duration: 2, ease: [0.4, 0, 0.2, 1] },
+              y: { delay: 0, duration: 2, ease: [0.16, 1, 0.3, 1], times: [0, 0.6, 1] },
             }}
             className="block drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
           >
             Designing Universe
           </motion.span>
-          
-          {/* Second line: "Designing experiences that make sense." - follows like a thought */}
           <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ 
-              opacity: 1, 
-              y: [12, 0, -2],
-            }}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: [6, 0, -3] }}
             transition={{
-              opacity: {
-                delay: 0.8,
-                duration: 2.5,
-                ease: [0.4, 0, 0.2, 1], // Slow start for gentle fade-in
-              },
-              y: {
-                delay: 0.8,
-                duration: 1.5,
-                ease: [0.16, 1, 0.3, 1],
-                times: [0, 0.85, 1],
-              },
+              opacity: { delay: 0.8, duration: 2.5, ease: [0.4, 0, 0.2, 1] },
+              y: { delay: 0.8, duration: 2.2, ease: [0.16, 1, 0.3, 1], times: [0, 0.7, 1] },
             }}
             className="block mt-2 md:mt-3 text-xl md:text-3xl lg:text-4xl tracking-[0.15em] md:tracking-[0.2em] font-extralight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
             style={{ textTransform: 'none' }}
@@ -151,8 +111,6 @@ export const Hero = () => {
   // --- TRANSFORMS ---
 
   const introOpacity = useTransform(animationProgress, [0, 0.1], [1, 0]);
-  const introScale = useTransform(animationProgress, [0, 0.1], [1, 1.2]);
-  const introBlur = useTransform(animationProgress, [0, 0.1], ["blur(0px)", "blur(10px)"]);
   const scrollIndicatorOpacity = useTransform(animationProgress, [0, 0.05], [1, 0]);
 
   // 3. GIANT AMPLITUDE (400vh)
@@ -169,6 +127,11 @@ export const Hero = () => {
 
   const contentOpacity = useTransform(animationProgress, [0.15, 0.25], [0, 1]);
   const skillStarsOpacity = useTransform(animationProgress, [0.85, 0.95], [0, 1]);
+
+  const [isIntroVisible, setIsIntroVisible] = useState(true);
+  useMotionValueEvent(animationProgress, 'change', (v) => {
+    setIsIntroVisible(v < 0.1);
+  });
 
   // --- KEYBOARD HANDLER ---
   useEffect(() => {
@@ -298,11 +261,7 @@ export const Hero = () => {
         />
       </div>
 
-      <IntroText
-        opacity={introOpacity}
-        scale={introScale}
-        filter={introBlur}
-      />
+      <IntroText opacity={introOpacity} isVisible={isIntroVisible} />
 
       <ScrollIndicator opacity={scrollIndicatorOpacity} />
 
