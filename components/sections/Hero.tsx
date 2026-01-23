@@ -282,18 +282,20 @@ export const Hero = () => {
       onWheelCapture={handleWheel}
       className='min-h-screen relative w-full h-full overflow-hidden flex flex-col items-center justify-center'
     >
+      {/* 1. StarryBackground en arrière-plan (z-0) */}
+      <div className="absolute inset-0 z-0">
+        <StarryBackground scrollProgress={animationProgress} />
+      </div>
+
+      {/* 2. Mountains au premier plan (z-10) — au-dessus des étoiles */}
       <div
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="absolute inset-0 z-10 w-full h-full pointer-events-none"
         style={{ perspective: '1200px' }}
       >
         <Mountains
           progress={animationProgress}
           mouseRotateX={mouseRotateX}
         />
-      </div>
-      
-      <div className="absolute inset-0 z-0">
-        <StarryBackground scrollProgress={animationProgress} />
       </div>
 
       <IntroText
