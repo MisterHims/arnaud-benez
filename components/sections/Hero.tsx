@@ -29,16 +29,86 @@ const ScrollIndicator = ({ opacity }: { opacity: MotionValue<number> }) => (
   </motion.div>
 );
 
-const IntroText = ({ opacity, scale, filter }: { opacity: MotionValue<number>, scale: MotionValue<number>, filter: MotionValue<string> }) => (
-  <motion.div
-    style={{ opacity, scale, filter }}
-    className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
-  >
-    <h1 className="text-white text-3xl md:text-5xl font-bold tracking-[0.3em] uppercase text-center px-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">
-      Designing Universe
-    </h1>
-  </motion.div>
-);
+const IntroText = ({ opacity, scale, filter }: { opacity: MotionValue<number>, scale: MotionValue<number>, filter: MotionValue<string> }) => {
+  return (
+    <motion.div
+      style={{ opacity, scale, filter }}
+      className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+    >
+      <div className="relative text-center px-4">
+        {/* Subtle glow effect */}
+        <motion.div
+          animate={{
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute inset-0 blur-3xl"
+          style={{
+            background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)',
+            transform: 'scale(1.8)',
+          }}
+        />
+        
+        <h1 className="text-white text-2xl md:text-4xl lg:text-6xl font-extrabold tracking-[0.2em] md:tracking-[0.2635em] uppercase text-center relative z-10">
+          {/* First line: "Designing Universe" */}
+          <motion.span
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ 
+              opacity: 1, 
+              y: [15, 0, -3],
+            }}
+            transition={{
+              opacity: {
+                delay: 0,
+                duration: 2,
+                ease: [0.4, 0, 0.2, 1], // Slow start for gentle fade-in
+              },
+              y: {
+                delay: 0,
+                duration: 1.2,
+                ease: [0.16, 1, 0.3, 1],
+                times: [0, 0.5, 1],
+              },
+            }}
+            className="block drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+          >
+            Designing Universe
+          </motion.span>
+          
+          {/* Second line: "Designing experiences that make sense." - follows like a thought */}
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ 
+              opacity: 1, 
+              y: [12, 0, -2],
+            }}
+            transition={{
+              opacity: {
+                delay: 0.8,
+                duration: 2.5,
+                ease: [0.4, 0, 0.2, 1], // Slow start for gentle fade-in
+              },
+              y: {
+                delay: 0.8,
+                duration: 1.5,
+                ease: [0.16, 1, 0.3, 1],
+                times: [0, 0.85, 1],
+              },
+            }}
+            className="block mt-2 md:mt-3 text-xl md:text-3xl lg:text-4xl tracking-[0.15em] md:tracking-[0.2em] font-extralight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+            style={{ textTransform: 'none' }}
+          >
+            Designing experiences that make sense.
+          </motion.span>
+        </h1>
+      </div>
+    </motion.div>
+  );
+};
 
 // --- COMPOSANT HERO ---
 
@@ -51,7 +121,7 @@ export const Hero = () => {
   // 1. "JUST RIGHT" PHYSICS (Grand Touring)
   // Stiffness 22: Sharp but smooth start.
   // Damping 32: Controlled braking, no bounce, no infinite slide.
-  const smoothScroll = useSpring(targetScroll, { stiffness: 22, damping: 28 });
+  const smoothScroll = useSpring(targetScroll, { stiffness: 22, damping: 30 });
 
   const { handleMouseMove, xFront, yFront, mouseY } = useMouseParallax();
 
@@ -84,6 +154,7 @@ export const Hero = () => {
   );
 
   const contentOpacity = useTransform(animationProgress, [0.15, 0.25], [0, 1]);
+  const skillStarsOpacity = useTransform(animationProgress, [0.85, 0.95], [0, 1]);
 
   // --- HANDLER ---
 
@@ -169,6 +240,7 @@ export const Hero = () => {
         <SkillStars
           x={dampedXFront}
           y={dampedYFront}
+          opacity={skillStarsOpacity}
           onStarClick={() => swiper && swiper.slideNext()}
         />
       </motion.div>
