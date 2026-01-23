@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useSwiper } from 'swiper/react';
 import { useTransform, useSpring, useMotionValue, motion, MotionValue } from 'framer-motion';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
@@ -169,6 +169,68 @@ export const Hero = () => {
 
   const contentOpacity = useTransform(animationProgress, [0.15, 0.25], [0, 1]);
   const skillStarsOpacity = useTransform(animationProgress, [0.85, 0.95], [0, 1]);
+
+  // --- KEYBOARD HANDLER ---
+  useEffect(() => {
+    const DELTA_SEUIL_TOTAL = 8000;
+    const TRIGGER_THRESHOLD = 200;
+    const sensitivity = 1.5;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Handle arrow down key
+      if (e.key === 'ArrowDown') {
+        // If we haven't finished scrolling in Hero, simulate scroll down
+        if (scrollRef.current < DELTA_SEUIL_TOTAL && !isLocked.current) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+
+          // Simulate a wheel event to trigger the scroll
+          const simulatedDeltaY = 100 * sensitivity;
+          let newValue = scrollRef.current + simulatedDeltaY;
+
+          if (newValue > TRIGGER_THRESHOLD) {
+            newValue = DELTA_SEUIL_TOTAL;
+            isLocked.current = true;
+            setTimeout(() => { isLocked.current = false; }, 3000);
+          }
+
+          newValue = Math.min(newValue, DELTA_SEUIL_TOTAL);
+          scrollRef.current = newValue;
+          targetScroll.set(newValue);
+        }
+        // If scroll is complete, let Swiper handle the navigation
+        return;
+      }
+
+      // Handle arrow up key
+      if (e.key === 'ArrowUp') {
+        // If we're in the second part of Hero (scroll > 0), scroll up in Hero
+        if (scrollRef.current > 0 && !isLocked.current) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+
+          // Simulate a wheel event to trigger the scroll up
+          const simulatedDeltaY = -100 * sensitivity;
+          let newValue = scrollRef.current + simulatedDeltaY;
+
+          // If we go back before the threshold, reset to 0
+          if (newValue < DELTA_SEUIL_TOTAL - TRIGGER_THRESHOLD) {
+            newValue = 0;
+          }
+
+          newValue = Math.max(newValue, 0);
+          scrollRef.current = newValue;
+          targetScroll.set(newValue);
+        }
+        // If we're at the beginning, let Swiper handle the navigation
+        return;
+      }
+    };
+
+    // Use capture phase to intercept before Swiper
+    document.addEventListener('keydown', handleKeyDown, { capture: true });
+    return () => document.removeEventListener('keydown', handleKeyDown, { capture: true });
+  }, [targetScroll]);
 
   // --- HANDLER ---
 
