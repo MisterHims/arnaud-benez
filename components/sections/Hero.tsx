@@ -16,16 +16,30 @@ import SectionShell from "../layouts/SectionShell";
 const ScrollIndicator = ({ opacity }: { opacity: MotionValue<number> }) => (
   <motion.div
     style={{ opacity }}
-    className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-50 pointer-events-none"
+    className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-50 pointer-events-none"
   >
-    <span className="text-[10px] text-white/70 tracking-[0.2em] uppercase font-light">
-      Explore
+    {/* Mouse Icon */}
+    <div className="relative">
+      {/* Mouse body */}
+      <div className="w-6 h-10 rounded-full border-2 border-white/30 bg-transparent relative">
+        {/* Scroll wheel with animation */}
+        <motion.div
+          animate={{ y: [0, 4, 0] }}
+          transition={{ 
+            duration: 1.5, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            repeatDelay: 0.3
+          }}
+          className="absolute top-2 left-1/2 -translate-x-1/2 w-1.5 h-2 bg-white rounded-full"
+        />
+      </div>
+    </div>
+    
+    {/* SCROLL DOWN text */}
+    <span className="text-[11px] text-gray-400 tracking-[0.2em] uppercase font-light">
+      SCROLL DOWN
     </span>
-    <motion.div
-      animate={{ y: [0, 8, 0] }}
-      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-      className="w-px h-12 bg-linear-to-b from-transparent via-white to-transparent"
-    />
   </motion.div>
 );
 
