@@ -184,8 +184,8 @@ export const Hero = () => {
           e.preventDefault();
           e.stopImmediatePropagation();
 
-          // Simulate a wheel event to trigger the scroll
-          const simulatedDeltaY = 100 * sensitivity;
+          // Simulate a larger scroll to navigate faster between parts
+          const simulatedDeltaY = 800 * sensitivity; // Increased from 100 to 800 for faster navigation
           let newValue = scrollRef.current + simulatedDeltaY;
 
           if (newValue > TRIGGER_THRESHOLD) {
@@ -209,8 +209,8 @@ export const Hero = () => {
           e.preventDefault();
           e.stopImmediatePropagation();
 
-          // Simulate a wheel event to trigger the scroll up
-          const simulatedDeltaY = -100 * sensitivity;
+          // Simulate a larger scroll to navigate faster between parts
+          const simulatedDeltaY = -800 * sensitivity; // Increased from 100 to 800 for faster navigation
           let newValue = scrollRef.current + simulatedDeltaY;
 
           // If we go back before the threshold, reset to 0
