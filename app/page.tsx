@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 import { Hero } from '@/components/sections/Hero';
-import { Spacer } from '@/components/sections/Spacer';
+// import { Spacer } from '@/components/sections/Spacer';
 import { SlideContent } from "@/components/swipper/SlideContent";
 import { WhoIAm } from "@/components/sections/WhoIAm";
 import { WhatIDo } from "@/components/sections/WhatIDo";
@@ -48,14 +48,7 @@ export default function Home() {
           </SlideContent>
         </SwiperSlide>
 
-        {/* Slide 2 : Spacer */}
-        <SwiperSlide>
-          <SlideContent>
-            <Spacer />
-          </SlideContent>
-        </SwiperSlide>
-
-        {/* Slide 3 : WhoIAm */}
+        {/* Slide 2 : WhoIAm */}
         <SwiperSlide>
           <SlideContent isScrollable>
             <WhoIAm />

@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { useSwiper } from 'swiper/react';
-import { useTransform, useSpring, useMotionValue, useMotionValueEvent, motion, animate, useVelocity } from 'framer-motion';
+import { useTransform, useSpring, useMotionValue, useMotionValueEvent, motion, animate } from 'framer-motion';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 
 import { IdentityBlock } from './hero/IdentityBlock';
