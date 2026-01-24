@@ -9,7 +9,7 @@ export const IdentityBlock = () => {
         </div>
 
         {/* VERTICAL SEPARATOR */}
-        <div className='hidden md:block h-full w-px bg-white/50'></div>
+        <div className='hidden md:block h-20 md:h-39 w-px bg-white/50'></div>
 
         {/* TEXTES TYPOGRAPHIE */}
         <div className='flex flex-col text-center md:text-left text-white gap-1'>

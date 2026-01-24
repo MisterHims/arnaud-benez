@@ -2,87 +2,16 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { useSwiper } from 'swiper/react';
-import { useTransform, useSpring, useMotionValue, useMotionValueEvent, motion, MotionValue } from 'framer-motion';
+import { useTransform, useSpring, useMotionValue, useMotionValueEvent, motion, animate, useVelocity } from 'framer-motion';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 
-import { cn } from '@/lib/utils';
 import { IdentityBlock } from './hero/IdentityBlock';
 import { StarryBackground } from './hero/StarryBackground';
 import { SkillStars } from './hero/SkillStars';
 import { Mountains } from './hero/Mountains';
+import { IntroText } from './hero/IntroText';
+import { ScrollIndicator } from './hero/ScrollIndicator';
 import SectionShell from "../layouts/SectionShell";
-
-// --- SUB-COMPONENTS ---
-
-const ScrollIndicator = ({ opacity }: { opacity: MotionValue<number> }) => (
-  <motion.div
-    style={{ opacity }}
-    className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-50 pointer-events-none"
-  >
-    {/* Mouse Icon */}
-    <div className="relative">
-      {/* Mouse body */}
-      <div className="w-6 h-10 rounded-full border-2 border-white/30 bg-transparent relative">
-        {/* Scroll wheel with animation */}
-        <motion.div
-          animate={{ y: [0, 4, 0] }}
-          transition={{ 
-            duration: 1.5, 
-            repeat: Infinity, 
-            ease: "easeInOut",
-            repeatDelay: 0.3
-          }}
-          className="absolute top-2 left-1/2 -translate-x-1/2 w-1.5 h-2 bg-white rounded-full"
-        />
-      </div>
-    </div>
-    
-    {/* SCROLL DOWN text */}
-    <span className="text-[11px] text-gray-400 tracking-[0.2em] uppercase font-light">
-      SCROLL DOWN
-    </span>
-  </motion.div>
-);
-
-const IntroText = ({ opacity, isVisible }: { opacity: MotionValue<number>; isVisible: boolean }) => {
-  return (
-    <motion.div
-      style={{ opacity }}
-      className={cn(
-        'absolute inset-0 flex items-center justify-center z-20',
-        isVisible ? 'pointer-events-auto select-text' : 'pointer-events-none'
-      )}
-    >
-      <div className="relative text-center px-4">
-        <h1 className="text-white text-2xl md:text-4xl lg:text-6xl font-extrabold tracking-[0.2em] md:tracking-[0.2635em] uppercase text-center relative z-10">
-          <motion.span
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: [8, 0, -4] }}
-            transition={{
-              opacity: { delay: 0, duration: 2, ease: [0.4, 0, 0.2, 1] },
-              y: { delay: 0, duration: 2, ease: [0.16, 1, 0.3, 1], times: [0, 0.6, 1] },
-            }}
-            className="block drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
-          >
-            Designing Universe
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: [6, 0, -3] }}
-            transition={{
-              opacity: { delay: 0.8, duration: 2.5, ease: [0.4, 0, 0.2, 1] },
-              y: { delay: 0.8, duration: 2.2, ease: [0.16, 1, 0.3, 1], times: [0, 0.7, 1] },
-            }}
-            className="block mt-2 md:mt-3 text-xl md:text-3xl lg:text-4xl tracking-[0.15em] md:tracking-[0.2em] font-extralight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
-            style={{ textTransform: 'none' }}
-          >
-            Designing experiences that make sense.
-          </motion.span>
-        </h1>
-      </div>
-    </motion.div>
-  );
-};
 
 // --- COMPOSANT HERO ---
 
@@ -108,10 +37,30 @@ export const Hero = () => {
   // We clip at 7800px to ensure a clean end to the visual animation.
   const animationProgress = useTransform(smoothScroll, [0, 7900], [0, 1], { clamp: true });
 
-  // --- TRANSFORMS ---
-
-  const introOpacity = useTransform(animationProgress, [0, 0.1], [1, 0]);
+  // --- TRANSFORMS (Option C: Aspiration/Warp) ---
+  // Scale 1 -> 4 (Zoom very strong), Blur 0 -> 20px (Speed), Opacity 1 -> 0
+  // Active between 0 and 15% of scroll
+  const introOpacity = useTransform(animationProgress, [0, 0.15], [1, 0]);
+  const introScale = useTransform(animationProgress, [0, 0.15], [1, 4]);
+  const introBlur = useTransform(animationProgress, [0, 0.15], ["blur(0px)", "blur(20px)"]);
   const scrollIndicatorOpacity = useTransform(animationProgress, [0, 0.05], [1, 0]);
+
+  const delayedOpacity = useMotionValue(0);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      animate(delayedOpacity, 1, { duration: 1 });
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, [delayedOpacity]);
+
+  const combinedScrollIndicatorOpacity = useTransform(
+    [delayedOpacity, scrollIndicatorOpacity],
+    (values: number[]) => {
+      const d = values[0];
+      const s = values[1];
+      return d * s;
+    }
+  );
 
   // 3. GIANT AMPLITUDE (400vh)
   // - Start (0.15): 400vh (Very deep).
@@ -195,6 +144,19 @@ export const Hero = () => {
     return () => document.removeEventListener('keydown', handleKeyDown, { capture: true });
   }, [targetScroll]);
 
+  const handleScrollClick = () => {
+    const DELTA_SEUIL_TOTAL = 8000;
+    
+    if (scrollRef.current < DELTA_SEUIL_TOTAL && !isLocked.current) {
+      const newValue = DELTA_SEUIL_TOTAL;
+      isLocked.current = true;
+      setTimeout(() => { isLocked.current = false; }, 3000);
+      
+      scrollRef.current = newValue;
+      targetScroll.set(newValue);
+    }
+  };
+
   // --- HANDLER ---
 
   const handleWheel = (e: React.WheelEvent) => {
@@ -261,9 +223,14 @@ export const Hero = () => {
         />
       </div>
 
-      <IntroText opacity={introOpacity} isVisible={isIntroVisible} />
+      <IntroText
+        opacity={introOpacity}
+        scale={introScale}
+        filter={introBlur}
+        isVisible={isIntroVisible}
+      />
 
-      <ScrollIndicator opacity={scrollIndicatorOpacity} />
+      <ScrollIndicator opacity={combinedScrollIndicatorOpacity} onClick={handleScrollClick} />
 
       <motion.div
         style={{
@@ -273,7 +240,7 @@ export const Hero = () => {
         className="relative w-full h-full z-10 flex flex-col items-center justify-center"
       >
         <IdentityBlock />
-
+        
         <SkillStars
           x={dampedXFront}
           y={dampedYFront}

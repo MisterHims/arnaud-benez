@@ -45,7 +45,8 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
     const shootingStars: ShootingStar[] = [];
     let animationId: number;
     let lastShootingStarTime = 0;
-    const SHOOTING_STAR_COOLDOWN = 10000;
+    const SHOOTING_STAR_COOLDOWN = 20000;
+    const maskState = { strength: 1 };
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -95,7 +96,6 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
 
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      const safeZoneRadius = 350;
 
       const progress = progressRef.current;
       let warpFactor = Math.pow(progress, 3);
@@ -116,6 +116,13 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
       // -------------------------------------
 
       const isMoving = warpFactor > 0.001;
+
+      // Lissage de l'intensité du masque (0 = pas de masque, 1 = masque complet)
+      // Le masque disparaît quand on bouge, SAUF si on arrive vers la fin (progress > 0.6)
+      // pour préparer l'affichage de la seconde partie.
+      const shouldHideMask = isMoving && progress < 0.6;
+      const targetStrength = shouldHideMask ? 0 : 1;
+      maskState.strength += (targetStrength - maskState.strength) * 0.05;
 
       stars.forEach((star) => {
         if (isMoving) {
@@ -139,12 +146,31 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
           star.y = centerY + star.radius * Math.sin(star.angle);
         }
 
-        // --- OPACITÉ & SAFE ZONE ---
-        const distFromCenter = Math.sqrt(Math.pow(star.x - centerX, 2) + Math.pow(star.y - centerY, 2));
+        // --- OPACITÉ & SAFE ZONE (OVALE LISSÉ) ---
         let zoneOpacity = 1;
-        if (distFromCenter < safeZoneRadius) {
-          zoneOpacity = Math.max(0, (distFromCenter - 100) / (safeZoneRadius - 100));
-          zoneOpacity = Math.pow(zoneOpacity, 2);
+
+        // On calcule toujours le masque potentiel
+        const dx = star.x - centerX;
+        const dy = star.y - centerY;
+        
+        const rx = 600; 
+        const ry = 300; 
+
+        const normalizedDist = Math.sqrt((dx * dx) / (rx * rx) + (dy * dy) / (ry * ry));
+
+        if (normalizedDist < 1) {
+          let maskAlpha = 1;
+          const innerThreshold = 0.3; 
+          
+          if (normalizedDist < innerThreshold) {
+            maskAlpha = 0;
+          } else {
+            maskAlpha = (normalizedDist - innerThreshold) / (1 - innerThreshold);
+            maskAlpha = Math.pow(maskAlpha, 2);
+          }
+
+          // Mélange progressif : si strength=1, on applique maskAlpha. Si strength=0, on reste à 1.
+          zoneOpacity = 1 - (maskState.strength * (1 - maskAlpha));
         }
 
         // --- FIX SCINTILLEMENT (AJUSTÉ) ---
@@ -185,7 +211,16 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
       });
 
       // --- ÉTOILES FILANTES ---
-      if (warpFactor < 0.1) spawnShootingStar();
+      // On arrête les étoiles filantes dès qu'il y a du mouvement (transition)
+      if (!isMoving) {
+        spawnShootingStar();
+      } else {
+        // Optionnel : on peut vider les étoiles existantes pour "nettoyer" la transition
+        // shootingStars.length = 0; 
+        // Mais laisser celles déjà lancées finir leur course est souvent plus naturel.
+        // L'utilisateur a demandé "arrêter l'animation", on va donc être strict :
+        shootingStars.length = 0;
+      }
 
       for (let i = shootingStars.length - 1; i >= 0; i--) {
         const s = shootingStars[i];
