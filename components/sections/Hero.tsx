@@ -1,30 +1,26 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { useSwiper } from 'swiper/react';
-import { useTransform, useSpring, useMotionValue, useMotionValueEvent, motion, animate } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { useTransform, useMotionValue, useMotionValueEvent, motion, useScroll } from 'framer-motion';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 
 import { IdentityBlock } from './hero/IdentityBlock';
 import { StarryBackground } from './hero/StarryBackground';
 import { SkillStars } from './hero/SkillStars';
-import { Mountains } from './hero/Mountains';
 import { IntroText } from './hero/IntroText';
 import { ScrollIndicator } from './hero/ScrollIndicator';
 import SectionShell from "../layouts/SectionShell";
 
-// --- COMPOSANT HERO ---
-
 export const Hero = () => {
-  const swiper = useSwiper();
-  const targetScroll = useMotionValue(0);
-  const scrollRef = useRef(0);
-  const isLocked = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // 1. "JUST RIGHT" PHYSICS (Grand Touring)
-  // Stiffness 22: Sharp but smooth start.
-  // Damping 32: Controlled braking, no bounce, no infinite slide.
-  const smoothScroll = useSpring(targetScroll, { stiffness: 22, damping: 30 });
+  // Remplacement de la simulation Swiper par le scroll natif Framer Motion
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const animationProgress = scrollYProgress;
 
   const { handleMouseMove, xFront, yFront, mouseY } = useMouseParallax();
 
@@ -32,223 +28,163 @@ export const Hero = () => {
   const dampedXFront = useTransform(xFront, (value) => value * 0.25);
   const dampedYFront = useTransform(yFront, (value) => value * 0.25);
 
-  // 2. DISTANCE & CLIPPING
-  // We keep 8000px to simulate a large scroll depth.
-  // We clip at 7800px to ensure a clean end to the visual animation.
-  const animationProgress = useTransform(smoothScroll, [0, 7900], [0, 1], { clamp: true });
+  // --- TRANSFORMS ---
 
-  // --- TRANSFORMS (Option C: Aspiration/Warp) ---
-  // Scale 1 -> 4 (Zoom very strong), Blur 0 -> 20px (Speed), Opacity 1 -> 0
-  // Active between 0 and 15% of scroll
+  // PHASE 1: INTRO (0% - 20%)
   const introOpacity = useTransform(animationProgress, [0, 0.15], [1, 0]);
   const introScale = useTransform(animationProgress, [0, 0.15], [1, 4]);
   const introBlur = useTransform(animationProgress, [0, 0.15], ["blur(0px)", "blur(20px)"]);
+
   const scrollIndicatorOpacity = useTransform(animationProgress, [0, 0.05], [1, 0]);
-
-  const delayedOpacity = useMotionValue(0);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      animate(delayedOpacity, 1, { duration: 1 });
-    }, 6000);
-    return () => clearTimeout(timer);
-  }, [delayedOpacity]);
-
+  const delayedOpacity = useMotionValue(1);
   const combinedScrollIndicatorOpacity = useTransform(
     [delayedOpacity, scrollIndicatorOpacity],
-    (values: number[]) => {
-      const d = values[0];
-      const s = values[1];
-      return d * s;
-    }
+    (values: number[]) => values[0] * values[1]
   );
-
-  // 3. GIANT AMPLITUDE (400vh)
-  // - Start (0.15): 400vh (Very deep).
-  // - Approach (0.90): 15vh (Visible slowdown).
-  // - Arrival (1.0): 0vh (Landed).
-  // Starting from 400vh will create a huge sense of speed in the middle,
-  // giving the impression that the "window" traveled is gigantic.
-  const contentY = useTransform(
-    animationProgress,
-    [0, 0.45, 0.92, 0.99],
-    ['250vh', '100vh', '0vh', '-6vh']
-  );
-
-  const contentOpacity = useTransform(animationProgress, [0.15, 0.25], [0, 1]);
-  const skillStarsOpacity = useTransform(animationProgress, [0.85, 0.95], [0, 1]);
 
   const [isIntroVisible, setIsIntroVisible] = useState(true);
   useMotionValueEvent(animationProgress, 'change', (v) => {
     setIsIntroVisible(v < 0.1);
   });
 
-  // --- KEYBOARD HANDLER ---
+  // IDENTITY APPEARANCE STATE (Timer Based)
+  const [showIdentity, setShowIdentity] = useState(false);
+  const skillStarsOpacity = useMotionValue(0);
+
   useEffect(() => {
-    const DELTA_SEUIL_TOTAL = 8000;
-    const TRIGGER_THRESHOLD = 200;
-    const sensitivity = 1.5;
+    if (showIdentity) {
+      skillStarsOpacity.set(1);
+    } else {
+      skillStarsOpacity.set(0);
+    }
+  }, [showIdentity]);
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Handle arrow down key
-      if (e.key === 'ArrowDown') {
-        // If we haven't finished scrolling in Hero, simulate scroll down
-        if (scrollRef.current < DELTA_SEUIL_TOTAL && !isLocked.current) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
+  // WARP TRIGGER (Bi-directional Auto-Scroll)
+  const isAutoScrolling = useRef(false);
 
-          // Simulate a larger scroll to navigate faster between parts
-          const simulatedDeltaY = 800 * sensitivity; // Increased from 100 to 800 for faster navigation
-          let newValue = scrollRef.current + simulatedDeltaY;
+  useEffect(() => {
+    const triggerScroll = (from: number, to: number) => {
+      isAutoScrolling.current = true;
+      const distance = to - from;
+      const duration = 5000;
+      let startTime: number | null = null;
 
-          if (newValue > TRIGGER_THRESHOLD) {
-            newValue = DELTA_SEUIL_TOTAL;
-            isLocked.current = true;
-            setTimeout(() => { isLocked.current = false; }, 3000);
-          }
+      // TIMED APPEARANCE LOGIC
+      if (to > from) {
+        // Scrolling DOWN -> Show Identity LATE
+        // 4000ms delay ensures it appears only at the very end of the deceleration
+        setTimeout(() => setShowIdentity(true), 4000);
+      } else {
+        // Scrolling UP -> Hide Identity IMMEDIATELY
+        setShowIdentity(false);
+      }
 
-          newValue = Math.min(newValue, DELTA_SEUIL_TOTAL);
-          scrollRef.current = newValue;
-          targetScroll.set(newValue);
+      const animation = (currentTime: number) => {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+
+        // Modified Easing: SEPTIC (Ease-In-Out Septic - Power 7)
+        // Extremely slow start and end.
+        const run = progress < 0.5 
+          ? 64 * Math.pow(progress, 7) 
+          : 1 - Math.pow(-2 * progress + 2, 7) / 2;
+
+        window.scrollTo(0, from + distance * run);
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        } else {
+          isAutoScrolling.current = false;
         }
-        // If scroll is complete, let Swiper handle the navigation
+      };
+      requestAnimationFrame(animation);
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      // 1. If currently animating, block EVERYTHING.
+      if (isAutoScrolling.current) {
+        e.preventDefault();
         return;
       }
 
-      // Handle arrow up key
-      if (e.key === 'ArrowUp') {
-        // If we're in the second part of Hero (scroll > 0), scroll up in Hero
-        if (scrollRef.current > 0 && !isLocked.current) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
+      const currentScroll = window.scrollY;
+      // Target adjusted to 14.08 to show mountains LESS prominently
+      const targetScroll = window.innerHeight * 14.08;
+      const threshold = 100; // Tolerance zone at ends
 
-          // Simulate a larger scroll to navigate faster between parts
-          const simulatedDeltaY = -800 * sensitivity; // Increased from 100 to 800 for faster navigation
-          let newValue = scrollRef.current + simulatedDeltaY;
+      // --- SCROLL DOWN TRIGGER (From Intro to Identity) ---
+      // Condition: At Top AND Scrolling Down
+      if (currentScroll < threshold && e.deltaY > 0) {
+        e.preventDefault();
+        triggerScroll(currentScroll, targetScroll);
+      }
 
-          // If we go back before the threshold, reset to 0
-          if (newValue < DELTA_SEUIL_TOTAL - TRIGGER_THRESHOLD) {
-            newValue = 0;
-          }
+      // --- SCROLL UP TRIGGER (From Identity to Intro) ---
+      // Condition: At Bottom (Identity Zone) AND Scrolling Up
+      else if (currentScroll > targetScroll - threshold && currentScroll < targetScroll + threshold && e.deltaY < 0) {
+        e.preventDefault();
+        triggerScroll(currentScroll, 0);
+      }
 
-          newValue = Math.max(newValue, 0);
-          scrollRef.current = newValue;
-          targetScroll.set(newValue);
+      // --- NO MAN'S LAND PROTECTION (Middle Zone) ---
+      // If user is stuck in the middle, force them to the nearest end.
+      else if (currentScroll > threshold && currentScroll < targetScroll - threshold) {
+        e.preventDefault();
+        if (e.deltaY > 0) {
+          triggerScroll(currentScroll, targetScroll); // Continue Down
+        } else {
+          triggerScroll(currentScroll, 0); // Go Back Up
         }
-        // If we're at the beginning, let Swiper handle the navigation
-        return;
       }
     };
 
-    // Use capture phase to intercept before Swiper
-    document.addEventListener('keydown', handleKeyDown, { capture: true });
-    return () => document.removeEventListener('keydown', handleKeyDown, { capture: true });
-  }, [targetScroll]);
-
-  const handleScrollClick = () => {
-    const DELTA_SEUIL_TOTAL = 8000;
-    
-    if (scrollRef.current < DELTA_SEUIL_TOTAL && !isLocked.current) {
-      const newValue = DELTA_SEUIL_TOTAL;
-      isLocked.current = true;
-      setTimeout(() => { isLocked.current = false; }, 3000);
-      
-      scrollRef.current = newValue;
-      targetScroll.set(newValue);
-    }
-  };
-
-  // --- HANDLER ---
-
-  const handleWheel = (e: React.WheelEvent) => {
-    if (isLocked.current) {
-      e.stopPropagation();
-      return;
-    }
-
-    const DELTA_SEUIL_TOTAL = 8000;
-    const TRIGGER_THRESHOLD = 200;
-    const sensitivity = 1.5;
-
-    if (e.deltaY > 0) {
-      if (scrollRef.current < DELTA_SEUIL_TOTAL) {
-        e.stopPropagation();
-
-        let newValue = scrollRef.current + (e.deltaY * sensitivity);
-
-        if (newValue > TRIGGER_THRESHOLD) {
-          newValue = DELTA_SEUIL_TOTAL;
-          isLocked.current = true;
-
-          // BALANCED TIMING
-          // 3 seconds: The perfect time to travel 400vh with this physics.
-          setTimeout(() => { isLocked.current = false; }, 3000);
-        }
-
-        newValue = Math.min(newValue, DELTA_SEUIL_TOTAL);
-        scrollRef.current = newValue;
-        targetScroll.set(newValue);
-      }
-    }
-    else if (e.deltaY < 0) {
-      if (scrollRef.current > 0) {
-        e.stopPropagation();
-        let newValue = scrollRef.current + (e.deltaY * sensitivity);
-        if (newValue < DELTA_SEUIL_TOTAL - TRIGGER_THRESHOLD) newValue = 0;
-        newValue = Math.max(newValue, 0);
-        scrollRef.current = newValue;
-        targetScroll.set(newValue);
-      }
-    }
-  };
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, []);
 
   return (
-    <SectionShell
-      onMouseMove={handleMouseMove}
-      onWheelCapture={handleWheel}
-      className='min-h-screen relative w-full h-full overflow-hidden flex flex-col items-center justify-center'
-    >
-      {/* 1. StarryBackground en arrière-plan (z-0) */}
-      <div className="absolute inset-0 z-0">
-        <StarryBackground scrollProgress={animationProgress} />
-      </div>
-
-      {/* 2. Mountains au premier plan (z-10) — au-dessus des étoiles */}
-      <div
-        className="absolute inset-0 z-10 w-full h-full pointer-events-none"
-        style={{ perspective: '1200px' }}
+    <div ref={containerRef} className="h-[1500vh] w-full relative bg-black">
+      <SectionShell
+        onMouseMove={handleMouseMove}
+        className='w-full h-screen overflow-hidden flex flex-col items-center justify-center sticky top-0 bg-black'
       >
-        <Mountains
-          progress={animationProgress}
-          mouseRotateX={mouseRotateX}
+        {/* 1. StarryBackground */}
+        <div className="absolute inset-0 z-0">
+          <StarryBackground scrollProgress={animationProgress} />
+        </div>
+
+
+        <IntroText
+          opacity={introOpacity}
+          scale={introScale}
+          filter={introBlur}
+          isVisible={isIntroVisible}
         />
-      </div>
 
-      <IntroText
-        opacity={introOpacity}
-        scale={introScale}
-        filter={introBlur}
-        isVisible={isIntroVisible}
-      />
+        <ScrollIndicator opacity={combinedScrollIndicatorOpacity} onClick={() => { }} />
 
-      <ScrollIndicator opacity={combinedScrollIndicatorOpacity} onClick={handleScrollClick} />
+        <motion.div
+          initial={{ opacity: 0, y: '20vh' }}
+          animate={{ 
+            opacity: showIdentity ? 1 : 0,
+            y: showIdentity ? '10vh' : '20vh'
+          }}
+          transition={{ duration: 1.0, ease: "easeOut" }}
+          className="relative w-full h-full z-10 flex flex-col items-center justify-center"
+        >
+          <IdentityBlock />
 
-      <motion.div
-        style={{
-          opacity: contentOpacity,
-          y: contentY
-        }}
-        className="relative w-full h-full z-10 flex flex-col items-center justify-center"
-      >
-        <IdentityBlock />
-        
-        <SkillStars
-          x={dampedXFront}
-          y={dampedYFront}
-          opacity={skillStarsOpacity}
-          onStarClick={() => swiper && swiper.slideNext()}
-        />
-      </motion.div>
+          <SkillStars
+            x={dampedXFront}
+            y={dampedYFront}
+            // Use manual MotionValue to trigger the internal animation logic of SkillStars
+            opacity={skillStarsOpacity}
+            onStarClick={() => { }}
+          />
+        </motion.div>
 
-    </SectionShell>
+      </SectionShell>
+    </div>
   );
 };

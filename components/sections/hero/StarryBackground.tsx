@@ -25,6 +25,7 @@ interface ShootingStar {
 export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef(0);
+  const lastProgressRef = useRef(0);
 
   useEffect(() => {
     const unsubscribe = scrollProgress.on('change', (latestValue) => {
@@ -46,7 +47,6 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
     let animationId: number;
     let lastShootingStarTime = 0;
     const SHOOTING_STAR_COOLDOWN = 20000;
-    const maskState = { strength: 1 };
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -98,40 +98,43 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
       const centerY = canvas.height / 2;
 
       const progress = progressRef.current;
-      let warpFactor = Math.pow(progress, 3);
+      
+      // --- NOUVELLE LOGIQUE BASÉE SUR LA VITESSE ---
+      const delta = progress - lastProgressRef.current;
+      lastProgressRef.current = progress;
 
-      // --- LOGIQUE DE FREINAGE (AJUSTÉE) ---
-      const brakeStart = 0.6;
-      const brakeEnd = 1.0;
+      // DIRECTION
+      // Retour à la logique standard (physique)
+      // Scroll Down (delta > 0) -> direction = 1 -> Étoiles montent (y diminue)
+      // Scroll Up (delta < 0) -> direction = -1 -> Étoiles descendent (y augmente)
+      const direction = Math.sign(delta); 
+      
+      // INTENSITÉ
+      let warpFactor = Math.abs(delta) * 40;
+      warpFactor = Math.min(warpFactor, 20);
 
-      if (progress > brakeStart) {
-        const rawBrake = Math.max(0, (brakeEnd - progress) / (brakeEnd - brakeStart));
-
-        // MODIFICATION 1 : QUADRATIQUE (Puissance 2)
-        // C'est le juste milieu entre Linéaire (glisse trop) et Cubique (pile trop sec)
-        const brake = Math.pow(rawBrake, 2);
-
-        warpFactor *= brake;
-      }
-      // -------------------------------------
-
-      const isMoving = warpFactor > 0.001;
-
-      // Lissage de l'intensité du masque (0 = pas de masque, 1 = masque complet)
-      // Le masque disparaît quand on bouge, SAUF si on arrive vers la fin (progress > 0.6)
-      // pour préparer l'affichage de la seconde partie.
-      const shouldHideMask = isMoving && progress < 0.6;
-      const targetStrength = shouldHideMask ? 0 : 1;
-      maskState.strength += (targetStrength - maskState.strength) * 0.05;
+      const isMoving = warpFactor > 0.01; 
 
       stars.forEach((star) => {
         if (isMoving) {
-          // --- MODE WARP ---
-          star.y -= star.warpSpeed * warpFactor * 15;
+          // --- MODE WARP (PHYSIQUE CHUTE) ---
+          // RETOUR AU SENS "MONTÉE" POUR SIMULER LA CHUTE
+          // Scroll Down (dir=1) -> Étoiles montent (y diminue).
+          // C'est le seul moyen de donner l'impression de descendre.
+          star.y -= star.warpSpeed * warpFactor * 15 * direction;
 
-          if (star.y < 0) {
-            star.y = canvas.height + 10;
-            star.x = Math.random() * canvas.width;
+          if (direction > 0) {
+             // Monte -> Reset en bas si < 0
+             if (star.y < 0) {
+               star.y = canvas.height + 10;
+               star.x = Math.random() * canvas.width;
+             }
+          } else {
+             // Descend -> Reset en haut si > height
+             if (star.y > canvas.height) {
+               star.y = -10;
+               star.x = Math.random() * canvas.width;
+             }
           }
 
           const dx = star.x - centerX;
@@ -146,55 +149,23 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
           star.y = centerY + star.radius * Math.sin(star.angle);
         }
 
-        // --- OPACITÉ & SAFE ZONE (OVALE LISSÉ) ---
-        let zoneOpacity = 1;
-
-        // On calcule toujours le masque potentiel
-        const dx = star.x - centerX;
-        const dy = star.y - centerY;
-        
-        const rx = 600; 
-        const ry = 300; 
-
-        const normalizedDist = Math.sqrt((dx * dx) / (rx * rx) + (dy * dy) / (ry * ry));
-
-        if (normalizedDist < 1) {
-          let maskAlpha = 1;
-          const innerThreshold = 0.3; 
-          
-          if (normalizedDist < innerThreshold) {
-            maskAlpha = 0;
-          } else {
-            maskAlpha = (normalizedDist - innerThreshold) / (1 - innerThreshold);
-            maskAlpha = Math.pow(maskAlpha, 2);
-          }
-
-          // Mélange progressif : si strength=1, on applique maskAlpha. Si strength=0, on reste à 1.
-          zoneOpacity = 1 - (maskState.strength * (1 - maskAlpha));
-        }
-
-        // --- FIX SCINTILLEMENT (AJUSTÉ) ---
-        // MODIFICATION 2 : On adoucit la transition de stabilité (* 25 au lieu de * 50).
-        // Cela permet au scintillement de revenir un peu plus progressivement à la fin.
+        // --- SCINTILLEMENT ---
         const stability = Math.min(1, warpFactor * 25);
-
         const sineWave = 0.4 + Math.abs(Math.sin(Date.now() * 0.0015 + star.x)) * 0.5;
         const brightness = (1 * stability) + (sineWave * (1 - stability));
+        const finalAlpha = star.baseAlpha * brightness;
 
-        const finalAlpha = star.baseAlpha * brightness * zoneOpacity;
-
-        // --- RENDU HYBRIDE ---
+        // --- RENDU ---
         if (finalAlpha > 0.01) {
           ctx.beginPath();
-
-          // 1. POINT
           ctx.fillStyle = `rgba(255, 255, 255, ${finalAlpha})`;
           ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
           ctx.fill();
 
-          // 2. TRAÎNÉE
           if (warpFactor > 0.02) {
-            const trailLength = star.warpSpeed * warpFactor * 10;
+            // Traînée opposée au mouvement
+            // Si on monte (y diminue), traînée vers le bas (positif) -> direction
+            const trailLength = star.warpSpeed * warpFactor * 5 * direction;
 
             ctx.beginPath();
             const grad = ctx.createLinearGradient(star.x, star.y, star.x, star.y + trailLength);
@@ -211,14 +182,9 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
       });
 
       // --- ÉTOILES FILANTES ---
-      // On arrête les étoiles filantes dès qu'il y a du mouvement (transition)
       if (!isMoving) {
         spawnShootingStar();
       } else {
-        // Optionnel : on peut vider les étoiles existantes pour "nettoyer" la transition
-        // shootingStars.length = 0; 
-        // Mais laisser celles déjà lancées finir leur course est souvent plus naturel.
-        // L'utilisateur a demandé "arrêter l'animation", on va donc être strict :
         shootingStars.length = 0;
       }
 

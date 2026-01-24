@@ -20,6 +20,9 @@ export const IntroText = ({ opacity, scale, filter, isVisible }: IntroTextProps)
       )}
     >
       <div className="relative text-center px-4">
+        {/* Halo Radial pour lisibilité sur fond étoilé */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[250%] bg-[radial-gradient(closest-side,#000000_40%,rgba(0,0,0,0)_100%)] blur-3xl z-0 pointer-events-none" />
+
         <h1 className="text-white text-2xl md:text-4xl lg:text-6xl font-extrabold uppercase text-center relative z-10">
           {/* Option A: Cinematic Arrival */}
           <motion.span

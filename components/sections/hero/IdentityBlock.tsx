@@ -1,6 +1,9 @@
 export const IdentityBlock = () => {
   return (
     <div className='relative z-10 flex flex-col items-center justify-center md:flex-row gap-15 p-8'>
+        {/* Halo Radial pour lisibilité */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[160%] bg-[radial-gradient(closest-side,#000000_50%,rgba(0,0,0,0)_100%)] blur-3xl z-[-1] pointer-events-none" />
+
         {/* LOGO SVG */}
         <div className='shrink-0'>
           <svg width='160' height='160' viewBox='0 0 160 160' fill='none' xmlns='http://www.w3.org/2000/svg' className='w-[100px] h-[100px] md:w-[160px] md:h-[160px]'>

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface SectionShellProps extends React.HTMLAttributes<HTMLElement> {
@@ -10,13 +10,13 @@ interface SectionShellProps extends React.HTMLAttributes<HTMLElement> {
   withSpacing?: boolean;
 }
 
-const SectionShell: React.FC<SectionShellProps> = ({
+const SectionShell = forwardRef<HTMLDivElement, SectionShellProps>(({
   children,
   className,
   variant = 'full',
   withSpacing = true,
   ...props
-}) => {
+}, ref) => {
 
   // 1. Structure classes (Max width, centering) - Always applied if contained
   const layoutClasses = 'w-full mx-auto max-w-10xl xl:max-w-9xl lg:max-w-6xl md:max-w-5xl sm:max-w-4xl';
@@ -26,6 +26,7 @@ const SectionShell: React.FC<SectionShellProps> = ({
 
   return (
     <div
+      ref={ref}
       {...props}
       className={cn(
         "",
@@ -37,6 +38,8 @@ const SectionShell: React.FC<SectionShellProps> = ({
       {children}
     </div>
   );
-};
+});
+
+SectionShell.displayName = "SectionShell";
 
 export default SectionShell;

@@ -1,15 +1,8 @@
 'use client';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Keyboard, Mousewheel, Navigation, Pagination, Scrollbar } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-
 import { Hero } from '@/components/sections/Hero';
-// import { Spacer } from '@/components/sections/Spacer';
-import { SlideContent } from "@/components/swipper/SlideContent";
+import { Mountains } from '@/components/sections/hero/Mountains';
+import { TopSpacer } from '@/components/sections/whoiam/TopSpacer';
 import { WhoIAm } from "@/components/sections/WhoIAm";
 import { WhatIDo } from "@/components/sections/WhatIDo";
 import { Contact } from "@/components/sections/Contact";
@@ -18,72 +11,45 @@ import { Experience } from "@/components/sections/Experience";
 
 export default function Home() {
   return (
-    <main>
-      <Swiper
-        direction="vertical"
-        mousewheel={{
-          forceToAxis: true, // Prevents scrolling when scrolling diagonally/horizontally
-          sensitivity: 0.5, // You can lower to 0.5 or 0.8 if it's still too fast
-          thresholdDelta: 110, // MUST scroll "50px" before it changes. Increase this value (e.g., 70 or 100) to make the change more "hard".
-          thresholdTime: 350, // (Optional) Minimum mousewheel scroll time delta (in ms) to trigger swiper slide change
-        }}
-        simulateTouch={false}
-        pagination={{
-          clickable: true,
-        }}
-        keyboard={{
-          enabled: true,
-        }}
-        // scrollbar={{
-        //   draggable: true,
-        // }}
-        modules={[Navigation, Pagination, Mousewheel, Scrollbar, Keyboard]}
-        navigation
-        className="h-screen overflow-hidden">
+    // Standard scroll container (body handles scroll)
+    <main className="w-full min-h-screen scroll-smooth">
+      
+      {/* Section 1 : Hero */}
+      <section className="w-full relative z-10">
+        <Hero />
+      </section>
 
-        {/* Slide 1 : Hero */}
-        <SwiperSlide>
-          <SlideContent>
-            <Hero />
-          </SlideContent>
-        </SwiperSlide>
+      {/* Transition Layer (Mountains) */}
+      <div className="w-full relative z-30">
+          <Mountains />
+          <TopSpacer />
+      </div>
 
-        {/* Slide 2 : WhoIAm */}
-        <SwiperSlide>
-          <SlideContent isScrollable>
-            <WhoIAm />
-          </SlideContent>
-        </SwiperSlide>
+      {/* Section 2 : WhoIAm */}
+      <section className="min-h-screen w-full relative bg-[#0c0c0c] z-20">
+        <WhoIAm />
+      </section>
 
-        {/* Slide 4 : WhatIDo */}
-        <SwiperSlide>
-          <SlideContent isScrollable>
-            <WhatIDo />
-          </SlideContent>
-        </SwiperSlide>
+      {/* Section 3 : WhatIDo */}
+      <section className="min-h-screen w-full relative">
+        <WhatIDo />
+      </section>
 
-        {/* Slide 5 : Experience */}
-        <SwiperSlide>
-          <SlideContent isScrollable>
-            <Experience />
-          </SlideContent>
-        </SwiperSlide>
+      {/* Section 4 : Experience */}
+      <section className="min-h-screen w-full relative">
+        <Experience />
+      </section>
 
-        {/* Slide 6 : Works */}
-        <SwiperSlide>
-          <SlideContent isScrollable>
-            <Works />
-          </SlideContent>
-        </SwiperSlide>
+      {/* Section 5 : Works */}
+      <section className="min-h-screen w-full relative">
+        <Works />
+      </section>
 
-        {/* Slide 7 : Contact + Footer */}
-        <SwiperSlide>
-          <SlideContent isScrollable>
-            <Contact />
-          </SlideContent>
-        </SwiperSlide>
+      {/* Section 6 : Contact */}
+      <section className="min-h-screen w-full relative">
+        <Contact />
+      </section>
 
-      </Swiper>
     </main>
   );
 }
