@@ -181,7 +181,7 @@ export const ServiceCard = ({
               >
                 {isExpanded ? lessLabel : moreLabel}
                 <Icon
-                  name="ArrowDown"
+                  name="ChevronDown"
                   size={14}
                   className={cn('transition-transform duration-500', isExpanded && 'rotate-180')}
                 />

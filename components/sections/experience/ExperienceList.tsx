@@ -171,7 +171,7 @@ export const ExperienceList = () => {
                   className="absolute"
                 >
                   {t('showMore')}
-                  <Icon name="ArrowDown" size={16} />
+                  <Icon name="ChevronDown" size={16} />
                 </CustomButton>
               </div>
             )}
@@ -194,7 +194,7 @@ export const ExperienceList = () => {
         <p className="text-[#d0d4da] font-[250]">{t('cta')}</p>
         <div className="flex flex-wrap gap-3">
           <CustomButton variant="primary" size="lg">
-            <Icon name="IdVerified" size={18} />
+            <Icon name="Resume" size={18} />
             {tWho('downloadCv')}
           </CustomButton>
           <CustomButton
@@ -202,7 +202,7 @@ export const ExperienceList = () => {
             size="lg"
             onPress={() => document.getElementById('contact')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })}
           >
-            <Icon name="MailLine" size={18} />
+            <Icon name="Chat" size={18} />
             {t('contactCta')}
           </CustomButton>
         </div>

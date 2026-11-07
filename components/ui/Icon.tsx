@@ -17,18 +17,18 @@ import {
 import {
   ArrowDown01Icon,
   ArrowUp01Icon,
-  BookOpen02Icon,
-  Download02Icon,
-  IdVerifiedIcon,
-  Mail01Icon,
-  Undo02Icon,
-} from '@hugeicons-pro/core-stroke-sharp';
+  BookDownloadIcon,
+  BubbleChatIcon,
+  FileDownloadIcon,
+  IdCardIcon,
+  ReplayIcon,
+} from '@hugeicons-pro/core-stroke-standard';
 import { cn } from '@/lib/utils';
 
 /**
  * Hugeicons, "standard" styles (Pro): duotone for the contact card's line
- * icons, solid for arrows and the experience timeline badges, stroke sharp
- * for buttons and controls. Colors follow `currentColor`.
+ * icons, solid for arrows and the experience timeline badges, stroke for
+ * buttons and controls. Colors follow `currentColor`.
  */
 const ICONS = {
   // Solid standard
@@ -44,14 +44,14 @@ const ICONS = {
   Linkedin: Linkedin01Icon,
   GitHub: GithubIcon,
   Slack: SlackIcon,
-  // Stroke sharp (buttons, controls)
+  // Stroke standard (buttons, controls): each icon says what the button does
   ChevronUp: ArrowUp01Icon,
-  ArrowDown: ArrowDown01Icon,
-  BookOpen: BookOpen02Icon,
-  IdVerified: IdVerifiedIcon,
-  Download: Download02Icon,
-  MailLine: Mail01Icon,
-  Undo: Undo02Icon,
+  ChevronDown: ArrowDown01Icon,
+  Resume: FileDownloadIcon,
+  Portfolio: BookDownloadIcon,
+  ContactCard: IdCardIcon,
+  Chat: BubbleChatIcon,
+  Replay: ReplayIcon,
 } satisfies Record<string, IconSvgElement>;
 
 export type IconName = keyof typeof ICONS;

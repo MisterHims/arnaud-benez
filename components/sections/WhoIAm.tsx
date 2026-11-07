@@ -29,11 +29,11 @@ export const WhoIAm = () => {
         {/* The resume is the main action (recruiters), the portfolio comes second */}
         <div className='flex flex-wrap gap-3 pt-4'>
           <CustomButton variant="primary" size="lg">
-            <Icon name="IdVerified" size={18} />
+            <Icon name="Resume" size={18} />
             {t('downloadCv')}
           </CustomButton>
           <CustomButton variant="secondary" size="lg">
-            <Icon name="BookOpen" size={18} />
+            <Icon name="Portfolio" size={18} />
             {t('downloadBook')}
           </CustomButton>
         </div>

@@ -187,7 +187,7 @@ export const ContactCard = () => {
       <div className="absolute -bottom-5 right-4 sm:right-8 z-20">
         {/* Opaque fill: the button straddles the card's edge */}
         <CustomButton variant="secondary" size="sm" className="bg-[#1a1c20]">
-          <Icon name="Download" size={16} />
+          <Icon name="ContactCard" size={16} />
           {t('download')}
         </CustomButton>
       </div>

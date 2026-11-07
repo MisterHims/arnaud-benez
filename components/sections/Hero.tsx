@@ -530,7 +530,7 @@ export const Hero = ({ startLanded = false }: HeroProps) => {
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className="absolute z-30 top-20 md:top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full bg-white/6 px-4 py-2 text-xs uppercase tracking-[0.2em] font-light text-white/70 hover:text-white hover:bg-white/12 focus-visible:text-white focus-visible:outline focus-visible:outline-white/40 transition-colors cursor-pointer"
             >
-              <Icon name="Undo" size={16} />
+              <Icon name="Replay" size={16} />
               {t('replay')}
             </motion.button>
           )}

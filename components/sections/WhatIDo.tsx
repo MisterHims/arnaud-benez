@@ -100,7 +100,7 @@ export const WhatIDo = () => {
               size="lg"
               onPress={() => document.getElementById('contact')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })}
             >
-              <Icon name="MailLine" size={18} />
+              <Icon name="Chat" size={18} />
               {t('ctaButton')}
             </CustomButton>
           </motion.div>

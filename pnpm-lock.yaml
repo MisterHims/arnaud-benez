@@ -20,7 +20,7 @@ importers:
       '@hugeicons-pro/core-solid-standard':
         specifier: ^4.4.0
         version: 4.4.0
-      '@hugeicons-pro/core-stroke-sharp':
+      '@hugeicons-pro/core-stroke-standard':
         specifier: ^4.4.0
         version: 4.4.0
       '@hugeicons/react':
@@ -641,8 +641,8 @@ packages:
   '@hugeicons-pro/core-solid-standard@4.4.0':
     resolution: {integrity: sha512-NsMQqZJMRNc7ozr4SbmAkQqFMqijRZ414GhQzpMmbPI81JsBWBvUPqRBWo/eJra1G8b3RoDPGwHe/WHaEVImow==}
 
-  '@hugeicons-pro/core-stroke-sharp@4.4.0':
-    resolution: {integrity: sha512-6EjN/Xl9XFo97KzH/8aG5mrC8lQf8HpCKEA+cGC/jz6SQfVH6SumQtAItqg5ANf17dPe/4M/l1cmO8fQqTDaVw==}
+  '@hugeicons-pro/core-stroke-standard@4.4.0':
+    resolution: {integrity: sha512-KzGD8saGjwnEjLxKEm06ukyIcxTO0zqhPGFjDsjpcS3HE/vu/HNZp0DjB+xbk83BUrAvOuj4Kmmt0lwYHY1KqA==}
 
   '@hugeicons/react@1.1.10':
     resolution: {integrity: sha512-9tAsd92yMVVGP+E+d8cM+wc0VnXuYZHNbWQi7TOe8k2neawmhiaFmVFbzyruejhOMa197/LbgvSED32ayUo3ZA==}
@@ -3710,7 +3710,7 @@ snapshots:
 
   '@hugeicons-pro/core-solid-standard@4.4.0': {}
 
-  '@hugeicons-pro/core-stroke-sharp@4.4.0': {}
+  '@hugeicons-pro/core-stroke-standard@4.4.0': {}
 
   '@hugeicons/react@1.1.10(react@19.3.1)':
     dependencies:
