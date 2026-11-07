@@ -188,7 +188,9 @@ export const ContactCard = () => {
         {/* Opaque fill: the button straddles the card's edge */}
         <CustomButton variant="secondary" size="sm" className="bg-[#1a1c20]">
           <Icon name="ContactCard" size={16} />
-          {t('download')}
+          {/* Small 11px caps sit higher than in the larger buttons: 2px down
+              instead of the usual 1px */}
+          <span className="relative top-[2px]">{t('download')}</span>
         </CustomButton>
       </div>
 

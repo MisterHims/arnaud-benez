@@ -11,7 +11,7 @@ import { tv } from "tailwind-variants";
 const myButtonVariants = tv({
   // Same language as the hero's pills: no outline (jagged with fractional
   // display scaling), tracked uppercase type, no shadows
-  base: "relative isolate uppercase font-medium tracking-[0.1em] leading-none data-[pending=true]:opacity-40 transition-colors duration-300 ease-out",
+  base: "relative isolate uppercase font-medium tracking-[0.1em] leading-none [&_svg]:translate-y-px data-[pending=true]:opacity-40 transition-colors duration-300 ease-out",
   defaultVariants: {
     radius: "full",
     variant: "primary",
@@ -64,8 +64,8 @@ export type CustomButtonProps = Omit<ButtonProps, "className"> &
 // 3. The final component
 export const CustomButton = ({ className, radius, variant, size, children, ...props }: CustomButtonProps) => {
   // Uppercase labels look ~1px too high when centered (the line box keeps
-  // room for descenders capitals don't have): nudge the text only, icons
-  // are already centered
+  // room for descenders capitals don't have): nudge the text 1px down; the
+  // icons follow (base class), so both stay aligned
   const content = typeof children === 'function'
     ? children
     : Children.map(children, (child) =>
