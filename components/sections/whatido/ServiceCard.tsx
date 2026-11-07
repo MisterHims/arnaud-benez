@@ -146,7 +146,8 @@ export const ServiceCard = ({
             )}
           </Card.Content>
 
-          <Card.Footer className="px-5 pt-2 pb-5 mt-auto flex-col items-start gap-0">
+          {/* Tighter bottom under "Learn more" (its own padding adds up) */}
+          <Card.Footer className={cn('px-5 pt-2 mt-auto flex-col items-start gap-0', details || moreTags.length > 0 ? 'pb-3' : 'pb-5')}>
             {tags.length > 0 && (
               <div className='flex gap-2 flex-wrap'>
                 {tags.map((tag) => (
