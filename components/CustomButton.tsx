@@ -1,6 +1,7 @@
 // src/components/ui/CustomButton.tsx
 'use client';
 
+import { Children } from 'react';
 import type { ButtonProps } from "@heroui/react";
 import type { VariantProps } from "tailwind-variants";
 import { Button, buttonVariants } from "@heroui/react";
@@ -51,11 +52,22 @@ export type CustomButtonProps = Omit<ButtonProps, "className"> &
   MyButtonVariants & { className?: string };
 
 // 3. The final component
-export const CustomButton = ({ className, radius, variant, size, ...props }: CustomButtonProps) => {
+export const CustomButton = ({ className, radius, variant, size, children, ...props }: CustomButtonProps) => {
+  // Uppercase labels look ~1px too high when centered (the line box keeps
+  // room for descenders capitals don't have): nudge the text only, icons
+  // are already centered
+  const content = typeof children === 'function'
+    ? children
+    : Children.map(children, (child) =>
+      typeof child === 'string' ? <span className="relative top-px">{child}</span> : child
+    );
+
   return (
     <Button
       className={myButtonVariants({ className, radius, variant, size })}
       {...props}
-    />
+    >
+      {content}
+    </Button>
   );
 };
