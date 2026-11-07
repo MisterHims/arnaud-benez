@@ -455,8 +455,15 @@ export const Hero = () => {
             <button
               type="button"
               onClick={goToContact}
-              className="h-9 px-5 rounded-full bg-white/6 text-white/90 text-xs font-medium uppercase tracking-[0.2em] hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors cursor-pointer"
+              className="group relative isolate h-9 px-5 rounded-full bg-white/6 text-white/90 text-xs font-medium uppercase tracking-[0.2em] hover:text-black focus-visible:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors duration-300 ease-out cursor-pointer"
             >
+              {/* White fill fading in on hover: an opacity transition (GPU) is
+                  smoother than animating the background color, and its length
+                  absorbs quick in/out flickers along the rounded edge */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 rounded-full bg-white opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 ease-out"
+              />
               {t('contact')}
             </button>
             <LanguageSwitch />
