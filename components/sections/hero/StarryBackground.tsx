@@ -23,6 +23,7 @@ interface Star {
   size: number;
   baseAlpha: number;
   phase: number; // twinkle offset
+  age: number;   // seconds since (re)birth, for the fade-in
 }
 
 interface ShootingStar {
@@ -36,6 +37,7 @@ const WARP_SPEED = 1.4;     // extra space units / second at full warp
 const TRAIL = 0.14;         // streak length (space units) at full warp
 const SMOOTHING = 4;        // higher = camera reacts faster to scroll changes
 const SHOOTING_STAR_COOLDOWN = 20000;
+const FADE_IN = 0.8;        // seconds for a newborn star to reach full brightness
 
 const randomStar = (z = Math.random() * 0.95 + 0.05): Star => ({
   x: Math.random() * 2 - 1,
@@ -44,6 +46,7 @@ const randomStar = (z = Math.random() * 0.95 + 0.05): Star => ({
   size: Math.random() * 1.0 + 0.5,
   baseAlpha: Math.random() * 0.5 + 0.5,
   phase: Math.random() * Math.PI * 2,
+  age: FADE_IN,
 });
 
 export const StarryBackground = ({ camera, reducedMotion = false }: StarryBackgroundProps) => {
@@ -74,6 +77,18 @@ export const StarryBackground = ({ camera, reducedMotion = false }: StarryBackgr
     const smooth = {
       speed: 0,
       pitch: reducedMotion ? 0 : cam0.pitch.get(),
+    };
+
+    // Rebirth far away, somewhere on screen (never off screen: off-screen
+    // newborns used to pile up at the bottom once the ship turned downward)
+    const respawn = (star: Star) => {
+      const z = Math.random() * 0.3 + 0.7;
+      const scale = Math.max(width, height) * 0.5;
+      Object.assign(star, randomStar(z), {
+        x: ((Math.random() - 0.5) * width / scale) * z,
+        y: ((Math.random() - 0.5) * height / scale) * z,
+        age: 0,
+      });
     };
 
     const resizeCanvas = () => {
@@ -143,25 +158,33 @@ export const StarryBackground = ({ camera, reducedMotion = false }: StarryBackgr
         const rise = star.z * (1 + (1 - star.z));
         star.z -= travel * forward;
         star.y -= travel * down * rise;
+        star.age += dt;
 
         let { sx, sy } = project(star.x, star.y, star.z);
+        const offScreen = sx < -margin || sx > width + margin || sy < -margin || sy > height + margin;
 
         if (star.z <= 0.02) {
-          Object.assign(star, randomStar(Math.random() * 0.3 + 0.7));
-        } else if (down > 0.3 && sy < -margin) {
-          // Descending: a star leaving through the top re-enters from the bottom
+          respawn(star);
+        } else if (sy < -margin && Math.random() < down ** 8) {
+          // Descending: a star leaving through the top re-enters from the
+          // bottom. While the ship is still turning, stars stream out of the
+          // top far faster than room frees up at the bottom: only part of them
+          // wrap (the more vertical the flight, the more), the others are
+          // reborn far away, so the sky stays evenly spread after landing.
           star.y = unprojectY(height + margin * Math.random(), star.z);
           star.x = unprojectX(Math.random() * width, star.z);
-        } else if (sx < -margin || sx > width + margin || sy < -margin || sy > height + margin) {
+        } else if (offScreen) {
           // Recycle far away so the field never empties
-          Object.assign(star, randomStar(Math.random() * 0.3 + 0.7));
+          respawn(star);
         }
         ({ sx, sy } = project(star.x, star.y, star.z));
 
         const nearness = 1 - star.z; // 0 = far, 1 = close
         const twinkle = 0.55 + 0.45 * Math.abs(Math.sin(time * 0.0015 + star.phase));
         const brightness = twinkle * (1 - twinkleMix) + twinkleMix;
-        const alpha = star.baseAlpha * brightness * Math.min(1, 0.25 + nearness * 1.2);
+        // Newborn stars fade in instead of popping (hidden by streaks in warp)
+        const fadeIn = isWarping ? 1 : Math.min(1, star.age / FADE_IN);
+        const alpha = star.baseAlpha * brightness * Math.min(1, 0.25 + nearness * 1.2) * fadeIn;
         const radius = star.size * (0.5 + nearness * 1.3);
 
         if (alpha < 0.01) continue;
