@@ -27,8 +27,10 @@ export const TrustedBy = () => {
         {t('trustedBy')}
       </h3>
 
+      {/* Moving content (WCAG 2.2.2): pauses on hover, and stays still for
+          visitors who asked for reduced motion */}
       <div
-        className="relative w-full overflow-hidden"
+        className="group relative w-full overflow-hidden"
         style={{
           maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
           WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
@@ -38,7 +40,7 @@ export const TrustedBy = () => {
         <div className="flex w-max">
 
           {/* GROUPE A */}
-          <div className="flex items-center gap-16 md:gap-64 pr-16 md:pr-64 animate-infinite-scroll">
+          <div className="flex items-center gap-16 md:gap-64 pr-16 md:pr-64 animate-infinite-scroll motion-reduce:animate-none group-hover:[animation-play-state:paused]">
             {TRUSTED_LOGOS.map((logo, index) => (
               <div key={`a-${index}`} className="shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <Logo name={logo.name} className={`${logo.className} text-white`} />
@@ -53,7 +55,7 @@ export const TrustedBy = () => {
           </div>
 
           {/* GROUPE B (Boucle) */}
-          <div className="flex items-center gap-16 md:gap-64 pr-16 md:pr-64 animate-infinite-scroll" aria-hidden="true">
+          <div className="flex items-center gap-16 md:gap-64 pr-16 md:pr-64 animate-infinite-scroll motion-reduce:animate-none group-hover:[animation-play-state:paused]" aria-hidden="true">
             {TRUSTED_LOGOS.map((logo, index) => (
               <div key={`b-${index}`} className="shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <Logo name={logo.name} className={`${logo.className} text-white`} />

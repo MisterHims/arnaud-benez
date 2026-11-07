@@ -12,7 +12,7 @@ export const ContactForm = () => {
 
   // 2. Style des Champs (Input & Textarea)
   // On applique tout directement ici : fond, bordure, arrondi, texte, etc.
-  const fieldClass = "w-full bg-zinc-900/50 border border-3 border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-white/40 hover:border-white/20 transition-colors shadow-none";
+  const fieldClass = "w-full bg-zinc-900/50 border border-3 border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-[#85858f] focus:outline-none focus:border-white/40 hover:border-white/20 transition-colors shadow-none";
   const [value, setValue] = React.useState("");
 
   return (

@@ -128,7 +128,7 @@ export const SkillStars = ({ x, y, opacity, interactive = true, onStarClick }: S
               },
             }}
             className={cn(
-              'absolute group flex flex-col items-center justify-center rounded-full outline-none',
+              'absolute group flex flex-col items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent',
               interactive ? 'pointer-events-auto cursor-pointer' : 'pointer-events-none'
             )}
             style={{ top: `${skill.top}%`, left: `${skill.left}%` }}

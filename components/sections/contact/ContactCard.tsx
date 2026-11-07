@@ -90,22 +90,22 @@ export const ContactCard = () => {
 
           <div className="flex gap-8">
             {/* X (Twitter) */}
-            <a href="#" className="text-[#DEDEDE] hover:text-white transition-colors">
+            <a href="#" aria-label="X (Twitter)" className="-m-1 p-1 rounded-md text-[#DEDEDE] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
               <Icon name="NewTwitter" size={20} />
             </a>
 
             {/* LinkedIn */}
-            <a href="#" className="text-[#DEDEDE] hover:text-white transition-colors">
+            <a href="#" aria-label="LinkedIn" className="-m-1 p-1 rounded-md text-[#DEDEDE] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
               <Icon name="Linkedin" size={20} />
             </a>
 
             {/* GitHub */}
-            <a href="#" className="text-[#DEDEDE] hover:text-white transition-colors">
+            <a href="#" aria-label="GitHub" className="-m-1 p-1 rounded-md text-[#DEDEDE] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
               <Icon name="GitHub" size={20} />
             </a>
 
             {/* Slack */}
-            <a href="#" className="text-[#DEDEDE] hover:text-white transition-colors">
+            <a href="#" aria-label="Slack" className="-m-1 p-1 rounded-md text-[#DEDEDE] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
               <Icon name="Slack" size={20} />
             </a>
           </div>

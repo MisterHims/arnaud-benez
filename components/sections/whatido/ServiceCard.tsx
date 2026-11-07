@@ -162,7 +162,7 @@ export const ServiceCard = ({
                   aria-expanded={isExpanded}
                   aria-controls={detailsId}
                   onClick={() => setIsExpanded((v) => !v)}
-                  className="mt-5 inline-flex items-center gap-1.5 text-[13px] text-[#A8A8A8] hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/50 rounded-sm transition-colors cursor-pointer"
+                  className="mt-4 py-1 inline-flex items-center gap-1.5 text-[13px] text-[#A8A8A8] hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/50 rounded-sm transition-colors cursor-pointer"
                 >
                   {isExpanded ? lessLabel : moreLabel}
                   <Icon

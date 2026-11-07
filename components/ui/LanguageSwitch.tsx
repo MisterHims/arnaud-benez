@@ -55,8 +55,8 @@ export const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
               aria-current={isActive ? 'true' : undefined}
               onClick={() => switchTo(locale.code)}
               className={cn(
-                'text-xs tracking-[0.2em] transition-colors',
-                isActive ? 'text-white font-medium cursor-default' : 'text-white/40 hover:text-white/80 cursor-pointer'
+                'py-1 text-xs tracking-[0.2em] transition-colors',
+                isActive ? 'text-white font-medium cursor-default' : 'text-white/55 hover:text-white/85 cursor-pointer'
               )}
             >
               {locale.label}
