@@ -89,7 +89,16 @@ const hasLandedThisSession = () => {
   }
 };
 
-export const Hero = () => {
+interface HeroProps {
+  /**
+   * Start on the planet, without the journey: the visitor opened a section
+   * link (e.g. /en/who-i-am). Known on the server too, so the first render
+   * is already folded and the page can jump straight to the section.
+   */
+  startLanded?: boolean;
+}
+
+export const Hero = ({ startLanded = false }: HeroProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const reduceMotion = usePrefersReducedMotion();
   const t = useTranslations('Hero');
@@ -100,9 +109,9 @@ export const Hero = () => {
   });
 
   // Journey progress: follows the scroll until landing, then stays at 1
-  const journey = useMotionValue(0);
-  const [hasLanded, setHasLanded] = useState(false);
-  const landedRef = useRef(false);
+  const journey = useMotionValue(startLanded ? 1 : 0);
+  const [hasLanded, setHasLanded] = useState(startLanded);
+  const landedRef = useRef(startLanded);
   const pendingScrollRef = useRef<number | null>(null);
   const replayRequestedRef = useRef(false);
 
@@ -115,7 +124,7 @@ export const Hero = () => {
   // The title flies past the viewer as the ship takes off (no blur: it read as a glitch)
   const introScale = useTransform(journey, JOURNEY.introOut, reduceMotion ? [1, 1] : [1, 2.2]);
   const indicatorOpacity = useTransform(journey, [0, 0.03], [1, 0]);
-  const [isIntroVisible, setIsIntroVisible] = useState(true);
+  const [isIntroVisible, setIsIntroVisible] = useState(!startLanded);
 
   // --- 2. SPACE TRAVEL ---
   // Braking out of hyperspace is eased out; the descent is eased in-out: it
@@ -200,12 +209,16 @@ export const Hero = () => {
 
   // Already landed earlier in this visit: start on the planet, no journey
   useLayoutEffect(() => {
+    if (startLanded) {
+      rememberLanding(true);
+      return;
+    }
     if (!hasLandedThisSession()) return;
     landedRef.current = true;
     journey.set(1);
     setIsIntroVisible(false); // eslint-disable-line react-hooks/set-state-in-effect
     setHasLanded(true);
-  }, [journey]);
+  }, [journey, startLanded]);
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
     if (landedRef.current) return;

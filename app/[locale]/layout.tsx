@@ -34,9 +34,7 @@ export async function generateMetadata({ params }: LayoutParams): Promise<Metada
   return {
     title: t('title'),
     description: t('description'),
-    alternates: {
-      languages: { fr: '/', en: '/en' },
-    },
+    // Canonical + language alternates: set per page (one per section URL)
   };
 }
 

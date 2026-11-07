@@ -9,11 +9,20 @@ import { Works } from "@/components/sections/Works";
 import { Experience } from "@/components/sections/Experience";
 import { useSectionSnap } from "@/hooks/useSectionSnap";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { useSectionUrl } from "@/hooks/useSectionUrl";
+import type { SectionId } from "@/src/data/sections";
 
-export default function Home() {
+interface HomeProps {
+  /** Opened from a section link ("/qui-suis-je", "/en/who-i-am"…) */
+  initialSection?: SectionId;
+}
+
+export function Home({ initialSection }: HomeProps) {
   // Glides from one section to the next when the visitor stops between two
   // (sections opt in with data-snap-section)
   useSectionSnap();
+  // The address bar follows the section being read (shareable links)
+  useSectionUrl(initialSection);
 
   return (
     // Standard scroll container (body handles scroll)
@@ -21,7 +30,7 @@ export default function Home() {
       
       {/* Section 1 : Hero */}
       <section data-snap-section className="w-full relative z-10">
-        <Hero />
+        <Hero startLanded={!!initialSection} />
       </section>
 
       {/* Transition Layer: snowy ridge (end of the hero's landing) → dark valley.
