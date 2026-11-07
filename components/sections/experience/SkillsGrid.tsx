@@ -45,8 +45,10 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
                   />
                 </div>
               </Tooltip.Trigger>
-              <Tooltip.Content offset={15} showArrow className="bg-white text-black">
-                <Tooltip.Arrow className="[&_path]:fill-white" />
+              {/* Smaller radius; the arrow overlaps the bubble by 1px (no seam
+                  between them) and loses HeroUI's shadow outline */}
+              <Tooltip.Content offset={15} showArrow className="bg-white text-black rounded-md shadow-none">
+                <Tooltip.Arrow className="-mt-px [&_path]:fill-white [&_path]:stroke-none [&_svg]:drop-shadow-none" />
                 {iconName}
               </Tooltip.Content>
             </Tooltip>
@@ -97,17 +99,17 @@ export const SkillsGrid = () => {
   }, []);
 
   // Explicit rows, each one wider than the one above: a triangle shape
-  // (widths 280 / 332 / 384 / 468 / 572px), independent of line wrapping
+  // (widths 228 / 332 / 436 / 520 / 572px), independent of line wrapping
   const rows: { key: 'frontEnd' | 'design' | 'projectManagement' | 'cms' | 'database' | 'devOps' | 'devTools'; icons: LogoName[] }[][] = [
-    [{ key: 'projectManagement', icons: ['Linear', 'Microsoft Project', 'Notion', 'Trello', 'Obsidian'] }],
+    [{ key: 'database', icons: ['SQLite', 'MongoDB', 'NeonDB', 'Prisma'] }],
     [{ key: 'devTools', icons: ['VSCode', 'Git', 'Cursor', 'Claude Code', 'Stripo', 'NPM'] }],
-    [{ key: 'frontEnd', icons: ['TypeScript', 'JavaScript', 'Tailwind CSS', 'MUI', 'React', 'Vite', 'NextJS'] }],
+    [{ key: 'design', icons: ['Figma', 'Claude Design', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Audition'] }],
     [
+      { key: 'projectManagement', icons: ['Linear', 'Microsoft Project', 'Notion', 'Trello', 'Obsidian'] },
       { key: 'cms', icons: ['ContentSquare', 'Google Analytics', 'Wordpress', 'Shopify'] },
-      { key: 'database', icons: ['SQLite', 'MongoDB', 'NeonDB', 'Prisma'] },
     ],
     [
-      { key: 'design', icons: ['Figma', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Audition'] },
+      { key: 'frontEnd', icons: ['TypeScript', 'JavaScript', 'Tailwind CSS', 'MUI', 'React', 'Vite', 'NextJS'] },
       { key: 'devOps', icons: ['Docker', 'Nginx', 'Vercel'] },
     ],
   ];
