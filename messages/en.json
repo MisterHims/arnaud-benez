@@ -2,7 +2,7 @@
   "Metadata": {
     "name": "Arnaud Benez",
     "title": "Arnaud Benez – Portfolio",
-    "description": "UI/UX Designer & Front-End Developer"
+    "description": "Arnaud Benez, UI/UX Designer and Front-End Developer (React, Next.js) based near Paris, France. 15 years of experience in e-commerce, art direction and project management."
   },
   "LanguageSwitch": {
     "label": "Language"
@@ -32,6 +32,7 @@
   },
   "WhoIAm": {
     "title": "Who I Am",
+    "metaDescription": "Who Arnaud Benez is: a UI/UX Designer and Front-End Developer near Paris, with over 15 years of e-commerce projects. Resume and portfolio to download.",
     "p1": "Hello and welcome to my portfolio. My name is Arnaud, and I’m a <b>UI/UX Designer</b> & <b>Front-End Developer</b> based in <b>Val-de-Marne</b>, near Paris.",
     "p2": "For over 15 years, I’ve been putting my expertise to work for <b>e-commerce projects</b>, managing their development, evolution and integration while ensuring an optimal <b>user experience</b> through thoughtful, effective <b>design</b>. Along the way, I’ve built a strong background in <b>art direction</b>, backed by solid expertise in <b>project management</b>.",
     "p3": "Always keeping an eye on what’s new and making the most of <b>today’s tools and methodologies</b>, I deliver <b>high-performing</b>, <b>future-proof</b> solutions, <b>designed</b> around the user.",
@@ -42,6 +43,7 @@
   },
   "WhatIDo": {
     "title": "What I Do",
+    "metaDescription": "UI/UX design, React and Next.js front-end development, e-commerce, art direction, media creation and digital project management.",
     "intro": "I design and build interfaces, from the first wireframe to production. Fifteen years of e-commerce taught me what makes a journey simple, fast and effective: that’s what I bring to every project."
   },
   "Services": {
@@ -92,6 +94,7 @@
   },
   "Experience": {
     "title": "Experience",
+    "metaDescription": "Arnaud Benez’s background: jobs, collaborations and training in UI/UX design and front-end development, and the tools he masters.",
     "filtersLabel": "Filter experience",
     "filters": {
       "all": "All",
@@ -174,6 +177,7 @@
   },
   "Works": {
     "title": "Works",
+    "metaDescription": "A selection of work: travel agency, component library, streaming, SaaS, e-commerce and recruitment.",
     "subtitle": "Take a look at my showcase",
     "categories": {
       "travelAgency": "Travel Agency",
@@ -192,6 +196,7 @@
   },
   "Contact": {
     "title": "Contact",
+    "metaDescription": "A project, a question? Get in touch with Arnaud Benez, UI/UX Designer and Front-End Developer near Paris, France.",
     "intro": "A question? A project? Or simply want to chat? I’m always open to a conversation.",
     "card": {
       "roles": "UI/UX Designer | Front-End Developer",

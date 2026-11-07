@@ -4,6 +4,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Header } from '@/components/layouts/Header';
 import { routing } from '@/i18n/routing';
+import { SITE_URL } from '@/src/data/site';
 import { Inter } from "next/font/google";
 import { Roboto_Mono } from "next/font/google";
 import '../globals.css';
@@ -32,9 +33,16 @@ export async function generateMetadata({ params }: LayoutParams): Promise<Metada
   const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
   const t = await getTranslations({ locale, namespace: 'Metadata' });
   return {
+    // Resolves relative URLs (canonical, alternates, Open Graph) to absolute ones
+    metadataBase: new URL(SITE_URL),
     title: t('title'),
     description: t('description'),
     // Canonical + language alternates: set per page (one per section URL)
+    openGraph: {
+      type: 'website',
+      siteName: t('name'),
+      locale: locale === 'fr' ? 'fr_FR' : 'en_US',
+    },
   };
 }
 
