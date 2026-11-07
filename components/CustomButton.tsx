@@ -46,7 +46,9 @@ const myButtonVariants = tv({
         "bg-white/6 text-white/90 hover:text-black focus-visible:text-black",
         "before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-white",
         "before:opacity-0 hover:before:opacity-100 focus-visible:before:opacity-100",
-        "before:transition-opacity before:duration-300 before:ease-out",
+        // Slower, eased in and out (a gentle fade, not a flash); the label
+        // color follows the same curve
+        "duration-400 ease-[cubic-bezier(0.45,0,0.55,1)] before:transition-opacity before:duration-400 before:ease-[cubic-bezier(0.45,0,0.55,1)]",
       ],
     },
   },
