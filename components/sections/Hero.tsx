@@ -450,12 +450,12 @@ export const Hero = () => {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8, ease: 'easeOut' }}
-            className="absolute z-30 top-4 right-4 md:top-8 md:right-10 flex items-center gap-3 md:gap-5"
+            className="absolute z-30 top-4 right-4 md:top-8 md:right-10 flex items-center gap-3"
           >
             <button
               type="button"
               onClick={goToContact}
-              className="h-10 md:h-12 px-5 md:px-6 rounded-full border-2 border-white text-white text-base md:text-xl font-bold uppercase tracking-wide hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors cursor-pointer"
+              className="h-9 px-5 rounded-full bg-white/6 text-white/90 text-xs font-medium uppercase tracking-[0.2em] hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors cursor-pointer"
             >
               {t('contact')}
             </button>
@@ -491,7 +491,7 @@ export const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="absolute z-30 top-20 md:top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-4 py-2 text-xs uppercase tracking-[0.2em] font-light text-white/70 hover:text-white hover:border-white/40 focus-visible:text-white focus-visible:outline focus-visible:outline-white/40 transition-colors cursor-pointer"
+              className="absolute z-30 top-20 md:top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full bg-white/6 px-4 py-2 text-xs uppercase tracking-[0.2em] font-light text-white/70 hover:text-white hover:bg-white/12 focus-visible:text-white focus-visible:outline focus-visible:outline-white/40 transition-colors cursor-pointer"
             >
               <svg aria-hidden="true" viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 12a9 9 0 1 0 3-6.7" />

@@ -15,7 +15,7 @@ const LOCALES: { code: Locale; label: string; name: string }[] = [
   { code: 'en', label: 'EN', name: 'English' },
 ];
 
-/** "FR | EN" pill: active language in bold white, the other one muted. */
+/** "FR | EN" pill: active language in white, the other one muted. */
 export const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
   const t = useTranslations('LanguageSwitch');
   const current = useLocale();
@@ -35,7 +35,7 @@ export const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
     <nav
       aria-label={t('label')}
       className={cn(
-        'flex items-center gap-2.5 md:gap-3 rounded-full bg-white/6 backdrop-blur-sm px-4 md:px-5 h-10 md:h-12 transition-opacity',
+        'flex items-center gap-2.5 rounded-full bg-white/6 px-4 h-9 transition-opacity',
         isPending && 'opacity-60',
         className
       )}
@@ -43,8 +43,8 @@ export const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
       {LOCALES.map((locale, i) => {
         const isActive = locale.code === current;
         return (
-          <span key={locale.code} className="flex items-center gap-2.5 md:gap-3">
-            {i > 0 && <span aria-hidden="true" className="h-5 md:h-6 w-0.5 rounded-full bg-white/70" />}
+          <span key={locale.code} className="flex items-center gap-2.5">
+            {i > 0 && <span aria-hidden="true" className="h-3 w-px bg-white/25" />}
             <button
               type="button"
               lang={locale.code}
@@ -52,8 +52,8 @@ export const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
               aria-current={isActive ? 'true' : undefined}
               onClick={() => switchTo(locale.code)}
               className={cn(
-                'text-base md:text-xl tracking-wide transition-colors',
-                isActive ? 'text-white font-bold cursor-default' : 'text-white/45 font-light hover:text-white/80 cursor-pointer'
+                'text-xs tracking-[0.2em] transition-colors',
+                isActive ? 'text-white font-medium cursor-default' : 'text-white/40 hover:text-white/80 cursor-pointer'
               )}
             >
               {locale.label}
