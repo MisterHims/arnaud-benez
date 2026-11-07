@@ -299,9 +299,22 @@ export const Hero = ({ startLanded = false }: HeroProps) => {
   // --- ARRIVAL INTERACTIONS ---
   const scrollBehavior: ScrollBehavior = reduceMotion ? 'auto' : 'smooth';
 
+  // A slower, eased glide to the next section than the browser's smooth
+  // scroll (instant with reduced motion)
   const discoverSite = useCallback(() => {
-    document.getElementById('who-i-am')?.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
-  }, [scrollBehavior]);
+    const target = document.getElementById('who-i-am');
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.scrollY;
+    if (reduceMotion) {
+      window.scrollTo(0, top);
+      return;
+    }
+    animate(window.scrollY, top, {
+      duration: 1.4,
+      ease: [0.45, 0, 0.2, 1],
+      onUpdate: (v) => window.scrollTo(0, v),
+    });
+  }, [reduceMotion]);
 
   const goToContact = useCallback(() => {
     document.getElementById('contact')?.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
