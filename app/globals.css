@@ -70,6 +70,11 @@
   --surface-tertiary: oklch(27.21% 0.0100 257);
   --overlay: oklch(21.03% 0.0077 257);
   --default: oklch(27.4% 0.0100 257);
+  /* No brand accent color (a deliberate monochrome palette): HeroUI's blue
+     accent, also used for its focus rings, becomes the site's off-white */
+  --accent: oklch(94.6% 0.0035 257);
+  --accent-foreground: oklch(15.4% 0.006 257);
+  --focus: var(--accent);
 }
 
 @theme {

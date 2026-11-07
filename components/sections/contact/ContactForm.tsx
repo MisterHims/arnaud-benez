@@ -12,7 +12,10 @@ export const ContactForm = () => {
 
   // 2. Style des Champs (Input & Textarea)
   // On applique tout directement ici : fond, bordure, arrondi, texte, etc.
-  const fieldClass = "w-full bg-zinc-900/50 border border-3 border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-[#808790] focus:outline-none focus:border-white/40 hover:border-white/20 transition-colors shadow-none";
+  // Focus: the field's own border lights up to 50% white, visible without
+  // being harsh (no extra ring: HeroUI's focus
+  // ring is removed with !important, its selectors win otherwise)
+  const fieldClass = "w-full bg-zinc-900/50 border border-3 border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-[#808790] focus:outline-none hover:border-white/20 focus:border-white/50 transition-colors shadow-none! ring-0!";
   const [value, setValue] = React.useState("");
 
   return (
