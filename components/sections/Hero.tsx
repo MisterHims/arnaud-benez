@@ -38,28 +38,28 @@ import { Mountains } from './hero/Mountains';
 const JOURNEY = {
   // Short on purpose: no half-faded "limbo" state after one wheel notch
   introOut: [0, 0.07],
-  // Two parts: ~75% horizontal flight, then ~25% vertical landing.
+  // Two parts: ~2/3 horizontal flight (~2.9 s), then ~1/3 vertical landing.
   // Speed: take-off from the very first pixel (instant feedback), hyperspace,
   // partial braking (the ship keeps momentum into the descent), then a long
   // descent that holds its pace before flaring out to a soft stop.
   warp: {
-    at:    [0, 0.18, 0.6, 0.74, 0.97, 1],
+    at:    [0, 0.165, 0.545, 0.685, 0.965, 1],
     speed: [0, 1,    1,   0.3,  0,    0],
   },
   // Flight direction, switched while still moving: 0° = forward, 90° = down
-  pitch: { at: [0.7, 0.79], deg: [0, 90] },
+  pitch: { at: [0.635, 0.745], deg: [0, 90] },
   // Entering the atmosphere: the horizon glows from below during the descent
-  atmosphere: [0.7, 0.92],
-  identity: [0.84, 0.95],
-  skills: [0.9, 0.97],
+  atmosphere: [0.635, 0.905],
+  identity: [0.805, 0.94],
+  skills: [0.88, 0.965],
   // Where the "Launch" button takes you (landed: identity + mountains)
   arrival: 1,
   // Past this point the ship has landed (name on screen): the rest of the
   // landing plays out by itself and the journey folds away
-  landed: 0.92,
+  landed: 0.905,
 };
 
-const LAUNCH_DURATION = 5.5; // seconds for the full journey
+const LAUNCH_DURATION = 4.5; // seconds for the full journey
 
 const linear = (t: number) => t;
 
@@ -385,7 +385,7 @@ export const Hero = () => {
       className={cn(
         // overflow-anchor: none — we compensate the fold ourselves, precisely
         'relative w-full bg-black [overflow-anchor:none]',
-        hasLanded ? 'h-screen' : reduceMotion ? 'h-[200vh]' : 'h-[400vh]'
+        hasLanded ? 'h-screen' : reduceMotion ? 'h-[200vh]' : 'h-[350vh]'
       )}
     >
       <div
