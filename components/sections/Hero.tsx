@@ -38,28 +38,29 @@ import { Mountains } from './hero/Mountains';
 const JOURNEY = {
   // Short on purpose: no half-faded "limbo" state after one wheel notch
   introOut: [0, 0.07],
-  // Two parts: ~2/3 horizontal flight (~2.9 s), then ~1/3 vertical landing.
+  // Two parts: a short horizontal flight (~2.1 s), then a longer vertical
+  // landing (~2.2 s).
   // Speed: take-off from the very first pixel (instant feedback), hyperspace,
   // partial braking (the ship keeps momentum into the descent), then a long
   // descent that holds its pace before flaring out to a soft stop.
   warp: {
-    at:    [0, 0.165, 0.545, 0.685, 0.965, 1],
+    at:    [0, 0.128, 0.422, 0.561, 0.951, 1],
     speed: [0, 1,    1,   0.3,  0,    0],
   },
   // Flight direction, switched while still moving: 0° = forward, 90° = down
-  pitch: { at: [0.635, 0.745], deg: [0, 90] },
+  pitch: { at: [0.491, 0.645], deg: [0, 90] },
   // Entering the atmosphere: the horizon glows from below during the descent
-  atmosphere: [0.635, 0.905],
-  identity: [0.805, 0.94],
-  skills: [0.88, 0.965],
+  atmosphere: [0.491, 0.868],
+  identity: [0.728, 0.916],
+  skills: [0.833, 0.951],
   // Where the "Launch" button takes you (landed: identity + mountains)
   arrival: 1,
   // Past this point the ship has landed (name on screen): the rest of the
   // landing plays out by itself and the journey folds away
-  landed: 0.905,
+  landed: 0.868,
 };
 
-const LAUNCH_DURATION = 4.5; // seconds for the full journey
+const LAUNCH_DURATION = 4.6; // seconds for the full journey
 
 const linear = (t: number) => t;
 
@@ -201,7 +202,8 @@ export const Hero = ({ startLanded = false }: HeroProps) => {
     pendingScrollRef.current = m.start + Math.max(0, window.scrollY - m.start - m.distance);
     // Play the last moments of the landing (mountains settling, name fading in)
     if (reduceMotion) journey.set(1);
-    else animate(journey, 1, { duration: 0.9, ease: 'easeOut' });
+    // A slow finish: the mountains and the name settle in (longer landing)
+    else animate(journey, 1, { duration: 1.5, ease: 'easeOut' });
     setIsIntroVisible(false);
     setHasLanded(true);
     rememberLanding(true);

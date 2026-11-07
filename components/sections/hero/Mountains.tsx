@@ -37,9 +37,9 @@ export const Mountains = ({ progress, mouseX }: MountainsProps) => {
   // The ground comes up during the vertical descent (last ~25%) in one
   // continuous motion, slowing down as it settles: a soft touchdown, no bounce.
   // Far ridges first, closest ridge last.
-  const backY = useTransform(progress, [0.695, 0.975], ['100%', '0%'], { ease: easeOut });
-  const middleY = useTransform(progress, [0.735, 0.99], ['100%', '0%'], { ease: easeOut });
-  const frontY = useTransform(progress, [0.77, 1], ['100%', '0%'], { ease: easeOut });
+  const backY = useTransform(progress, [0.575, 0.965], ['100%', '0%'], { ease: easeOut });
+  const middleY = useTransform(progress, [0.631, 0.986], ['100%', '0%'], { ease: easeOut });
+  const frontY = useTransform(progress, [0.68, 1], ['100%', '0%'], { ease: easeOut });
 
   return (
     <div
