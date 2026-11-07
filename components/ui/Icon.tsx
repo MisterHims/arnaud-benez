@@ -1,9 +1,6 @@
 import { HugeiconsIcon, type IconSvgElement } from '@hugeicons/react';
 import {
-  BookOpen02Icon,
-  Download02Icon,
   GithubIcon,
-  IdVerifiedIcon,
   LaptopPhoneSyncIcon,
   Linkedin01Icon,
   LocationUser04Icon,
@@ -13,30 +10,32 @@ import {
 } from '@hugeicons-pro/core-duotone-standard';
 import {
   Agreement02Icon,
-  ArrowDown01Icon,
   ArrowRight02Icon,
   Briefcase06Icon,
   Mortarboard02Icon,
 } from '@hugeicons-pro/core-solid-standard';
-import { ArrowUp01Icon, Undo02Icon } from '@hugeicons-pro/core-stroke-sharp';
+import {
+  ArrowDown01Icon,
+  ArrowUp01Icon,
+  BookOpen02Icon,
+  Download02Icon,
+  IdVerifiedIcon,
+  Undo02Icon,
+} from '@hugeicons-pro/core-stroke-sharp';
 import { cn } from '@/lib/utils';
 
 /**
- * Hugeicons, "standard" styles (Pro): duotone for line icons, solid for
- * arrows and the experience timeline badges; stroke sharp for the
- * back-to-top chevron and the replay arrow. Colors follow `currentColor`.
+ * Hugeicons, "standard" styles (Pro): duotone for the contact card's line
+ * icons, solid for arrows and the experience timeline badges, stroke sharp
+ * for buttons and controls. Colors follow `currentColor`.
  */
 const ICONS = {
   // Solid standard
   ArrowRight: ArrowRight02Icon,
-  ArrowDown: ArrowDown01Icon,
   Job: Briefcase06Icon,
   Formation: Mortarboard02Icon,
   Collaboration: Agreement02Icon,
   // Duotone standard
-  BookOpen: BookOpen02Icon,
-  IdVerified: IdVerifiedIcon,
-  Download: Download02Icon,
   Mail: MailAtSign01Icon,
   LaptopPhone: LaptopPhoneSyncIcon,
   LocationUser: LocationUser04Icon,
@@ -44,8 +43,12 @@ const ICONS = {
   Linkedin: Linkedin01Icon,
   GitHub: GithubIcon,
   Slack: SlackIcon,
-  // Stroke sharp
+  // Stroke sharp (buttons, controls)
   ChevronUp: ArrowUp01Icon,
+  ArrowDown: ArrowDown01Icon,
+  BookOpen: BookOpen02Icon,
+  IdVerified: IdVerifiedIcon,
+  Download: Download02Icon,
   Undo: Undo02Icon,
 } satisfies Record<string, IconSvgElement>;
 
