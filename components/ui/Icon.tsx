@@ -57,11 +57,16 @@ export type IconName = keyof typeof ICONS;
 interface IconProps {
   name: IconName;
   size?: number;
+  /**
+   * Overrides the icon's own stroke width. Leave unset by default: when
+   * given, HugeiconsIcon strokes EVERY shape, which thickens and blurs the
+   * filled parts of solid and duotone icons (stroke icons already carry 1.5)
+   */
   strokeWidth?: number;
   className?: string;
 }
 
-export const Icon = ({ name, size = 24, strokeWidth = 1.5, className }: IconProps) => (
+export const Icon = ({ name, size = 24, strokeWidth, className }: IconProps) => (
   <HugeiconsIcon
     icon={ICONS[name]}
     size={size}
