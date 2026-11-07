@@ -15,7 +15,7 @@ export const Footer = () => {
       <SectionShell variant="contained" withSpacing={false} className="my-5">
         <BlockContent colSpan={12}>
           {/* Copyright and legal notice on the left, language choice on the right */}
-          <div className="flex flex-wrap text-zinc-400 font-light tracking-wide justify-between items-center gap-4">
+          <div className="flex flex-wrap text-sm text-zinc-400 font-light tracking-wide justify-between items-center gap-4">
             <div className="flex flex-wrap items-center">
               <span>&copy; {currentYear} - {t('rights')}</span>
               <span className="mx-2">•</span>

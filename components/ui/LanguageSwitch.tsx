@@ -16,7 +16,7 @@ const LOCALES: { code: Locale; label: string; name: string }[] = [
   { code: 'en', label: 'EN', name: 'English' },
 ];
 
-/** "FR | EN" pill: active language in white, the other one muted. */
+/** "FR | EN" switch (no background): active language in white, the other one muted. */
 export const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
   const t = useTranslations('LanguageSwitch');
   const current = useLocale();
@@ -38,7 +38,7 @@ export const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
     <nav
       aria-label={t('label')}
       className={cn(
-        'flex items-center gap-2.5 rounded-full bg-white/6 px-4 h-9 transition-opacity',
+        'flex items-center gap-2.5 h-9 px-1 transition-opacity',
         isPending && 'opacity-60',
         className
       )}
