@@ -44,7 +44,16 @@
   "WhatIDo": {
     "title": "What I Do",
     "metaDescription": "UI/UX design, React and Next.js front-end development, e-commerce, art direction, media creation and digital project management.",
-    "intro": "I design and build interfaces, from the first wireframe to production. Fifteen years of e-commerce taught me what makes a journey simple, fast and effective: that’s what I bring to every project."
+    "intro": "I design and build interfaces, from the first wireframe to production. Fifteen years of e-commerce taught me what makes a journey simple, fast and effective: that’s what I bring to every project.",
+    "methodTitle": "How I work",
+    "steps": [
+      { "title": "Understand", "text": "Your goals, your users and your constraints." },
+      { "title": "Design", "text": "Journeys, mockups and tested prototypes." },
+      { "title": "Build", "text": "Clean, fast and accessible code." },
+      { "title": "Improve", "text": "Measure, adjust, iterate." }
+    ],
+    "cta": "Got a project in mind?",
+    "ctaButton": "Let’s talk"
   },
   "Services": {
     "more": "Learn more",

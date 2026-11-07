@@ -44,7 +44,16 @@
   "WhatIDo": {
     "title": "Ce que je fais",
     "metaDescription": "UI/UX design, développement front-end React et Next.js, e-commerce, direction artistique, création de médias et gestion de projets digitaux.",
-    "intro": "Je conçois et je développe des interfaces, de la première maquette à la mise en production. Quinze ans d’e-commerce m’ont appris ce qui rend un parcours simple, rapide et efficace : c’est ce que j’apporte à chaque projet."
+    "intro": "Je conçois et je développe des interfaces, de la première maquette à la mise en production. Quinze ans d’e-commerce m’ont appris ce qui rend un parcours simple, rapide et efficace : c’est ce que j’apporte à chaque projet.",
+    "methodTitle": "Ma méthode",
+    "steps": [
+      { "title": "Comprendre", "text": "Vos objectifs, vos utilisateurs et vos contraintes." },
+      { "title": "Concevoir", "text": "Parcours, maquettes et prototypes testés." },
+      { "title": "Développer", "text": "Un code propre, rapide et accessible." },
+      { "title": "Faire évoluer", "text": "Mesurer, ajuster, améliorer." }
+    ],
+    "cta": "Un projet en tête ?",
+    "ctaButton": "Parlons-en"
   },
   "Services": {
     "more": "En savoir plus",

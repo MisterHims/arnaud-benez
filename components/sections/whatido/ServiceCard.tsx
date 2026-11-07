@@ -88,14 +88,16 @@ export const ServiceCard = ({
         <div className="pointer-events-none absolute bottom-0 right-0 left-0 h-1/2 bg-linear-to-t from-white/4 to-transparent z-0" />
 
         {iconSrc && (
-          <div className="relative h-[120px] w-full mb-6 pointer-events-none select-none z-10">
+          <div className="relative h-[100px] w-full mb-4 overflow-hidden pointer-events-none select-none z-10">
+            {/* Fills its 100px band exactly (cropped at the bottom, where it
+                fades out anyway): no longer runs into the title on wide cards */}
             <Image
               src={iconSrc}
               alt=""
               width={318}
               height={120}
               // The line art was barely visible on the black card
-              className="w-full object-contain object-top brightness-150 group-hover:brightness-200 transition-[filter] duration-500"
+              className="w-full h-full object-cover object-top brightness-150 group-hover:brightness-200 transition-[filter] duration-500"
               style={{
                 maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
                 WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)'
@@ -105,23 +107,23 @@ export const ServiceCard = ({
         )}
 
         <div className="flex flex-col grow z-10">
-          <Card.Header className="px-6 pb-2 pt-0">
-            <h3 className='text-xl font-bold text-[#ebedf0]'>
+          <Card.Header className="px-5 pb-1.5 pt-0">
+            <h3 className='text-lg font-bold text-[#ebedf0]'>
               {title}
             </h3>
           </Card.Header>
 
-          <Card.Content className="px-6 py-2 overflow-visible">
-            <p className='text-[#b3b9c0] text-[15px] leading-relaxed font-light'>
+          <Card.Content className="px-5 py-1.5 overflow-visible">
+            <p className='text-[#b3b9c0] text-sm leading-relaxed font-light'>
               {description}
             </p>
           </Card.Content>
 
-          <Card.Footer className="px-6 pt-2 pb-6 mt-auto flex-col items-start gap-0">
+          <Card.Footer className="px-5 pt-2 pb-5 mt-auto flex-col items-start gap-0">
             {tags.length > 0 && (
               <div className='flex gap-2 flex-wrap'>
                 {tags.map((tag) => (
-                  <Chip key={tag} className="px-2.5 py-1 h-auto text-[13px] text-[#a2a9b2] border border-[#24282c] bg-white/5 font-light transition-colors duration-500 group-hover:text-[#d0d4da]">
+                  <Chip key={tag} className="px-2.5 py-0.5 h-auto text-xs text-[#a2a9b2] border border-[#24282c] bg-white/5 font-light transition-colors duration-500 group-hover:text-[#d0d4da]">
                     {tag}
                   </Chip>
                 ))}
@@ -142,13 +144,13 @@ export const ServiceCard = ({
                   )}
                 >
                   <div className="overflow-hidden">
-                    <p className='pt-5 text-[#b3b9c0] text-[15px] leading-relaxed font-light'>
+                    <p className='pt-5 text-[#b3b9c0] text-sm leading-relaxed font-light'>
                       {details}
                     </p>
                     {moreTags.length > 0 && (
                       <div className='flex gap-2 flex-wrap pt-4'>
                         {moreTags.map((tag) => (
-                          <Chip key={tag} className="px-2.5 py-1 h-auto text-[13px] text-[#a2a9b2] border border-[#24282c] bg-white/5 font-light transition-colors duration-500 group-hover:text-[#d0d4da]">
+                          <Chip key={tag} className="px-2.5 py-0.5 h-auto text-xs text-[#a2a9b2] border border-[#24282c] bg-white/5 font-light transition-colors duration-500 group-hover:text-[#d0d4da]">
                             {tag}
                           </Chip>
                         ))}

@@ -43,9 +43,10 @@ export const ServiceList = () => {
   // Rendered once (no duplicated text in the HTML). Phones: the columns
   // dissolve (display: contents) and `order` restores the reading order
   return (
-    <div className="flex flex-col gap-6 sm:grid sm:grid-cols-2 sm:items-start">
+    // Cards capped at 300px wide (they got too wide on large screens)
+    <div className="flex flex-col gap-5 sm:grid sm:grid-cols-[repeat(2,minmax(0,300px))] sm:items-start">
       {columns.map((column, c) => (
-        <div key={c} className={cn('contents sm:flex sm:flex-col sm:gap-6', c === 1 && 'sm:pt-24')}>
+        <div key={c} className={cn('contents sm:flex sm:flex-col sm:gap-5', c === 1 && 'sm:pt-20')}>
           {column.map(({ id, index, ...service }) => (
             <ServiceCard key={id} className={cn(MOBILE_ORDER[index], 'sm:order-none')} {...service} />
           ))}
