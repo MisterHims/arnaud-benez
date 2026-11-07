@@ -6,14 +6,27 @@ import { ServiceList } from "./whatido/ServiceList";
 import { CustomButton } from "@/components/CustomButton";
 import { Icon } from "@/components/ui/Icon";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { useRef } from "react";
+import { motion } from "framer-motion";
+import { useDelayedReveal } from "@/hooks/useDelayedReveal";
 import { useTranslations } from "next-intl";
+
+/** Time spent in the section before the call to action shows up */
+const CTA_DELAY = 2500;
 
 export const WhatIDo = () => {
   const t = useTranslations('WhatIDo');
   const reduceMotion = usePrefersReducedMotion();
   const steps = t.raw('steps') as { title: string; text: string }[];
+
+  // "Got a project in mind?" shows up after 2.5s spent in the section (at
+  // least 40% of it on screen); leaving earlier resets the countdown, and
+  // once shown it stays
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const showCta = useDelayedReveal(sectionRef, { delay: CTA_DELAY, amount: 0.4 });
+
   return (
-    <div className="w-full min-h-full grid grid-cols-1">
+    <div ref={sectionRef} className="w-full min-h-full grid grid-cols-1">
       {/* Logo pattern in a 1200px band at the bottom of the section. A single
           seamless cell (logo-pattern-tile.svg, 7KB)
           repeated in both directions, in a flat color: the former 2.7MB
@@ -71,8 +84,16 @@ export const WhatIDo = () => {
             </ol>
           </div>
 
-          {/* The natural next step */}
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+          {/* The natural next step. Its room is kept from the start (no layout
+              shift); inert until shown (no invisible button for keyboard or
+              screen readers); a plain fade with reduced motion */}
+          <motion.div
+            inert={!showCta}
+            initial={false}
+            animate={showCta ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 12 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4"
+          >
             <p className="text-[#d0d4da] font-[250]">{t('cta')}</p>
             <CustomButton
               variant="primary"
@@ -82,7 +103,7 @@ export const WhatIDo = () => {
               <Icon name="MailLine" size={18} />
               {t('ctaButton')}
             </CustomButton>
-          </div>
+          </motion.div>
         </BlockContent>
 
         <BlockContent colSpan={6} className="order-2 md:order-1 md:col-start-1 md:row-start-1 h-[calc(100%-2px)]">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { useDelayedReveal } from "@/hooks/useDelayedReveal";
 import { AnimatePresence, motion } from "framer-motion";
 import { ExperienceItem } from "./ExperienceItem";
 import { TIMELINE_DATA, sortTimeline } from "@/src/data/experience";
@@ -23,6 +24,9 @@ export const ExperienceList = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const baseId = useId();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  // End-of-timeline call to action: shows up 2.5s after reaching it
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const showCta = useDelayedReveal(ctaRef, { delay: 2500, amount: 0.6 });
 
   const select = (id: FilterId) => {
     setSelected(id);
@@ -177,8 +181,16 @@ export const ExperienceList = () => {
       </AnimatePresence>
 
       {/* After reading the whole background: the natural moment to act,
-          either way (resume, or straight to the contact section) */}
-      <div className="ml-3 pl-12 mt-8 flex flex-col gap-4">
+          either way (resume, or straight to the contact section). Room kept
+          from the start, inert until shown, plain fade with reduced motion */}
+      <motion.div
+        ref={ctaRef}
+        inert={!showCta}
+        initial={false}
+        animate={showCta ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 12 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="ml-3 pl-12 mt-8 flex flex-col gap-4"
+      >
         <p className="text-[#d0d4da] font-[250]">{t('cta')}</p>
         <div className="flex flex-wrap gap-3">
           <CustomButton variant="primary" size="lg">
@@ -194,7 +206,7 @@ export const ExperienceList = () => {
             {t('contactCta')}
           </CustomButton>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
