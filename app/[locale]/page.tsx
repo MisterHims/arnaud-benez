@@ -59,7 +59,7 @@ export default function Home() {
         <Contact />
       </section>
 
-      <BackToTop />
+      <BackToTop afterId="who-i-am" />
     </main>
   );
 }

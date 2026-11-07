@@ -7,8 +7,14 @@ import { Icon } from '@/components/ui/Icon';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { cn } from '@/lib/utils';
 
-/** Shown once the visitor has scrolled past most of the first screen. */
-const SHOW_AFTER = 0.8; // fraction of the viewport height
+interface BackToTopProps {
+  /**
+   * Id of the first section after the hero: the button shows once its top
+   * reaches the middle of the screen. Never during the hero's journey,
+   * which scrolls a long way without leaving the first screen.
+   */
+  afterId: string;
+}
 
 /**
  * Floating "back to top" button, bottom right. Lifts above the footer when
@@ -16,14 +22,17 @@ const SHOW_AFTER = 0.8; // fraction of the viewport height
  * No outline nor backdrop blur: both drew jagged rounded edges with
  * fractional display scaling (125%…); a plain fill stays smooth.
  */
-export const BackToTop = () => {
+export const BackToTop = ({ afterId }: BackToTopProps) => {
   const t = useTranslations('BackToTop');
   const reduceMotion = usePrefersReducedMotion();
   const [isVisible, setIsVisible] = useState(false);
   const [isOverFooter, setIsOverFooter] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setIsVisible(window.scrollY > window.innerHeight * SHOW_AFTER);
+    const onScroll = () => {
+      const section = document.getElementById(afterId);
+      setIsVisible(!!section && section.getBoundingClientRect().top < window.innerHeight / 2);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -35,7 +44,7 @@ export const BackToTop = () => {
       window.removeEventListener('scroll', onScroll);
       observer.disconnect();
     };
-  }, []);
+  }, [afterId]);
 
   const backToTop = () => {
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
