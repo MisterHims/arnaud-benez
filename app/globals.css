@@ -100,17 +100,38 @@
     }
   }
 
-  /* Night sky stars (sections after the landing): slow twinkle around
-     each star's own opacity (--star-opacity) */
-  --animate-twinkle: twinkle 5s ease-in-out infinite;
+  /* Night sky: slow drift of the whole sky, and shooting stars (head at the
+     right end, moving down-right along --angle by --dx / --dy) */
+  --animate-sky-drift: sky-drift 60s ease-in-out infinite alternate;
+  --animate-shooting-star: shooting-star 1.4s ease-in forwards;
 
-  @keyframes twinkle {
-    0%, 100% {
-      opacity: var(--star-opacity, 0.5);
+  @keyframes sky-drift {
+    from {
+      transform: translate3d(0, 0, 0);
     }
 
-    50% {
-      opacity: calc(var(--star-opacity, 0.5) * 0.25);
+    to {
+      transform: translate3d(-40px, 14px, 0);
+    }
+  }
+
+  @keyframes shooting-star {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0) rotate(var(--angle));
+    }
+
+    12% {
+      opacity: 1;
+    }
+
+    75% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy)) rotate(var(--angle));
     }
   }
 
@@ -138,4 +159,30 @@
   /* To integrate new fonts, you need to go through layout.tsx to define them */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-roboto-mono), sans-serif;
+}
+
+/* Night sky stars: keyframes used from inline styles (several animations per
+   star), so declared outside @theme: Tailwind only emits @theme keyframes
+   that an animate-* class uses */
+/* Slow twinkle around each star's own opacity (--star-opacity) */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: var(--star-opacity, 0.5);
+  }
+
+  50% {
+    opacity: calc(var(--star-opacity, 0.5) * 0.25);
+  }
+}
+
+/* Each star floats gently around its spot (translate: independent of the
+   parallax transform of its layer) */
+@keyframes star-float {
+  0%, 100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: var(--float-x, 0) var(--float-y, 0);
+  }
 }
