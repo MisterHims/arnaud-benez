@@ -7,44 +7,54 @@ import { WhatIDo } from "@/components/sections/WhatIDo";
 import { Contact } from "@/components/sections/Contact";
 import { Works } from "@/components/sections/Works";
 import { Experience } from "@/components/sections/Experience";
+import { useSectionSnap } from "@/hooks/useSectionSnap";
 
 export default function Home() {
+  // Glides from one section to the next when the visitor stops between two
+  // (sections opt in with data-snap-section)
+  useSectionSnap();
+
   return (
     // Standard scroll container (body handles scroll)
     <main className="w-full min-h-screen scroll-smooth">
       
       {/* Section 1 : Hero */}
-      <section className="w-full relative z-10">
+      <section data-snap-section className="w-full relative z-10">
         <Hero />
       </section>
 
-      {/* Transition Layer: snowy ridge (end of the hero's landing) → dark valley */}
-      <div className="w-full relative z-30">
+      {/* Transition Layer: snowy ridge (end of the hero's landing) → dark valley.
+          - -mt-[2px]: tucks under the hero's last pixel rows (snow on both sides)
+          - no z-index / positioning on purpose: stacking it above the hero made
+            the browser composite it separately, which drew a dark hairline on
+            its top edge with fractional display scaling (e.g. Windows 125%) */}
+      <div className="w-full -mt-[2px]">
           <TopSpacer />
       </div>
 
       {/* Section 2 : WhoIAm */}
-      <section className="min-h-screen w-full relative bg-[#0c0c0c] z-20">
+      {/* flow-root: keeps the inner top margin inside the dark background (no seam) */}
+      <section id="who-i-am" data-snap-section className="flow-root min-h-screen w-full relative bg-[#0c0c0c] z-20">
         <WhoIAm />
       </section>
 
       {/* Section 3 : WhatIDo */}
-      <section className="min-h-screen w-full relative">
+      <section id="what-i-do" data-snap-section className="min-h-screen w-full relative">
         <WhatIDo />
       </section>
 
       {/* Section 4 : Experience */}
-      <section className="min-h-screen w-full relative">
+      <section id="experience" data-snap-section className="min-h-screen w-full relative">
         <Experience />
       </section>
 
       {/* Section 5 : Works */}
-      <section className="min-h-screen w-full relative">
+      <section id="works" data-snap-section className="min-h-screen w-full relative">
         <Works />
       </section>
 
       {/* Section 6 : Contact */}
-      <section className="min-h-screen w-full relative">
+      <section id="contact" data-snap-section className="min-h-screen w-full relative">
         <Contact />
       </section>
 
