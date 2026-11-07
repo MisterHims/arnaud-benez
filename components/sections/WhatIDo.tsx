@@ -14,7 +14,7 @@ export const WhatIDo = () => {
   const steps = t.raw('steps') as { title: string; text: string }[];
   return (
     <div className="w-full min-h-full grid grid-cols-1">
-      {/* Logo pattern in an 800px band at the bottom of the section. A single
+      {/* Logo pattern in a 1200px band at the bottom of the section. A single
           seamless cell (logo-pattern-tile.svg, 7KB)
           repeated in both directions, in a flat color: the former 2.7MB
           image had a dark-to-light gradient baked into every logo, which
@@ -23,7 +23,7 @@ export const WhatIDo = () => {
           edge and toward the top */}
       <div
         aria-hidden="true"
-        className="col-start-1 row-start-1 self-end w-full h-[800px] pointer-events-none select-none z-0 opacity-6"
+        className="col-start-1 row-start-1 self-end w-full h-[1200px] pointer-events-none select-none z-0 opacity-6"
         style={{
           backgroundImage: 'url(/assets/patterns/logo-pattern-tile.svg)',
           backgroundRepeat: 'repeat',
