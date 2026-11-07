@@ -9,6 +9,7 @@ import { Works } from "@/components/sections/Works";
 import { Experience } from "@/components/sections/Experience";
 import { useSectionSnap } from "@/hooks/useSectionSnap";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { NightSky } from "@/components/ui/NightSky";
 import { useSectionUrl } from "@/hooks/useSectionUrl";
 import type { SectionId } from "@/src/data/sections";
 
@@ -44,7 +45,10 @@ export function Home({ initialSection }: HomeProps) {
 
       {/* Section 2 : WhoIAm */}
       {/* flow-root: keeps the inner top margin inside the dark background (no seam) */}
-      <section id="who-i-am" data-snap-section className="flow-root min-h-screen w-full relative bg-[#0a0c0f] z-20">
+      {/* NightSky: the stars seen from the planet once landed (isolate: keeps
+          them behind the content, above the section background) */}
+      <section id="who-i-am" data-snap-section className="flow-root min-h-screen w-full relative isolate bg-[#0a0c0f] z-20">
+        <NightSky seed={11} />
         <WhoIAm />
       </section>
 
@@ -54,12 +58,14 @@ export function Home({ initialSection }: HomeProps) {
       </section>
 
       {/* Section 4 : Experience */}
-      <section id="experience" data-snap-section className="min-h-screen w-full relative">
+      <section id="experience" data-snap-section className="min-h-screen w-full relative isolate">
+        <NightSky seed={23} />
         <Experience />
       </section>
 
       {/* Section 5 : Works */}
-      <section id="works" data-snap-section className="min-h-screen w-full relative">
+      <section id="works" data-snap-section className="min-h-screen w-full relative isolate">
+        <NightSky seed={37} count={36} />
         <Works />
       </section>
 

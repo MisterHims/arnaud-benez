@@ -2,6 +2,7 @@
 
 import BlockContent from "../layouts/BlockContent";
 import SectionShell from "../layouts/SectionShell";
+import { NightSky } from "@/components/ui/NightSky";
 import { ContactCard } from "./contact/ContactCard";
 import { ContactForm } from "./contact/ContactForm";
 import { Footer } from "./Footer";
@@ -11,7 +12,8 @@ export const Contact = () => {
   const t = useTranslations('Contact');
   return (
     <>
-      <SectionShell variant="full" className="bg-radial-[at_25%_25%] from-[#07080a] to-[#101215] to-75% overflow-hidden">
+      <SectionShell variant="full" className="relative isolate bg-radial-[at_25%_25%] from-[#07080a] to-[#101215] to-75% overflow-hidden">
+        <NightSky seed={53} count={40} />
         <SectionShell variant="contained" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14">
 
           {/* 1. HEADER (Titre & Sous-titre) */}
