@@ -86,20 +86,6 @@
 
   /* --- ANIMATION TAILWIND V4 --- */
 
-  /* 1. We register the animation as a variable (Tailwind will create the 'animate-infinite-scroll' class) */
-  --animate-infinite-scroll: infinite-scroll 160s linear infinite;
-
-  /* 2. Keyframes: We only go to -50% because the list is duplicated */
-  @keyframes infinite-scroll {
-    from {
-      transform: translateX(0);
-    }
-
-    to {
-      transform: translateX(-100%);
-    }
-  }
-
   /* Night sky: slow drift of the whole sky, and shooting stars (head at the
      right end, moving down-right along --angle by --dx / --dy) */
   --animate-sky-drift: sky-drift 60s ease-in-out infinite alternate;
