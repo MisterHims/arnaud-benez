@@ -20,6 +20,7 @@ import {
   BookOpen02Icon,
   Download02Icon,
   IdVerifiedIcon,
+  Mail01Icon,
   Undo02Icon,
 } from '@hugeicons-pro/core-stroke-sharp';
 import { cn } from '@/lib/utils';
@@ -49,6 +50,7 @@ const ICONS = {
   BookOpen: BookOpen02Icon,
   IdVerified: IdVerifiedIcon,
   Download: Download02Icon,
+  MailLine: Mail01Icon,
   Undo: Undo02Icon,
 } satisfies Record<string, IconSvgElement>;
 

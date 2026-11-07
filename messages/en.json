@@ -109,7 +109,8 @@
     },
     "present": "Present",
     "showMore": "Show more",
-    "cta": "My whole background, on one page.",
+    "cta": "Want to know more?",
+    "contactCta": "Get in touch",
     "empty": "No experience found for this category.",
     "skills": {
       "frontEnd": "Front-End Development",

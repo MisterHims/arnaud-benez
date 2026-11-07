@@ -109,7 +109,8 @@
     },
     "present": "aujourd’hui",
     "showMore": "Voir plus",
-    "cta": "Tout mon parcours, sur une page.",
+    "cta": "Envie d’en savoir plus ?",
+    "contactCta": "Me contacter",
     "empty": "Aucune expérience dans cette catégorie.",
     "skills": {
       "frontEnd": "Développement Front-End",

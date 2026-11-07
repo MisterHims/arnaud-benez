@@ -102,7 +102,9 @@ export const ExperienceList = () => {
         })}
       </div>
 
-      <AnimatePresence mode="wait" initial={false}>
+      {/* No initial={false} here: it would also cancel the entries'
+          scroll-in reveal below */}
+      <AnimatePresence mode="wait">
         <motion.div
           key={selected}
           role="tabpanel"
@@ -112,7 +114,7 @@ export const ExperienceList = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={reduceMotion ? undefined : { opacity: 0, y: -4 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="w-full"
+          className="w-full motion-reduce:opacity-100! motion-reduce:transform-none!"
         >
           {/* space-y-20: each experience holds more now, keep them clearly apart */}
           <div className="relative ml-3 space-y-20 pb-18">
@@ -131,13 +133,24 @@ export const ExperienceList = () => {
             />
 
             {displayedItems.map((item) => (
-              // Trainings stay lighter next to jobs and collaborations
-              <ExperienceItem
+              // Each entry fades up gently as it scrolls into view (once).
+              // Reduced motion: forced visible and still in CSS (!important
+              // beats the inline styles), right from the first paint
+              <motion.div
                 key={item.id}
-                {...item}
-                compact={selected === 'all' && item.type === 'formation'}
-                showType={selected === 'all'}
-              />
+                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="motion-reduce:opacity-100! motion-reduce:transform-none!"
+              >
+                {/* Trainings stay lighter next to jobs and collaborations */}
+                <ExperienceItem
+                  {...item}
+                  compact={selected === 'all' && item.type === 'formation'}
+                  showType={selected === 'all'}
+                />
+              </motion.div>
             ))}
 
             {categoryItems.length === 0 && (
@@ -163,13 +176,24 @@ export const ExperienceList = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* After reading the whole background: the natural moment to act */}
-      <div className="ml-3 pl-12 mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+      {/* After reading the whole background: the natural moment to act,
+          either way (resume, or straight to the contact section) */}
+      <div className="ml-3 pl-12 mt-8 flex flex-col gap-4">
         <p className="text-[#d0d4da] font-[250]">{t('cta')}</p>
-        <CustomButton variant="primary" size="lg">
-          <Icon name="IdVerified" size={18} />
-          {tWho('downloadCv')}
-        </CustomButton>
+        <div className="flex flex-wrap gap-3">
+          <CustomButton variant="primary" size="lg">
+            <Icon name="IdVerified" size={18} />
+            {tWho('downloadCv')}
+          </CustomButton>
+          <CustomButton
+            variant="secondary"
+            size="lg"
+            onPress={() => document.getElementById('contact')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })}
+          >
+            <Icon name="MailLine" size={18} />
+            {t('contactCta')}
+          </CustomButton>
+        </div>
       </div>
     </div>
   );
