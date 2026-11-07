@@ -20,6 +20,25 @@ interface ServiceCardProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: string;
 }
 
+/**
+ * Folded block: rendered in the HTML from the start (search engines index
+ * it), height animated with the 0fr -> 1fr grid trick, inert while folded
+ * (skipped by keyboard and screen readers). Text and extra tags each fold
+ * in place and open together.
+ */
+const Folded = ({ id, isOpen, children }: { id: string; isOpen: boolean; children: React.ReactNode }) => (
+  <div
+    id={id}
+    inert={!isOpen}
+    className={cn(
+      'grid w-full transition-[grid-template-rows,opacity] duration-500 ease-out',
+      isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+    )}
+  >
+    <div className="overflow-hidden">{children}</div>
+  </div>
+);
+
 export const ServiceCard = ({
   title,
   description,
@@ -117,6 +136,14 @@ export const ServiceCard = ({
             <p className='text-[#b3b9c0] text-sm leading-relaxed font-light'>
               {description}
             </p>
+            {/* Details follow the summary (text with text) */}
+            {details && (
+              <Folded id={`${detailsId}-text`} isOpen={isExpanded}>
+                <p className='pt-3 text-[#b3b9c0] text-sm leading-relaxed font-light'>
+                  {details}
+                </p>
+              </Folded>
+            )}
           </Card.Content>
 
           <Card.Footer className="px-5 pt-2 pb-5 mt-auto flex-col items-start gap-0">
@@ -130,50 +157,34 @@ export const ServiceCard = ({
               </div>
             )}
 
-            {details && (
-              <>
-                {/* Folded details: rendered in the HTML from the start (search
-                    engines index it), height animated with the 0fr → 1fr grid
-                    trick, and inert while folded (skipped by keyboard/AT) */}
-                <div
-                  id={detailsId}
-                  inert={!isExpanded}
-                  className={cn(
-                    'grid w-full transition-[grid-template-rows,opacity] duration-500 ease-out',
-                    isExpanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                  )}
-                >
-                  <div className="overflow-hidden">
-                    <p className='pt-5 text-[#b3b9c0] text-sm leading-relaxed font-light'>
-                      {details}
-                    </p>
-                    {moreTags.length > 0 && (
-                      <div className='flex gap-2 flex-wrap pt-4'>
-                        {moreTags.map((tag) => (
-                          <Chip key={tag} className="px-2.5 py-0.5 h-auto text-xs text-[#a2a9b2] border border-[#24282c] bg-white/5 font-light transition-colors duration-500 group-hover:text-[#d0d4da]">
-                            {tag}
-                          </Chip>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+            {/* Extra tags right after the main ones (tags with tags) */}
+            {moreTags.length > 0 && (
+              <Folded id={`${detailsId}-tags`} isOpen={isExpanded}>
+                <div className='flex gap-2 flex-wrap pt-2'>
+                  {moreTags.map((tag) => (
+                    <Chip key={tag} className="px-2.5 py-0.5 h-auto text-xs text-[#a2a9b2] border border-[#24282c] bg-white/5 font-light transition-colors duration-500 group-hover:text-[#d0d4da]">
+                      {tag}
+                    </Chip>
+                  ))}
                 </div>
+              </Folded>
+            )}
 
-                <button
-                  type="button"
-                  aria-expanded={isExpanded}
-                  aria-controls={detailsId}
-                  onClick={() => setIsExpanded((v) => !v)}
-                  className="mt-4 py-1 inline-flex items-center gap-1.5 text-[13px] text-[#a2a9b2] hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/50 rounded-sm transition-colors cursor-pointer"
-                >
-                  {isExpanded ? lessLabel : moreLabel}
-                  <Icon
-                    name="ArrowDown"
-                    size={14}
-                    className={cn('transition-transform duration-500', isExpanded && 'rotate-180')}
-                  />
-                </button>
-              </>
+            {(details || moreTags.length > 0) && (
+              <button
+                type="button"
+                aria-expanded={isExpanded}
+                aria-controls={`${detailsId}-text ${detailsId}-tags`}
+                onClick={() => setIsExpanded((v) => !v)}
+                className="mt-4 py-1 inline-flex items-center gap-1.5 text-[13px] text-[#a2a9b2] hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/50 rounded-sm transition-colors cursor-pointer"
+              >
+                {isExpanded ? lessLabel : moreLabel}
+                <Icon
+                  name="ArrowDown"
+                  size={14}
+                  className={cn('transition-transform duration-500', isExpanded && 'rotate-180')}
+                />
+              </button>
             )}
           </Card.Footer>
         </div>
