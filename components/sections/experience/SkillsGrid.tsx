@@ -96,51 +96,32 @@ export const SkillsGrid = () => {
     };
   }, []);
 
+  // Explicit rows, each one wider than the one above: a triangle shape
+  // (widths 280 / 332 / 384 / 468 / 572px), independent of line wrapping
+  const rows: { key: 'frontEnd' | 'design' | 'projectManagement' | 'cms' | 'database' | 'devOps' | 'devTools'; icons: LogoName[] }[][] = [
+    [{ key: 'projectManagement', icons: ['Linear', 'Microsoft Project', 'Notion', 'Trello', 'Obsidian'] }],
+    [{ key: 'devTools', icons: ['VSCode', 'Git', 'Cursor', 'Claude Code', 'Stripo', 'NPM'] }],
+    [{ key: 'frontEnd', icons: ['TypeScript', 'JavaScript', 'Tailwind CSS', 'MUI', 'React', 'Vite', 'NextJS'] }],
+    [
+      { key: 'cms', icons: ['ContentSquare', 'Google Analytics', 'Wordpress', 'Shopify'] },
+      { key: 'database', icons: ['SQLite', 'MongoDB', 'NeonDB', 'Prisma'] },
+    ],
+    [
+      { key: 'design', icons: ['Figma', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Audition'] },
+      { key: 'devOps', icons: ['Docker', 'Nginx', 'Vercel'] },
+    ],
+  ];
+
   return (
-    // max-w-xl: keeps the original bento composition at the reduced size;
-    // mx-auto: centered in its column
-    <div ref={ref} className="flex flex-wrap gap-3 justify-start max-w-xl mx-auto lg:sticky" style={{ top: stickyTop }}>
-
-      <SkillCard
-        title={t('frontEnd')}
-        icons={['TypeScript', 'Tailwind CSS', 'MUI', 'React', 'Vite', 'NextJS']}
-      />
-
-      <SkillCard
-        title={t('design')}
-        icons={['Figma', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Audition']}
-      />
-
-      <SkillCard
-        title={t('projectManagement')}
-        icons={['Linear', 'Microsoft Project', 'Notion', 'Trello', 'Obsidian']}
-      />
-
-      <SkillCard
-        title={t('backEnd')}
-        icons={['JavaScript']}
-      />
-
-      <SkillCard
-        title={t('cms')}
-        icons={['ContentSquare', 'Google Analytics', 'Wordpress', 'Shopify']}
-      />
-
-      <SkillCard
-        title={t('database')}
-        icons={['SQLite', 'MongoDB', 'NeonDB', 'Prisma']}
-      />
-
-      <SkillCard
-        title={t('devOps')}
-        icons={['Docker', 'Nginx', 'Vercel']}
-      />
-
-      <SkillCard
-        title={t('devTools')}
-        icons={['VSCode', 'Git', 'Cursor', 'Claude Code', 'Stripo', 'NPM']} // I removed Github/Copilot as they're not in the updated LogoName list, add them back if added
-      />
-
+    // w-fit + mx-auto: the triangle is centered in its column
+    <div ref={ref} className="flex flex-col gap-3 w-fit max-w-full mx-auto lg:sticky" style={{ top: stickyTop }}>
+      {rows.map((row) => (
+        <div key={row.map(({ key }) => key).join('-')} className="flex flex-wrap gap-3">
+          {row.map(({ key, icons }) => (
+            <SkillCard key={key} title={t(key)} icons={icons} />
+          ))}
+        </div>
+      ))}
     </div>
   );
 };
