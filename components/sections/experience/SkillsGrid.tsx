@@ -2,6 +2,7 @@
 
 import { Logo, LogoName } from "@/components/ui/Logo";
 import { Tooltip } from '@heroui/react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 interface SkillCategoryProps {
@@ -21,21 +22,25 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
         WebkitMaskComposite: 'xor', // Essential for Chrome/Safari
       }}
     />
-    <div className="relative p-6 pb-3 flex flex-col items-center justify-center gap-4 z-10">
+    <div className="relative px-5 pt-5 pb-2.5 flex flex-col items-center justify-center gap-3 z-10">
 
       {/* Glow effect (Top) */}
       <div className="absolute top-0 inset-x-4 h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
 
-      <div className="flex justify-center gap-4 md:gap-6">
+      <div className="flex justify-center gap-3 md:gap-5">
         {icons.map((iconName, i) => (
           // data-skill: target of the hero's skill stars (highlighted on arrival)
           <div key={i} data-skill={iconName} className="relative flex items-center justify-center rounded-xl">
 
             <Tooltip delay={0}>
-              <Tooltip.Trigger className="cursor-help outline-none">
-                <div className="w-10 h-10 flex items-center justify-center">
+              {/* Name also as visually hidden text (screen readers, search
+                  engines) and a visible ring on keyboard focus */}
+              <Tooltip.Trigger className="cursor-help rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0c0c0c]">
+                <span className="sr-only">{iconName}</span>
+                <div className="w-8 h-8 flex items-center justify-center">
                   <Logo
                     name={iconName}
+                    aria-hidden="true"
                     className="w-full h-full object-contain grayscale-25 hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
                   />
                 </div>
@@ -49,17 +54,52 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
         ))}
       </div>
 
-      <span className="text-[15px] text-white/95 font-medium tracking-wide mt-2 whitespace-nowrap">
+      <span className="text-[13px] text-white/95 font-medium tracking-wide mt-1.5 whitespace-nowrap">
         {title}
       </span>
     </div>
   </div>
 );
 
+/** Minimal gaps kept between the grid and the top / bottom of the screen
+ *  while sticky (bottom: clears the floating back-to-top button) */
+const STICKY_MIN_TOP = 96;
+const STICKY_BOTTOM = 80;
+
 export const SkillsGrid = () => {
   const t = useTranslations('Experience.skills');
+
+  // Stays in view while the (long) timeline scrolls, vertically centered in
+  // the screen. When the grid is too tall for that, it first scrolls to
+  // reveal its bottom, then sticks: never cut off, whatever the screen height
+  const ref = useRef<HTMLDivElement>(null);
+  const [stickyTop, setStickyTop] = useState(STICKY_MIN_TOP);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => {
+      const free = window.innerHeight - el.offsetHeight;
+      const centered = free / 2;
+      setStickyTop(
+        centered >= STICKY_MIN_TOP && centered >= STICKY_BOTTOM
+          ? centered
+          : Math.min(STICKY_MIN_TOP, free - STICKY_BOTTOM)
+      );
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    window.addEventListener('resize', update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
   return (
-    <div className="flex flex-wrap gap-4 justify-start">
+    // max-w-xl: keeps the original bento composition at the reduced size;
+    // mx-auto: centered in its column
+    <div ref={ref} className="flex flex-wrap gap-3 justify-start max-w-xl mx-auto lg:sticky" style={{ top: stickyTop }}>
 
       <SkillCard
         title={t('frontEnd')}

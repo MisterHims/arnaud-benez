@@ -44,7 +44,9 @@ const BlockContent: React.FC<BlockContentProps> = ({
       <div
         className={cn(
           "w-full h-full",
-          isSticky && "h-auto md:sticky md:top-24"
+          // Sticky only on screens tall enough to show the whole block:
+          // on short ones (e.g. 1280×720) its bottom would stay out of view
+          isSticky && "h-auto md:[@media(min-height:760px)]:sticky md:top-24"
         )}
       >
         {children}

@@ -16,8 +16,8 @@ export const Experience = () => {
         </BlockContent>
 
         {/* COLONNE DROITE (Skills Bento) - Prend 6 colonnes sur 12 */}
-        {/* isSticky permet de garder les skills visibles si la timeline est longue */}
-        <BlockContent colSpan={6} isSticky className="order-2 pt-8 lg:pt-24">
+        {/* The skills grid handles its own sticky behavior (see SkillsGrid) */}
+        <BlockContent colSpan={6} className="order-2 pt-8 lg:pt-24">
           <SkillsGrid />
         </BlockContent>
 
