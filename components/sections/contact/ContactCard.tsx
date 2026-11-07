@@ -115,9 +115,10 @@ export const ContactCard = () => {
 
       {/* BOUTON FLOTTANT */}
       <div className="absolute -bottom-5 right-4 sm:right-8 z-20">
-        <CustomButton variant="secondary" size="sm" className="shadow-2xl">
-          <Icon name="Download" className="relative bottom-0.25 w-4 h-4 sm:w-5 sm:h-5" />
-          <span className="text-xs sm:text-sm">{t('download')}</span>
+        {/* Opaque fill: the button straddles the card's edge */}
+        <CustomButton variant="secondary" size="sm" className="bg-[#1c1c1c]">
+          <Icon name="Download" size={16} />
+          {t('download')}
         </CustomButton>
       </div>
 

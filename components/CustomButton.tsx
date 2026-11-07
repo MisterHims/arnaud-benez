@@ -8,7 +8,9 @@ import { tv } from "tailwind-variants";
 
 // 1. Definition of custom variants
 const myButtonVariants = tv({
-  base: "text-md font-normal shadow-md text-shadow-lg data-[pending=true]:opacity-40 leading-none pt-[2px]",
+  // Same language as the hero's pills: no outline (jagged with fractional
+  // display scaling), tracked uppercase type, no shadows
+  base: "relative isolate uppercase font-medium tracking-[0.1em] leading-none data-[pending=true]:opacity-40 transition-colors duration-300 ease-out",
   defaultVariants: {
     radius: "full",
     variant: "primary",
@@ -22,14 +24,21 @@ const myButtonVariants = tv({
       sm: "rounded-sm",
     },
     size: {
-      sm: "h-10 px-4 text-sm gap-2",
-      md: "h-11 px-5 text-md gap-2",
-      lg: "h-12 px-5 text-lg gap-2",
-      xl: "h-13 px-7 text-xl gap-2",
+      sm: "h-9 px-4 text-[11px] gap-3",
+      md: "h-10 px-5 text-xs gap-3",
+      lg: "h-11 px-6 text-[13px] gap-3",
+      xl: "h-12 px-7 text-sm gap-3.5",
     },
     variant: {
-      primary: "bg-[#ededed] text-black hover:bg-white transition-color",
-      secondary: "bg-[#1a1a1a] backdrop-blur-md text-white border-3 border-white/30 hover:bg-white hover:text-black hover:border-white transition-all duration-400 ease-in-out",
+      primary: "bg-[#ededed] text-black hover:bg-white",
+      // Subtle fill; on hover a white layer fades in (opacity is smoother
+      // than animating the background color)
+      secondary: [
+        "bg-white/6 text-white/90 hover:text-black focus-visible:text-black",
+        "before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-white",
+        "before:opacity-0 hover:before:opacity-100 focus-visible:before:opacity-100",
+        "before:transition-opacity before:duration-300 before:ease-out",
+      ],
     },
   },
 });

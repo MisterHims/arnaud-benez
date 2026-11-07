@@ -123,7 +123,7 @@ export const ExperienceList = () => {
                       className="absolute"
                     >
                       {t('showMore')}
-                      <Icon name="ArrowDown" className="w-5 h-5 mt-[5px]" />
+                      <Icon name="ArrowDown" size={16} />
                     </CustomButton>
                   </div>
                 )}
