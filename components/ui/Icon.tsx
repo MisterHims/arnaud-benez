@@ -18,13 +18,13 @@ import {
   Briefcase06Icon,
   Mortarboard02Icon,
 } from '@hugeicons-pro/core-solid-standard';
-import { ArrowUp01Icon } from '@hugeicons-pro/core-stroke-sharp';
+import { ArrowUp01Icon, Undo02Icon } from '@hugeicons-pro/core-stroke-sharp';
 import { cn } from '@/lib/utils';
 
 /**
  * Hugeicons, "standard" styles (Pro): duotone for line icons, solid for
  * arrows and the experience timeline badges; stroke sharp for the
- * back-to-top chevron. Colors follow `currentColor`.
+ * back-to-top chevron and the replay arrow. Colors follow `currentColor`.
  */
 const ICONS = {
   // Solid standard
@@ -46,6 +46,7 @@ const ICONS = {
   Slack: SlackIcon,
   // Stroke sharp
   ChevronUp: ArrowUp01Icon,
+  Undo: Undo02Icon,
 } satisfies Record<string, IconSvgElement>;
 
 export type IconName = keyof typeof ICONS;

@@ -23,6 +23,7 @@ import { SkillStars, type SkillTarget } from './hero/SkillStars';
 import { IntroText } from './hero/IntroText';
 import { ScrollIndicator } from './hero/ScrollIndicator';
 import { LanguageSwitch } from '@/components/ui/LanguageSwitch';
+import { Icon } from '@/components/ui/Icon';
 import { useTranslations } from 'next-intl';
 import { Mountains } from './hero/Mountains';
 
@@ -500,10 +501,7 @@ export const Hero = () => {
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className="absolute z-30 top-20 md:top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full bg-white/6 px-4 py-2 text-xs uppercase tracking-[0.2em] font-light text-white/70 hover:text-white hover:bg-white/12 focus-visible:text-white focus-visible:outline focus-visible:outline-white/40 transition-colors cursor-pointer"
             >
-              <svg aria-hidden="true" viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 12a9 9 0 1 0 3-6.7" />
-                <path d="M3 4v5h5" />
-              </svg>
+              <Icon name="Undo" size={16} />
               {t('replay')}
             </motion.button>
           )}
