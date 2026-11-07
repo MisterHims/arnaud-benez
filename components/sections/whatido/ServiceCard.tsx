@@ -55,7 +55,7 @@ export const ServiceCard = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        'p-[2.25px] border-none break-inside-avoid relative flex flex-col rounded-2xl overflow-hidden group max-w-full',
+        'p-[2.25px] border-none break-inside-avoid relative flex flex-col rounded-xl overflow-hidden group max-w-full',
         className
       )}
       {...props}
@@ -78,7 +78,7 @@ export const ServiceCard = ({
 
       <div
         className={cn(
-          "relative flex flex-col grow bg-[#040506] rounded-[14px] overflow-hidden z-10",
+          "relative flex flex-col grow bg-[#040506] rounded-[10px] overflow-hidden z-10",
           "h-full w-full"
         )}
       >

@@ -46,7 +46,7 @@ export const ContactCard = () => {
 
         {/* HEADER : Photo + Nom */}
         <Card.Header className="flex flex-row self-stretch gap-6">
-          <div className="relative w-25 h-25 rounded-3xl overflow-hidden shrink-0">
+          <div className="relative w-25 h-25 rounded-xl overflow-hidden shrink-0">
             <Image
               src="/assets/card-portrait_min.jpg"
               alt="Arnaud Benez"

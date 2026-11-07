@@ -43,7 +43,7 @@ export const Works = () => {
 
           {/* 1. TOP LEFT */}
           <WorkCard
-            className="md:col-span-2 md:rounded-tl-3xl"
+            className="md:col-span-2 md:rounded-tl-2xl"
             title="Mouvement E.Leclerc"
             category={t('categories.travelAgency')}
             logo={<Logo name="Leclerc" className="w-28 h-auto" />}
@@ -52,7 +52,7 @@ export const Works = () => {
 
           {/* 2. TOP RIGHT */}
           <WorkCard
-            className="md:rounded-tr-3xl"
+            className="md:rounded-tr-2xl"
             title="HeroUI"
             category={t('categories.library')}
             logo={<Logo name="HeroUI" className="w-28 h-auto" />}
@@ -85,7 +85,7 @@ export const Works = () => {
 
           {/* 6. BOTTOM LEFT */}
           <WorkCard
-            className="md:rounded-bl-3xl"
+            className="md:rounded-bl-2xl"
             title="Vocajob"
             category={t('categories.recruitment')}
             logo="Vocajob"
@@ -102,7 +102,7 @@ export const Works = () => {
 
           {/* 8. BOTTOM RIGHT */}
           <WorkCard
-            className="md:rounded-br-3xl bg-[#040506]"
+            className="md:rounded-br-2xl bg-[#040506]"
             title={t('allWorks.title')}
             category={t('allWorks.subtitle')}
             imageSrc="/assets/works/all-real.png"

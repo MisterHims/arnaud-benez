@@ -11,9 +11,9 @@ interface SkillCategoryProps {
 }
 
 const SkillCard = ({ title, icons }: SkillCategoryProps) => (
-  <div className="relative group rounded-2xl bg-linear-to-br from-[#101215] to-[#040506] grow sm:grow-0">
+  <div className="relative group rounded-xl bg-linear-to-br from-[#101215] to-[#040506] grow sm:grow-0">
     <div
-      className="absolute inset-0 rounded-2xl pointer-events-none z-20"
+      className="absolute inset-0 rounded-xl pointer-events-none z-20"
       style={{
         padding: '2px',
         background: 'linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 75%, rgba(255,255,255,0) 100%)',
