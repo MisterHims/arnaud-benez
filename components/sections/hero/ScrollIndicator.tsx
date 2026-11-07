@@ -33,33 +33,36 @@ export const ScrollIndicator = ({
     aria-hidden={!isVisible}
     aria-label={ariaLabel}
     className={cn(
-      'absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-30 cursor-pointer',
+      'absolute left-1/2 -translate-x-1/2 flex flex-col items-center z-30 cursor-pointer',
+      tone === 'dark' ? 'gap-2' : 'gap-4',
       !isVisible && 'pointer-events-none',
       className
     )}
   >
-    {/* Mouse body */}
+    {/* On the snow (dark tone), the mouse sits on a dark translucent disc:
+        an anchor point that stands out, and the same white mouse as on the
+        sky */}
     <span
       className={cn(
-        'w-6 h-10 rounded-full border-2 relative block',
-        tone === 'light' ? 'border-white/30' : 'border-neutral-900/35'
+        'flex items-center justify-center',
+        tone === 'dark' && 'size-14 rounded-full bg-black/70'
       )}
     >
-      {/* Scroll wheel */}
-      <motion.span
-        animate={{ y: [0, 4, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', repeatDelay: 0.3 }}
-        className={cn(
-          'absolute top-2 left-1/2 -translate-x-1/2 w-1.5 h-2 rounded-full block',
-          tone === 'light' ? 'bg-white' : 'bg-neutral-800'
-        )}
-      />
+      {/* Mouse body */}
+      <span className={cn('w-6 h-10 rounded-full border-2 relative block', tone === 'dark' ? 'border-white/50' : 'border-white/30')}>
+        {/* Scroll wheel */}
+        <motion.span
+          animate={{ y: [0, 4, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', repeatDelay: 0.3 }}
+          className="absolute top-2 left-1/2 -translate-x-1/2 w-1.5 h-2 rounded-full block bg-white"
+        />
+      </span>
     </span>
 
     <span
       className={cn(
         'text-[11px] tracking-[0.2em] uppercase',
-        tone === 'light' ? 'text-gray-400 font-light' : 'text-neutral-600 font-normal'
+        tone === 'light' ? 'text-gray-400 font-light' : 'text-neutral-700 font-medium'
       )}
     >
       {label}
