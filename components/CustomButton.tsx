@@ -31,7 +31,7 @@ const myButtonVariants = tv({
       xl: "h-12 px-7 text-sm gap-3.5",
     },
     variant: {
-      primary: "bg-[#ededed] text-black hover:bg-white",
+      primary: "bg-[#ebedf0] text-black hover:bg-white",
       // Subtle fill; on hover a white layer fades in (opacity is smoother
       // than animating the background color)
       secondary: [

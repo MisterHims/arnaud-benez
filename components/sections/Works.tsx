@@ -29,11 +29,11 @@ export const Works = () => {
 
         {/* HEADER */}
         <div className="text-center mb-8">
-          <h2 className='text-6xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-4'>
+          <h2 className='text-6xl md:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
             {t('title')}
           </h2>
 
-          <h3 className="text-[#A8A8A8] text-2xl md:text-3xl font-bold">
+          <h3 className="text-[#a2a9b2] text-2xl md:text-3xl font-bold">
             {t('subtitle')}
           </h3>
         </div>
@@ -102,7 +102,7 @@ export const Works = () => {
 
           {/* 8. BOTTOM RIGHT */}
           <WorkCard
-            className="md:rounded-br-3xl bg-[#050505]"
+            className="md:rounded-br-3xl bg-[#040506]"
             title={t('allWorks.title')}
             category={t('allWorks.subtitle')}
             imageSrc="/assets/works/all-real.png"

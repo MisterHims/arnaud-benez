@@ -33,7 +33,7 @@ export const WhatIDo = () => {
         className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 col-start-1 row-start-1 z-10 bg-transparent relative"
       >
         <BlockContent isSticky colSpan={5} className="order-1 md:order-2">
-          <h2 className='text-xl md:text-8xl font-black text-[#EDEDED] tracking-tight text-balance mb-8'>
+          <h2 className='text-xl md:text-8xl font-black text-[#ebedf0] tracking-tight text-balance mb-8'>
             {t('title')}
           </h2>
           {/* One positioning statement: the cards carry the details */}

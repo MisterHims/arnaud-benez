@@ -10,7 +10,7 @@ export const Showcase = () => {
 
       {/* SOUS-TITRE */}
       <div className="text-center">
-        <h3 className="text-[#A8A8A8] text-2xl md:text-3xl font-bold">
+        <h3 className="text-[#a2a9b2] text-2xl md:text-3xl font-bold">
           Take a look at my showcase
         </h3>
       </div>
@@ -79,7 +79,7 @@ export const Showcase = () => {
 
         {/* 8. BOTTOM RIGHT */}
         <WorkCard
-          className="md:rounded-br-3xl bg-[#050505]"
+          className="md:rounded-br-3xl bg-[#040506]"
           title="Toutes mes réalisations"
           category="Voir le portfolio complet"
           imageSrc="/assets/works/all-real.png"

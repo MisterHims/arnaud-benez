@@ -78,7 +78,7 @@ export const ServiceCard = ({
 
       <div
         className={cn(
-          "relative flex flex-col grow bg-[#050505] rounded-[14px] overflow-hidden z-10",
+          "relative flex flex-col grow bg-[#040506] rounded-[14px] overflow-hidden z-10",
           "h-full w-full"
         )}
       >
@@ -106,13 +106,13 @@ export const ServiceCard = ({
 
         <div className="flex flex-col grow z-10">
           <Card.Header className="px-6 pb-2 pt-0">
-            <h3 className='text-xl font-bold text-[#EDEDED]'>
+            <h3 className='text-xl font-bold text-[#ebedf0]'>
               {title}
             </h3>
           </Card.Header>
 
           <Card.Content className="px-6 py-2 overflow-visible">
-            <p className='text-[#B8B8B8] text-[15px] leading-relaxed font-light'>
+            <p className='text-[#b3b9c0] text-[15px] leading-relaxed font-light'>
               {description}
             </p>
           </Card.Content>
@@ -121,7 +121,7 @@ export const ServiceCard = ({
             {tags.length > 0 && (
               <div className='flex gap-2 flex-wrap'>
                 {tags.map((tag) => (
-                  <Chip key={tag} className="px-2.5 py-1 h-auto text-[13px] text-[#A8A8A8] border border-[#27272B] bg-white/5 font-light transition-colors duration-500 group-hover:text-[#D4D4D4]">
+                  <Chip key={tag} className="px-2.5 py-1 h-auto text-[13px] text-[#a2a9b2] border border-[#24282c] bg-white/5 font-light transition-colors duration-500 group-hover:text-[#d0d4da]">
                     {tag}
                   </Chip>
                 ))}
@@ -142,13 +142,13 @@ export const ServiceCard = ({
                   )}
                 >
                   <div className="overflow-hidden">
-                    <p className='pt-5 text-[#B8B8B8] text-[15px] leading-relaxed font-light'>
+                    <p className='pt-5 text-[#b3b9c0] text-[15px] leading-relaxed font-light'>
                       {details}
                     </p>
                     {moreTags.length > 0 && (
                       <div className='flex gap-2 flex-wrap pt-4'>
                         {moreTags.map((tag) => (
-                          <Chip key={tag} className="px-2.5 py-1 h-auto text-[13px] text-[#A8A8A8] border border-[#27272B] bg-white/5 font-light transition-colors duration-500 group-hover:text-[#D4D4D4]">
+                          <Chip key={tag} className="px-2.5 py-1 h-auto text-[13px] text-[#a2a9b2] border border-[#24282c] bg-white/5 font-light transition-colors duration-500 group-hover:text-[#d0d4da]">
                             {tag}
                           </Chip>
                         ))}
@@ -162,7 +162,7 @@ export const ServiceCard = ({
                   aria-expanded={isExpanded}
                   aria-controls={detailsId}
                   onClick={() => setIsExpanded((v) => !v)}
-                  className="mt-4 py-1 inline-flex items-center gap-1.5 text-[13px] text-[#A8A8A8] hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/50 rounded-sm transition-colors cursor-pointer"
+                  className="mt-4 py-1 inline-flex items-center gap-1.5 text-[13px] text-[#a2a9b2] hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/50 rounded-sm transition-colors cursor-pointer"
                 >
                   {isExpanded ? lessLabel : moreLabel}
                   <Icon

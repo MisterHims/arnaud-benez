@@ -54,7 +54,7 @@ export const ExperienceList = () => {
   return (
     <div className="flex flex-col h-full">
 
-      <h2 className='text-xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-14'>
+      <h2 className='text-xl md:text-8xl font-black text-[#ebedf0] tracking-tight mb-14'>
         {t('title')}
       </h2>
 
@@ -165,7 +165,7 @@ export const ExperienceList = () => {
 
       {/* After reading the whole background: the natural moment to act */}
       <div className="ml-3 pl-12 mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-        <p className="text-[#d4d4d4] font-[250]">{t('cta')}</p>
+        <p className="text-[#d0d4da] font-[250]">{t('cta')}</p>
         <CustomButton variant="primary" size="lg">
           <Icon name="IdVerified" size={18} />
           {tWho('downloadCv')}

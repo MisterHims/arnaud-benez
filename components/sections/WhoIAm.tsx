@@ -12,10 +12,10 @@ const bold = (chunks: React.ReactNode) => <strong className='font-semibold'>{chu
 export const WhoIAm = () => {
   const t = useTranslations('WhoIAm');
   return (
-    <SectionShell variant="contained" className="min-h-screen grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 relative overflow-hidden flex items-center bg-[#0c0c0c] z-10">
+    <SectionShell variant="contained" className="min-h-screen grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 relative overflow-hidden flex items-center bg-[#0a0c0f] z-10">
       {/* LEFT ZONE: Text Content */}
       <BlockContent colSpan={6}>
-        <h2 className='text-7xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
+        <h2 className='text-7xl md:text-8xl font-black text-[#ebedf0] tracking-tight mb-8'>
           {t('title')}
         </h2>
 

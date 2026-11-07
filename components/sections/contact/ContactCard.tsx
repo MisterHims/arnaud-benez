@@ -13,7 +13,7 @@ export const ContactCard = () => {
     <div className="relative w-full max-w-[640px] aspect-640/416 mx-auto md:mx-0">
 
       {/* 2. LA CARTE */}
-      <Card className="flex flex-col h-full bg-linear-to-br from-[#141414] to-[#0A0A0A] border-3 border-white/10 p-6 sm:p-8 rounded-xl relative z-10 overflow-hidden justify-between gap-9.5">
+      <Card className="flex flex-col h-full bg-linear-to-br from-[#121417] to-[#090a0c] border-3 border-white/10 p-6 sm:p-8 rounded-xl relative z-10 overflow-hidden justify-between gap-9.5">
 
         {/* --- FOND SVG --- */}
         <div className="absolute bottom-0 right-0 z-0 pointer-events-none w-[65%] h-auto">
@@ -38,7 +38,7 @@ export const ContactCard = () => {
                 gradientUnits="userSpaceOnUse"
               >
                 <stop stopColor="white" />
-                <stop offset="1" stopColor="#999999" />
+                <stop offset="1" stopColor="#939aa3" />
               </linearGradient>
             </defs>
           </svg>
@@ -56,7 +56,7 @@ export const ContactCard = () => {
           </div>
           <div className="self-stretch py-1.5 inline-flex flex-col justify-center items-start">
             <h3 className="text-white text-3xl font-semibold uppercase tracking-[6px]">Arnaud Benez</h3>
-            <span className="text-[#c2c2c2] text-sm uppercase tracking-wide font-extralight">{t('roles')}</span>
+            <span className="text-[#bec3ca] text-sm uppercase tracking-wide font-extralight">{t('roles')}</span>
           </div>
         </Card.Header>
 
@@ -64,19 +64,19 @@ export const ContactCard = () => {
         <Card.Content className="flex flex-col gap-3 sm:gap-4 mt-1.5">
 
           {/* EMAIL */}
-          <div className="flex items-center gap-4 text-[#DEDEDE] text-lgsm:text-sm group/link hover:text-white transition-colors cursor-pointer pl-1">
+          <div className="flex items-center gap-4 text-[#dbdee3] text-lgsm:text-sm group/link hover:text-white transition-colors cursor-pointer pl-1">
             <Icon name="Mail" size={20} />
             <span className="font-light tracking-wide truncate">arnaud.benez@gmail.com</span>
           </div>
 
           {/* WEBSITE */}
-          <div className="flex items-center gap-4 text-[#DEDEDE] text-lgsm:text-sm group/link hover:text-white transition-colors pl-1">
+          <div className="flex items-center gap-4 text-[#dbdee3] text-lgsm:text-sm group/link hover:text-white transition-colors pl-1">
             <Icon name="LaptopPhone" size={20} />
             <span className="font-light tracking-wide truncate">www.arnaud-benez.net</span>
           </div>
 
           {/* LOCATION */}
-          <div className="flex items-center gap-4 text-[#DEDEDE] text-lgsm:text-sm group/link hover:text-white transition-colors pl-1">
+          <div className="flex items-center gap-4 text-[#dbdee3] text-lgsm:text-sm group/link hover:text-white transition-colors pl-1">
             <Icon name="LocationUser" size={20} />
             <span className="font-light tracking-wide">{t('location')}</span>
           </div>
@@ -90,22 +90,22 @@ export const ContactCard = () => {
 
           <div className="flex gap-8">
             {/* X (Twitter) */}
-            <a href="#" aria-label="X (Twitter)" className="-m-1 p-1 rounded-md text-[#DEDEDE] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
+            <a href="#" aria-label="X (Twitter)" className="-m-1 p-1 rounded-md text-[#dbdee3] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
               <Icon name="NewTwitter" size={20} />
             </a>
 
             {/* LinkedIn */}
-            <a href="#" aria-label="LinkedIn" className="-m-1 p-1 rounded-md text-[#DEDEDE] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
+            <a href="#" aria-label="LinkedIn" className="-m-1 p-1 rounded-md text-[#dbdee3] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
               <Icon name="Linkedin" size={20} />
             </a>
 
             {/* GitHub */}
-            <a href="#" aria-label="GitHub" className="-m-1 p-1 rounded-md text-[#DEDEDE] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
+            <a href="#" aria-label="GitHub" className="-m-1 p-1 rounded-md text-[#dbdee3] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
               <Icon name="GitHub" size={20} />
             </a>
 
             {/* Slack */}
-            <a href="#" aria-label="Slack" className="-m-1 p-1 rounded-md text-[#DEDEDE] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
+            <a href="#" aria-label="Slack" className="-m-1 p-1 rounded-md text-[#dbdee3] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
               <Icon name="Slack" size={20} />
             </a>
           </div>
@@ -116,7 +116,7 @@ export const ContactCard = () => {
       {/* BOUTON FLOTTANT */}
       <div className="absolute -bottom-5 right-4 sm:right-8 z-20">
         {/* Opaque fill: the button straddles the card's edge */}
-        <CustomButton variant="secondary" size="sm" className="bg-[#1c1c1c]">
+        <CustomButton variant="secondary" size="sm" className="bg-[#1a1c20]">
           <Icon name="Download" size={16} />
           {t('download')}
         </CustomButton>

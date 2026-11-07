@@ -8,11 +8,11 @@ import React from "react";
 export const ContactForm = () => {
   const t = useTranslations('Contact.form');
   // 1. Style du Label (au-dessus du champ)
-  const labelClass = "text-base text-[#EDEDED] mb-1 block font-light";
+  const labelClass = "text-base text-[#ebedf0] mb-1 block font-light";
 
   // 2. Style des Champs (Input & Textarea)
   // On applique tout directement ici : fond, bordure, arrondi, texte, etc.
-  const fieldClass = "w-full bg-zinc-900/50 border border-3 border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-[#85858f] focus:outline-none focus:border-white/40 hover:border-white/20 transition-colors shadow-none";
+  const fieldClass = "w-full bg-zinc-900/50 border border-3 border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-[#808790] focus:outline-none focus:border-white/40 hover:border-white/20 transition-colors shadow-none";
   const [value, setValue] = React.useState("");
 
   return (
@@ -61,7 +61,7 @@ export const ContactForm = () => {
 
         {/* Footer du Formulaire */}
         <div className="flex flex-col md:flex-row items-end justify-between gap-6 mt-2">
-          <div className="text-[#A0A0A0] text-base font-extralight leading-5.5">
+          <div className="text-[#9aa1aa] text-base font-extralight leading-5.5">
             <span className="block mb-2 text-sm italic"><span className="text-red-500 mr-1">*</span>{t('required')}</span>
             <p>{t.rich('pitch', { br: () => <br /> })}</p>
           </div>

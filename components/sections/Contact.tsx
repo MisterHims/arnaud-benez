@@ -11,12 +11,12 @@ export const Contact = () => {
   const t = useTranslations('Contact');
   return (
     <>
-      <SectionShell variant="full" className="bg-radial-[at_25%_25%] from-[#080808] to-[#121212] to-75% overflow-hidden">
+      <SectionShell variant="full" className="bg-radial-[at_25%_25%] from-[#07080a] to-[#101215] to-75% overflow-hidden">
         <SectionShell variant="contained" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14">
 
           {/* 1. HEADER (Titre & Sous-titre) */}
           <BlockContent colSpan={12} className="mb-8">
-            <h2 className='text-7xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-4'>
+            <h2 className='text-7xl md:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
               {t('title')}
             </h2>
             <p className="text-zinc-400 text-lg max-w-2xl font-light">

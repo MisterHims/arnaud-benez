@@ -94,14 +94,14 @@ export const ExperienceItem = ({ id, type, start, end, company, stack = [], comp
 
         {/* COMPANY: the written name for every entry (company logos broke
             the typographic rhythm; clients have their logo wall in Works) */}
-        <span className='-mt-[3px] text-lg text-[#dfdfdf] font-light'>
+        <span className='-mt-[3px] text-lg text-[#dcdfe4] font-light'>
           {company}
         </span>
 
         {/* SUMMARY: a notch brighter than the highlights (reading levels).
             Weight 250 (Inter is variable): between extralight, too thin on
             dark, and light, a bit heavy */}
-        <p className='text-[#d4d4d4] font-[250] leading-relaxed max-w-2xl mt-3'>
+        <p className='text-[#d0d4da] font-[250] leading-relaxed max-w-2xl mt-3'>
           {t(`items.${id}.description`)}
         </p>
 
@@ -109,7 +109,7 @@ export const ExperienceItem = ({ id, type, start, end, company, stack = [], comp
         {!compact && highlights.length > 0 && (
           <ul className="mt-3 space-y-1.5 max-w-2xl">
             {highlights.map((item) => (
-              <li key={item} className="relative pl-5 text-[#b4b4b4] font-[250] leading-relaxed">
+              <li key={item} className="relative pl-5 text-[#afb5bd] font-[250] leading-relaxed">
                 <span aria-hidden="true" className="absolute left-0 top-[0.7em] h-1 w-2.5 rounded-full bg-zinc-600" />
                 {item}
               </li>

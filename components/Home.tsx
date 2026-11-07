@@ -44,7 +44,7 @@ export function Home({ initialSection }: HomeProps) {
 
       {/* Section 2 : WhoIAm */}
       {/* flow-root: keeps the inner top margin inside the dark background (no seam) */}
-      <section id="who-i-am" data-snap-section className="flow-root min-h-screen w-full relative bg-[#0c0c0c] z-20">
+      <section id="who-i-am" data-snap-section className="flow-root min-h-screen w-full relative bg-[#0a0c0f] z-20">
         <WhoIAm />
       </section>
 

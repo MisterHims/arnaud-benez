@@ -11,7 +11,7 @@ interface SkillCategoryProps {
 }
 
 const SkillCard = ({ title, icons }: SkillCategoryProps) => (
-  <div className="relative group rounded-2xl bg-linear-to-br from-[#121212] to-[#050505] grow sm:grow-0">
+  <div className="relative group rounded-2xl bg-linear-to-br from-[#101215] to-[#040506] grow sm:grow-0">
     <div
       className="absolute inset-0 rounded-2xl pointer-events-none z-20"
       style={{
@@ -35,7 +35,7 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
             <Tooltip delay={0}>
               {/* Name also as visually hidden text (screen readers, search
                   engines) and a visible ring on keyboard focus */}
-              <Tooltip.Trigger className="cursor-help rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0c0c0c]">
+              <Tooltip.Trigger className="cursor-help rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0a0c0f]">
                 <span className="sr-only">{iconName}</span>
                 <div className="w-8 h-8 flex items-center justify-center">
                   <Logo

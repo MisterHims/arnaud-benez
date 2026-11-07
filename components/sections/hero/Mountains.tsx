@@ -47,10 +47,10 @@ export const Mountains = ({ progress, mouseX }: MountainsProps) => {
       // Height shared with the hero (--mountains-h) to center the name in the sky
       className="pointer-events-none absolute bottom-0 left-0 w-full h-(--mountains-h) z-5"
     >
-      <Ridge d={BACK} fill="#bdbdbd" x={backX} y={backY} />
-      <Ridge d={MIDDLE} fill="#dadada" x={middleX} y={middleY} />
+      <Ridge d={BACK} fill="#b8bec5" x={backX} y={backY} />
+      <Ridge d={MIDDLE} fill="#d7dadf" x={middleX} y={middleY} />
       {/* Front ridge matches the top of <TopSpacer /> for a seamless join */}
-      <Ridge d={FRONT} fill="#f8f8f8" x={frontX} y={frontY} />
+      <Ridge d={FRONT} fill="#f7f8f9" x={frontX} y={frontY} />
     </div>
   );
 };
