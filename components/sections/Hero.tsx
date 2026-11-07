@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils';
 
 import { IdentityBlock } from './hero/IdentityBlock';
 import { StarryBackground } from './hero/StarryBackground';
-import { SkillStars } from './hero/SkillStars';
+import { SkillStars, type SkillTarget } from './hero/SkillStars';
 import { IntroText } from './hero/IntroText';
 import { ScrollIndicator } from './hero/ScrollIndicator';
 import { Mountains } from './hero/Mountains';
@@ -68,6 +68,24 @@ const linear = (t: number) => t;
 const JOURNEY_REST = { inMotion: [0.005, JOURNEY.landed] };
 const SETTLE_DELAY = 200; // ms without scrolling before the autopilot takes over
 
+/** Remembers the landing for the visit: coming back from another page lands directly. */
+const LANDED_SESSION_KEY = 'ab:journey-landed';
+const rememberLanding = (landed: boolean) => {
+  try {
+    if (landed) sessionStorage.setItem(LANDED_SESSION_KEY, '1');
+    else sessionStorage.removeItem(LANDED_SESSION_KEY);
+  } catch {
+    // Storage unavailable (private mode…): the journey simply plays again
+  }
+};
+const hasLandedThisSession = () => {
+  try {
+    return sessionStorage.getItem(LANDED_SESSION_KEY) === '1';
+  } catch {
+    return false;
+  }
+};
+
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const reduceMotion = usePrefersReducedMotion();
@@ -84,7 +102,7 @@ export const Hero = () => {
   const pendingScrollRef = useRef<number | null>(null);
   const replayRequestedRef = useRef(false);
 
-  const { handleMouseMove, xFront, yFront } = useMouseParallax();
+  const { handleMouseMove, xFront, yFront, mouseX } = useMouseParallax();
   const skillsX = useTransform(xFront, (v) => v * 0.25);
   const skillsY = useTransform(yFront, (v) => v * 0.25);
 
@@ -173,7 +191,17 @@ export const Hero = () => {
     else animate(journey, 1, { duration: 0.9, ease: 'easeOut' });
     setIsIntroVisible(false);
     setHasLanded(true);
+    rememberLanding(true);
   }, [getJourneyMetrics, journey, reduceMotion]);
+
+  // Already landed earlier in this visit: start on the planet, no journey
+  useLayoutEffect(() => {
+    if (!hasLandedThisSession()) return;
+    landedRef.current = true;
+    journey.set(1);
+    setIsIntroVisible(false); // eslint-disable-line react-hooks/set-state-in-effect
+    setHasLanded(true);
+  }, [journey]);
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
     if (landedRef.current) return;
@@ -190,6 +218,7 @@ export const Hero = () => {
     landedRef.current = false;
     journey.set(0);
     engines.set(1);
+    rememberLanding(false);
     setShowReplay(false);
     setIsIntroVisible(true);
     setHasLanded(false);
@@ -247,6 +276,31 @@ export const Hero = () => {
       if (m) window.scrollTo(0, m.start);
     }
   }, [hasLanded, getJourneyMetrics]);
+
+  // --- ARRIVAL INTERACTIONS ---
+  const scrollBehavior: ScrollBehavior = reduceMotion ? 'auto' : 'smooth';
+
+  const discoverSite = useCallback(() => {
+    document.getElementById('who-i-am')?.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
+  }, [scrollBehavior]);
+
+  // A skill star leads to its section, or to its logo in the skills grid (highlighted)
+  const goToSkill = useCallback(
+    (target: SkillTarget) => {
+      if ('section' in target) {
+        document.getElementById(target.section)?.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
+        return;
+      }
+      const logo = document.querySelector<HTMLElement>(`[data-skill="${CSS.escape(target.skill)}"]`);
+      if (!logo) return;
+      logo.scrollIntoView({ behavior: scrollBehavior, block: 'center' });
+      logo.classList.remove('animate-skill-ping');
+      void logo.offsetWidth; // restart the animation if clicked twice
+      logo.classList.add('animate-skill-ping');
+      window.setTimeout(() => logo.classList.remove('animate-skill-ping'), 4500);
+    },
+    [scrollBehavior]
+  );
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -328,7 +382,9 @@ export const Hero = () => {
     >
       <div
         onMouseMove={handleMouseMove}
-        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black"
+        // --mountains-h: height of the landing ridges, shared by the mountains
+        // and the identity block (centered in the sky above them)
+        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black [--mountains-h:clamp(120px,24vh,280px)]"
       >
         <StarryBackground camera={camera} reducedMotion={reduceMotion} />
         {/* Planet atmosphere glowing from the horizon on arrival */}
@@ -340,27 +396,53 @@ export const Hero = () => {
 
         {!hasLanded && (
           <>
-            <IntroText
-              opacity={introOpacity}
-              scale={introScale}
+            <IntroText opacity={introOpacity} scale={introScale} isVisible={isIntroVisible} />
+            <ScrollIndicator
+              opacity={indicatorOpacity}
+              onClick={launchJourney}
               isVisible={isIntroVisible}
-              onLaunch={launchJourney}
+              label="Scroll down"
+              ariaLabel="Lancer le voyage"
             />
-            <ScrollIndicator opacity={indicatorOpacity} onClick={launchJourney} isVisible={isIntroVisible} />
           </>
         )}
 
         <motion.div
           style={{ opacity: identityOpacity, y: identityY, scale: identityScale }}
-          className="absolute inset-0 z-10 flex items-center justify-center"
+          // Centered in the sky: from the top of the screen to the mountain tops
+          className="absolute inset-x-0 top-0 bottom-(--mountains-h) z-10 flex items-center justify-center"
         >
           <IdentityBlock />
         </motion.div>
 
-        <SkillStars x={skillsX} y={skillsY} opacity={skillsOpacity} onStarClick={() => {}} />
+        <SkillStars
+          x={skillsX}
+          y={skillsY}
+          opacity={skillsOpacity}
+          interactive={hasLanded}
+          onStarClick={goToSkill}
+        />
 
         {/* Landing: the planet's ridges rise from the horizon */}
-        <Mountains progress={journey} />
+        <Mountains progress={journey} mouseX={mouseX} />
+
+        {/* Landed: invite to explore the rest of the site */}
+        {hasLanded && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+          >
+            <ScrollIndicator
+              onClick={discoverSite}
+              isVisible
+              label="Découvrir"
+              ariaLabel="Découvrir la suite du portfolio"
+              // Same spot as the intro's "Scroll down", over the snow
+              tone="dark"
+            />
+          </motion.div>
+        )}
 
         {/* Landed + trying to scroll further up: offer to replay the trip */}
         <AnimatePresence>

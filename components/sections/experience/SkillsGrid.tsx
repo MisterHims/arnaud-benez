@@ -27,7 +27,9 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
 
       <div className="flex justify-center gap-4 md:gap-6">
         {icons.map((iconName, i) => (
-          <div key={i} className="relative flex items-center justify-center">
+          // data-skill: target of the hero's skill stars (highlighted on arrival)
+          <div key={i} data-skill={iconName} className="relative flex items-center justify-center rounded-xl">
+
             <Tooltip delay={0}>
               <Tooltip.Trigger className="cursor-help outline-none">
                 <div className="w-10 h-10 flex items-center justify-center">

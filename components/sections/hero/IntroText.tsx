@@ -2,16 +2,14 @@
 
 import { motion, MotionValue } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { CustomButton } from '@/components/CustomButton';
 
 interface IntroTextProps {
   opacity: MotionValue<number>;
   scale: MotionValue<number>;
   isVisible: boolean;
-  onLaunch: () => void;
 }
 
-export const IntroText = ({ opacity, scale, isVisible, onLaunch }: IntroTextProps) => {
+export const IntroText = ({ opacity, scale, isVisible }: IntroTextProps) => {
   return (
     <motion.div
       style={{ opacity, scale }}
@@ -29,7 +27,7 @@ export const IntroText = ({ opacity, scale, isVisible, onLaunch }: IntroTextProp
           <motion.p
             initial={{ opacity: 0, letterSpacing: '1em', filter: 'blur(10px)' }}
             animate={{ opacity: 1, letterSpacing: '0.2635em', filter: 'blur(0px)' }}
-            transition={{ duration: 2.5, ease: 'easeOut' }}
+            transition={{ duration: 1.8, ease: 'easeOut' }}
             className="block drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
           >
             Designing Universe
@@ -38,24 +36,12 @@ export const IntroText = ({ opacity, scale, isVisible, onLaunch }: IntroTextProp
           <motion.p
             initial={{ opacity: 0, letterSpacing: '0.5em', filter: 'blur(10px)' }}
             animate={{ opacity: 1, letterSpacing: '0.2em', filter: 'blur(0px)' }}
-            transition={{ delay: 1.5, duration: 2.5, ease: 'easeOut' }}
+            transition={{ delay: 0.8, duration: 1.6, ease: 'easeOut' }}
             className="block mt-4 text-xl md:text-3xl lg:text-4xl font-extralight normal-case drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
           >
             Designing experiences that make sense.
           </motion.p>
         </div>
-
-        {/* Invitation to start the journey */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3.2, duration: 1, ease: 'easeOut' }}
-          className="relative z-10 mt-12"
-        >
-          <CustomButton variant="secondary" size="lg" onPress={onLaunch}>
-            Lancer le voyage
-          </CustomButton>
-        </motion.div>
       </div>
     </motion.div>
   );
