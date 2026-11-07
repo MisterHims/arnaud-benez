@@ -12,10 +12,16 @@ export const ContactForm = () => {
 
   // 2. Style des Champs (Input & Textarea)
   // On applique tout directement ici : fond, bordure, arrondi, texte, etc.
-  // Focus: the field's own border lights up to 50% white, visible without
-  // being harsh (no extra ring: HeroUI's focus
-  // ring is removed with !important, its selectors win otherwise)
-  const fieldClass = "w-full bg-zinc-900/50 border border-3 border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-[#808790] focus:outline-none hover:border-white/20 focus:border-white/50 transition-colors shadow-none! ring-0!";
+  // Opaque fill (the color the former zinc-900/50 gave over the section),
+  // so shooting stars pass behind the fields, not through them.
+  // Focus: the gray border fades a little and a thin, soft white line lights
+  // up inside it (3px gray, 1px white, then the field). HeroUI's own focus
+  // ring (and, when invalid, its outline and offset ring) is removed with
+  // !important (its selectors win otherwise); the inner
+  // line is an inset ring, part of the same box-shadow stack
+  const fieldClass = "w-full bg-[#121417] border border-3 border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-[#808790] focus:outline-none hover:border-white/20 focus:border-white/6 transition-[border-color,box-shadow] shadow-none! ring-0! ring-offset-0! outline-none! focus:inset-ring-1! focus:inset-ring-white/60! " +
+    // Invalid: the same treatment in a muted red, no white/red clash
+    "data-[invalid=true]:border-red-400/25 data-[invalid=true]:hover:border-red-400/35 data-[invalid=true]:focus:border-red-400/15 data-[invalid=true]:focus:inset-ring-red-300/60!";
   const [value, setValue] = React.useState("");
 
   return (
@@ -43,7 +49,7 @@ export const ContactForm = () => {
               className={fieldClass}
               placeholder={t('emailPlaceholder')}
             />
-            <FieldError className="text-xs text-red-500 mt-1">
+            <FieldError className="text-xs text-red-400 mt-1">
               {t('emailError')}
             </FieldError>
           </TextField>
@@ -54,7 +60,7 @@ export const ContactForm = () => {
         <TextField className="w-full" name="message">
           <Label className={labelClass}>{t('message')}</Label>
           <TextArea
-            className={`${fieldClass} min-h-[150px] resize-none`}
+            className={`${fieldClass} min-h-[150px] resize-grip`}
             placeholder={t('messagePlaceholder')}
             value={value}
             onChange={(event) => setValue(event.target.value)}
@@ -65,7 +71,7 @@ export const ContactForm = () => {
         {/* Footer du Formulaire */}
         <div className="flex flex-col md:flex-row items-end justify-between gap-6 mt-2">
           <div className="text-[#9aa1aa] text-base font-extralight leading-5.5">
-            <span className="block mb-2 text-sm italic"><span className="text-red-500 mr-1">*</span>{t('required')}</span>
+            <span className="block mb-2 text-sm italic"><span className="text-red-400 mr-1">*</span>{t('required')}</span>
             <p>{t.rich('pitch', { br: () => <br /> })}</p>
           </div>
           <CustomButton
