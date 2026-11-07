@@ -32,6 +32,7 @@ const SKILLS: {
   { id: 'react', label: 'React', type: 'minor', top: 60, left: 85, appearanceDelay: 2.5, target: { skill: 'React' } },
   { id: 'tailwind', label: 'Tailwind', type: 'minor', top: 10, left: 40, appearanceDelay: 3.0, target: { skill: 'Tailwind CSS' } },
   { id: 'figma', label: 'Figma', type: 'minor', top: 40, left: 90, appearanceDelay: 3.5, target: { skill: 'Figma' } },
+  { id: 'claudecode', label: 'Claude Code', type: 'minor', top: 62, left: 30, appearanceDelay: 4.0, target: { skill: 'Claude Code' } },
 ];
 
 const LensFlareStarIcon = ({ className, style }: { className?: string, style?: CSSProperties }) => (

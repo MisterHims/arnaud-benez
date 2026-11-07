@@ -98,7 +98,7 @@ export const SkillsGrid = () => {
 
       <SkillCard
         title={t('devTools')}
-        icons={['VSCode', 'Git', 'Cursor', 'Stripo', 'NPM']} // I removed Github/Copilot as they're not in the updated LogoName list, add them back if added
+        icons={['VSCode', 'Git', 'Cursor', 'Claude Code', 'Stripo', 'NPM']} // I removed Github/Copilot as they're not in the updated LogoName list, add them back if added
       />
 
     </div>
