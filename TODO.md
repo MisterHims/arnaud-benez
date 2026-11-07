@@ -21,6 +21,9 @@ Things set aside while building the v2 of the portfolio (`feat/portfolio-v2`).
 - [ ] Experience highlights: add concrete results where possible (figures, scope, impact),
       e.g. for E.Leclerc / Voyages E.Leclerc (`Experience.items.*.highlights`).
 - [ ] Experience stack tags: check the tools listed per position (`stack` in `src/data/experience.ts`).
+- [ ] Experience roles: "Contributor" appears three times in a row (Foundry VTT, HeroUI, MajiTV);
+      more specific titles would tell them apart (e.g. module developer, front-end contributor,
+      visual identity designer).
 - [ ] Resume and portfolio PDFs to link from the Who I Am buttons.
 - [ ] `/legal` page (linked from the footer, not created yet).
 - [ ] Contact form: no backend yet (the form doesn't send anything).
@@ -42,3 +45,5 @@ Things set aside while building the v2 of the portfolio (`feat/portfolio-v2`).
       (registry configured in `.npmrc`).
 - [ ] Mobile pass (glide between sections on mobile, `svh` units, real-device testing of
       the hero landing).
+- [ ] Mobile: the skills grid comes after the whole timeline (13 entries): move it above,
+      or fold it.
