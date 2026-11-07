@@ -11,6 +11,10 @@ const DESKTOP_QUERY = '(min-width: 768px)';
 const TALL_SECTION_RATIO = 1.15;
 // Share of the screen the destination must already occupy before a tall section glides
 const INTENT_THRESHOLD = 0.35;
+// Glide pace: duration grows with the distance (px / GLIDE_SPEED), clamped (seconds)
+const GLIDE_SPEED = 700;
+const GLIDE_MIN_DURATION = 0.7;
+const GLIDE_MAX_DURATION = 1.5;
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
 /**
@@ -90,8 +94,9 @@ export const useSectionSnap = () => {
       if (distance < 2) return;
 
       glide = animate(y, target, {
-        duration: Math.min(0.8, Math.max(0.35, distance / 1400)),
-        ease: [0.25, 0.1, 0.25, 1],
+        duration: Math.min(GLIDE_MAX_DURATION, Math.max(GLIDE_MIN_DURATION, distance / GLIDE_SPEED)),
+        // Soft start and soft arrival: the page eases away, then settles
+        ease: [0.45, 0, 0.2, 1],
         onUpdate: (v) => window.scrollTo(0, v),
         onComplete: () => {
           glide = null;
