@@ -31,7 +31,13 @@ const myButtonVariants = tv({
       xl: "h-12 px-7 text-sm gap-3.5",
     },
     variant: {
-      primary: "bg-[#ebedf0] text-black hover:bg-white",
+      // Hover: pure white plus a soft white glow, like a star lighting up
+      // (a glow, not a drop shadow: nothing to cast a shadow on in the dark)
+      primary: [
+        "bg-[#ebedf0] text-black hover:bg-white focus-visible:bg-white",
+        "hover:shadow-[0_0_28px_rgba(255,255,255,0.35)] focus-visible:shadow-[0_0_28px_rgba(255,255,255,0.35)]",
+        "transition-[background-color,box-shadow] duration-300",
+      ],
       // Subtle fill; on hover a white layer fades in (opacity is smoother
       // than animating the background color)
       secondary: [
