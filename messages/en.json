@@ -114,8 +114,8 @@
     "skills": {
       "frontEnd": "Front-End Development",
       "design": "Design & Animation",
-      "projectManagement": "Project Management",
       "backEnd": "Back-End Development",
+      "projectManagement": "Project Management",
       "cms": "CMS & E-commerce",
       "database": "Databases",
       "devOps": "DevOps",
@@ -128,7 +128,7 @@
         "highlights": ["Designed the UX and front-end (Next.js) of the web app", "Smart tools to schedule sessions, prepare them and manage lore", "Seamless online and offline play, CI/CD pipelines"]
       },
       "heroui": {
-        "role": "Contributor",
+        "role": "Front-End Contributor",
         "description": "Supported the development of HeroUI, a component library inspired by Material Design.",
         "highlights": ["Cross-framework portability of the components", "Debugging complex UI behaviors", "Aligning accessibility with EU compliance standards"]
       },
@@ -137,7 +137,7 @@
         "description": "Training on ContentSquare to analyze user behavior (heatmaps, session replays, zoning analysis) and optimize UX and conversion."
       },
       "majitv": {
-        "role": "Contributor",
+        "role": "Visual Identity Designer",
         "description": "Designed a custom pixel-art visual identity and provided branding and layout guidance to support the launch and growth of a new Twitch channel."
       },
       "googleAnalytics": {
@@ -145,7 +145,7 @@
         "description": "Google Analytics 4 certification: user behavior tracking, event setup and data-driven optimization."
       },
       "foundry": {
-        "role": "Contributor",
+        "role": "Module Developer",
         "description": "Collaborated on the development of several community-driven JavaScript modules and plugins, helping expand Foundry VTT’s ecosystem and enhancing the platform’s extensibility and user experience."
       },
       "leclerc": {
