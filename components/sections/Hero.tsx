@@ -1,190 +1,388 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import { useTransform, useMotionValue, useMotionValueEvent, motion, useScroll } from 'framer-motion';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useMotionValue,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+  easeInOut,
+  easeOut,
+  type AnimationPlaybackControls,
+} from 'framer-motion';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { cn } from '@/lib/utils';
 
 import { IdentityBlock } from './hero/IdentityBlock';
 import { StarryBackground } from './hero/StarryBackground';
 import { SkillStars } from './hero/SkillStars';
 import { IntroText } from './hero/IntroText';
 import { ScrollIndicator } from './hero/ScrollIndicator';
-import SectionShell from "../layouts/SectionShell";
+import { Mountains } from './hero/Mountains';
+
+/**
+ * The hero tells a short story, driven by native scroll (no hijacking):
+ *   invitation → take-off → hyperspace → descent → landing on the planet.
+ * The journey is one-way: once landed, the hero folds down to the arrival
+ * screen, so scrolling back up never rewinds the trip ("Revoir le voyage"
+ * replays it on demand).
+ * Every value below is a fraction of the journey (0 → 1).
+ */
+const JOURNEY = {
+  // Short on purpose: no half-faded "limbo" state after one wheel notch
+  introOut: [0, 0.07],
+  // Two parts: ~75% horizontal flight, then ~25% vertical landing.
+  // Speed: take-off from the very first pixel (instant feedback), hyperspace,
+  // partial braking (the ship keeps momentum into the descent), then a long
+  // descent that holds its pace before flaring out to a soft stop.
+  warp: {
+    at:    [0, 0.18, 0.6, 0.74, 0.97, 1],
+    speed: [0, 1,    1,   0.3,  0,    0],
+  },
+  // Flight direction, switched while still moving: 0° = forward, 90° = down
+  pitch: { at: [0.7, 0.79], deg: [0, 90] },
+  // Entering the atmosphere: the horizon glows from below during the descent
+  atmosphere: [0.7, 0.92],
+  identity: [0.84, 0.95],
+  skills: [0.9, 0.97],
+  // Where the "Launch" button takes you (landed: identity + mountains)
+  arrival: 1,
+  // Past this point the ship has landed (name on screen): the rest of the
+  // landing plays out by itself and the journey folds away
+  landed: 0.92,
+};
+
+const LAUNCH_DURATION = 5.5; // seconds for the full journey
+
+const linear = (t: number) => t;
+
+/**
+ * Stopping mid-flight while heading down: after SETTLE_DELAY, the autopilot
+ * completes the trip. It only ever flies forward: scrolling up never makes the
+ * ship take off on its own.
+ */
+const JOURNEY_REST = { inMotion: [0.005, JOURNEY.landed] };
+const SETTLE_DELAY = 200; // ms without scrolling before the autopilot takes over
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = usePrefersReducedMotion();
 
-  // Remplacement de la simulation Swiper par le scroll natif Framer Motion
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ['start start', 'end end'],
   });
 
-  const animationProgress = scrollYProgress;
+  // Journey progress: follows the scroll until landing, then stays at 1
+  const journey = useMotionValue(0);
+  const [hasLanded, setHasLanded] = useState(false);
+  const landedRef = useRef(false);
+  const pendingScrollRef = useRef<number | null>(null);
+  const replayRequestedRef = useRef(false);
 
-  const { handleMouseMove, xFront, yFront, mouseY } = useMouseParallax();
+  const { handleMouseMove, xFront, yFront } = useMouseParallax();
+  const skillsX = useTransform(xFront, (v) => v * 0.25);
+  const skillsY = useTransform(yFront, (v) => v * 0.25);
 
-  const mouseRotateX = useTransform(mouseY, [-0.5, 0.5], [4, -2]);
-  const dampedXFront = useTransform(xFront, (value) => value * 0.25);
-  const dampedYFront = useTransform(yFront, (value) => value * 0.25);
-
-  // --- TRANSFORMS ---
-
-  // PHASE 1: INTRO (0% - 20%)
-  const introOpacity = useTransform(animationProgress, [0, 0.15], [1, 0]);
-  const introScale = useTransform(animationProgress, [0, 0.15], [1, 4]);
-  const introBlur = useTransform(animationProgress, [0, 0.15], ["blur(0px)", "blur(20px)"]);
-
-  const scrollIndicatorOpacity = useTransform(animationProgress, [0, 0.05], [1, 0]);
-  const delayedOpacity = useMotionValue(1);
-  const combinedScrollIndicatorOpacity = useTransform(
-    [delayedOpacity, scrollIndicatorOpacity],
-    (values: number[]) => values[0] * values[1]
-  );
-
+  // --- 1. INVITATION ---
+  const introOpacity = useTransform(journey, JOURNEY.introOut, [1, 0]);
+  // The title flies past the viewer as the ship takes off (no blur: it read as a glitch)
+  const introScale = useTransform(journey, JOURNEY.introOut, reduceMotion ? [1, 1] : [1, 2.2]);
+  const indicatorOpacity = useTransform(journey, [0, 0.03], [1, 0]);
   const [isIntroVisible, setIsIntroVisible] = useState(true);
-  useMotionValueEvent(animationProgress, 'change', (v) => {
-    setIsIntroVisible(v < 0.1);
+
+  // --- 2. SPACE TRAVEL ---
+  // Braking out of hyperspace is eased out; the descent is eased in-out: it
+  // holds its pace first (you feel the altitude), then flares to a soft stop
+  const warpSpeed = useTransform(journey, JOURNEY.warp.at, JOURNEY.warp.speed, {
+    ease: [linear, linear, easeOut, easeInOut, linear],
   });
+  const pitch = useTransform(journey, JOURNEY.pitch.at, JOURNEY.pitch.deg, { ease: easeInOut });
+  // Engines: on while the journey moves forward (scrolling down, autopilot),
+  // cut while the visitor scrolls back up. The ship then coasts to a stop and
+  // floats, instead of stars rushing at you while you go backwards.
+  const engines = useMotionValue(1);
+  const shipSpeed = useTransform(() => warpSpeed.get() * engines.get());
+  const camera = useMemo(() => ({ speed: shipSpeed, pitch }), [shipSpeed, pitch]);
 
-  // IDENTITY APPEARANCE STATE (Timer Based)
-  const [showIdentity, setShowIdentity] = useState(false);
-  const skillStarsOpacity = useMotionValue(0);
+  // --- 3. ARRIVAL ---
+  const atmosphereOpacity = useTransform(journey, JOURNEY.atmosphere, [0, 1]);
+  const identityOpacity = useTransform(journey, JOURNEY.identity, [0, 1]);
+  const identityY = useTransform(journey, JOURNEY.identity, reduceMotion ? [0, 0] : [60, 0]);
+  const identityScale = useTransform(journey, JOURNEY.identity, reduceMotion ? [1, 1] : [0.94, 1]);
+  const skillsOpacity = useTransform(journey, JOURNEY.skills, [0, 1]);
 
-  useEffect(() => {
-    if (showIdentity) {
-      skillStarsOpacity.set(1);
-    } else {
-      skillStarsOpacity.set(0);
-    }
-  }, [showIdentity]);
+  // --- AUTOPILOT ---
+  // Plays the journey (Launch button), and finishes it when the visitor stops
+  // mid-flight, so the ship never idles in hyperspace. Native scroll is never
+  // blocked: any manual input takes back control instantly.
+  const journeyRef = useRef<AnimationPlaybackControls | null>(null);
 
-  // WARP TRIGGER (Bi-directional Auto-Scroll)
-  const isAutoScrolling = useRef(false);
-
-  useEffect(() => {
-    const triggerScroll = (from: number, to: number) => {
-      isAutoScrolling.current = true;
-      const distance = to - from;
-      const duration = 5000;
-      let startTime: number | null = null;
-
-      // TIMED APPEARANCE LOGIC
-      if (to > from) {
-        // Scrolling DOWN -> Show Identity LATE
-        // 4000ms delay ensures it appears only at the very end of the deceleration
-        setTimeout(() => setShowIdentity(true), 4000);
-      } else {
-        // Scrolling UP -> Hide Identity IMMEDIATELY
-        setShowIdentity(false);
-      }
-
-      const animation = (currentTime: number) => {
-        if (startTime === null) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-
-        // Modified Easing: SEPTIC (Ease-In-Out Septic - Power 7)
-        // Extremely slow start and end.
-        const run = progress < 0.5 
-          ? 64 * Math.pow(progress, 7) 
-          : 1 - Math.pow(-2 * progress + 2, 7) / 2;
-
-        window.scrollTo(0, from + distance * run);
-
-        if (timeElapsed < duration) {
-          requestAnimationFrame(animation);
-        } else {
-          isAutoScrolling.current = false;
-        }
-      };
-      requestAnimationFrame(animation);
-    };
-
-    const handleWheel = (e: WheelEvent) => {
-      // 1. If currently animating, block EVERYTHING.
-      if (isAutoScrolling.current) {
-        e.preventDefault();
-        return;
-      }
-
-      const currentScroll = window.scrollY;
-      // Target adjusted to 14.08 to show mountains LESS prominently
-      const targetScroll = window.innerHeight * 14.08;
-      const threshold = 100; // Tolerance zone at ends
-
-      // --- SCROLL DOWN TRIGGER (From Intro to Identity) ---
-      // Condition: At Top AND Scrolling Down
-      if (currentScroll < threshold && e.deltaY > 0) {
-        e.preventDefault();
-        triggerScroll(currentScroll, targetScroll);
-      }
-
-      // --- SCROLL UP TRIGGER (From Identity to Intro) ---
-      // Condition: At Bottom (Identity Zone) AND Scrolling Up
-      else if (currentScroll > targetScroll - threshold && currentScroll < targetScroll + threshold && e.deltaY < 0) {
-        e.preventDefault();
-        triggerScroll(currentScroll, 0);
-      }
-
-      // --- NO MAN'S LAND PROTECTION (Middle Zone) ---
-      // If user is stuck in the middle, force them to the nearest end.
-      else if (currentScroll > threshold && currentScroll < targetScroll - threshold) {
-        e.preventDefault();
-        if (e.deltaY > 0) {
-          triggerScroll(currentScroll, targetScroll); // Continue Down
-        } else {
-          triggerScroll(currentScroll, 0); // Go Back Up
-        }
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleWheel);
+  /** Hero scroll geometry, in px. */
+  const getJourneyMetrics = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return null;
+    const start = el.getBoundingClientRect().top + window.scrollY;
+    const distance = el.offsetHeight - window.innerHeight;
+    return { start, distance, progress: (window.scrollY - start) / distance };
   }, []);
 
+  const flyTo = useCallback(
+    (targetProgress: number, ease: [number, number, number, number] = [0.45, 0, 0.25, 1]) => {
+      const m = getJourneyMetrics();
+      if (!m || m.distance <= 0) return;
+      const target = m.start + m.distance * targetProgress;
+
+      journeyRef.current?.stop();
+      engines.set(1); // the autopilot always flies forward
+      if (reduceMotion) {
+        window.scrollTo({ top: target });
+        return;
+      }
+      // Same cruising pace whatever the starting point
+      const duration = Math.max(0.8, LAUNCH_DURATION * Math.abs(targetProgress - m.progress));
+      journeyRef.current = animate(window.scrollY, target, {
+        duration,
+        ease,
+        onUpdate: (v) => window.scrollTo(0, v),
+        onComplete: () => {
+          journeyRef.current = null;
+        },
+      });
+    },
+    [getJourneyMetrics, reduceMotion, engines]
+  );
+
+  const launchJourney = useCallback(() => flyTo(JOURNEY.arrival), [flyTo]);
+
+  // --- LANDING: fold the journey away, keeping the view exactly in place ---
+  const land = useCallback(() => {
+    const m = getJourneyMetrics();
+    if (landedRef.current || !m) return;
+    landedRef.current = true;
+    journeyRef.current?.stop();
+    journeyRef.current = null;
+    // The hero shrinks to one screen: keep the view exactly where it is
+    pendingScrollRef.current = m.start + Math.max(0, window.scrollY - m.start - m.distance);
+    // Play the last moments of the landing (mountains settling, name fading in)
+    if (reduceMotion) journey.set(1);
+    else animate(journey, 1, { duration: 0.9, ease: 'easeOut' });
+    setIsIntroVisible(false);
+    setHasLanded(true);
+  }, [getJourneyMetrics, journey, reduceMotion]);
+
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    if (landedRef.current) return;
+    journey.set(v);
+    setIsIntroVisible(v < 0.05);
+    if (v >= JOURNEY.landed) land();
+  });
+
+  // --- REPLAY: unfold the journey, back to the invitation ---
+  // The visitor takes off again themselves (scroll or "Lancer le voyage")
+  const [showReplay, setShowReplay] = useState(false);
+  const replayJourney = useCallback(() => {
+    replayRequestedRef.current = true;
+    landedRef.current = false;
+    journey.set(0);
+    engines.set(1);
+    setShowReplay(false);
+    setIsIntroVisible(true);
+    setHasLanded(false);
+  }, [journey, engines]);
+
+  // "Revoir le voyage" only shows up when the visitor tries to go further up
+  // than the planet (wheel, touch swipe or keyboard while already at the top)
+  useEffect(() => {
+    if (!hasLanded) return;
+    const atTop = () => (containerRef.current?.getBoundingClientRect().top ?? -1) >= -1;
+    let touchStartY = 0;
+
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY < 0 && atTop()) setShowReplay(true);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (['ArrowUp', 'PageUp', 'Home'].includes(e.key) && atTop()) setShowReplay(true);
+    };
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0]?.clientY ?? 0;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const pulledDown = (e.touches[0]?.clientY ?? 0) - touchStartY > 30;
+      if (pulledDown && atTop()) setShowReplay(true);
+    };
+    // Heading back down into the site: tuck it away again
+    const onScroll = () => {
+      if ((containerRef.current?.getBoundingClientRect().top ?? 0) < -120) setShowReplay(false);
+    };
+
+    const opts = { passive: true } as const;
+    window.addEventListener('wheel', onWheel, opts);
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('touchstart', onTouchStart, opts);
+    window.addEventListener('touchmove', onTouchMove, opts);
+    window.addEventListener('scroll', onScroll, opts);
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [hasLanded]);
+
+  // Scroll adjustments happen right after the height change, before paint
+  useLayoutEffect(() => {
+    if (hasLanded && pendingScrollRef.current !== null) {
+      window.scrollTo(0, pendingScrollRef.current);
+      pendingScrollRef.current = null;
+    }
+    if (!hasLanded && replayRequestedRef.current) {
+      replayRequestedRef.current = false;
+      const m = getJourneyMetrics();
+      if (m) window.scrollTo(0, m.start);
+    }
+  }, [hasLanded, getJourneyMetrics]);
+
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let direction = 1;
+    let isTouching = false;
+    let settleTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const cancel = () => {
+      journeyRef.current?.stop();
+      journeyRef.current = null;
+    };
+
+    // Visitor stopped mid-flight while heading down: finish the trip.
+    // Never when they were scrolling up: the ship doesn't move on its own then.
+    const settle = () => {
+      if (landedRef.current || journeyRef.current || isTouching || reduceMotion) return;
+      if (direction < 0) return;
+      const m = getJourneyMetrics();
+      if (!m) return;
+      const { inMotion } = JOURNEY_REST;
+      if (m.progress > inMotion[0] && m.progress < inMotion[1]) {
+        // Starts with some momentum: it carries on the visitor's own motion
+        flyTo(JOURNEY.arrival, [0.2, 0.25, 0.25, 1]);
+      }
+    };
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (journeyRef.current) {
+        lastY = y; // our own scrolling: just keep track of the position
+        return;
+      }
+      if (y !== lastY) {
+        direction = y > lastY ? 1 : -1;
+        engines.set(direction > 0 ? 1 : 0);
+      }
+      lastY = y;
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(settle, SETTLE_DELAY);
+    };
+
+    const onTouchStart = () => {
+      isTouching = true;
+      cancel();
+    };
+    const onTouchEnd = () => {
+      isTouching = false;
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(settle, SETTLE_DELAY);
+    };
+
+    const opts = { passive: true } as const;
+    window.addEventListener('scroll', onScroll, opts);
+    window.addEventListener('wheel', cancel, opts);
+    window.addEventListener('keydown', cancel);
+    window.addEventListener('touchstart', onTouchStart, opts);
+    window.addEventListener('touchend', onTouchEnd, opts);
+    window.addEventListener('touchcancel', onTouchEnd, opts);
+    return () => {
+      cancel();
+      clearTimeout(settleTimer);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('wheel', cancel);
+      window.removeEventListener('keydown', cancel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('touchcancel', onTouchEnd);
+    };
+  }, [flyTo, getJourneyMetrics, reduceMotion, engines]);
+
   return (
-    <div ref={containerRef} className="h-[1500vh] w-full relative bg-black">
-      <SectionShell
+    <div
+      ref={containerRef}
+      className={cn(
+        // overflow-anchor: none — we compensate the fold ourselves, precisely
+        'relative w-full bg-black [overflow-anchor:none]',
+        hasLanded ? 'h-screen' : reduceMotion ? 'h-[200vh]' : 'h-[400vh]'
+      )}
+    >
+      <div
         onMouseMove={handleMouseMove}
-        className='w-full h-screen overflow-hidden flex flex-col items-center justify-center sticky top-0 bg-black'
+        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black"
       >
-        {/* 1. StarryBackground */}
-        <div className="absolute inset-0 z-0">
-          <StarryBackground scrollProgress={animationProgress} />
-        </div>
-
-
-        <IntroText
-          opacity={introOpacity}
-          scale={introScale}
-          filter={introBlur}
-          isVisible={isIntroVisible}
+        <StarryBackground camera={camera} reducedMotion={reduceMotion} />
+        {/* Planet atmosphere glowing from the horizon on arrival */}
+        <motion.div
+          aria-hidden="true"
+          style={{ opacity: atmosphereOpacity }}
+          className="pointer-events-none absolute inset-0 z-1 bg-[radial-gradient(ellipse_120%_60%_at_50%_115%,rgba(64,100,170,0.35)_0%,rgba(24,40,80,0.18)_40%,transparent_70%)]"
         />
 
-        <ScrollIndicator opacity={combinedScrollIndicatorOpacity} onClick={() => { }} />
+        {!hasLanded && (
+          <>
+            <IntroText
+              opacity={introOpacity}
+              scale={introScale}
+              isVisible={isIntroVisible}
+              onLaunch={launchJourney}
+            />
+            <ScrollIndicator opacity={indicatorOpacity} onClick={launchJourney} isVisible={isIntroVisible} />
+          </>
+        )}
 
         <motion.div
-          initial={{ opacity: 0, y: '20vh' }}
-          animate={{ 
-            opacity: showIdentity ? 1 : 0,
-            y: showIdentity ? '10vh' : '20vh'
-          }}
-          transition={{ duration: 1.0, ease: "easeOut" }}
-          className="relative w-full h-full z-10 flex flex-col items-center justify-center"
+          style={{ opacity: identityOpacity, y: identityY, scale: identityScale }}
+          className="absolute inset-0 z-10 flex items-center justify-center"
         >
           <IdentityBlock />
-
-          <SkillStars
-            x={dampedXFront}
-            y={dampedYFront}
-            // Use manual MotionValue to trigger the internal animation logic of SkillStars
-            opacity={skillStarsOpacity}
-            onStarClick={() => { }}
-          />
         </motion.div>
 
-      </SectionShell>
+        <SkillStars x={skillsX} y={skillsY} opacity={skillsOpacity} onStarClick={() => {}} />
+
+        {/* Landing: the planet's ridges rise from the horizon */}
+        <Mountains progress={journey} />
+
+        {/* Landed + trying to scroll further up: offer to replay the trip */}
+        <AnimatePresence>
+          {hasLanded && showReplay && (
+            <motion.button
+              type="button"
+              onClick={replayJourney}
+              initial={{ opacity: 0, y: -16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+              className="absolute z-30 top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-4 py-2 text-xs uppercase tracking-[0.2em] font-light text-white/70 hover:text-white hover:border-white/40 focus-visible:text-white focus-visible:outline focus-visible:outline-white/40 transition-colors cursor-pointer"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 12a9 9 0 1 0 3-6.7" />
+                <path d="M3 4v5h5" />
+              </svg>
+              Revoir le voyage
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

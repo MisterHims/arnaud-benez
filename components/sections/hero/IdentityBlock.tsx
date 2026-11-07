@@ -19,7 +19,7 @@ export const IdentityBlock = () => {
           <h1 className='font-semibold text-[40px] md:text-[54px] leading-none uppercase tracking-[0.2em]'>
             Arnaud Benez
           </h1>
-          <div className='font-light text-[16px] md:text-[23px] text-gray-300 uppercase tracking-[0.084em] flex items-center justify-center md:justify-start gap-3'>
+          <div className='font-light text-[16px] md:text-[23px] text-gray-300 uppercase tracking-[0.084em] flex flex-col md:flex-row items-center justify-center md:justify-start gap-1 md:gap-3'>
             <span>UI/UX Designer</span>
             <span className='h-6 w-px bg-gray-500 hidden md:block'></span>
             <span>Front-End Developer</span>

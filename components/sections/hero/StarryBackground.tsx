@@ -1,38 +1,58 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { MotionValue } from 'framer-motion';
 
+/** Ship state along the journey, all driven by the hero's scroll progress. */
+export interface JourneyCamera {
+  /** Warp speed, 0 (floating in space) to 1 (full hyperspace). */
+  speed: MotionValue<number>;
+  /** Flight direction in degrees: 0 = straight ahead, 90 = descending. */
+  pitch: MotionValue<number>;
+}
+
 interface StarryBackgroundProps {
-  scrollProgress: MotionValue<number>;
+  camera: JourneyCamera;
+  reducedMotion?: boolean;
 }
 
 interface Star {
-  angle: number;
-  radius: number;
-  orbitalSpeed: number;
-  x: number;
-  y: number;
-  warpSpeed: number;
+  x: number; // horizontal position in "space"
+  y: number; // vertical position in "space"
+  z: number; // depth: 1 = far away, ~0 = right in front of the viewer
   size: number;
   baseAlpha: number;
+  phase: number; // twinkle offset
 }
 
 interface ShootingStar {
   x: number; y: number; vx: number; vy: number; life: number; initialLife: number;
 }
 
-export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const progressRef = useRef(0);
-  const lastProgressRef = useRef(0);
+// --- CONFIGURATION ---
+const NUM_STARS = 550;
+const IDLE_SPEED = 0.006;   // space units / second when floating
+const WARP_SPEED = 1.4;     // extra space units / second at full warp
+const TRAIL = 0.14;         // streak length (space units) at full warp
+const SMOOTHING = 4;        // higher = camera reacts faster to scroll changes
+const SHOOTING_STAR_COOLDOWN = 20000;
 
+const randomStar = (z = Math.random() * 0.95 + 0.05): Star => ({
+  x: Math.random() * 2 - 1,
+  y: Math.random() * 2 - 1,
+  z,
+  size: Math.random() * 1.0 + 0.5,
+  baseAlpha: Math.random() * 0.5 + 0.5,
+  phase: Math.random() * Math.PI * 2,
+});
+
+export const StarryBackground = ({ camera, reducedMotion = false }: StarryBackgroundProps) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  // Latest motion values, read every frame without re-running the effect
+  const cameraRef = useRef(camera);
   useEffect(() => {
-    const unsubscribe = scrollProgress.on('change', (latestValue) => {
-      progressRef.current = latestValue;
-    });
-    return () => unsubscribe();
-  }, [scrollProgress]);
+    cameraRef.current = camera;
+  }, [camera]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -40,48 +60,35 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // --- CONFIGURATION ---
-    const numStars = 250;
-    let stars: Star[] = [];
-    const shootingStars: ShootingStar[] = [];
-    let animationId: number;
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let animationId = 0;
+    let lastTime = 0;
     let lastShootingStarTime = 0;
-    const SHOOTING_STAR_COOLDOWN = 20000;
+    const stars: Star[] = Array.from({ length: NUM_STARS }, () => randomStar());
+    const shootingStars: ShootingStar[] = [];
+
+    // Smoothed camera, eased toward the scroll-driven targets
+    const cam0 = cameraRef.current;
+    const smooth = {
+      speed: 0,
+      pitch: reducedMotion ? 0 : cam0.pitch.get(),
+    };
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initStars();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
     };
 
-    const initStars = () => {
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-
-      stars = Array.from({ length: numStars }, () => {
-        const angle = Math.random() * Math.PI * 2;
-        const radius = Math.random() * (Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 1.5);
-        const size = Math.random() * 1.0 + 0.5;
-
-        return {
-          angle,
-          radius,
-          orbitalSpeed: Math.random() * 0.0001 + 0.00003,
-          x: centerX + radius * Math.cos(angle),
-          y: centerY + radius * Math.sin(angle),
-          size,
-          warpSpeed: 2 + (size * 4),
-          baseAlpha: Math.random() * 0.5 + 0.5
-        };
-      });
-    };
-
-    const spawnShootingStar = () => {
-      const now = Date.now();
+    const spawnShootingStar = (now: number) => {
       if (shootingStars.length === 0 && now - lastShootingStarTime >= SHOOTING_STAR_COOLDOWN) {
         shootingStars.push({
-          x: Math.random() * canvas.width * 0.5,
-          y: Math.random() * canvas.height * 0.5,
+          x: Math.random() * width * 0.5,
+          y: Math.random() * height * 0.5,
           vx: 3 + Math.random() * 2,
           vy: 1 + Math.random() * 1.5,
           life: 120,
@@ -91,134 +98,139 @@ export const StarryBackground = ({ scrollProgress }: StarryBackgroundProps) => {
       }
     };
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const animate = (time: number) => {
+      const dt = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
+      lastTime = time;
 
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
+      // --- CAMERA ---
+      const cam = cameraRef.current;
+      const k = Math.min(1, dt * SMOOTHING);
+      smooth.speed += ((reducedMotion ? 0 : cam.speed.get()) - smooth.speed) * k;
+      smooth.pitch += ((reducedMotion ? 0 : cam.pitch.get()) - smooth.pitch) * k;
 
-      const progress = progressRef.current;
-      
-      // --- NOUVELLE LOGIQUE BASÉE SUR LA VITESSE ---
-      const delta = progress - lastProgressRef.current;
-      lastProgressRef.current = progress;
+      const s = smooth.speed;
+      const vpx = width / 2;
+      const vpy = height / 2;
+      const scale = Math.max(width, height) * 0.5;
 
-      // DIRECTION
-      // Retour à la logique standard (physique)
-      // Scroll Down (delta > 0) -> direction = 1 -> Étoiles montent (y diminue)
-      // Scroll Up (delta < 0) -> direction = -1 -> Étoiles descendent (y augmente)
-      const direction = Math.sign(delta); 
-      
-      // INTENSITÉ
-      let warpFactor = Math.abs(delta) * 40;
-      warpFactor = Math.min(warpFactor, 20);
+      // Flight direction: forward (z) blending into a vertical descent (y)
+      const pitchRad = (smooth.pitch * Math.PI) / 180;
+      const forward = Math.cos(pitchRad);
+      const down = Math.sin(pitchRad);
+      const isWarping = s > 0.02;
 
-      const isMoving = warpFactor > 0.01; 
-
-      stars.forEach((star) => {
-        if (isMoving) {
-          // --- MODE WARP (PHYSIQUE CHUTE) ---
-          // RETOUR AU SENS "MONTÉE" POUR SIMULER LA CHUTE
-          // Scroll Down (dir=1) -> Étoiles montent (y diminue).
-          // C'est le seul moyen de donner l'impression de descendre.
-          star.y -= star.warpSpeed * warpFactor * 15 * direction;
-
-          if (direction > 0) {
-             // Monte -> Reset en bas si < 0
-             if (star.y < 0) {
-               star.y = canvas.height + 10;
-               star.x = Math.random() * canvas.width;
-             }
-          } else {
-             // Descend -> Reset en haut si > height
-             if (star.y > canvas.height) {
-               star.y = -10;
-               star.x = Math.random() * canvas.width;
-             }
-          }
-
-          const dx = star.x - centerX;
-          const dy = star.y - centerY;
-          star.radius = Math.sqrt(dx * dx + dy * dy);
-          star.angle = Math.atan2(dy, dx);
-
-        } else {
-          // --- MODE ORBITE ---
-          star.angle += star.orbitalSpeed;
-          star.x = centerX + star.radius * Math.cos(star.angle);
-          star.y = centerY + star.radius * Math.sin(star.angle);
-        }
-
-        // --- SCINTILLEMENT ---
-        const stability = Math.min(1, warpFactor * 25);
-        const sineWave = 0.4 + Math.abs(Math.sin(Date.now() * 0.0015 + star.x)) * 0.5;
-        const brightness = (1 * stability) + (sineWave * (1 - stability));
-        const finalAlpha = star.baseAlpha * brightness;
-
-        // --- RENDU ---
-        if (finalAlpha > 0.01) {
-          ctx.beginPath();
-          ctx.fillStyle = `rgba(255, 255, 255, ${finalAlpha})`;
-          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-          ctx.fill();
-
-          if (warpFactor > 0.02) {
-            // Traînée opposée au mouvement
-            // Si on monte (y diminue), traînée vers le bas (positif) -> direction
-            const trailLength = star.warpSpeed * warpFactor * 5 * direction;
-
-            ctx.beginPath();
-            const grad = ctx.createLinearGradient(star.x, star.y, star.x, star.y + trailLength);
-            grad.addColorStop(0, `rgba(255, 255, 255, ${finalAlpha})`);
-            grad.addColorStop(1, `rgba(255, 255, 255, 0)`);
-
-            ctx.strokeStyle = grad;
-            ctx.lineWidth = star.size * 1.5;
-            ctx.moveTo(star.x, star.y);
-            ctx.lineTo(star.x, star.y + trailLength);
-            ctx.stroke();
-          }
-        }
+      const project = (x: number, y: number, z: number) => ({
+        sx: vpx + (x / z) * scale,
+        sy: vpy + (y / z) * scale,
       });
+      // Inverse projection: space coordinate that lands on a given screen pixel
+      const unprojectX = (sx: number, z: number) => ((sx - vpx) / scale) * z;
+      const unprojectY = (sy: number, z: number) => ((sy - vpy) / scale) * z;
 
-      // --- ÉTOILES FILANTES ---
-      if (!isMoving) {
-        spawnShootingStar();
-      } else {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, width, height);
+
+      // --- STARS ---
+      const travel = ((reducedMotion ? 0 : IDLE_SPEED) + s * WARP_SPEED) * dt;
+      // Twinkle fades out in hyperspace, and comes back during the landing
+      const twinkleMix = Math.min(1, s * 10) * forward;
+      const margin = 50;
+
+      for (const star of stars) {
+        // The ship moves forward and/or down: stars come closer and/or rise.
+        // The rise uses a mild, capped parallax (near stars at most 2× faster
+        // than far ones) so the descent feels deep without stars whizzing past.
+        const rise = star.z * (1 + (1 - star.z));
+        star.z -= travel * forward;
+        star.y -= travel * down * rise;
+
+        let { sx, sy } = project(star.x, star.y, star.z);
+
+        if (star.z <= 0.02) {
+          Object.assign(star, randomStar(Math.random() * 0.3 + 0.7));
+        } else if (down > 0.3 && sy < -margin) {
+          // Descending: a star leaving through the top re-enters from the bottom
+          star.y = unprojectY(height + margin * Math.random(), star.z);
+          star.x = unprojectX(Math.random() * width, star.z);
+        } else if (sx < -margin || sx > width + margin || sy < -margin || sy > height + margin) {
+          // Recycle far away so the field never empties
+          Object.assign(star, randomStar(Math.random() * 0.3 + 0.7));
+        }
+        ({ sx, sy } = project(star.x, star.y, star.z));
+
+        const nearness = 1 - star.z; // 0 = far, 1 = close
+        const twinkle = 0.55 + 0.45 * Math.abs(Math.sin(time * 0.0015 + star.phase));
+        const brightness = twinkle * (1 - twinkleMix) + twinkleMix;
+        const alpha = star.baseAlpha * brightness * Math.min(1, 0.25 + nearness * 1.2);
+        const radius = star.size * (0.5 + nearness * 1.3);
+
+        if (alpha < 0.01) continue;
+
+        if (isWarping) {
+          // Streak from where the star was a moment ago to where it is now
+          const trail = TRAIL * s;
+          const tail = project(star.x, star.y + trail * down * rise, Math.min(1, star.z + trail * forward));
+          const grad = ctx.createLinearGradient(tail.sx, tail.sy, sx, sy);
+          grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+          grad.addColorStop(1, `rgba(255, 255, 255, ${alpha})`);
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = radius * 1.4;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(tail.sx, tail.sy);
+          ctx.lineTo(sx, sy);
+          ctx.stroke();
+        } else {
+          ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+          ctx.beginPath();
+          ctx.arc(sx, sy, radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // --- SHOOTING STARS (only when floating) ---
+      if (isWarping || reducedMotion) {
         shootingStars.length = 0;
+      } else {
+        spawnShootingStar(Date.now());
       }
 
       for (let i = shootingStars.length - 1; i >= 0; i--) {
-        const s = shootingStars[i];
-        const opacity = s.life / s.initialLife;
-        const grad = ctx.createLinearGradient(s.x, s.y, s.x - s.vx * 35, s.y - s.vy * 35);
+        const st = shootingStars[i];
+        const opacity = st.life / st.initialLife;
+        const grad = ctx.createLinearGradient(st.x, st.y, st.x - st.vx * 35, st.y - st.vy * 35);
         grad.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-        grad.addColorStop(1, `rgba(255, 255, 255, 0)`);
+        grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
         ctx.strokeStyle = grad;
         ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(s.x - s.vx * 18, s.y - s.vy * 18); ctx.stroke();
-        s.x += s.vx; s.y += s.vy; s.life -= 1;
-        if (s.life <= 0) shootingStars.splice(i, 1);
+        ctx.beginPath();
+        ctx.moveTo(st.x, st.y);
+        ctx.lineTo(st.x - st.vx * 18, st.y - st.vy * 18);
+        ctx.stroke();
+        st.x += st.vx;
+        st.y += st.vy;
+        st.life -= 1;
+        if (st.life <= 0) shootingStars.splice(i, 1);
       }
 
       animationId = requestAnimationFrame(animate);
     };
 
     resizeCanvas();
-    animate();
-
+    animationId = requestAnimationFrame(animate);
     window.addEventListener('resize', resizeCanvas);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 z-0 top-0 left-0 w-full h-full pointer-events-none"
+      aria-hidden="true"
+      className="absolute inset-0 z-0 w-full h-full pointer-events-none"
     />
   );
 };

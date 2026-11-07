@@ -1,7 +1,6 @@
 'use client';
 
 import { Hero } from '@/components/sections/Hero';
-import { Mountains } from '@/components/sections/hero/Mountains';
 import { TopSpacer } from '@/components/sections/whoiam/TopSpacer';
 import { WhoIAm } from "@/components/sections/WhoIAm";
 import { WhatIDo } from "@/components/sections/WhatIDo";
@@ -19,9 +18,8 @@ export default function Home() {
         <Hero />
       </section>
 
-      {/* Transition Layer (Mountains) */}
+      {/* Transition Layer: snowy ridge (end of the hero's landing) → dark valley */}
       <div className="w-full relative z-30">
-          <Mountains />
           <TopSpacer />
       </div>
 
