@@ -12,7 +12,17 @@ export const Contact = () => {
   const t = useTranslations('Contact');
   return (
     <>
-      <SectionShell variant="full" className="relative isolate bg-radial-[at_25%_25%] from-[#07080a] to-[#101215] to-75% overflow-hidden">
+      <SectionShell variant="full" className="relative isolate overflow-hidden">
+        {/* Section background, fading in over its first 240px (no hard edge
+            with the section above) */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 pointer-events-none bg-radial-[at_25%_25%] from-[#07080a] to-[#101215] to-75%"
+          style={{
+            maskImage: 'linear-gradient(to bottom, transparent, black 240px)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 240px)',
+          }}
+        />
         <NightSky seed={53} count={40} />
         <SectionShell variant="contained" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14">
 
