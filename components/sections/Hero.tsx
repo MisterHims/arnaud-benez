@@ -22,6 +22,7 @@ import { StarryBackground } from './hero/StarryBackground';
 import { SkillStars, type SkillTarget } from './hero/SkillStars';
 import { IntroText } from './hero/IntroText';
 import { ScrollIndicator } from './hero/ScrollIndicator';
+import { LanguageSwitch } from '@/components/ui/LanguageSwitch';
 import { Mountains } from './hero/Mountains';
 
 /**
@@ -284,6 +285,10 @@ export const Hero = () => {
     document.getElementById('who-i-am')?.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
   }, [scrollBehavior]);
 
+  const goToContact = useCallback(() => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
+  }, [scrollBehavior]);
+
   // A skill star leads to its section, or to its logo in the skills grid (highlighted)
   const goToSkill = useCallback(
     (target: SkillTarget) => {
@@ -396,6 +401,17 @@ export const Hero = () => {
 
         {!hasLanded && (
           <>
+            {/* Invitation: language choice, top right (fades out at take-off) */}
+            <motion.div
+              style={{ opacity: introOpacity }}
+              className={cn(
+                'absolute z-30 top-4 right-4 md:top-8 md:right-10',
+                !isIntroVisible && 'pointer-events-none'
+              )}
+            >
+              <LanguageSwitch />
+            </motion.div>
+
             <IntroText opacity={introOpacity} scale={introScale} isVisible={isIntroVisible} />
             <ScrollIndicator
               opacity={indicatorOpacity}
@@ -426,6 +442,25 @@ export const Hero = () => {
         {/* Landing: the planet's ridges rise from the horizon */}
         <Mountains progress={journey} mouseX={mouseX} />
 
+        {/* Landed: contact + language, top right */}
+        {hasLanded && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8, ease: 'easeOut' }}
+            className="absolute z-30 top-4 right-4 md:top-8 md:right-10 flex items-center gap-3 md:gap-5"
+          >
+            <button
+              type="button"
+              onClick={goToContact}
+              className="h-10 md:h-12 px-5 md:px-6 rounded-full border-2 border-white text-white text-base md:text-xl font-bold uppercase tracking-wide hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors cursor-pointer"
+            >
+              Contact
+            </button>
+            <LanguageSwitch />
+          </motion.div>
+        )}
+
         {/* Landed: invite to explore the rest of the site */}
         {hasLanded && (
           <motion.div
@@ -454,7 +489,7 @@ export const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="absolute z-30 top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-4 py-2 text-xs uppercase tracking-[0.2em] font-light text-white/70 hover:text-white hover:border-white/40 focus-visible:text-white focus-visible:outline focus-visible:outline-white/40 transition-colors cursor-pointer"
+              className="absolute z-30 top-20 md:top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm px-4 py-2 text-xs uppercase tracking-[0.2em] font-light text-white/70 hover:text-white hover:border-white/40 focus-visible:text-white focus-visible:outline focus-visible:outline-white/40 transition-colors cursor-pointer"
             >
               <svg aria-hidden="true" viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 12a9 9 0 1 0 3-6.7" />
