@@ -5,6 +5,7 @@ import { useTransition } from 'react';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
+import { rememberSectionOffset } from '@/hooks/useSectionUrl';
 
 interface LanguageSwitchProps {
   className?: string;
@@ -25,6 +26,8 @@ export const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
 
   const switchTo = (locale: Locale) => {
     if (locale === current) return;
+    // Same spot in the section being read, whatever the texts' length
+    rememberSectionOffset();
     startTransition(() => {
       // Same page in the other language, without jumping back to the top
       router.replace(pathname, { locale, scroll: false });
