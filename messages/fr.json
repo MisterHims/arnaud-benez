@@ -42,40 +42,52 @@
   },
   "WhatIDo": {
     "title": "Ce que je fais",
-    "p1": "Avec une expertise en React, Next.js et Tailwind CSS, je développe des interfaces web performantes et des applications SaaS sur mesure, optimisées pour l’UX/UI et l’accessibilité (WCAG).",
-    "p2": "J’interviens aussi bien sur des sites e-commerce complexes, intégrant des architectures headless, des PIM/ERP et des flux de données métier, que sur des applications SaaS agiles, optimisées pour la scalabilité, la performance et le SEO technique.",
-    "p3": "Chaque projet bénéficie d’une approche centrée sur l’utilisateur : PWA rapides, expériences API-first, optimisation de la conversion (CRO), ainsi que des interventions ponctuelles sur l’IA générative, les contenus multimédias et le conseil stratégique digital."
+    "intro": "Je conçois et je développe des interfaces, de la première maquette à la mise en production. Quinze ans d’e-commerce m’ont appris ce qui rend un parcours simple, rapide et efficace : c’est ce que j’apporte à chaque projet."
   },
   "Services": {
+    "more": "En savoir plus",
+    "less": "Voir moins",
     "uiux": {
       "title": "UI/UX Design",
-      "description": "Je conçois des interfaces claires, ergonomiques et intuitives, centrées sur les besoins utilisateurs. Chaque parcours est pensé pour optimiser la navigation, fluidifier l’expérience et renforcer l’accessibilité. Mon approche s’appuie sur des méthodologies UX éprouvées, alliant prototypage, design systems et tests utilisateurs.",
-      "tags": ["Wireframing", "Prototypage", "Ergonomie", "Design Systems", "Accessibilité", "Atomic Design", "Tests utilisateurs"]
+      "description": "Des interfaces claires et accessibles, pensées pour vos utilisateurs et validées par le prototypage et les tests.",
+      "tags": ["Prototypage", "Design Systems", "Accessibilité", "Tests utilisateurs"],
+      "details": "Chaque parcours est pensé pour simplifier la navigation et renforcer l’accessibilité (WCAG). Je m’appuie sur des méthodes UX éprouvées, de la recherche utilisateur aux wireframes, prototypes interactifs, design systems et tests, jusqu’à une interface prête à développer.",
+      "moreTags": ["Wireframing", "Ergonomie", "Atomic Design", "Recherche UX", "Figma"]
     },
     "artDirection": {
       "title": "Direction Artistique",
-      "description": "J’imagine et déploie des identités visuelles fortes et cohérentes, adaptées aux valeurs et à l’univers de chaque marque. Je conçois une ligne graphique, une stratégie de communication efficace et adaptée et dirige la création de contenus visuels en assurant une harmonie sur tous les supports (print & digital). Mon objectif : garantir une direction créative claire, percutante et alignée avec les enjeux stratégiques.",
-      "tags": ["Branding", "Charte graphique", "Identité visuelle", "Stratégie de design", "Storytelling", "Design Thinking"]
+      "description": "Une identité visuelle forte et cohérente, déclinée sur tous les supports, du print au digital.",
+      "tags": ["Branding", "Identité visuelle", "Charte graphique"],
+      "details": "J’imagine des identités adaptées aux valeurs et à l’univers de chaque marque : ligne graphique, charte et stratégie de communication. Je dirige ensuite la création des contenus visuels, pour une direction créative claire et cohérente, alignée sur vos objectifs.",
+      "moreTags": ["Stratégie de design", "Storytelling", "Design Thinking", "Print"]
     },
     "media": {
       "title": "Création de Médias",
-      "description": "Je produis des supports de communication impactants, adaptés à tous les canaux : bannières, vidéos, social media, pré-presse, etc. Chaque création est pensée pour renforcer l’image de marque, capter l’attention et soutenir les objectifs marketing tout en respectant la cohérence visuelle de l’univers graphique.",
-      "tags": ["Motion Design", "Sound Design", "Kits emailing", "Réseaux sociaux", "Pré-presse", "Production vidéo", "Stratégie de contenu"]
+      "description": "Bannières, vidéos, emailings, réseaux sociaux : des contenus qui captent l’attention, fidèles à votre marque.",
+      "tags": ["Motion Design", "Vidéo", "Emailing", "Réseaux sociaux"],
+      "details": "Je produis les supports de communication de tous les canaux : bannières, vidéos, motion design, kits emailing, visuels pour les réseaux sociaux et fichiers prêts pour l’impression. Chaque création renforce l’image de marque et soutient vos objectifs marketing.",
+      "moreTags": ["Sound Design", "Pré-presse", "Production vidéo", "Stratégie de contenu", "IA générative"]
     },
     "frontEnd": {
-      "title": "Développement Front-End",
-      "description": "J’intègre des interfaces web performantes, accessibles et optimisées en assurant un code maintenable, modulable et conforme aux meilleures pratiques du front-end moderne. Mes développements avec React et Next.js permettent des applications fluides, réactives et adaptées à tous les environnements.",
-      "tags": ["Responsive Design", "PWA", "Validation de formulaires", "Animations JS/CSS"]
+      "title": "Développement Front‑End",
+      "description": "Des maquettes fidèlement codées en React et Next.js : rapides, responsives et faciles à faire évoluer.",
+      "tags": ["React / Next.js", "Responsive", "Performance", "Animations"],
+      "details": "J’intègre des interfaces performantes et accessibles, avec un code modulaire et maintenable qui suit les bonnes pratiques du front-end moderne : React, Next.js, TypeScript et Tailwind CSS. Applications SaaS, sites headless ou PWA : des expériences fluides sur tous les écrans.",
+      "moreTags": ["TypeScript", "Tailwind CSS", "PWA", "SaaS", "Headless", "Validation de formulaires"]
     },
     "projectManagement": {
       "title": "Gestion de projets",
-      "description": "J’accompagne les équipes et les entreprises dans la gestion de leurs projets digitaux, de la stratégie à la livraison. Grâce à ma double compétence en design et développement, je facilite la coordination entre les différents intervenants et assure la cohérence globale des projets. Mon approche est orientée solution avec un focus sur l’expérience utilisateur et l’innovation.",
-      "tags": ["Stratégie digitale", "Agile", "Recherche UX", "Planification de sprints"]
+      "description": "De la stratégie à la livraison, je fais le lien entre design, développement et métier pour que le projet avance.",
+      "tags": ["Agile", "Stratégie digitale", "Coordination"],
+      "details": "Ma double compétence en design et en développement facilite la coordination entre les équipes et garantit la cohérence du projet, de la stratégie à la mise en ligne. J’organise le travail en mode agile, avec l’expérience utilisateur comme fil conducteur.",
+      "moreTags": ["Planification de sprints", "Roadmap", "Recherche UX", "Conseil digital"]
     },
     "ecommerce": {
       "title": "E-commerce",
-      "description": "J’optimise l’expérience d’achat sur des plateformes e-commerce complexes, en structurant les catalogues produits, en améliorant les parcours clients et en garantissant la performance (SEO, accessibilité). J’interviens sur la gestion de données métier, l’intégration multicanal, la conversion et l’optimisation de la logistique e-commerce.",
-      "tags": ["A/B Testing", "Gestion de données", "SEO", "Performance", "Conversion"]
+      "description": "Des parcours d’achat qui convertissent : catalogues structurés, tunnels de commande optimisés et sites rapides.",
+      "tags": ["Conversion", "A/B Testing", "SEO", "Données produit"],
+      "details": "J’interviens sur des plateformes e‑commerce complexes : structuration des catalogues, intégrations PIM/ERP et flux de données métier, parcours clients, performance et SEO technique. L’objectif : un site agréable à parcourir, et qui vend.",
+      "moreTags": ["CRO", "PIM / ERP", "SEO technique", "Multicanal", "Logistique e-commerce"]
     }
   },
   "Experience": {

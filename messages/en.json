@@ -42,40 +42,52 @@
   },
   "WhatIDo": {
     "title": "What I Do",
-    "p1": "With expertise in React, Next.js and Tailwind CSS, I build high-performance web interfaces and custom SaaS applications, optimized for UX/UI and accessibility (WCAG).",
-    "p2": "I work on complex e-commerce websites, with headless architectures, PIM/ERP integrations and business data flows, as well as on agile SaaS applications built for scalability, performance and technical SEO.",
-    "p3": "Every project benefits from a user-centered approach: fast PWAs, API-first experiences, conversion rate optimization (CRO), along with occasional work on generative AI, multimedia content and digital strategy consulting."
+    "intro": "I design and build interfaces, from the first wireframe to production. Fifteen years of e-commerce taught me what makes a journey simple, fast and effective: that’s what I bring to every project."
   },
   "Services": {
+    "more": "Learn more",
+    "less": "Show less",
     "uiux": {
       "title": "UI/UX Design",
-      "description": "I design clear, ergonomic and intuitive interfaces centered on users’ needs. Every journey is crafted to ease navigation, smooth out the experience and strengthen accessibility. My approach relies on proven UX methodologies, combining prototyping, design systems and user testing.",
-      "tags": ["Wireframing", "Prototyping", "Ergonomics", "Design Systems", "Accessibility", "Atomic Design", "User Testing"]
+      "description": "Clear, accessible interfaces designed around your users, validated through prototyping and testing.",
+      "tags": ["Prototyping", "Design Systems", "Accessibility", "User Testing"],
+      "details": "Every journey is designed to simplify navigation and strengthen accessibility (WCAG). I rely on proven UX methods, from user research to wireframes, interactive prototypes, design systems and testing, all the way to a developer-ready interface.",
+      "moreTags": ["Wireframing", "Ergonomics", "Atomic Design", "UX Research", "Figma"]
     },
     "artDirection": {
       "title": "Art Direction",
-      "description": "I imagine and roll out strong, consistent visual identities tailored to each brand’s values and world. I define the graphic line and an effective, well-suited communication strategy, and lead the creation of visual content while ensuring harmony across every medium (print & digital). My goal: a clear, impactful creative direction aligned with strategic goals.",
-      "tags": ["Branding", "Brand Guidelines", "Visual Identity", "Design Strategy", "Storytelling", "Design Thinking"]
+      "description": "A strong, consistent visual identity, rolled out across every medium, from print to digital.",
+      "tags": ["Branding", "Visual Identity", "Brand Guidelines"],
+      "details": "I imagine identities tailored to each brand’s values and world: graphic line, brand guidelines and communication strategy. I then lead the creation of visual content, for a clear, consistent creative direction aligned with your goals.",
+      "moreTags": ["Design Strategy", "Storytelling", "Design Thinking", "Print"]
     },
     "media": {
       "title": "Media Creation",
-      "description": "I produce impactful communication assets for every channel: banners, videos, social media, prepress and more. Each piece is designed to strengthen the brand image, capture attention and support marketing goals, while staying consistent with the visual identity.",
-      "tags": ["Motion Design", "Sound Design", "Email Kits", "Social Media", "Prepress", "Video Production", "Content Strategy"]
+      "description": "Banners, videos, emails, social media: content that grabs attention and stays true to your brand.",
+      "tags": ["Motion Design", "Video", "Email", "Social Media"],
+      "details": "I produce communication assets for every channel: banners, videos, motion design, email kits, social media visuals and print-ready files. Each piece strengthens the brand image and supports your marketing goals.",
+      "moreTags": ["Sound Design", "Prepress", "Video Production", "Content Strategy", "Generative AI"]
     },
     "frontEnd": {
-      "title": "Front-End Development",
-      "description": "I build high-performing, accessible and optimized web interfaces, with maintainable, modular code that follows modern front-end best practices. My React and Next.js work delivers smooth, responsive applications that adapt to every environment.",
-      "tags": ["Responsive Design", "PWA", "Form Validation", "JS/CSS Animation"]
+      "title": "Front‑End Development",
+      "description": "Designs faithfully built in React and Next.js: fast, responsive and easy to evolve.",
+      "tags": ["React / Next.js", "Responsive", "Performance", "Animation"],
+      "details": "I build high-performing, accessible interfaces with modular, maintainable code that follows modern front-end best practices: React, Next.js, TypeScript and Tailwind CSS. SaaS applications, headless sites or PWAs: smooth experiences on every screen.",
+      "moreTags": ["TypeScript", "Tailwind CSS", "PWA", "SaaS", "Headless", "Form Validation"]
     },
     "projectManagement": {
       "title": "Project Management",
-      "description": "I support teams and companies in managing their digital projects, from strategy to delivery. With my dual background in design and development, I ease coordination between stakeholders and keep projects consistent as a whole. My approach is solution-oriented, with a focus on user experience and innovation.",
-      "tags": ["Digital Strategy", "Agile", "UX Research", "Sprint Planning"]
+      "description": "From strategy to delivery, I bridge design, development and business so the project keeps moving.",
+      "tags": ["Agile", "Digital Strategy", "Coordination"],
+      "details": "My dual background in design and development eases coordination between teams and keeps the project consistent, from strategy to launch. I organize the work the agile way, with user experience as the common thread.",
+      "moreTags": ["Sprint Planning", "Roadmap", "UX Research", "Digital Consulting"]
     },
     "ecommerce": {
       "title": "E-commerce",
-      "description": "I optimize the shopping experience on complex e-commerce platforms by structuring product catalogs, improving customer journeys and ensuring performance (SEO, accessibility). I work on business data management, multichannel integration, conversion and e-commerce logistics optimization.",
-      "tags": ["A/B Testing", "Data Management", "SEO", "Performance", "Conversion"]
+      "description": "Shopping journeys that convert: structured catalogs, streamlined checkouts and fast sites.",
+      "tags": ["Conversion", "A/B Testing", "SEO", "Product Data"],
+      "details": "I work on complex e‑commerce platforms: catalog structure, PIM/ERP integrations and business data flows, customer journeys, performance and technical SEO. The goal: a site that’s pleasant to browse, and that sells.",
+      "moreTags": ["CRO", "PIM / ERP", "Technical SEO", "Omnichannel", "E-commerce Logistics"]
     }
   },
   "Experience": {

@@ -19,9 +19,11 @@ export const WhatIDo = () => {
           alt=""
           fill
           className="object-cover object-bottom opacity-8"
+          // Fades out at both ends: the section's bottom edge used to cut
+          // the pattern at full strength (hard line above Experience)
           style={{
-            maskImage: 'linear-gradient(to top, black 0%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to top, black 0%, transparent 100%)'
+            maskImage: 'linear-gradient(to top, transparent 0%, black 35%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 35%, transparent 100%)'
           }}
         />
       </div>
@@ -31,14 +33,13 @@ export const WhatIDo = () => {
         className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 col-start-1 row-start-1 z-10 bg-transparent relative"
       >
         <BlockContent isSticky colSpan={5} className="order-1 md:order-2">
-          <h2 className='text-xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
+          <h2 className='text-xl md:text-8xl font-black text-[#EDEDED] tracking-tight text-balance mb-8'>
             {t('title')}
           </h2>
-          <div className='text-lg space-y-6 leading-relaxed font-extralight text-gray-300'>
-            <p>{t('p1')}</p>
-            <p>{t('p2')}</p>
-            <p>{t('p3')}</p>
-          </div>
+          {/* One positioning statement: the cards carry the details */}
+          <p className='text-xl leading-relaxed font-extralight text-gray-300 max-w-xl'>
+            {t('intro')}
+          </p>
         </BlockContent>
 
         <BlockContent colSpan={6} className="order-2 md:order-1 h-[calc(100%-2px)]">
