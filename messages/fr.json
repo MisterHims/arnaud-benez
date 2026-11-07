@@ -109,6 +109,7 @@
     },
     "present": "aujourd’hui",
     "showMore": "Voir plus",
+    "cta": "Tout mon parcours, sur une page.",
     "empty": "Aucune expérience dans cette catégorie.",
     "skills": {
       "frontEnd": "Développement Front-End",
@@ -123,15 +124,17 @@
     "items": {
       "cloudcastle": {
         "role": "Co-fondateur",
-        "description": "Co-fondation de CloudCastle en 2024 pour créer Questix, un gestionnaire de campagnes de jeu de rôle assisté par IA. Conception du front-end (Next.js 13) et de l’UX d’une application web qui aide les MJ et les joueurs à simplifier l’organisation, la préparation et la gestion du lore grâce à des outils intelligents, des pipelines CI/CD et un jeu fluide en ligne comme hors ligne."
+        "description": "Co-fondation de CloudCastle pour créer Questix, un gestionnaire de campagnes de jeu de rôle assisté par IA.",
+        "highlights": ["Conception de l’UX et du front-end (Next.js) de l’application web", "Outils intelligents pour organiser les parties, les préparer et gérer le lore", "Jeu fluide en ligne comme hors ligne, pipelines CI/CD"]
       },
       "heroui": {
         "role": "Contributeur",
-        "description": "Contribution au développement de HeroUI, une bibliothèque de composants inspirée de Material Design. Travail sur la portabilité multi-frameworks, le débogage de comportements d’interface complexes et la mise en conformité de l’accessibilité avec les normes européennes."
+        "description": "Contribution au développement de HeroUI, une bibliothèque de composants inspirée de Material Design.",
+        "highlights": ["Portabilité des composants entre frameworks", "Débogage de comportements d’interface complexes", "Mise en conformité de l’accessibilité avec les normes européennes"]
       },
       "contentsquare": {
         "role": "Formation",
-        "description": "Formation à la plateforme d’analyse de l’expérience digitale ContentSquare. Analyse du comportement utilisateur avec des outils comme les heatmaps, les replays de sessions et l’analyse par zones, afin d’optimiser l’UX et la conversion."
+        "description": "Formation à ContentSquare pour analyser le comportement des utilisateurs (heatmaps, replays de sessions, analyse par zones) et optimiser l’UX et la conversion."
       },
       "majitv": {
         "role": "Contributeur",
@@ -139,7 +142,7 @@
       },
       "googleAnalytics": {
         "role": "Certification",
-        "description": "Obtention de la certification Google Analytics 4. Maîtrise du suivi du comportement utilisateur, de la configuration d’événements et de l’exploitation des données pour optimiser les expériences digitales."
+        "description": "Certification Google Analytics 4 : suivi du comportement utilisateur, configuration d’événements et exploitation des données."
       },
       "foundry": {
         "role": "Contributeur",
@@ -147,27 +150,30 @@
       },
       "leclerc": {
         "role": "UI/UX Designer",
-        "description": "Prise en charge d’un large éventail de projets digitaux au sein de l’écosystème E.Leclerc : design UI/UX, développement front-end (React, Next.js), composants e-commerce modulaires, emailing et tests utilisateurs. Impliqué notamment dans la refonte de Voyages E.Leclerc, tout en contribuant à des projets transverses touchant d’autres plateformes et équipes. Focus sur des interfaces évolutives, l’optimisation des parcours utilisateurs et l’amélioration de la performance digitale, en collaboration avec les équipes marketing, produit et tech."
+        "description": "Design UI/UX et développement front-end pour l’écosystème digital E.Leclerc, avec les équipes marketing, produit et tech.",
+        "highlights": ["Refonte de Voyages E.Leclerc", "Composants e-commerce modulaires en React et Next.js", "Emailing, tests utilisateurs et optimisation des parcours", "Projets transverses pour d’autres plateformes et équipes"]
       },
       "freelance": {
         "role": "UI/UX Designer & Développeur",
-        "description": "En tant que webdesigner freelance, j’ai proposé un large éventail de services digitaux adaptés à des clients variés : retouche photo pour des plateformes e-commerce comme La Plateforme du Bâtiment, campagnes emailing pour DogFidelity, sites web pour des photographes professionnels ou encore identités de marque pour des associations comme Vocajob. Au contact direct des clients pour cerner leur vision et leurs besoins, je concevais des solutions qui renforcent l’engagement des utilisateurs et traduisent visuellement la proposition de valeur de chaque marque."
+        "description": "Services digitaux sur mesure pour des clients variés, au contact direct de chacun pour cerner sa vision et ses besoins.",
+        "highlights": ["Retouche photo e-commerce pour La Plateforme du Bâtiment", "Campagnes emailing pour DogFidelity", "Sites web pour des photographes professionnels", "Identité de marque pour l’association Vocajob"]
       },
       "delaveine": {
         "role": "Webdesigner",
-        "description": "Gestion et développement de la présence en ligne de Delaveine, enseigne de prêt-à-porter masculin : maintenance et évolutions du site, création de publicités et bannières promotionnelles, retouche et montage photo pour les fiches produits, et intégration des newsletters pour une communication client cohérente et efficace."
+        "description": "Gestion et développement de la présence en ligne de Delaveine, enseigne de prêt-à-porter masculin.",
+        "highlights": ["Maintenance et évolutions du site", "Publicités et bannières promotionnelles", "Retouche et montage photo des fiches produits", "Intégration des newsletters"]
       },
       "itecomDev": {
         "role": "Développeur Front-End / Intégrateur",
-        "description": "Formation de développeur front-end et intégrateur chez Itecom Art Design : HTML, CSS, JavaScript et responsive design. Accent mis sur l’ergonomie, la compatibilité multi-supports et le référencement naturel (SEO), à travers des projets pratiques mêlant code, mise en page et conception centrée utilisateur pour améliorer la performance et l’accessibilité."
+        "description": "Formation de développeur front-end et intégrateur : HTML, CSS, JavaScript et responsive design, avec un accent sur l’ergonomie, l’accessibilité et le SEO."
       },
       "itecomPm": {
         "role": "Webdesigner & Chef de projet",
-        "description": "Formation complète en webdesign et gestion de projet : conception de sites engageants grâce à un design innovant et une navigation intuitive, analyse des besoins utilisateurs pour proposer des solutions digitales adaptées, et pilotage de projets de bout en bout."
+        "description": "Formation en webdesign et gestion de projet : analyse des besoins utilisateurs, conception de sites et pilotage de projets de bout en bout."
       },
       "itecomGraphic": {
         "role": "Graphiste & Maquettiste",
-        "description": "Formation en identité visuelle et design graphique chez Itecom Art Design, centrée sur la mise en page et la composition visuelle. Maîtrise de la suite Adobe et création de maquettes cohérentes, efficaces sur tous les supports, à travers des projets alliant créativité et technique."
+        "description": "Formation en identité visuelle et design graphique : mise en page, composition et maîtrise de la suite Adobe, du print au digital."
       },
       "zigoh": {
         "role": "Designer vectoriel",

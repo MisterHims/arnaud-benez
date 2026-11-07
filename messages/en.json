@@ -109,6 +109,7 @@
     },
     "present": "Present",
     "showMore": "Show more",
+    "cta": "My whole background, on one page.",
     "empty": "No experience found for this category.",
     "skills": {
       "frontEnd": "Front-End Development",
@@ -123,15 +124,17 @@
     "items": {
       "cloudcastle": {
         "role": "Co-Founder",
-        "description": "Co-founded CloudCastle in 2024 to build Questix, an AI-powered TTRPG campaign manager. Designed the front-end (Next.js 13) and UX for a web app that helps DMs and players streamline scheduling, prep, and lore with smart tools, CI/CD pipelines, and seamless offline/online play."
+        "description": "Co-founded CloudCastle to build Questix, an AI-powered tabletop RPG campaign manager.",
+        "highlights": ["Designed the UX and front-end (Next.js) of the web app", "Smart tools to schedule sessions, prepare them and manage lore", "Seamless online and offline play, CI/CD pipelines"]
       },
       "heroui": {
         "role": "Contributor",
-        "description": "Supported the development of HeroUI, a component library inspired by Material Design. Worked on cross-framework portability, debugging complex UI behaviors, and aligning accessibility with EU compliance standards."
+        "description": "Supported the development of HeroUI, a component library inspired by Material Design.",
+        "highlights": ["Cross-framework portability of the components", "Debugging complex UI behaviors", "Aligning accessibility with EU compliance standards"]
       },
       "contentsquare": {
         "role": "Trainee",
-        "description": "Completed training on ContentSquare’s digital experience analytics platform. Learned to analyze user behavior with tools like heatmaps, session replays, and zoning analysis to optimize UX and conversion."
+        "description": "Training on ContentSquare to analyze user behavior (heatmaps, session replays, zoning analysis) and optimize UX and conversion."
       },
       "majitv": {
         "role": "Contributor",
@@ -139,7 +142,7 @@
       },
       "googleAnalytics": {
         "role": "Certification",
-        "description": "Earned Google Analytics 4 certification. Gained proficiency in tracking user behavior, setting up events, and leveraging data insights to optimize digital experiences."
+        "description": "Google Analytics 4 certification: user behavior tracking, event setup and data-driven optimization."
       },
       "foundry": {
         "role": "Contributor",
@@ -147,27 +150,30 @@
       },
       "leclerc": {
         "role": "UI/UX Designer",
-        "description": "Handling a broad range of digital initiatives across the E.Leclerc ecosystem, from UI/UX design and front-end development (React, Next.js) to modular e-commerce components, emailing, and user testing. Notably involved in the redesign of Voyages E.Leclerc, while also contributing to cross-functional projects impacting other platforms and teams. Focused on building scalable interfaces, optimizing user flows, and improving overall digital performance in collaboration with marketing, product, and tech stakeholders."
+        "description": "UI/UX design and front-end development across the E.Leclerc digital ecosystem, with marketing, product and tech teams.",
+        "highlights": ["Redesign of Voyages E.Leclerc", "Modular e-commerce components in React and Next.js", "Emailing, user testing and user flow optimization", "Cross-functional projects for other platforms and teams"]
       },
       "freelance": {
         "role": "UI/UX Designer & Developer",
-        "description": "As a freelance web designer, I delivered a wide array of digital services tailored to diverse client needs. My projects ranged from photo retouching for e-commerce platforms like La Plateforme du Bâtiment, crafting engaging email campaigns for DogFidelity, to website design for professional photographers, and developing brand identities for non-profit organizations like Vocajob. My role involved direct client interaction to capture vision and requirements, implementing design solutions that enhance user engagement and visually communicate each brand’s unique value proposition effectively."
+        "description": "Tailored digital services for a wide range of clients, working directly with each to capture their vision and needs.",
+        "highlights": ["E-commerce photo retouching for La Plateforme du Bâtiment", "Email campaigns for DogFidelity", "Websites for professional photographers", "Brand identity for the non-profit Vocajob"]
       },
       "delaveine": {
         "role": "Web Designer",
-        "description": "Managed and enhanced the online presence of Delaveine, a men’s fashion retailer. Responsibilities included website maintenance and development, creating eye-catching ads and banners for promotions, photo retouching, and assembly for online product displays. Also handled the integration of email newsletters, ensuring consistent and effective communication with customers."
+        "description": "Managed and grew the online presence of Delaveine, a men’s fashion retailer.",
+        "highlights": ["Website maintenance and development", "Promotional ads and banners", "Photo retouching and assembly for product pages", "Newsletter integration"]
       },
       "itecomDev": {
         "role": "Front-End Developer / Integrator",
-        "description": "Received specialized training as a Front-End Developer and Integrator at Itecom Art Design, honing skills in HTML, CSS, JavaScript, and responsive web design. Focused on optimizing website ergonomics, enhancing cross-device compatibility, and improving search engine optimization (SEO). Projects involved hands-on practice with coding, layout adjustments, and integrating user-centered design principles to boost site performance and accessibility."
+        "description": "Front-end developer and integrator training: HTML, CSS, JavaScript and responsive design, with a focus on ergonomics, accessibility and SEO."
       },
       "itecomPm": {
         "role": "Web Designer & Project Manager",
-        "description": "Completed a comprehensive training program focusing on web design and project management. Developed expertise in building engaging websites, capturing user interest through innovative design and intuitive navigation. Skilled in identifying project requirements and analyzing user needs to deliver tailored digital solutions. Enhanced proficiency in managing end-to-end project lifecycles, ensuring seamless execution and optimum user engagement."
+        "description": "Web design and project management training: user needs analysis, website design and end-to-end project management."
       },
       "itecomGraphic": {
         "role": "Graphic Designer & Layout Artist",
-        "description": "Studied visual identity and graphic design at Itecom Art Design, focusing on mastering essential skills in page layout and visual composition. Gained proficiency in Adobe Creative Suite, learning to create cohesive design models that effectively communicate across various media. Engaged in practical projects that emphasized both the creative and technical aspects of design."
+        "description": "Visual identity and graphic design training: page layout, composition and the Adobe suite, from print to digital."
       },
       "zigoh": {
         "role": "Vector Designer",

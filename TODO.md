@@ -18,6 +18,9 @@ Things set aside while building the v2 of the portfolio (`feat/portfolio-v2`).
 ## Content
 
 - [ ] Zigoh experience: its description duplicates Delaveine's (`Experience.items.zigoh`).
+- [ ] Experience highlights: add concrete results where possible (figures, scope, impact),
+      e.g. for E.Leclerc / Voyages E.Leclerc (`Experience.items.*.highlights`).
+- [ ] Experience stack tags: check the tools listed per position (`stack` in `src/data/experience.ts`).
 - [ ] Resume and portfolio PDFs to link from the Who I Am buttons.
 - [ ] `/legal` page (linked from the footer, not created yet).
 - [ ] Contact form: no backend yet (the form doesn't send anything).
