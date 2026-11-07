@@ -511,8 +511,9 @@ export const Hero = ({ startLanded = false }: HeroProps) => {
               isVisible
               label={t('discover.label')}
               ariaLabel={t('discover.ariaLabel')}
-              // Same spot as the intro's "Scroll down", over the snow
-              tone="dark"
+              // Same look as the intro's "Scroll down", on the sky just above
+              // the ridges (white on the snow lacked contrast)
+              className="bottom-[calc(var(--mountains-h)-3.5rem)]"
             />
           </motion.div>
         )}

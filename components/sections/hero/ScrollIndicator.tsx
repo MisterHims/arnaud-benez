@@ -11,8 +11,6 @@ interface ScrollIndicatorProps {
   opacity?: MotionValue<number>;
   /** Positioning classes (defaults to the bottom of the screen). */
   className?: string;
-  /** 'light' for dark backgrounds (sky), 'dark' for light ones (snow). */
-  tone?: 'light' | 'dark';
 }
 
 /** Animated mouse + label inviting to scroll down. */
@@ -23,7 +21,6 @@ export const ScrollIndicator = ({
   ariaLabel,
   opacity,
   className = 'bottom-10',
-  tone = 'light',
 }: ScrollIndicatorProps) => (
   <motion.button
     type="button"
@@ -33,17 +30,14 @@ export const ScrollIndicator = ({
     aria-hidden={!isVisible}
     aria-label={ariaLabel}
     className={cn(
-      'absolute left-1/2 -translate-x-1/2 flex flex-col items-center z-30 cursor-pointer',
-      // On the snow (dark tone): one dark translucent disc holding the mouse
-      // and the label, an anchor point that stands out
-      tone === 'dark' ? 'justify-center gap-2.5 size-30 rounded-full bg-black/70' : 'gap-4',
+      'absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-30 cursor-pointer',
       !isVisible && 'pointer-events-none',
       className
     )}
   >
     <span className="flex items-center justify-center">
-      {/* Mouse body (white on both the sky and the dark disc) */}
-      <span className={cn('w-6 h-10 rounded-full border-2 relative block', tone === 'dark' ? 'border-white/50' : 'border-white/30')}>
+      {/* Mouse body */}
+      <span className="w-6 h-10 rounded-full border-2 border-white/30 relative block">
         {/* Scroll wheel */}
         <motion.span
           animate={{ y: [0, 4, 0] }}
@@ -53,12 +47,7 @@ export const ScrollIndicator = ({
       </span>
     </span>
 
-    <span
-      className={cn(
-        'text-[11px] tracking-[0.2em] uppercase',
-        tone === 'light' ? 'text-gray-400 font-light' : 'text-gray-300 font-normal'
-      )}
-    >
+    <span className="text-[11px] tracking-[0.2em] uppercase text-gray-400 font-light">
       {label}
     </span>
   </motion.button>
