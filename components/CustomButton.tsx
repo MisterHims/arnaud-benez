@@ -31,11 +31,13 @@ const myButtonVariants = tv({
       xl: "h-12 px-7 text-sm gap-3.5",
     },
     variant: {
-      // Hover: pure white plus a soft white glow, like a star lighting up
-      // (a glow, not a drop shadow: nothing to cast a shadow on in the dark)
+      // Rest: a cool light gray, not full white; hover: near white with a
+      // light halo (a glow, not a drop shadow); same on keyboard focus.
+      // Both carry a touch of blue (hue 257, the palette's): a neutral white
+      // glow reads yellowish against the cool background
       primary: [
-        "bg-[#ebedf0] text-black hover:bg-white focus-visible:bg-white",
-        "hover:shadow-[0_0_28px_rgba(255,255,255,0.35)] focus-visible:shadow-[0_0_28px_rgba(255,255,255,0.35)]",
+        "bg-gray-300 text-black hover:bg-[oklch(97%_0.012_257)] focus-visible:bg-[oklch(97%_0.012_257)]",
+        "hover:shadow-[0_0_20px_oklch(82%_0.09_257/0.3)] focus-visible:shadow-[0_0_20px_oklch(82%_0.09_257/0.3)]",
         "transition-[background-color,box-shadow] duration-300",
       ],
       // Subtle fill; on hover a white layer fades in (opacity is smoother
