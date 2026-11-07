@@ -12,7 +12,7 @@ export const Footer = () => {
 
   return (
     <footer className="w-full border-t border-white/5 bg-[#010101]">
-      <SectionShell variant="contained" withSpacing={false} className="my-5">
+      <SectionShell variant="contained" withSpacing={false} className="py-5">
         <BlockContent colSpan={12}>
           {/* Copyright and legal notice on the left, language choice on the right */}
           <div className="flex flex-wrap text-sm text-zinc-400 font-light tracking-wide justify-between items-center gap-4">
