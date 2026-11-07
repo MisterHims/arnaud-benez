@@ -23,7 +23,7 @@ export const WhatIDo = () => {
           edge and toward the top */}
       <div
         aria-hidden="true"
-        className="col-start-1 row-start-1 self-end w-full h-[800px] pointer-events-none select-none z-0 opacity-8"
+        className="col-start-1 row-start-1 self-end w-full h-[800px] pointer-events-none select-none z-0 opacity-6"
         style={{
           backgroundImage: 'url(/assets/patterns/logo-pattern-tile.svg)',
           backgroundRepeat: 'repeat',
@@ -54,7 +54,9 @@ export const WhatIDo = () => {
             <h3 className="text-xs uppercase tracking-[0.12em] font-medium text-zinc-400 mb-2">
               {t('methodTitle')}
             </h3>
-            <ol className="divide-y divide-white/[0.07]">
+            {/* Solid divider color (same look as 7% white on the background): a
+                translucent one let the logo pattern show through */}
+            <ol className="divide-y divide-[#1b1d20]">
               {steps.map((step, index) => (
                 <li key={step.title} className="flex items-baseline gap-4 py-3">
                   <span aria-hidden="true" className="w-6 shrink-0 text-xs tabular-nums text-zinc-400 tracking-[0.12em]">
