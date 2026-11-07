@@ -21,7 +21,15 @@ export const TrustedBy = () => {
   const seamlessLogos = [...TRUSTED_LOGOS, ...TRUSTED_LOGOS, ...TRUSTED_LOGOS, ...TRUSTED_LOGOS]; // Not used here as we loop manually in JSX, but good practice if you refactor
 
   return (
-    <div className="w-full flex flex-col items-center py-24 md:py-36 bg-radial-[at_25%_25%] from-[#07080a] to-[#101215] to-75% overflow-hidden">
+    <div className="relative isolate w-full flex flex-col items-center py-24 md:py-36 overflow-hidden">
+      {/* No rectangular band (its hard top / bottom edges cut the page): a
+          soft elliptical glow behind the logos, fading out in every direction */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 55% 50% at 50% 58%, rgba(255,255,255,0.04), transparent 70%)' }}
+      />
+
 
       <h3 className="text-[#bec3ca] text-2xl md:text-3xl font-bold mb-24 text-center px-4">
         {t('trustedBy')}
