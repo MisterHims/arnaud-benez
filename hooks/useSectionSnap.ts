@@ -7,6 +7,10 @@ const SECTION_SELECTOR = '[data-snap-section]';
 const SETTLE_DELAY = 180;      // ms without scrolling before settling
 const USER_INPUT_WINDOW = 1500; // only settle right after the visitor's own scrolling
 const DESKTOP_QUERY = '(min-width: 768px)';
+// A section taller than this many screens is "tall": crossing out of it needs intent
+const TALL_SECTION_RATIO = 1.15;
+// Share of the screen the destination must already occupy before a tall section glides
+const INTENT_THRESHOLD = 0.35;
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
 /**
@@ -60,8 +64,18 @@ export const useSectionSnap = () => {
       // Fully inside a section: free scrolling, nothing to do. As soon as the
       // end of the current section is on screen (even if a decorative
       // transition, not a section, sits between the two), we're "between" them
-      const currentEndVisible = current.top + current.height < y + vh - 1;
+      const currentEnd = current.top + current.height;
+      const currentEndVisible = currentEnd < y + vh - 1;
       if (!currentEndVisible) return;
+
+      // Intent threshold for tall sections: reading the bottom of a long
+      // section (or peeking at the next one) must not throw you forward, and a
+      // small scroll up must not throw you back. Short sections stay snappy.
+      const isTall = (s: { height: number }) => s.height > vh * TALL_SECTION_RATIO;
+      const beyondCurrent = y + vh - currentEnd; // px of the screen past the current section
+      const currentShown = currentEnd - y;       // px of the current section still on screen
+      if (direction > 0 && isTall(current) && beyondCurrent < vh * INTENT_THRESHOLD) return;
+      if (direction < 0 && isTall(current) && currentShown < vh * INTENT_THRESHOLD) return;
 
       const target =
         direction > 0
