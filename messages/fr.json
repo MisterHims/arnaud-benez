@@ -6,6 +6,9 @@
   "LanguageSwitch": {
     "label": "Langue"
   },
+  "BackToTop": {
+    "label": "Retour en haut"
+  },
   "Hero": {
     "intro": {
       "title": "Designing Universe",

@@ -8,6 +8,7 @@ import { Contact } from "@/components/sections/Contact";
 import { Works } from "@/components/sections/Works";
 import { Experience } from "@/components/sections/Experience";
 import { useSectionSnap } from "@/hooks/useSectionSnap";
+import { BackToTop } from "@/components/ui/BackToTop";
 
 export default function Home() {
   // Glides from one section to the next when the visitor stops between two
@@ -58,6 +59,7 @@ export default function Home() {
         <Contact />
       </section>
 
+      <BackToTop />
     </main>
   );
 }
