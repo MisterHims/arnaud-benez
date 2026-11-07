@@ -6,28 +6,28 @@ import { ExperienceItem } from "./ExperienceItem";
 import { TIMELINE_DATA } from "@/src/data/experience";
 import { CustomButton } from "@/components/CustomButton";
 import { Icon } from "@/components/ui/Icon";
+import { useTranslations } from "next-intl";
 
 export const ExperienceList = () => {
 
   // 2. State to manage full or limited display
   const [isExpanded, setIsExpanded] = useState(false);
+  const t = useTranslations('Experience');
 
-  const filters = [
-    { id: 'all', label: 'All' },
-    { id: 'job', label: 'Job' },
-    { id: 'collaboration', label: 'Collaboration' },
-    { id: 'formation', label: 'Formation' },
-  ];
+  const filters = (['all', 'job', 'collaboration', 'formation'] as const).map((id) => ({
+    id,
+    label: t(`filters.${id}`),
+  }));
 
   return (
     <div className="flex flex-col h-full">
 
       <h2 className='text-xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
-        Experience
+        {t('title')}
       </h2>
 
       <Tabs
-        aria-label="Experience filters"
+        aria-label={t('filtersLabel')}
         defaultSelectedKey="all"
         className="w-full"
         orientation="horizontal"
@@ -74,7 +74,7 @@ export const ExperienceList = () => {
         {filters.map((filter) => {
           const categoryItems = TIMELINE_DATA.filter((item) => {
             if (filter.id === 'all') return true;
-            return item.type.toLowerCase() === filter.id;
+            return item.type === filter.id;
           });
 
           const showButton = categoryItems.length > 8;
@@ -105,15 +105,12 @@ export const ExperienceList = () => {
                   }
                 />
 
-                {displayedItems.map((item, index) => (
-                  <ExperienceItem
-                    key={index}
-                    {...item}
-                  />
+                {displayedItems.map((item) => (
+                  <ExperienceItem key={item.id} {...item} />
                 ))}
 
                 {categoryItems.length === 0 && (
-                  <p className="pl-12 text-zinc-600 text-sm italic py-4">No experience found for this category.</p>
+                  <p className="pl-12 text-zinc-600 text-sm italic py-4">{t('empty')}</p>
                 )}
 
                 {showButton && !isExpanded && (
@@ -125,7 +122,7 @@ export const ExperienceList = () => {
                       onPress={() => setIsExpanded(true)}
                       className="absolute"
                     >
-                      Show More
+                      {t('showMore')}
                       <Icon name="ArrowDown" className="w-5 h-5 mt-[5px]" />
                     </CustomButton>
                   </div>

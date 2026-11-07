@@ -4,8 +4,10 @@ import Image from 'next/image';
 import { Card } from "@heroui/react";
 import { Icon } from "@/components/ui/Icon";
 import { CustomButton } from "@/components/CustomButton";
+import { useTranslations } from "next-intl";
 
 export const ContactCard = () => {
+  const t = useTranslations('Contact.card');
   return (
     // 1. THE MASTER CONTAINER
     <div className="relative w-full max-w-[640px] aspect-640/416 mx-auto md:mx-0">
@@ -54,7 +56,7 @@ export const ContactCard = () => {
           </div>
           <div className="self-stretch py-1.5 inline-flex flex-col justify-center items-start">
             <h3 className="text-white text-3xl font-semibold uppercase tracking-[6px]">Arnaud Benez</h3>
-            <span className="text-[#c2c2c2] text-sm uppercase tracking-wide font-extralight">UI/UX Designer | Front-end Developer</span>
+            <span className="text-[#c2c2c2] text-sm uppercase tracking-wide font-extralight">{t('roles')}</span>
           </div>
         </Card.Header>
 
@@ -76,7 +78,7 @@ export const ContactCard = () => {
           {/* LOCATION */}
           <div className="flex items-center gap-4 text-[#DEDEDE] text-lgsm:text-sm group/link hover:text-white transition-colors pl-1">
             <Icon name="LocationUser" size={20} />
-            <span className="font-light tracking-wide">Val de Marne</span>
+            <span className="font-light tracking-wide">{t('location')}</span>
           </div>
         </Card.Content>
 
@@ -115,7 +117,7 @@ export const ContactCard = () => {
       <div className="absolute -bottom-5 right-4 sm:right-8 z-20">
         <CustomButton variant="secondary" size="sm" className="shadow-2xl">
           <Icon name="Download" className="relative bottom-0.25 w-4 h-4 sm:w-5 sm:h-5" />
-          <span className="text-xs sm:text-sm">Download Contact Card</span>
+          <span className="text-xs sm:text-sm">{t('download')}</span>
         </CustomButton>
       </div>
 

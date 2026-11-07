@@ -2,6 +2,7 @@
 
 import { Logo, LogoName } from "@/components/ui/Logo";
 import { Tooltip } from '@heroui/react';
+import { useTranslations } from 'next-intl';
 
 interface SkillCategoryProps {
   title: string;
@@ -56,46 +57,47 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
 );
 
 export const SkillsGrid = () => {
+  const t = useTranslations('Experience.skills');
   return (
     <div className="flex flex-wrap gap-4 justify-start">
 
       <SkillCard
-        title="Front-End Development"
+        title={t('frontEnd')}
         icons={['TypeScript', 'Tailwind CSS', 'MUI', 'React', 'Vite', 'NextJS']}
       />
 
       <SkillCard
-        title="Design & Animation"
+        title={t('design')}
         icons={['Figma', 'Photoshop', 'Illustrator', 'InDesign', 'Premiere Pro', 'After Effects', 'Audition']}
       />
 
       <SkillCard
-        title="Project Management"
+        title={t('projectManagement')}
         icons={['Linear', 'Microsoft Project', 'Notion', 'Trello', 'Obsidian']}
       />
 
       <SkillCard
-        title="Backend Development"
+        title={t('backEnd')}
         icons={['JavaScript']}
       />
 
       <SkillCard
-        title="CMS & E-Commerce"
+        title={t('cms')}
         icons={['ContentSquare', 'Google Analytics', 'Wordpress', 'Shopify']}
       />
 
       <SkillCard
-        title="Database"
+        title={t('database')}
         icons={['SQLite', 'MongoDB', 'NeonDB', 'Prisma']}
       />
 
       <SkillCard
-        title="Dev Ops"
+        title={t('devOps')}
         icons={['Docker', 'Nginx', 'Vercel']}
       />
 
       <SkillCard
-        title="Dev Tools"
+        title={t('devTools')}
         icons={['VSCode', 'Git', 'Cursor', 'Stripo', 'NPM']} // I removed Github/Copilot as they're not in the updated LogoName list, add them back if added
       />
 

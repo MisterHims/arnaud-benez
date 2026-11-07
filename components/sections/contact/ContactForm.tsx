@@ -1,10 +1,12 @@
 'use client';
 
 import { CustomButton } from "@/components/CustomButton";
-import { Button, TextField, Label, Input, TextArea, FieldError, Surface } from "@heroui/react";
+import { TextField, Label, Input, TextArea, FieldError, Surface } from "@heroui/react";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 export const ContactForm = () => {
+  const t = useTranslations('Contact.form');
   // 1. Style du Label (au-dessus du champ)
   const labelClass = "text-base text-[#EDEDED] mb-1 block font-light";
 
@@ -22,24 +24,24 @@ export const ContactForm = () => {
 
           {/* CHAMP FULL NAME */}
           <TextField className="w-full" name="name">
-            <Label className={labelClass}>Full Name</Label>
+            <Label className={labelClass}>{t('name')}</Label>
             <Input
               className={fieldClass}
-              placeholder="John Doe"
+              placeholder={t('namePlaceholder')}
             />
           </TextField>
 
           {/* CHAMP EMAIL */}
           <TextField className="w-full" name="email" type="email" isRequired>
             <Label className={labelClass}>
-              Email
+              {t('email')}
             </Label>
             <Input
               className={fieldClass}
-              placeholder="john.doe@example.com"
+              placeholder={t('emailPlaceholder')}
             />
             <FieldError className="text-xs text-red-500 mt-1">
-              Please enter a valid email address
+              {t('emailError')}
             </FieldError>
           </TextField>
 
@@ -47,12 +49,10 @@ export const ContactForm = () => {
 
         {/* Ligne 2 : Message */}
         <TextField className="w-full" name="message">
-          <Label className={labelClass}>Your message</Label>
+          <Label className={labelClass}>{t('message')}</Label>
           <TextArea
             className={`${fieldClass} min-h-[150px] resize-none`}
-            aria-describedby="textarea-controlled-description"
-            aria-label="Announcement"
-            placeholder="Compose an announcement..."
+            placeholder={t('messagePlaceholder')}
             value={value}
             onChange={(event) => setValue(event.target.value)}
             style={{ resize: "vertical" }}
@@ -62,9 +62,8 @@ export const ContactForm = () => {
         {/* Footer du Formulaire */}
         <div className="flex flex-col md:flex-row items-end justify-between gap-6 mt-2">
           <div className="text-[#A0A0A0] text-base font-extralight leading-5.5">
-            <span className="block mb-2 text-sm italic"><span className="text-red-500 mr-1">*</span>Required</span>
-            <p>Envie de discuter design, projets ou passions ?<br />
-              On ne sait jamais ce qu'un simple message peut déclencher.</p>
+            <span className="block mb-2 text-sm italic"><span className="text-red-500 mr-1">*</span>{t('required')}</span>
+            <p>{t.rich('pitch', { br: () => <br /> })}</p>
           </div>
           <CustomButton
             type="submit"
@@ -72,7 +71,7 @@ export const ContactForm = () => {
             size="lg"
             className="w-full max-w-[200px]"
           >
-            Envoyer
+            {t('submit')}
           </CustomButton>
 
         </div>

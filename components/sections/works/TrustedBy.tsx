@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { Logo, LogoName } from "../../ui/Logo";
 
 const TRUSTED_LOGOS: { name: LogoName; className: string }[] = [
@@ -15,13 +17,14 @@ const TRUSTED_LOGOS: { name: LogoName; className: string }[] = [
 ];
 
 export const TrustedBy = () => {
+  const t = useTranslations('Works');
   const seamlessLogos = [...TRUSTED_LOGOS, ...TRUSTED_LOGOS, ...TRUSTED_LOGOS, ...TRUSTED_LOGOS]; // Not used here as we loop manually in JSX, but good practice if you refactor
 
   return (
     <div className="w-full flex flex-col items-center py-24 md:py-36 bg-radial-[at_25%_25%] from-[#080808] to-[#121212] to-75% overflow-hidden">
 
       <h3 className="text-[#c2c2c2] text-2xl md:text-3xl font-bold mb-24 text-center px-4">
-        Ils m'ont fait confiance
+        {t('trustedBy')}
       </h3>
 
       <div

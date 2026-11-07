@@ -4,7 +4,7 @@ import SectionShell from "../layouts/SectionShell";
 import { Logo, LogoName } from "../ui/Logo";
 import { TrustedBy } from "./works/TrustedBy";
 import { WorkCard } from "./works/WorkCard";
-import Image from "next/image"; // 1. Ne pas oublier l'import
+import { useTranslations } from "next-intl";
 
 // List of logos to scroll (Order you want)
 const TRUSTED_LOGOS: { name: LogoName; className: string }[] = [
@@ -20,6 +20,7 @@ const TRUSTED_LOGOS: { name: LogoName; className: string }[] = [
 ];
 
 export const Works = () => {
+  const t = useTranslations('Works');
   return (
     <div className="w-full min-h-full grid grid-cols-1">
       <SectionShell
@@ -29,11 +30,11 @@ export const Works = () => {
         {/* HEADER */}
         <div className="text-center mb-8">
           <h2 className='text-6xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-4'>
-            Works
+            {t('title')}
           </h2>
 
           <h3 className="text-[#A8A8A8] text-2xl md:text-3xl font-bold">
-            Take a look at my showcase
+            {t('subtitle')}
           </h3>
         </div>
 
@@ -44,7 +45,7 @@ export const Works = () => {
           <WorkCard
             className="md:col-span-2 md:rounded-tl-3xl"
             title="Mouvement E.Leclerc"
-            category="Travel Agency"
+            category={t('categories.travelAgency')}
             logo={<Logo name="Leclerc" className="w-28 h-auto" />}
             imageSrc="/assets/works/voyages-leclerc.jpg"
           />
@@ -53,7 +54,7 @@ export const Works = () => {
           <WorkCard
             className="md:rounded-tr-3xl"
             title="HeroUI"
-            category="Library"
+            category={t('categories.library')}
             logo={<Logo name="HeroUI" className="w-28 h-auto" />}
             imageSrc="/assets/works/heroui.jpg"
           />
@@ -61,7 +62,7 @@ export const Works = () => {
           {/* 3. MIDDLE LEFT */}
           <WorkCard
             title="MajiTV"
-            category="Streaming"
+            category={t('categories.streaming')}
             logo="MajiTV"
             imageSrc="/assets/works/maji.jpg"
           />
@@ -69,7 +70,7 @@ export const Works = () => {
           {/* 4. MIDDLE */}
           <WorkCard
             title="Questix"
-            category="SaaS"
+            category={t('categories.saas')}
             logo="Questix"
             imageSrc="/assets/works/questix.jpg"
           />
@@ -77,7 +78,7 @@ export const Works = () => {
           {/* 5. MIDDLE RIGHT */}
           <WorkCard
             title="Delaveine"
-            category="E-commerce"
+            category={t('categories.ecommerce')}
             logo="delaveine"
             imageSrc="/assets/works/delaveine.jpg"
           />
@@ -86,7 +87,7 @@ export const Works = () => {
           <WorkCard
             className="md:rounded-bl-3xl"
             title="Vocajob"
-            category="Recruitment"
+            category={t('categories.recruitment')}
             logo="Vocajob"
             imageSrc="/assets/works/vocajob.jpg"
           />
@@ -94,7 +95,7 @@ export const Works = () => {
           {/* 7. BOTTOM MIDDLE */}
           <WorkCard
             title="FoundryVTT"
-            category="Collaboration"
+            category={t('categories.collaboration')}
             logo="FoundryVTT"
             imageSrc="/assets/works/fvtt.webp"
           />
@@ -102,8 +103,8 @@ export const Works = () => {
           {/* 8. BOTTOM RIGHT */}
           <WorkCard
             className="md:rounded-br-3xl bg-[#050505]"
-            title="Toutes mes réalisations"
-            category="Voir le portfolio complet"
+            title={t('allWorks.title')}
+            category={t('allWorks.subtitle')}
             imageSrc="/assets/works/all-real.png"
           />
 

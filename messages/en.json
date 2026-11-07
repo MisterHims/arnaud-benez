@@ -25,5 +25,178 @@
     },
     "contact": "Contact",
     "replay": "Replay the journey"
+  },
+  "WhoIAm": {
+    "title": "Who I Am",
+    "p1": "Hello and welcome to my portfolio. My name is Arnaud, and I’m a <b>UI/UX Designer</b> & <b>Front-End Developer</b> based in <b>Val-de-Marne</b>, near Paris.",
+    "p2": "For over 15 years, I’ve been putting my expertise to work for <b>e-commerce projects</b>, managing their development, evolution and integration while ensuring an optimal <b>user experience</b> through thoughtful, effective <b>design</b>. Along the way, I’ve built a strong background in <b>art direction</b>, backed by solid expertise in <b>project management</b>.",
+    "p3": "Always keeping an eye on what’s new and making the most of <b>today’s tools and methodologies</b>, I deliver <b>high-performing</b>, <b>future-proof</b> solutions, <b>designed</b> around the user.",
+    "p4": "And when I’m not in Figma or VS Code, I’m probably out running, hiking in the woods, dancing awkwardly, or saving the kingdom in a tabletop role-playing campaign.",
+    "downloadCv": "Download my resume",
+    "downloadBook": "Download my portfolio",
+    "portraitAlt": "Portrait of Arnaud Benez"
+  },
+  "WhatIDo": {
+    "title": "What I Do",
+    "p1": "With expertise in React, Next.js and Tailwind CSS, I build high-performance web interfaces and custom SaaS applications, optimized for UX/UI and accessibility (WCAG).",
+    "p2": "I work on complex e-commerce websites, with headless architectures, PIM/ERP integrations and business data flows, as well as on agile SaaS applications built for scalability, performance and technical SEO.",
+    "p3": "Every project benefits from a user-centered approach: fast PWAs, API-first experiences, conversion rate optimization (CRO), along with occasional work on generative AI, multimedia content and digital strategy consulting."
+  },
+  "Services": {
+    "uiux": {
+      "title": "UI/UX Design",
+      "description": "I design clear, ergonomic and intuitive interfaces centered on users’ needs. Every journey is crafted to ease navigation, smooth out the experience and strengthen accessibility. My approach relies on proven UX methodologies, combining prototyping, design systems and user testing.",
+      "tags": ["Wireframing", "Prototyping", "Ergonomics", "Design Systems", "Accessibility", "Atomic Design", "User Testing"]
+    },
+    "artDirection": {
+      "title": "Art Direction",
+      "description": "I imagine and roll out strong, consistent visual identities tailored to each brand’s values and world. I define the graphic line and an effective, well-suited communication strategy, and lead the creation of visual content while ensuring harmony across every medium (print & digital). My goal: a clear, impactful creative direction aligned with strategic goals.",
+      "tags": ["Branding", "Brand Guidelines", "Visual Identity", "Design Strategy", "Storytelling", "Design Thinking"]
+    },
+    "media": {
+      "title": "Media Creation",
+      "description": "I produce impactful communication assets for every channel: banners, videos, social media, prepress and more. Each piece is designed to strengthen the brand image, capture attention and support marketing goals, while staying consistent with the visual identity.",
+      "tags": ["Motion Design", "Sound Design", "Email Kits", "Social Media", "Prepress", "Video Production", "Content Strategy"]
+    },
+    "frontEnd": {
+      "title": "Front-End Development",
+      "description": "I build high-performing, accessible and optimized web interfaces, with maintainable, modular code that follows modern front-end best practices. My React and Next.js work delivers smooth, responsive applications that adapt to every environment.",
+      "tags": ["Responsive Design", "PWA", "Form Validation", "JS/CSS Animation"]
+    },
+    "projectManagement": {
+      "title": "Project Management",
+      "description": "I support teams and companies in managing their digital projects, from strategy to delivery. With my dual background in design and development, I ease coordination between stakeholders and keep projects consistent as a whole. My approach is solution-oriented, with a focus on user experience and innovation.",
+      "tags": ["Digital Strategy", "Agile", "UX Research", "Sprint Planning"]
+    },
+    "ecommerce": {
+      "title": "E-commerce",
+      "description": "I optimize the shopping experience on complex e-commerce platforms by structuring product catalogs, improving customer journeys and ensuring performance (SEO, accessibility). I work on business data management, multichannel integration, conversion and e-commerce logistics optimization.",
+      "tags": ["A/B Testing", "Data Management", "SEO", "Performance", "Conversion"]
+    }
+  },
+  "Experience": {
+    "title": "Experience",
+    "filtersLabel": "Filter experience",
+    "filters": {
+      "all": "All",
+      "job": "Jobs",
+      "collaboration": "Collaborations",
+      "formation": "Training"
+    },
+    "types": {
+      "job": "Job",
+      "collaboration": "Collaboration",
+      "formation": "Training"
+    },
+    "present": "Present",
+    "showMore": "Show more",
+    "empty": "No experience found for this category.",
+    "skills": {
+      "frontEnd": "Front-End Development",
+      "design": "Design & Animation",
+      "projectManagement": "Project Management",
+      "backEnd": "Back-End Development",
+      "cms": "CMS & E-commerce",
+      "database": "Databases",
+      "devOps": "DevOps",
+      "devTools": "Dev Tools"
+    },
+    "items": {
+      "cloudcastle": {
+        "role": "Co-Founder",
+        "description": "Co-founded CloudCastle in 2024 to build Questix, an AI-powered TTRPG campaign manager. Designed the front-end (Next.js 13) and UX for a web app that helps DMs and players streamline scheduling, prep, and lore with smart tools, CI/CD pipelines, and seamless offline/online play."
+      },
+      "heroui": {
+        "role": "Contributor",
+        "description": "Supported the development of HeroUI, a component library inspired by Material Design. Worked on cross-framework portability, debugging complex UI behaviors, and aligning accessibility with EU compliance standards."
+      },
+      "contentsquare": {
+        "role": "Trainee",
+        "description": "Completed training on ContentSquare’s digital experience analytics platform. Learned to analyze user behavior with tools like heatmaps, session replays, and zoning analysis to optimize UX and conversion."
+      },
+      "majitv": {
+        "role": "Contributor",
+        "description": "Designed a custom pixel-art visual identity and provided branding and layout guidance to support the launch and growth of a new Twitch channel."
+      },
+      "googleAnalytics": {
+        "role": "Certification",
+        "description": "Earned Google Analytics 4 certification. Gained proficiency in tracking user behavior, setting up events, and leveraging data insights to optimize digital experiences."
+      },
+      "foundry": {
+        "role": "Contributor",
+        "description": "Collaborated on the development of several community-driven JavaScript modules and plugins, helping expand Foundry VTT’s ecosystem and enhancing the platform’s extensibility and user experience."
+      },
+      "leclerc": {
+        "role": "UI/UX Designer",
+        "description": "Handling a broad range of digital initiatives across the E.Leclerc ecosystem, from UI/UX design and front-end development (React, Next.js) to modular e-commerce components, emailing, and user testing. Notably involved in the redesign of Voyages E.Leclerc, while also contributing to cross-functional projects impacting other platforms and teams. Focused on building scalable interfaces, optimizing user flows, and improving overall digital performance in collaboration with marketing, product, and tech stakeholders."
+      },
+      "freelance": {
+        "role": "UI/UX Designer & Developer",
+        "description": "As a freelance web designer, I delivered a wide array of digital services tailored to diverse client needs. My projects ranged from photo retouching for e-commerce platforms like La Plateforme du Bâtiment, crafting engaging email campaigns for DogFidelity, to website design for professional photographers, and developing brand identities for non-profit organizations like Vocajob. My role involved direct client interaction to capture vision and requirements, implementing design solutions that enhance user engagement and visually communicate each brand’s unique value proposition effectively."
+      },
+      "delaveine": {
+        "role": "Web Designer",
+        "description": "Managed and enhanced the online presence of Delaveine, a men’s fashion retailer. Responsibilities included website maintenance and development, creating eye-catching ads and banners for promotions, photo retouching, and assembly for online product displays. Also handled the integration of email newsletters, ensuring consistent and effective communication with customers."
+      },
+      "itecomDev": {
+        "role": "Front-End Developer / Integrator",
+        "description": "Received specialized training as a Front-End Developer and Integrator at Itecom Art Design, honing skills in HTML, CSS, JavaScript, and responsive web design. Focused on optimizing website ergonomics, enhancing cross-device compatibility, and improving search engine optimization (SEO). Projects involved hands-on practice with coding, layout adjustments, and integrating user-centered design principles to boost site performance and accessibility."
+      },
+      "itecomPm": {
+        "role": "Web Designer & Project Manager",
+        "description": "Completed a comprehensive training program focusing on web design and project management. Developed expertise in building engaging websites, capturing user interest through innovative design and intuitive navigation. Skilled in identifying project requirements and analyzing user needs to deliver tailored digital solutions. Enhanced proficiency in managing end-to-end project lifecycles, ensuring seamless execution and optimum user engagement."
+      },
+      "itecomGraphic": {
+        "role": "Graphic Designer & Layout Artist",
+        "description": "Studied visual identity and graphic design at Itecom Art Design, focusing on mastering essential skills in page layout and visual composition. Gained proficiency in Adobe Creative Suite, learning to create cohesive design models that effectively communicate across various media. Engaged in practical projects that emphasized both the creative and technical aspects of design."
+      },
+      "zigoh": {
+        "role": "Vector Designer",
+        "description": "Managed and enhanced the online presence of Delaveine, a men’s fashion retailer. Responsibilities included website maintenance and development, creating eye-catching ads and banners for promotions, photo retouching, and assembly for online product displays. Also handled the integration of email newsletters, ensuring consistent and effective communication with customers."
+      }
+    }
+  },
+  "Works": {
+    "title": "Works",
+    "subtitle": "Take a look at my showcase",
+    "categories": {
+      "travelAgency": "Travel Agency",
+      "library": "Component Library",
+      "streaming": "Streaming",
+      "saas": "SaaS",
+      "ecommerce": "E-commerce",
+      "recruitment": "Recruitment",
+      "collaboration": "Collaboration"
+    },
+    "allWorks": {
+      "title": "All my work",
+      "subtitle": "See the full portfolio"
+    },
+    "trustedBy": "They trusted me"
+  },
+  "Contact": {
+    "title": "Contact",
+    "intro": "A question? A project? Or simply want to chat? I’m always open to a conversation.",
+    "card": {
+      "roles": "UI/UX Designer | Front-End Developer",
+      "location": "Val-de-Marne, France",
+      "download": "Download Contact Card"
+    },
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "john.doe@example.com",
+      "emailError": "Please enter a valid email address",
+      "message": "Your message",
+      "messagePlaceholder": "Tell me about your project…",
+      "required": "Required",
+      "pitch": "Fancy a chat about design, projects or passions?<br></br>You never know what a simple message might spark.",
+      "submit": "Send"
+    }
+  },
+  "Footer": {
+    "rights": "All rights reserved",
+    "legal": "Legal notice"
   }
 }

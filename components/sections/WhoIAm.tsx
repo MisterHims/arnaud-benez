@@ -5,42 +5,35 @@ import BlockContent from "../layouts/BlockContent";
 import SectionShell from "../layouts/SectionShell";
 import { CustomButton } from "../CustomButton";
 import { Icon } from "../ui/Icon";
+import { useTranslations } from "next-intl";
+
+const bold = (chunks: React.ReactNode) => <strong className='font-semibold'>{chunks}</strong>;
 
 export const WhoIAm = () => {
+  const t = useTranslations('WhoIAm');
   return (
     <SectionShell variant="contained" className="min-h-screen grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 relative overflow-hidden flex items-center bg-[#0c0c0c] z-10">
       {/* LEFT ZONE: Text Content */}
       <BlockContent colSpan={6}>
         <h2 className='text-7xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
-          Who I Am
+          {t('title')}
         </h2>
 
         <div className='text-lg space-y-6 leading-relaxed font-extralight mb-8'>
-          <p>
-            Bonjour et bienvenue sur mon portfolio. Je m&apos;appelle Arnaud et je suis <strong className='font-semibold'>UI/UX Designer</strong> & <strong className='font-semibold'>Développeur Front-End</strong> basé dans le <strong className='font-semibold'>Val de Marne</strong>.
-          </p>
-
-          <p>
-            Depuis plus de 15 ans, je mets mon expertise au service de <strong className='font-semibold'>projets e-commerce</strong> en pilotant leur gestion, leur évolution et leur intégration, tout en garantissant une <strong className='font-semibold'>expérience utilisateur</strong> optimale grâce à un <strong className='font-semibold'>design</strong> réfléchi et efficace. Mon parcours m&apos;a permis de développer une solide culture en <strong className='font-semibold'>direction artistique</strong>, renforcée par une expertise en <strong className='font-semibold'>gestion de projets</strong>.
-          </p>
-
-          <p>
-            M&apos;efforçant à toujours être en veille et à exploiter les <strong className='font-semibold'>outils et méthodologies les plus actuels</strong>, je propose des <strong className='font-semibold'>solutions performantes</strong>, <strong className='font-semibold'>pérennes</strong> et <strong className='font-semibold'>pensées</strong> pour l&apos;utilisateur.
-          </p>
-
-          <p>
-            Et quand je ne suis pas devant Figma ou VSCode, je suis probablement en train de courir, de randonner dans les bois, de danser maladroitement ou de sauver le royaume dans une campagne de jeu de rôle.
-          </p>
+          <p>{t.rich('p1', { b: bold })}</p>
+          <p>{t.rich('p2', { b: bold })}</p>
+          <p>{t.rich('p3', { b: bold })}</p>
+          <p>{t('p4')}</p>
         </div>
 
         <div className='flex gap-8 pt-4'>
           <CustomButton variant="secondary" size="lg">
             <Icon name="IdVerified" className="w-6 h-6 mt-[2px]" />
-            Télécharger mon CV
+            {t('downloadCv')}
           </CustomButton>
           <CustomButton variant="secondary" size="lg">
             <Icon name="BookOpen" className="w-6 h-6 mt-[2px]" />
-            Télécharger mon book
+            {t('downloadBook')}
           </CustomButton>
         </div>
       </BlockContent>
@@ -49,7 +42,7 @@ export const WhoIAm = () => {
       <BlockContent colSpan={5} className="md:col-start-7">
         <Image
           src="/assets/portrait.png"
-          alt="Arnaud Benez"
+          alt={t('portraitAlt')}
           width={703}
           height={757}
           className="object-contain object-bottom w-auto"

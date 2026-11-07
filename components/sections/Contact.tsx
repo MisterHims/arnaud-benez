@@ -5,8 +5,10 @@ import SectionShell from "../layouts/SectionShell";
 import { ContactCard } from "./contact/ContactCard";
 import { ContactForm } from "./contact/ContactForm";
 import { Footer } from "./Footer";
+import { useTranslations } from "next-intl";
 
 export const Contact = () => {
+  const t = useTranslations('Contact');
   return (
     <>
       <SectionShell variant="full" className="bg-radial-[at_25%_25%] from-[#080808] to-[#121212] to-75% overflow-hidden">
@@ -15,10 +17,10 @@ export const Contact = () => {
           {/* 1. HEADER (Titre & Sous-titre) */}
           <BlockContent colSpan={12} className="mb-8">
             <h2 className='text-7xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-4'>
-              Contact
+              {t('title')}
             </h2>
             <p className="text-zinc-400 text-lg max-w-2xl font-light">
-              Une question ? Un projet ? Ou simplement envie d'échanger ? Je suis toujours ouvert à la discussion.
+              {t('intro')}
             </p>
           </BlockContent>
 
