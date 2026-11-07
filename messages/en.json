@@ -1,0 +1,29 @@
+{
+  "Metadata": {
+    "title": "Arnaud Benez – Portfolio",
+    "description": "UI/UX Designer & Front-End Developer"
+  },
+  "LanguageSwitch": {
+    "label": "Language"
+  },
+  "Hero": {
+    "intro": {
+      "title": "Designing Universe",
+      "tagline": "Designing experiences that make sense."
+    },
+    "scrollDown": {
+      "label": "Scroll down",
+      "ariaLabel": "Start the journey"
+    },
+    "identity": {
+      "designer": "UI/UX Designer",
+      "developer": "Front-End Developer"
+    },
+    "discover": {
+      "label": "Discover",
+      "ariaLabel": "Discover the rest of the portfolio"
+    },
+    "contact": "Contact",
+    "replay": "Replay the journey"
+  }
+}

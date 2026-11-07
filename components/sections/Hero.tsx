@@ -23,6 +23,7 @@ import { SkillStars, type SkillTarget } from './hero/SkillStars';
 import { IntroText } from './hero/IntroText';
 import { ScrollIndicator } from './hero/ScrollIndicator';
 import { LanguageSwitch } from '@/components/ui/LanguageSwitch';
+import { useTranslations } from 'next-intl';
 import { Mountains } from './hero/Mountains';
 
 /**
@@ -90,6 +91,7 @@ const hasLandedThisSession = () => {
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const reduceMotion = usePrefersReducedMotion();
+  const t = useTranslations('Hero');
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -417,8 +419,8 @@ export const Hero = () => {
               opacity={indicatorOpacity}
               onClick={launchJourney}
               isVisible={isIntroVisible}
-              label="Scroll down"
-              ariaLabel="Lancer le voyage"
+              label={t('scrollDown.label')}
+              ariaLabel={t('scrollDown.ariaLabel')}
             />
           </>
         )}
@@ -455,7 +457,7 @@ export const Hero = () => {
               onClick={goToContact}
               className="h-10 md:h-12 px-5 md:px-6 rounded-full border-2 border-white text-white text-base md:text-xl font-bold uppercase tracking-wide hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-colors cursor-pointer"
             >
-              Contact
+              {t('contact')}
             </button>
             <LanguageSwitch />
           </motion.div>
@@ -471,8 +473,8 @@ export const Hero = () => {
             <ScrollIndicator
               onClick={discoverSite}
               isVisible
-              label="Découvrir"
-              ariaLabel="Découvrir la suite du portfolio"
+              label={t('discover.label')}
+              ariaLabel={t('discover.ariaLabel')}
               // Same spot as the intro's "Scroll down", over the snow
               tone="dark"
             />
@@ -495,7 +497,7 @@ export const Hero = () => {
                 <path d="M3 12a9 9 0 1 0 3-6.7" />
                 <path d="M3 4v5h5" />
               </svg>
-              Revoir le voyage
+              {t('replay')}
             </motion.button>
           )}
         </AnimatePresence>

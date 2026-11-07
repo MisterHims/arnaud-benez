@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, MotionValue } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
 interface IntroTextProps {
@@ -10,6 +11,7 @@ interface IntroTextProps {
 }
 
 export const IntroText = ({ opacity, scale, isVisible }: IntroTextProps) => {
+  const t = useTranslations('Hero.intro');
   return (
     <motion.div
       style={{ opacity, scale }}
@@ -30,7 +32,7 @@ export const IntroText = ({ opacity, scale, isVisible }: IntroTextProps) => {
             transition={{ duration: 1.8, ease: 'easeOut' }}
             className="block drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
           >
-            Designing Universe
+            {t('title')}
           </motion.p>
 
           <motion.p
@@ -39,7 +41,7 @@ export const IntroText = ({ opacity, scale, isVisible }: IntroTextProps) => {
             transition={{ delay: 0.8, duration: 1.6, ease: 'easeOut' }}
             className="block mt-4 text-xl md:text-3xl lg:text-4xl font-extralight normal-case drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
           >
-            Designing experiences that make sense.
+            {t('tagline')}
           </motion.p>
         </div>
       </div>
