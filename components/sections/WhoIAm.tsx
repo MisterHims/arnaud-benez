@@ -26,13 +26,14 @@ export const WhoIAm = () => {
           <p>{t('p4')}</p>
         </div>
 
-        <div className='flex gap-8 pt-4'>
-          <CustomButton variant="secondary" size="lg">
-            <Icon name="IdVerified" className="w-6 h-6 mt-[2px]" />
+        {/* The resume is the main action (recruiters), the portfolio comes second */}
+        <div className='flex flex-wrap gap-3 pt-4'>
+          <CustomButton variant="primary" size="lg">
+            <Icon name="IdVerified" size={18} />
             {t('downloadCv')}
           </CustomButton>
           <CustomButton variant="secondary" size="lg">
-            <Icon name="BookOpen" className="w-6 h-6 mt-[2px]" />
+            <Icon name="BookOpen" size={18} />
             {t('downloadBook')}
           </CustomButton>
         </div>
