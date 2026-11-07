@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-// import { SlideNextButton } from '@/components/swipper/SlideNextButton';
 import BlockContent from "../layouts/BlockContent";
 import SectionShell from "../layouts/SectionShell";
 import { CustomButton } from "../CustomButton";
@@ -58,7 +57,6 @@ export const WhoIAm = () => {
         />
       </BlockContent>
 
-      {/* <SlideNextButton /> */}
     </SectionShell>
   );
 };
