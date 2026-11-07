@@ -216,13 +216,31 @@ export const StarryBackground = ({ camera, reducedMotion = false }: StarryBackgr
       animationId = requestAnimationFrame(animate);
     };
 
+    // Only animate while the sky is on screen: no wasted CPU/battery while
+    // the visitor reads the rest of the site
+    const start = () => {
+      if (animationId) return;
+      lastTime = 0; // resume without a time jump
+      animationId = requestAnimationFrame(animate);
+    };
+    const stop = () => {
+      cancelAnimationFrame(animationId);
+      animationId = 0;
+    };
+    const visibility = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) start();
+      else stop();
+    });
+
     resizeCanvas();
-    animationId = requestAnimationFrame(animate);
+    start();
+    visibility.observe(canvas);
     window.addEventListener('resize', resizeCanvas);
 
     return () => {
+      visibility.disconnect();
       window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(animationId);
+      stop();
     };
   }, [reducedMotion]);
 
