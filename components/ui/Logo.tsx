@@ -1,4 +1,4 @@
-import React, { SVGProps } from "react";
+import React, { SVGProps, useId } from "react";
 import { cn } from "@/lib/utils";
 
 export type LogoName =
@@ -709,5 +709,29 @@ export const Logo = ({ name, className, ...props }: LogoProps) => {
 
   };
 
-  return <>{LOGOS[name]}</>;
+  return <>{withUniqueIds(LOGOS[name], useId().replace(/[^a-zA-Z0-9]/g, ''))}</>;
+};
+
+/**
+ * Suffixes every id inside a logo (and the url(#…) / #… references to them)
+ * with a per-instance key. The same logo can appear twice in the page (skills
+ * grid and swipeable strip): with shared ids, url(#…) resolved to the first
+ * copy, and a hidden copy's gradients and clip paths left the other blank.
+ */
+const withUniqueIds = (node: React.ReactNode, suffix: string): React.ReactNode => {
+  if (!React.isValidElement<Record<string, unknown>>(node)) return node;
+  const props: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(node.props)) {
+    if (key === 'children') continue;
+    if (typeof value !== 'string') continue;
+    if (key === 'id') props.id = `${value}-${suffix}`;
+    else if (value.includes('url(#')) props[key] = value.replace(/url\(#([^)]+)\)/g, `url(#$1-${suffix})`);
+    else if ((key === 'href' || key === 'xlinkHref') && value.startsWith('#')) props[key] = `${value}-${suffix}`;
+  }
+  const children = node.props.children as React.ReactNode;
+  return React.cloneElement(
+    node,
+    props,
+    ...(children === undefined ? [] : React.Children.toArray(children).map((child) => withUniqueIds(child, suffix)))
+  );
 };
