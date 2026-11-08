@@ -9,6 +9,7 @@ import { Works } from "@/components/sections/Works";
 import { Experience } from "@/components/sections/Experience";
 import { useSectionSnap } from "@/hooks/useSectionSnap";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { SiteNav } from "@/components/layouts/SiteNav";
 import { NightSky } from "@/components/ui/NightSky";
 import { useSectionUrl } from "@/hooks/useSectionUrl";
 import type { SectionId } from "@/src/data/sections";
@@ -77,6 +78,7 @@ export function Home({ initialSection }: HomeProps) {
         <Contact />
       </section>
 
+      <SiteNav />
       <BackToTop afterId="who-i-am" />
     </main>
   );

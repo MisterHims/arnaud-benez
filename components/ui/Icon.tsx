@@ -20,8 +20,10 @@ import {
   ArrowUp01Icon,
   BookDownloadIcon,
   BubbleChatIcon,
+  Cancel01Icon,
   FileDownloadIcon,
   IdCardIcon,
+  Menu01Icon,
   ReplayIcon,
 } from '@hugeicons-pro/core-stroke-standard';
 import { cn } from '@/lib/utils';
@@ -54,6 +56,8 @@ const ICONS = {
   ContactCard: IdCardIcon,
   Chat: BubbleChatIcon,
   Replay: ReplayIcon,
+  Menu: Menu01Icon,
+  Close: Cancel01Icon,
 } satisfies Record<string, IconSvgElement>;
 
 export type IconName = keyof typeof ICONS;

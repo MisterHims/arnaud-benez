@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Header } from '@/components/layouts/Header';
 import { routing } from '@/i18n/routing';
 import { SITE_URL } from '@/src/data/site';
 import { Inter } from "next/font/google";
@@ -62,7 +61,6 @@ export default async function LocaleLayout({
     <html lang={locale} className="dark" style={{ colorScheme: 'dark' }}>
       <body className={`${inter.variable} ${robotoMono.variable} font-sans antialiased`}>
         <NextIntlClientProvider>
-          {/* <Header /> */}
           {children}
         </NextIntlClientProvider>
       </body>

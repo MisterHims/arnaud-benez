@@ -10,7 +10,8 @@ const ACTIVE_LINE = 0.35;
 /** Position within the current section, kept across a language switch. */
 const OFFSET_SESSION_KEY = 'ab:section-offset';
 
-const currentSection = (): SectionId | null => {
+/** The section being read (its top past ACTIVE_LINE), or null on the hero */
+export const currentSection = (): SectionId | null => {
   let current: SectionId | null = null;
   for (const id of SECTION_IDS) {
     const el = document.getElementById(id);

@@ -7,6 +7,12 @@
   "LanguageSwitch": {
     "label": "Langue"
   },
+  "Nav": {
+    "label": "Navigation principale",
+    "open": "Ouvrir le menu",
+    "close": "Fermer le menu",
+    "home": "Revenir à l’écran d’accueil"
+  },
   "BackToTop": {
     "label": "Retour en haut"
   },
