@@ -19,8 +19,9 @@ const TRUSTED_LOGOS: { name: LogoName; className: string }[] = [
   { name: "Vocajob", className: "h-13 w-auto" },
 ];
 
-/** Seconds for one group of logos to scroll by (same pace as before) */
-const LOOP_DURATION = 160;
+/** Scrolling speed, in px/s: the same on every screen, whatever the gap
+ *  between the logos (and so the length of the band) */
+const SPEED = 55;
 /** Time constant of the speed easing, in ms: smooth stop and restart */
 const SPEED_EASING = 400;
 
@@ -48,9 +49,14 @@ export const TrustedBy = () => {
     return () => observer.disconnect();
   }, []);
 
-  useAnimationFrame((_, delta) => {
+  // Elapsed time measured here: framer's own delta is capped at 40ms, which
+  // slowed the band down whenever frames came less often
+  const lastTime = useRef<number | null>(null);
+  useAnimationFrame((time) => {
+    const delta = lastTime.current === null ? 0 : Math.min(time - lastTime.current, 100);
+    lastTime.current = time;
     if (!inView || !groupWidth) return;
-    const target = reduceMotion || hoveringLogo ? 0 : groupWidth / LOOP_DURATION; // px/s
+    const target = reduceMotion || hoveringLogo ? 0 : SPEED;
     speed.current += (target - speed.current) * (1 - Math.exp(-delta / SPEED_EASING));
     let next = x.get() - (speed.current * delta) / 1000;
     if (next <= -groupWidth) next += groupWidth; // seamless loop (group B repeats group A)
@@ -64,7 +70,7 @@ export const TrustedBy = () => {
   };
 
   return (
-    <div className="relative isolate w-full flex flex-col items-center py-24 md:py-36 overflow-hidden">
+    <div className="relative isolate w-full flex flex-col items-center pt-20 md:pt-24 pb-4 overflow-hidden">
       {/* No rectangular band (its hard top / bottom edges cut the page): a
           soft elliptical glow behind the logos, fading out in every direction */}
       <div
@@ -73,7 +79,7 @@ export const TrustedBy = () => {
         style={{ background: 'radial-gradient(ellipse 55% 50% at 50% 58%, rgba(255,255,255,0.04), transparent 70%)' }}
       />
 
-      <h3 className="text-[#bec3ca] text-2xl md:text-3xl font-bold mb-24 text-center px-4">
+      <h3 className="text-[#bec3ca] text-2xl md:text-3xl font-bold mb-14 md:mb-16 text-center px-4">
         {t('trustedBy')}
       </h3>
 
@@ -95,7 +101,7 @@ export const TrustedBy = () => {
               key={group}
               ref={group === 'a' ? groupRef : undefined}
               aria-hidden={group === 'b' ? true : undefined}
-              className="flex items-center gap-16 md:gap-64 pr-16 md:pr-64"
+              className="flex items-center gap-16 md:gap-32 xl:gap-64 pr-16 md:pr-32 xl:pr-64"
             >
               {[...TRUSTED_LOGOS, ...TRUSTED_LOGOS].map((logo, index) => (
                 <div key={`${group}-${index}`} {...logoProps}>

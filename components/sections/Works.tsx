@@ -23,13 +23,15 @@ export const Works = () => {
   const t = useTranslations('Works');
   return (
     <div className="w-full min-h-full grid grid-cols-1">
+      {/* No bottom padding: the logo band right below sets the gap */}
       <SectionShell
         variant="contained"
+        className="pb-0!"
       >
 
         {/* HEADER */}
         <div className="text-center mb-8">
-          <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
+          <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
             {t('title')}
           </h2>
 
@@ -39,7 +41,7 @@ export const Works = () => {
         </div>
 
         {/* --- BENTO COMPACT --- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 w-full auto-rows-[300px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 w-full auto-rows-[240px] md:auto-rows-[230px] xl:auto-rows-[300px]">
 
           {/* 1. TOP LEFT */}
           <WorkCard
