@@ -12,12 +12,13 @@ export const Experience = () => {
 
         {/* COLONNE GAUCHE (Timeline) - Prend 6 colonnes sur 12 */}
         <BlockContent colSpan={6} className="order-1">
-          <ExperienceList />
+          <ExperienceList skillsStrip={<SkillsGrid variant="strip" />} />
         </BlockContent>
 
         {/* COLONNE DROITE (Skills Bento) - Prend 6 colonnes sur 12 */}
-        {/* The skills grid handles its own sticky behavior (see SkillsGrid) */}
-        <BlockContent colSpan={6} className="order-2 pt-8 lg:pt-24">
+        {/* The skills grid handles its own sticky behavior (see SkillsGrid).
+            Below lg it becomes a swipeable strip under the title instead */}
+        <BlockContent colSpan={6} className="order-2 hidden lg:block pt-24">
           <SkillsGrid />
         </BlockContent>
 

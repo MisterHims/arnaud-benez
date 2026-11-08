@@ -9,12 +9,13 @@ import { useTranslations } from 'next-intl';
 interface SkillCategoryProps {
   title: string;
   icons: LogoName[];
+  className?: string;
 }
 
 /** How long a tapped tool's name replaces the category title, in ms */
 const TAP_LABEL_DURATION = 2000;
 
-const SkillCard = ({ title, icons }: SkillCategoryProps) => {
+const SkillCard = ({ title, icons, className }: SkillCategoryProps) => {
   // Touch screens have no hover, so no tooltip: tapping a logo shows its
   // name in place of the category title for a moment
   const [tapped, setTapped] = useState<LogoName | null>(null);
@@ -27,7 +28,7 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => {
   };
 
   return (
-  <div className="relative group rounded-xl bg-linear-to-br from-[#101215] to-[#040506] grow sm:grow-0">
+  <div className={cn('relative group rounded-xl bg-linear-to-br from-[#101215] to-[#040506] grow sm:grow-0', className)}>
     <div
       className="absolute inset-0 rounded-xl pointer-events-none z-20"
       style={{
@@ -102,7 +103,16 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => {
 const STICKY_MIN_TOP = 96;
 const STICKY_BOTTOM = 80;
 
-export const SkillsGrid = () => {
+type SkillsGridProps = {
+  /** "grid": the triangle beside the timeline (lg and up), sticky.
+   *  "strip": one swipeable row, under the section title (below lg) */
+  variant?: 'grid' | 'strip';
+};
+
+/** Strip order: the core skills first */
+const STRIP_ORDER = ['design', 'frontEnd', 'devTools', 'projectManagement', 'cms', 'database', 'devOps'] as const;
+
+export const SkillsGrid = ({ variant = 'grid' }: SkillsGridProps) => {
   const t = useTranslations('Experience.skills');
 
   // Stays in view while the (long) timeline scrolls, vertically centered in
@@ -147,6 +157,26 @@ export const SkillsGrid = () => {
       { key: 'devOps', icons: ['Docker', 'Nginx', 'Vercel'] },
     ],
   ];
+
+  if (variant === 'strip') {
+    const categories = STRIP_ORDER.map((key) => rows.flat().find((category) => category.key === key)!);
+    return (
+      // Swipe through the categories (scroll snapping); the right edge fades
+      // out to show there is more. Bleeds to the screen edges (negative
+      // margins matching the page gutter), no visible scrollbar
+      <div
+        className="flex gap-3 overflow-x-auto snap-x snap-mandatory -mx-4 md:-mx-10 px-4 md:px-10 scroll-px-4 md:scroll-px-10 pt-1 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{
+          maskImage: 'linear-gradient(to right, black calc(100% - 64px), transparent)',
+          WebkitMaskImage: 'linear-gradient(to right, black calc(100% - 64px), transparent)',
+        }}
+      >
+        {categories.map(({ key, icons }) => (
+          <SkillCard key={key} title={t(key)} icons={icons} className="shrink-0 grow-0 snap-start" />
+        ))}
+      </div>
+    );
+  }
 
   return (
     // w-fit + mx-auto: the triangle is centered in its column

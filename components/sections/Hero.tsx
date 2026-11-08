@@ -327,9 +327,12 @@ export const Hero = ({ startLanded = false }: HeroProps) => {
         document.getElementById(target.section)?.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
         return;
       }
-      const logo = document.querySelector<HTMLElement>(`[data-skill="${CSS.escape(target.skill)}"]`);
+      // The logo exists twice (skills grid from lg, swipeable strip below):
+      // the one displayed at this width
+      const logo = [...document.querySelectorAll<HTMLElement>(`[data-skill="${CSS.escape(target.skill)}"]`)]
+        .find((el) => el.checkVisibility({ visibilityProperty: true }));
       if (!logo) return;
-      logo.scrollIntoView({ behavior: scrollBehavior, block: 'center' });
+      logo.scrollIntoView({ behavior: scrollBehavior, block: 'center', inline: 'center' });
       logo.classList.remove('animate-skill-ping');
       void logo.offsetWidth; // restart the animation if clicked twice
       logo.classList.add('animate-skill-ping');

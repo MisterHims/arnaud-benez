@@ -14,7 +14,12 @@ import { useTranslations } from "next-intl";
 const FILTER_IDS = ['all', 'job', 'collaboration', 'formation'] as const;
 type FilterId = (typeof FILTER_IDS)[number];
 
-export const ExperienceList = () => {
+interface ExperienceListProps {
+  /** Shown under the title below lg (the skills strip); hidden from lg */
+  skillsStrip?: React.ReactNode;
+}
+
+export const ExperienceList = ({ skillsStrip }: ExperienceListProps) => {
 
   const t = useTranslations('Experience');
   const tWho = useTranslations('WhoIAm');
@@ -58,9 +63,12 @@ export const ExperienceList = () => {
   return (
     <div className="flex flex-col h-full">
 
-      <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-14'>
+      <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-8 lg:mb-14'>
         {t('title')}
       </h2>
+
+      {/* Below lg only (from lg, the grid beside the timeline) */}
+      {skillsStrip && <div className="lg:hidden -mt-2 mb-6">{skillsStrip}</div>}
 
       {/* Filters: compact pill, the active tab's background slides along.
           Light fill + hairline drawn as an inset ring (box-shadow), smoother
@@ -70,7 +78,7 @@ export const ExperienceList = () => {
       <div
         role="tablist"
         aria-label={t('filtersLabel')}
-        className="self-start inline-flex flex-wrap items-center gap-0.5 p-1 mb-10 rounded-full bg-white/4 ring-1 ring-inset ring-white/10"
+        className="self-start inline-flex flex-wrap items-center gap-0.5 p-1 mb-6 lg:mb-10 rounded-full bg-white/4 ring-1 ring-inset ring-white/10"
       >
         {FILTER_IDS.map((id, index) => {
           const isSelected = id === selected;
