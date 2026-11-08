@@ -63,7 +63,8 @@ export function Home({ initialSection }: HomeProps) {
 
       {/* Section 4 : Experience */}
       <section id="experience" data-snap-section className="min-h-svh w-full relative isolate">
-        <NightSky seed={23} />
+        {/* Fixed star field: the timeline's height changes with the tabs */}
+        <NightSky seed={23} fieldHeight={1600} />
         <Experience />
       </section>
 

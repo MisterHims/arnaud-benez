@@ -10,6 +10,12 @@ interface NightSkyProps {
   seed: number;
   /** Number of stars */
   count?: number;
+  /**
+   * Fixed height (px) for the star field, anchored at the top: for a section
+   * whose height changes (tabs, "Show more"), so the stars, placed in % of
+   * the field, don't move. Defaults to the section's own height
+   */
+  fieldHeight?: number;
   className?: string;
 }
 
@@ -51,7 +57,7 @@ interface ShootingStar {
  * top, fading toward the bottom. Decorative, behind the content (the parent
  * needs `relative isolate`); still with reduced motion.
  */
-export const NightSky = ({ seed, count = 46, className }: NightSkyProps) => {
+export const NightSky = ({ seed, count = 46, fieldHeight, className }: NightSkyProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
   const reduceMotion = usePrefersReducedMotion();
@@ -120,15 +126,25 @@ export const NightSky = ({ seed, count = 46, className }: NightSkyProps) => {
   const layers = [1, 1.5, 2].map((size) => stars.filter((star) => star.size === size));
 
   return (
+    // Off screen, every star animation is paused: five skies of ~90
+    // animations each otherwise kept the main thread busy all the time
+    // (styles recalculated every frame), slowing the whole page on phones.
+    // !important: the stars set their animation inline (the shorthand resets
+    // the play state)
     <div
       ref={ref}
       aria-hidden="true"
-      className={cn('absolute inset-0 -z-10 overflow-hidden pointer-events-none select-none', className)}
+      className={cn(
+        'absolute inset-0 -z-10 overflow-hidden pointer-events-none select-none',
+        !inView && '[&_*]:[animation-play-state:paused]!',
+        className
+      )}
     >
       {/* Fixed stars, fading toward the bottom of the section */}
       <div
-        className="absolute inset-0"
+        className={cn('absolute inset-x-0 top-0', !fieldHeight && 'bottom-0')}
         style={{
+          height: fieldHeight,
           maskImage: 'linear-gradient(to bottom, black 0%, black 35%, transparent 85%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 35%, transparent 85%)',
         }}
