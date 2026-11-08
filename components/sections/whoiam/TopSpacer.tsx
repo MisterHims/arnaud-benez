@@ -7,7 +7,10 @@ import React from 'react';
  */
 export const TopSpacer = () => {
   return (
-    <div className="w-full relative z-10 leading-0 bg-[#f7f8f9]">
+    // Background: snow at the top, the valley's dark at the bottom. The SVG's
+    // height is fractional, so its last pixel row lets the background show:
+    // with plain snow white behind, that drew a light hairline at the seam
+    <div className="w-full relative z-10 leading-0 bg-[linear-gradient(#f7f8f9_50%,#0a0c0f_50%)]">
       <svg
         className="w-full h-auto block"
         viewBox="0 380 1800 221"

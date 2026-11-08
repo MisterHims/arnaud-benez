@@ -44,10 +44,13 @@ export function Home({ initialSection }: HomeProps) {
       </div>
 
       {/* Section 2 : WhoIAm */}
-      {/* flow-root: keeps the inner top margin inside the dark background (no seam) */}
+      {/* flow-root: keeps the inner top margin inside the dark background (no seam);
+          -mt-px: overlaps the ridges by 1px (no sub-pixel seam at fractional scaling) */}
       {/* NightSky: the stars seen from the planet once landed (isolate: keeps
           them behind the content, above the section background) */}
-      <section id="who-i-am" data-snap-section className="flow-root min-h-svh w-full relative isolate bg-[#0a0c0f] z-20">
+      {/* Background fading out over its last 160px: no hard edge with the next
+          section (darker), visible when the section is shorter than the screen */}
+      <section id="who-i-am" data-snap-section className="flow-root md:min-h-svh w-full relative isolate bg-[linear-gradient(to_bottom,#0a0c0f_calc(100%-160px),transparent)] z-20 -mt-px">
         <NightSky seed={11} />
         <WhoIAm />
       </section>

@@ -46,8 +46,9 @@ export const ServiceList = () => {
   // line): one column, the columns dissolve (display: contents) and `order`
   // restores the reading order
   return (
-    // Cards capped at 300px wide in two columns (they got too wide on large screens)
-    <div className="flex flex-col gap-5 sm:grid sm:grid-cols-[repeat(2,minmax(0,300px))] sm:items-start lg:max-xl:flex">
+    // Two columns filling the width when stacked (below lg), capped at 300px
+    // beside the text from xl (they got too wide on large screens)
+    <div className="flex flex-col gap-5 sm:grid sm:grid-cols-2 xl:grid-cols-[repeat(2,minmax(0,300px))] sm:items-start lg:max-xl:flex">
       {columns.map((column, c) => (
         <div key={c} className={cn('contents sm:flex sm:flex-col sm:gap-5 lg:max-xl:contents', c === 1 && 'sm:pt-20 lg:max-xl:pt-0')}>
           {column.map(({ id, index, ...service }) => (

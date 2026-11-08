@@ -10,6 +10,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { useDelayedReveal } from "@/hooks/useDelayedReveal";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 /** Time spent in the section before the call to action shows up */
 const CTA_DELAY = 2500;
@@ -24,6 +25,29 @@ export const WhatIDo = () => {
   // once shown it stays
   const sectionRef = useRef<HTMLDivElement>(null);
   const showCta = useDelayedReveal(sectionRef, { delay: CTA_DELAY, amount: 0.4 });
+
+  // "Got a project in mind?": its room is kept from the start (no layout
+  // shift); inert until shown (no invisible button for keyboard or screen
+  // readers); a plain fade with reduced motion
+  const renderCta = (display: string) => (
+    <motion.div
+      inert={!showCta}
+      initial={false}
+      animate={showCta ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 12 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className={cn('mt-8 flex-wrap items-center gap-x-6 gap-y-4', display)}
+    >
+      <p className="text-[#d0d4da] font-[250]">{t('cta')}</p>
+      <CustomButton
+        variant="primary"
+        size="lg"
+        onPress={() => document.getElementById('contact')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })}
+      >
+        <Icon name="Chat" size={18} />
+        {t('ctaButton')}
+      </CustomButton>
+    </motion.div>
+  );
 
   return (
     <div ref={sectionRef} className="w-full min-h-full grid grid-cols-1">
@@ -51,11 +75,14 @@ export const WhatIDo = () => {
         variant="contained"
         className="grid grid-cols-1 lg:grid-cols-[minmax(0,360px)_minmax(380px,1fr)] xl:grid-cols-[minmax(0,620px)_minmax(380px,1fr)] gap-12 lg:gap-x-20 xl:gap-x-24 col-start-1 row-start-1 z-10 bg-transparent relative"
       >
+        {/* md:col-span-full overrides BlockContent's default md:col-span-12,
+            which added 11 hidden columns below lg (the stacked CTA got 160px). */}
         {/* Two columns from lg: the cards (two 300px max columns), then the
             text right after them, with the same gutter at every width (it used
             to follow the 12-column grid: up to 180px of gap). Stacked below lg,
-            text first */}
-        <BlockContent isSticky className="order-1 lg:order-2 col-span-full lg:col-span-1 lg:col-start-2 lg:row-start-1 max-w-[640px]">
+            text first. From xl, lowered so the title's cap height lines up
+            with the top of the second (offset) column of cards */}
+        <BlockContent isSticky className="order-1 lg:order-2 col-span-full md:col-span-full lg:col-span-1 lg:col-start-2 lg:row-start-1 max-w-[640px] xl:pt-[67px]">
           <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight text-balance mb-8'>
             {t('title')}
           </h2>
@@ -86,31 +113,17 @@ export const WhatIDo = () => {
             </ol>
           </div>
 
-          {/* The natural next step. Its room is kept from the start (no layout
-              shift); inert until shown (no invisible button for keyboard or
-              screen readers); a plain fade with reduced motion */}
-          <motion.div
-            inert={!showCta}
-            initial={false}
-            animate={showCta ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 12 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4"
-          >
-            <p className="text-[#d0d4da] font-[250]">{t('cta')}</p>
-            <CustomButton
-              variant="primary"
-              size="lg"
-              onPress={() => document.getElementById('contact')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })}
-            >
-              <Icon name="Chat" size={18} />
-              {t('ctaButton')}
-            </CustomButton>
-          </motion.div>
+          {/* From lg, the call to action follows the text (sticky with it) */}
+          {renderCta('hidden lg:flex')}
         </BlockContent>
 
-        <BlockContent className="order-2 lg:order-1 col-span-full lg:col-span-1 lg:col-start-1 lg:row-start-1 h-[calc(100%-2px)]">
+        <BlockContent className="order-2 lg:order-1 col-span-full md:col-span-full lg:col-span-1 lg:col-start-1 lg:row-start-1 h-[calc(100%-2px)]">
           <ServiceList />
         </BlockContent>
+
+        {/* Below lg (stacked), the call to action closes the section, after
+            the cards. Rendered in one place at a time (the other is hidden) */}
+        <div className="order-3 col-span-full lg:hidden">{renderCta('flex')}</div>
 
       </SectionShell>
     </div>

@@ -64,7 +64,7 @@ export const ContactCard = () => {
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
       style={{ rotateX, rotateY, transformPerspective: 1000 }}
-      className="relative w-full max-w-[640px] xl:aspect-640/416 mx-auto md:mx-0"
+      className="relative w-full max-w-[640px] max-lg:max-w-none xl:aspect-640/416 mx-auto md:mx-0"
     >
 
       {/* 2. LA CARTE */}

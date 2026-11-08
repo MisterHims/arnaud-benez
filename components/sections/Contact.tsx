@@ -24,10 +24,10 @@ export const Contact = () => {
           }}
         />
         <NightSky seed={53} count={40} />
-        <SectionShell variant="contained" className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-14 lg:max-xl:gap-x-10 lg:max-xl:gap-y-12">
+        <SectionShell variant="contained" className="max-xl:pb-16 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-14 lg:max-xl:gap-x-10 md:max-xl:gap-y-12">
 
           {/* 1. HEADER (Titre & Sous-titre) */}
-          <BlockContent colSpan={12} className="mb-8 lg:max-xl:mb-0 lg:col-span-12">
+          <BlockContent colSpan={12} className="mb-8 md:max-xl:mb-0 lg:col-span-12">
             <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
               {t('title')}
             </h2>
