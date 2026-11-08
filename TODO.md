@@ -32,24 +32,26 @@ Things set aside while building the v2 of the portfolio (`feat/portfolio-v2`).
 
 ## Decisions pending
 
-- [ ] Language detection: a visitor whose browser remembered English is redirected from a
-      French link (`/qui-suis-je` → `/en/who-i-am`). next-intl default; can be turned off so
-      shared links always win.
+- [x] Language detection: every URL now carries its language (`/fr/…`, `/en/…`), so a shared
+      link always opens in its own language; only the bare domain (`/`) picks one (cookie,
+      then browser language, French otherwise).
 - [ ] Cursor: give it a skill star on the arrival screen, or group Cursor and Claude Code
       in an "AI" card in the skills grid?
-- [ ] Header navigation (component exists but is disabled in the layout).
 
 ## Before going live
 
-- [ ] Production build check (`pnpm build`, with the dev server stopped, then `rm -rf .next`
-      before restarting dev): confirm the section pages are statically generated.
+- [ ] **Client logos weight** (Lighthouse, 2026-11-08): the logos are inline SVG (`Logo.tsx`,
+      ~190 KB, also in the JS bundle) and the Trusted By band renders each one 4 times:
+      ~600 KB of SVG in the home page HTML. Serve them as static files (cached once) or a
+      sprite, and simplify the heaviest (one is 48 KB).
+
+- [x] Production build check (2026-11-08, in a separate copy): passes, the section pages
+      are statically generated (SSG).
 - [ ] Hugeicons Pro token as an environment variable on the hosting platform
       (registry configured in `.npmrc`).
 - [x] Mobile pass (390 / 360 px phones, 768 / 1024 px tablets): no sideways scroll, stacked
       Who I Am and Contact, readable section titles, contact card sized by its content,
       skills grid fitting, `svh` units for the hero and sections.
   - [ ] Test on a real phone (the browser bar, the hero landing by touch, the glide).
-  - [ ] Skills tooltips don't open on touch (the tool names are only read by screen
-        readers on phones): show names on tap, or accept it.
-- [ ] Mobile: the skills grid comes after the whole timeline (13 entries): move it above,
-      or fold it.
+  - [x] Skills names on touch: tapping a logo shows its name in place of the category title.
+- [x] Mobile: the skills now come as a swipeable strip under the Experience title.
