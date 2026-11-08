@@ -13,6 +13,10 @@ import { cn } from '@/lib/utils';
 
 /** Pixels scrolled in one direction before the bar hides / shows again */
 const SCROLL_TOLERANCE = 8;
+/** The links row's height (h-16): what the bar covers solidly */
+const BAR_HEIGHT = 64;
+/** After the bar stepped aside for keyboard focus, scroll moves ignored (ms) */
+const FOCUS_HOLD = 400;
 
 /**
  * Site navigation, once past the hero (never during the journey nor on the
@@ -33,6 +37,7 @@ export const SiteNav = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const focusHoldUntil = useRef(0);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -50,7 +55,8 @@ export const SiteNav = () => {
       const delta = y - lastY;
       lastY = y;
       travelled = Math.sign(delta) === Math.sign(travelled) ? travelled + delta : delta;
-      if (travelled > SCROLL_TOLERANCE) setHidden(true);
+      if (performance.now() < focusHoldUntil.current) travelled = 0;
+      else if (travelled > SCROLL_TOLERANCE) setHidden(true);
       else if (travelled < -SCROLL_TOLERANCE) setHidden(false);
     };
     const onScroll = () => {
@@ -68,6 +74,31 @@ export const SiteNav = () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  // Keyboard focus landing under the bar (Shift+Tab scrolls up, which brings
+  // the bar back right over the focused element): the bar steps aside.
+  // Not with scroll-padding: it would also offset every section snap and
+  // section link by the bar's height
+  useEffect(() => {
+    let frame = 0;
+    const onFocusIn = (e: FocusEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('header') || !target.matches(':focus-visible')) return;
+      // Next frame: once the browser has scrolled the element into view
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (target.getBoundingClientRect().top >= BAR_HEIGHT) return;
+        setHidden(true);
+        // That focus scroll went up: don't let it bring the bar back
+        focusHoldUntil.current = performance.now() + FOCUS_HOLD;
+      });
+    };
+    document.addEventListener('focusin', onFocusIn);
+    return () => {
+      document.removeEventListener('focusin', onFocusIn);
       cancelAnimationFrame(frame);
     };
   }, []);
