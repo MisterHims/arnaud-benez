@@ -19,11 +19,13 @@ import {
   ArrowUp01Icon,
   BubbleChatIcon,
   Cancel01Icon,
+  Copy01Icon,
   FileDownloadIcon,
   IdCardIcon,
   Menu01Icon,
   ReplayIcon,
   SwipeUp04Icon,
+  Tick02Icon,
 } from '@hugeicons-pro/core-stroke-standard';
 import { cn } from '@/lib/utils';
 
@@ -56,6 +58,8 @@ const ICONS = {
   Menu: Menu01Icon,
   Close: Cancel01Icon,
   SwipeUp: SwipeUp04Icon,
+  Copy: Copy01Icon,
+  Check: Tick02Icon,
 } satisfies Record<string, IconSvgElement>;
 
 export type IconName = keyof typeof ICONS;

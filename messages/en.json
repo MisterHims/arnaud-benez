@@ -223,7 +223,9 @@
     "card": {
       "roles": "UI/UX Designer | Front-End Developer",
       "location": "Val-de-Marne, France",
-      "download": "Download Contact Card"
+      "download": "Download Contact Card",
+      "copyEmail": "Copy email address",
+      "copied": "Copied"
     },
     "form": {
       "name": "Full Name",

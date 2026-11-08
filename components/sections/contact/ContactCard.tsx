@@ -2,19 +2,40 @@
 
 import Image from 'next/image';
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useRef, type PointerEvent } from 'react';
+import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { Card } from "@heroui/react";
 import { Icon } from "@/components/ui/Icon";
 import { CustomButton } from "@/components/CustomButton";
 import { useTranslations } from "next-intl";
+import { cn } from '@/lib/utils';
 
 /** Maximum tilt, in degrees, when the cursor reaches the card's edges */
 const MAX_TILT = 2.5;
 
+const EMAIL = 'arnaud.benez@gmail.com';
+
+/** How long the "Copied" confirmation stays, in ms */
+const COPIED_DURATION = 2000;
+
 export const ContactCard = () => {
   const t = useTranslations('Contact.card');
   const reduceMotion = usePrefersReducedMotion();
+
+  // Copy the address, with a "Copied" confirmation for a moment
+  const [copied, setCopied] = useState(false);
+  const copiedTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(copiedTimer.current), []);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+    } catch {
+      return; // clipboard refused (insecure context, permissions): no false "Copied"
+    }
+    setCopied(true);
+    clearTimeout(copiedTimer.current);
+    copiedTimer.current = setTimeout(() => setCopied(false), COPIED_DURATION);
+  };
 
   // Cursor position over the card, from -0.5 (left / top) to 0.5
   const pointerX = useMotionValue(0);
@@ -70,9 +91,25 @@ export const ContactCard = () => {
       {/* 2. LA CARTE */}
       <Card className="flex flex-col h-full bg-linear-to-br from-[#121417] to-[#090a0c] border-3 border-white/10 p-6 sm:p-8 rounded-xl relative z-10 overflow-hidden justify-between gap-7 xl:gap-9.5">
 
+        {/* Logo pattern (the one closing What I Do), faint, in the top right
+            corner only: fills the empty area across from the triangle,
+            without running behind the text */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 z-0 pointer-events-none opacity-6"
+          style={{
+            backgroundImage: 'url(/assets/patterns/logo-pattern-tile.svg)',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '30px 90px',
+            maskImage: 'radial-gradient(ellipse 70% 90% at 100% 0%, black 0%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 90% at 100% 0%, black 0%, transparent 100%)',
+          }}
+        />
+
         {/* --- FOND SVG --- */}
         <div className="absolute bottom-0 right-0 z-0 pointer-events-none w-[55%] sm:w-[65%] h-auto">
           <svg
+            aria-hidden="true"
             viewBox="0 0 363 188"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -140,22 +177,48 @@ export const ContactCard = () => {
         {/* INFO LIST - CLEANED (Without circles) */}
         <Card.Content className="relative z-10 flex flex-col gap-3 sm:gap-4 mt-1.5">
 
-          {/* EMAIL */}
-          <div className="flex items-center gap-4 text-[#dbdee3] text-base lg:max-xl:text-sm group/link hover:text-white transition-colors cursor-pointer pl-1">
-            <Icon name="Mail" size={20} />
-            <span className="font-light tracking-wide truncate">arnaud.benez@gmail.com</span>
+          {/* EMAIL: a mailto link, plus a copy button (many visitors write
+              from their own webmail, where mailto opens nothing useful) */}
+          {/* Phones (all three lines): the text scales with the width and the
+              gaps tighten, so the address always shows in full by the button */}
+          <div className="flex items-center gap-3 sm:gap-4 text-[#dbdee3] text-[min(16px,3.9vw)] sm:text-base lg:max-xl:text-sm pl-1">
+            <Icon name="Mail" size={20} className="shrink-0" />
+            <a
+              href={`mailto:${EMAIL}`}
+              className="min-w-0 font-light sm:tracking-wide truncate rounded-sm hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+            >
+              {EMAIL}
+            </a>
+            <button
+              type="button"
+              onClick={copyEmail}
+              aria-label={t('copyEmail')}
+              className={cn(
+                '-my-2 -ml-1.5 sm:-ml-2 shrink-0 h-8 min-w-8 px-1.5 flex items-center justify-center gap-1.5 rounded-lg transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-white/60',
+                copied ? 'text-white' : 'text-white/45 hover:text-white hover:bg-white/6'
+              )}
+            >
+              <Icon name={copied ? 'Check' : 'Copy'} size={16} />
+              {copied && (
+                <span aria-hidden="true" className="text-xs tracking-wide animate-[fade-in_0.2s_ease-out] motion-reduce:animate-none">
+                  {t('copied')}
+                </span>
+              )}
+            </button>
+            {/* Confirmation for screen readers */}
+            <span role="status" className="sr-only">{copied ? t('copied') : ''}</span>
           </div>
 
           {/* WEBSITE */}
-          <div className="flex items-center gap-4 text-[#dbdee3] text-base lg:max-xl:text-sm group/link hover:text-white transition-colors pl-1">
-            <Icon name="LaptopPhone" size={20} />
-            <span className="font-light tracking-wide truncate">www.arnaud-benez.net</span>
+          <div className="flex items-center gap-3 sm:gap-4 text-[#dbdee3] text-[min(16px,3.9vw)] sm:text-base lg:max-xl:text-sm pl-1">
+            <Icon name="LaptopPhone" size={20} className="shrink-0" />
+            <span className="font-light sm:tracking-wide truncate">www.arnaud-benez.net</span>
           </div>
 
           {/* LOCATION */}
-          <div className="flex items-center gap-4 text-[#dbdee3] text-base lg:max-xl:text-sm group/link hover:text-white transition-colors pl-1">
-            <Icon name="LocationUser" size={20} />
-            <span className="font-light tracking-wide">{t('location')}</span>
+          <div className="flex items-center gap-3 sm:gap-4 text-[#dbdee3] text-[min(16px,3.9vw)] sm:text-base lg:max-xl:text-sm pl-1">
+            <Icon name="LocationUser" size={20} className="shrink-0" />
+            <span className="font-light sm:tracking-wide">{t('location')}</span>
           </div>
         </Card.Content>
 
