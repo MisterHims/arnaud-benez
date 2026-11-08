@@ -106,6 +106,7 @@ export const ContactCard = () => {
               src="/assets/card-portrait_min.jpg"
               alt="Arnaud Benez"
               fill
+              sizes="100px"
               className="object-cover grayscale"
             />
             {/* Color version, revealed where the halo shines */}
@@ -114,12 +115,12 @@ export const ContactCard = () => {
               style={{ maskImage: photoLight, WebkitMaskImage: photoLight, opacity: glareOpacity }}
               className="absolute inset-0"
             >
-              <Image src="/assets/card-portrait_min.jpg" alt="" fill className="object-cover" />
+              <Image src="/assets/card-portrait_min.jpg" alt="" fill sizes="100px" className="object-cover" />
             </motion.div>
           </div>
           <div className="self-stretch py-1.5 inline-flex flex-col justify-center items-start">
-            <h3 className="text-white text-2xl sm:text-3xl font-semibold uppercase tracking-[4px] sm:tracking-[6px]">Arnaud Benez</h3>
-            <span className="text-[#bec3ca] text-sm uppercase tracking-wide font-extralight">{t('roles')}</span>
+            <h3 className="text-white text-2xl sm:text-3xl lg:max-xl:text-2xl font-semibold uppercase tracking-[4px] sm:tracking-[6px] lg:max-xl:tracking-[4px]">Arnaud Benez</h3>
+            <span className="text-[#bec3ca] text-sm lg:max-xl:text-xs uppercase tracking-wide font-extralight">{t('roles')}</span>
           </div>
         </Card.Header>
 
@@ -127,19 +128,19 @@ export const ContactCard = () => {
         <Card.Content className="relative z-10 flex flex-col gap-3 sm:gap-4 mt-1.5">
 
           {/* EMAIL */}
-          <div className="flex items-center gap-4 text-[#dbdee3] text-base group/link hover:text-white transition-colors cursor-pointer pl-1">
+          <div className="flex items-center gap-4 text-[#dbdee3] text-base lg:max-xl:text-sm group/link hover:text-white transition-colors cursor-pointer pl-1">
             <Icon name="Mail" size={20} />
             <span className="font-light tracking-wide truncate">arnaud.benez@gmail.com</span>
           </div>
 
           {/* WEBSITE */}
-          <div className="flex items-center gap-4 text-[#dbdee3] text-base group/link hover:text-white transition-colors pl-1">
+          <div className="flex items-center gap-4 text-[#dbdee3] text-base lg:max-xl:text-sm group/link hover:text-white transition-colors pl-1">
             <Icon name="LaptopPhone" size={20} />
             <span className="font-light tracking-wide truncate">www.arnaud-benez.net</span>
           </div>
 
           {/* LOCATION */}
-          <div className="flex items-center gap-4 text-[#dbdee3] text-base group/link hover:text-white transition-colors pl-1">
+          <div className="flex items-center gap-4 text-[#dbdee3] text-base lg:max-xl:text-sm group/link hover:text-white transition-colors pl-1">
             <Icon name="LocationUser" size={20} />
             <span className="font-light tracking-wide">{t('location')}</span>
           </div>
@@ -184,7 +185,7 @@ export const ContactCard = () => {
       />
 
       {/* BOUTON FLOTTANT */}
-      <div className="absolute -bottom-5 right-4 sm:right-8 z-20">
+      <div className="absolute -bottom-[18px] right-4 sm:right-8 z-20">
         {/* Opaque fill: the button straddles the card's edge */}
         <CustomButton variant="secondary" size="sm" className="bg-[#1a1c20]">
           <Icon name="ContactCard" size={16} />

@@ -29,7 +29,7 @@ export const ContactForm = () => {
       <form className="flex flex-col gap-6 w-full">
 
         {/* Ligne 1 : Nom & Email */}
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col md:flex-row lg:max-xl:flex-col gap-6">
 
           {/* CHAMP FULL NAME */}
           <TextField className="w-full" name="name">
@@ -69,10 +69,12 @@ export const ContactForm = () => {
         </TextField>
 
         {/* Footer du Formulaire */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-end justify-between gap-6 mt-2">
+        {/* 1024-1279px: "Required" top left, Send on its right; the pitch moves
+            under the contact card (see Contact) */}
+        <div className="flex flex-col md:flex-row items-stretch md:items-end lg:max-xl:items-start justify-between gap-6 mt-2">
           <div className="text-[#9aa1aa] text-base font-extralight leading-5.5">
             <span className="block mb-2 text-sm italic"><span className="text-red-400 mr-1">*</span>{t('required')}</span>
-            <p>{t.rich('pitch', { br: () => <br /> })}</p>
+            <p className="lg:max-xl:hidden">{t.rich('pitch', { br: () => <br /> })}</p>
           </div>
           <CustomButton
             type="submit"
