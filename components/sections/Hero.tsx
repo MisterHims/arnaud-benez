@@ -413,14 +413,14 @@ export const Hero = ({ startLanded = false }: HeroProps) => {
       className={cn(
         // overflow-anchor: none — we compensate the fold ourselves, precisely
         'relative w-full bg-black [overflow-anchor:none]',
-        hasLanded ? 'h-screen' : reduceMotion ? 'h-[200vh]' : 'h-[350vh]'
+        hasLanded ? 'h-svh' : reduceMotion ? 'h-[200vh]' : 'h-[350vh]'
       )}
     >
       <div
         onMouseMove={handleMouseMove}
         // --mountains-h: height of the landing ridges, shared by the mountains
         // and the identity block (centered in the sky above them)
-        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black [--mountains-h:clamp(120px,24vh,280px)]"
+        className="sticky top-0 h-svh w-full overflow-hidden flex items-center justify-center bg-black [--mountains-h:clamp(120px,24svh,280px)]"
       >
         <StarryBackground camera={camera} reducedMotion={reduceMotion} />
         {/* Planet atmosphere glowing from the horizon on arrival */}

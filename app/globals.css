@@ -182,3 +182,11 @@
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15'%3E%3Cpath d='M2 11 11 2M6 11l5-5' stroke='%23ffffff' stroke-opacity='.4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat left top;
   }
 }
+
+/* Decorations (mountains, drifting skies) may bleed past the screen edge:
+   clipped, so phones never get a sideways scroll. "clip", unlike "hidden",
+   creates no scroll container and keeps position: sticky working */
+html,
+body {
+  overflow-x: clip;
+}

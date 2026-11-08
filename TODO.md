@@ -45,7 +45,11 @@ Things set aside while building the v2 of the portfolio (`feat/portfolio-v2`).
       before restarting dev): confirm the section pages are statically generated.
 - [ ] Hugeicons Pro token as an environment variable on the hosting platform
       (registry configured in `.npmrc`).
-- [ ] Mobile pass (glide between sections on mobile, `svh` units, real-device testing of
-      the hero landing).
+- [x] Mobile pass (390 / 360 px phones, 768 / 1024 px tablets): no sideways scroll, stacked
+      Who I Am and Contact, readable section titles, contact card sized by its content,
+      skills grid fitting, `svh` units for the hero and sections.
+  - [ ] Test on a real phone (the browser bar, the hero landing by touch, the glide).
+  - [ ] Skills tooltips don't open on touch (the tool names are only read by screen
+        readers on phones): show names on tap, or accept it.
 - [ ] Mobile: the skills grid comes after the whole timeline (13 entries): move it above,
       or fold it.

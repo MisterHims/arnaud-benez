@@ -69,7 +69,7 @@ export const ContactForm = () => {
         </TextField>
 
         {/* Footer du Formulaire */}
-        <div className="flex flex-col md:flex-row items-end justify-between gap-6 mt-2">
+        <div className="flex flex-col md:flex-row items-stretch md:items-end justify-between gap-6 mt-2">
           <div className="text-[#9aa1aa] text-base font-extralight leading-5.5">
             <span className="block mb-2 text-sm italic"><span className="text-red-400 mr-1">*</span>{t('required')}</span>
             <p>{t.rich('pitch', { br: () => <br /> })}</p>
@@ -78,7 +78,7 @@ export const ContactForm = () => {
             type="submit"
             variant="primary"
             size="lg"
-            className="w-full max-w-[200px]"
+            className="w-full md:max-w-[200px]"
           >
             {t('submit')}
           </CustomButton>

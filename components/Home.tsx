@@ -27,7 +27,7 @@ export function Home({ initialSection }: HomeProps) {
 
   return (
     // Standard scroll container (body handles scroll)
-    <main className="w-full min-h-screen scroll-smooth">
+    <main className="w-full min-h-svh scroll-smooth">
       
       {/* Section 1 : Hero */}
       <section data-snap-section className="w-full relative z-10">
@@ -47,30 +47,30 @@ export function Home({ initialSection }: HomeProps) {
       {/* flow-root: keeps the inner top margin inside the dark background (no seam) */}
       {/* NightSky: the stars seen from the planet once landed (isolate: keeps
           them behind the content, above the section background) */}
-      <section id="who-i-am" data-snap-section className="flow-root min-h-screen w-full relative isolate bg-[#0a0c0f] z-20">
+      <section id="who-i-am" data-snap-section className="flow-root min-h-svh w-full relative isolate bg-[#0a0c0f] z-20">
         <NightSky seed={11} />
         <WhoIAm />
       </section>
 
       {/* Section 3 : WhatIDo */}
-      <section id="what-i-do" data-snap-section className="min-h-screen w-full relative">
+      <section id="what-i-do" data-snap-section className="min-h-svh w-full relative">
         <WhatIDo />
       </section>
 
       {/* Section 4 : Experience */}
-      <section id="experience" data-snap-section className="min-h-screen w-full relative isolate">
+      <section id="experience" data-snap-section className="min-h-svh w-full relative isolate">
         <NightSky seed={23} />
         <Experience />
       </section>
 
       {/* Section 5 : Works */}
-      <section id="works" data-snap-section className="min-h-screen w-full relative isolate">
+      <section id="works" data-snap-section className="min-h-svh w-full relative isolate">
         <NightSky seed={37} count={36} />
         <Works />
       </section>
 
       {/* Section 6 : Contact */}
-      <section id="contact" data-snap-section className="min-h-screen w-full relative">
+      <section id="contact" data-snap-section className="min-h-svh w-full relative">
         <Contact />
       </section>
 

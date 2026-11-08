@@ -24,11 +24,11 @@ export const Contact = () => {
           }}
         />
         <NightSky seed={53} count={40} />
-        <SectionShell variant="contained" className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14">
+        <SectionShell variant="contained" className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-14">
 
           {/* 1. HEADER (Titre & Sous-titre) */}
-          <BlockContent colSpan={12} className="mb-8">
-            <h2 className='text-7xl md:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
+          <BlockContent colSpan={12} className="mb-8 lg:col-span-12">
+            <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
               {t('title')}
             </h2>
             <p className="text-zinc-400 text-lg max-w-2xl font-light">
@@ -37,12 +37,12 @@ export const Contact = () => {
           </BlockContent>
 
           {/* 2. ZONE GAUCHE : CARTE DE VISITE */}
-          <BlockContent colSpan={6} className="flex justify-center md:justify-start">
+          <BlockContent colSpan={6} className="flex justify-center md:justify-start md:col-span-12 lg:col-span-6">
             <ContactCard />
           </BlockContent>
 
           {/* 3. ZONE DROITE : FORMULAIRE */}
-          <BlockContent colSpan={6} className="flex md:pl-10 items-center">
+          <BlockContent colSpan={6} className="flex lg:pl-10 items-center md:col-span-12 lg:col-span-6">
             <ContactForm />
           </BlockContent>
 

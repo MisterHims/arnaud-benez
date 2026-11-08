@@ -22,12 +22,12 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
         WebkitMaskComposite: 'xor', // Essential for Chrome/Safari
       }}
     />
-    <div className="relative px-5 pt-5 pb-2.5 flex flex-col items-center justify-center gap-3 z-10">
+    <div className="relative px-4 sm:px-5 pt-5 pb-2.5 flex flex-col items-center justify-center gap-3 z-10">
 
       {/* Glow effect (Top) */}
       <div className="absolute top-0 inset-x-4 h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
 
-      <div className="flex justify-center gap-3 md:gap-5">
+      <div className="flex justify-center gap-2.5 sm:gap-3 md:gap-5">
         {icons.map((iconName, i) => (
           // data-skill: target of the hero's skill stars (highlighted on arrival)
           <div key={i} data-skill={iconName} className="relative flex items-center justify-center rounded-xl">
@@ -37,7 +37,7 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
                   engines) and a visible ring on keyboard focus */}
               <Tooltip.Trigger className="cursor-help rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0a0c0f]">
                 <span className="sr-only">{iconName}</span>
-                <div className="w-8 h-8 flex items-center justify-center">
+                <div className="size-7 sm:size-8 flex items-center justify-center">
                   <Logo
                     name={iconName}
                     aria-hidden="true"

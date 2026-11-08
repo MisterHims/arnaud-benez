@@ -12,10 +12,10 @@ const bold = (chunks: React.ReactNode) => <strong className='font-semibold'>{chu
 export const WhoIAm = () => {
   const t = useTranslations('WhoIAm');
   return (
-    <SectionShell variant="contained" className="min-h-screen grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 relative overflow-hidden flex items-center z-10">
+    <SectionShell variant="contained" className="min-h-svh flex flex-col md:flex-row gap-12 md:gap-14 relative overflow-hidden md:items-center z-10">
       {/* LEFT ZONE: Text Content */}
       <BlockContent colSpan={6}>
-        <h2 className='text-7xl md:text-8xl font-black text-[#ebedf0] tracking-tight mb-8'>
+        <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-8xl font-black text-[#ebedf0] tracking-tight mb-8'>
           {t('title')}
         </h2>
 
@@ -40,13 +40,14 @@ export const WhoIAm = () => {
       </BlockContent>
 
       {/* RIGHT ZONE: Portrait Image */}
-      <BlockContent colSpan={5} className="md:col-start-7">
+      {/* Mobile: below the text, smaller and centered */}
+      <BlockContent colSpan={5} className="md:col-start-7 flex justify-center md:block">
         <Image
           src="/assets/portrait.png"
           alt={t('portraitAlt')}
           width={703}
           height={757}
-          className="object-contain object-bottom w-auto"
+          className="object-contain object-bottom w-auto max-md:max-w-[min(80%,320px)]"
           priority
         />
       </BlockContent>

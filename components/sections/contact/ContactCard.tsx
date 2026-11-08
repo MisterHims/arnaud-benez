@@ -64,14 +64,14 @@ export const ContactCard = () => {
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
       style={{ rotateX, rotateY, transformPerspective: 1000 }}
-      className="relative w-full max-w-[640px] aspect-640/416 mx-auto md:mx-0"
+      className="relative w-full max-w-[640px] xl:aspect-640/416 mx-auto md:mx-0"
     >
 
       {/* 2. LA CARTE */}
       <Card className="flex flex-col h-full bg-linear-to-br from-[#121417] to-[#090a0c] border-3 border-white/10 p-6 sm:p-8 rounded-xl relative z-10 overflow-hidden justify-between gap-9.5">
 
         {/* --- FOND SVG --- */}
-        <div className="absolute bottom-0 right-0 z-0 pointer-events-none w-[65%] h-auto">
+        <div className="absolute bottom-0 right-0 z-0 pointer-events-none w-[55%] sm:w-[65%] h-auto">
           <svg
             viewBox="0 0 363 188"
             fill="none"
@@ -100,8 +100,8 @@ export const ContactCard = () => {
         </div>
 
         {/* HEADER : Photo + Nom */}
-        <Card.Header className="flex flex-row self-stretch gap-6">
-          <div ref={photoRef} className="relative w-25 h-25 rounded-xl overflow-hidden shrink-0">
+        <Card.Header className="relative z-10 flex flex-row self-stretch gap-4 sm:gap-6">
+          <div ref={photoRef} className="relative size-20 sm:size-25 rounded-xl overflow-hidden shrink-0">
             <Image
               src="/assets/card-portrait_min.jpg"
               alt="Arnaud Benez"
@@ -118,35 +118,35 @@ export const ContactCard = () => {
             </motion.div>
           </div>
           <div className="self-stretch py-1.5 inline-flex flex-col justify-center items-start">
-            <h3 className="text-white text-3xl font-semibold uppercase tracking-[6px]">Arnaud Benez</h3>
+            <h3 className="text-white text-2xl sm:text-3xl font-semibold uppercase tracking-[4px] sm:tracking-[6px]">Arnaud Benez</h3>
             <span className="text-[#bec3ca] text-sm uppercase tracking-wide font-extralight">{t('roles')}</span>
           </div>
         </Card.Header>
 
         {/* INFO LIST - CLEANED (Without circles) */}
-        <Card.Content className="flex flex-col gap-3 sm:gap-4 mt-1.5">
+        <Card.Content className="relative z-10 flex flex-col gap-3 sm:gap-4 mt-1.5">
 
           {/* EMAIL */}
-          <div className="flex items-center gap-4 text-[#dbdee3] text-lgsm:text-sm group/link hover:text-white transition-colors cursor-pointer pl-1">
+          <div className="flex items-center gap-4 text-[#dbdee3] text-base group/link hover:text-white transition-colors cursor-pointer pl-1">
             <Icon name="Mail" size={20} />
             <span className="font-light tracking-wide truncate">arnaud.benez@gmail.com</span>
           </div>
 
           {/* WEBSITE */}
-          <div className="flex items-center gap-4 text-[#dbdee3] text-lgsm:text-sm group/link hover:text-white transition-colors pl-1">
+          <div className="flex items-center gap-4 text-[#dbdee3] text-base group/link hover:text-white transition-colors pl-1">
             <Icon name="LaptopPhone" size={20} />
             <span className="font-light tracking-wide truncate">www.arnaud-benez.net</span>
           </div>
 
           {/* LOCATION */}
-          <div className="flex items-center gap-4 text-[#dbdee3] text-lgsm:text-sm group/link hover:text-white transition-colors pl-1">
+          <div className="flex items-center gap-4 text-[#dbdee3] text-base group/link hover:text-white transition-colors pl-1">
             <Icon name="LocationUser" size={20} />
             <span className="font-light tracking-wide">{t('location')}</span>
           </div>
         </Card.Content>
 
         {/* THE REQUESTED SEPARATOR */}
-        <div className="w-30 h-[2px] bg-white/10"></div>
+        <div className="w-30 h-[2px] shrink-0 bg-white/10"></div>
 
         {/* FOOTER: SEPARATOR + SOCIAL ICONS */}
         <div className="relative z-10 flex flex-col gap-6 pl-1">

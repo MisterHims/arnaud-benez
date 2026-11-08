@@ -54,7 +54,7 @@ export const WhatIDo = () => {
         {/* Text in cols 8-12 (a wide gutter with the cards); from 2xl, where the
             cards are capped at 300px, one column closer to keep that gutter */}
         <BlockContent isSticky colSpan={5} className="order-1 md:order-2 md:col-start-8 2xl:col-start-7 md:row-start-1">
-          <h2 className='text-xl md:text-8xl font-black text-[#ebedf0] tracking-tight text-balance mb-8'>
+          <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-8xl font-black text-[#ebedf0] tracking-tight text-balance mb-8'>
             {t('title')}
           </h2>
           {/* One positioning statement: the cards carry the details */}

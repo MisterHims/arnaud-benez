@@ -58,7 +58,7 @@ export const ExperienceList = () => {
   return (
     <div className="flex flex-col h-full">
 
-      <h2 className='text-xl md:text-8xl font-black text-[#ebedf0] tracking-tight mb-14'>
+      <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-8xl font-black text-[#ebedf0] tracking-tight mb-14'>
         {t('title')}
       </h2>
 
