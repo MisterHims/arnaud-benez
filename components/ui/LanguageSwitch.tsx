@@ -35,7 +35,8 @@ export const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
   };
 
   return (
-    <nav
+    <div
+      role="group"
       aria-label={t('label')}
       className={cn(
         'flex items-center gap-2.5 h-9 px-1 transition-opacity',
@@ -51,19 +52,20 @@ export const LanguageSwitch = ({ className }: LanguageSwitchProps) => {
             <button
               type="button"
               lang={locale.code}
-              aria-label={locale.name}
               aria-current={isActive ? 'true' : undefined}
               onClick={() => switchTo(locale.code)}
               className={cn(
-                'py-1 text-xs tracking-[0.2em] transition-colors',
+                'py-1 px-1 -mx-1 min-w-6 text-xs tracking-[0.2em] transition-colors',
                 isActive ? 'text-white font-medium cursor-default' : 'text-white/55 hover:text-white/85 cursor-pointer'
               )}
             >
+              {/* Name: "FR – Français" (the visible text first, WCAG 2.5.3) */}
               {locale.label}
+              <span className="sr-only">{` – ${locale.name}`}</span>
             </button>
           </span>
         );
       })}
-    </nav>
+    </div>
   );
 };

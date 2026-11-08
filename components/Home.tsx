@@ -13,6 +13,7 @@ import { SiteNav } from "@/components/layouts/SiteNav";
 import { NightSky } from "@/components/ui/NightSky";
 import { useSectionUrl } from "@/hooks/useSectionUrl";
 import type { SectionId } from "@/src/data/sections";
+import { useTranslations } from "next-intl";
 
 interface HomeProps {
   /** Opened from a section link ("/qui-suis-je", "/en/who-i-am"…) */
@@ -25,9 +26,21 @@ export function Home({ initialSection }: HomeProps) {
   useSectionSnap();
   // The address bar follows the section being read (shareable links)
   useSectionUrl(initialSection);
+  const t = useTranslations('Nav');
 
   return (
-    // Standard scroll container (body handles scroll)
+    <>
+    {/* Keyboard: first stop, skips the arrival screen's controls (visible on
+        focus only) */}
+    <a
+      href="#who-i-am"
+      className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:px-4 focus:py-2 focus:rounded-full focus:bg-white focus:text-black focus:text-xs focus:font-medium focus:uppercase focus:tracking-[0.2em] focus:outline-2 focus:outline-offset-2 focus:outline-white"
+    >
+      {t('skip')}
+    </a>
+    {/* Before the content in the DOM: the navigation comes first with Tab */}
+    <SiteNav />
+    {/* Standard scroll container (body handles scroll) */}
     <main className="w-full min-h-svh scroll-smooth">
       
       {/* Section 1 : Hero */}
@@ -50,8 +63,9 @@ export function Home({ initialSection }: HomeProps) {
       {/* NightSky: the stars seen from the planet once landed (isolate: keeps
           them behind the content, above the section background) */}
       {/* Background fading out over its last 160px: no hard edge with the next
-          section (darker), visible when the section is shorter than the screen */}
-      <section id="who-i-am" data-snap-section className="flow-root md:min-h-svh w-full relative isolate bg-[linear-gradient(to_bottom,#0a0c0f_calc(100%-160px),transparent)] z-20 -mt-px">
+          section (darker), visible when the section is shorter than the screen.
+          tabIndex -1: the skip link's target takes the focus */}
+      <section id="who-i-am" tabIndex={-1} data-snap-section className="outline-none flow-root md:min-h-svh w-full relative isolate bg-[linear-gradient(to_bottom,#0a0c0f_calc(100%-160px),transparent)] z-20 -mt-px">
         <NightSky seed={11} />
         <WhoIAm />
       </section>
@@ -79,8 +93,8 @@ export function Home({ initialSection }: HomeProps) {
         <Contact />
       </section>
 
-      <SiteNav />
       <BackToTop afterId="who-i-am" />
     </main>
+    </>
   );
 }

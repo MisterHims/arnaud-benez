@@ -1,23 +1,10 @@
 'use client';
 
 import SectionShell from "../layouts/SectionShell";
-import { Logo, LogoName } from "../ui/Logo";
+import { Logo } from "../ui/Logo";
 import { TrustedBy } from "./works/TrustedBy";
 import { WorkCard } from "./works/WorkCard";
 import { useTranslations } from "next-intl";
-
-// List of logos to scroll (Order you want)
-const TRUSTED_LOGOS: { name: LogoName; className: string }[] = [
-  { name: "Leclerc-custom", className: "h-13 w-auto" },
-  { name: "Ticketmaster", className: "h-10 w-auto" },
-  { name: "Voyages-Leclerc", className: "h-14 w-auto" },
-  { name: "HeroUI", className: "h-12 w-auto" },
-  { name: "DogFidelity", className: "h-12 w-auto" },
-  { name: "Delaveine", className: "h-10 w-auto" },
-  { name: "Zigoh", className: "h-12 w-auto" },
-  { name: "Inmac", className: "h-14 w-auto" },
-  { name: "Vocajob", className: "h-13 w-auto" },
-];
 
 export const Works = () => {
   const t = useTranslations('Works');
@@ -35,9 +22,9 @@ export const Works = () => {
             {t('title')}
           </h2>
 
-          <h3 className="text-[#a2a9b2] text-2xl md:text-3xl font-bold">
+          <p className="text-[#a2a9b2] text-2xl md:text-3xl font-bold">
             {t('subtitle')}
-          </h3>
+          </p>
         </div>
 
         {/* --- BENTO COMPACT --- */}
@@ -48,7 +35,7 @@ export const Works = () => {
             className="md:col-span-2 md:rounded-tl-2xl"
             title="Mouvement E.Leclerc"
             category={t('categories.travelAgency')}
-            logo={<Logo name="Leclerc" className="w-28 h-auto" />}
+            logo={<Logo name="Leclerc" role="img" aria-label="E.Leclerc" className="w-28 h-auto" />}
             imageSrc="/assets/works/voyages-leclerc.jpg"
           />
 
@@ -57,7 +44,7 @@ export const Works = () => {
             className="md:rounded-tr-2xl"
             title="HeroUI"
             category={t('categories.library')}
-            logo={<Logo name="HeroUI" className="w-28 h-auto" />}
+            logo={<Logo name="HeroUI" role="img" aria-label="HeroUI" className="w-28 h-auto" />}
             imageSrc="/assets/works/heroui.jpg"
           />
 

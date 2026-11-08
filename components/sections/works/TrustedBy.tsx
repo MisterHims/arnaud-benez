@@ -7,16 +7,17 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 import { Logo, LogoName } from "../../ui/Logo";
 
-const TRUSTED_LOGOS: { name: LogoName; className: string }[] = [
-  { name: "Leclerc-custom", className: "h-13 w-auto" },
-  { name: "Ticketmaster", className: "h-10 w-auto" },
-  { name: "Voyages-Leclerc", className: "h-14 w-auto" },
-  { name: "HeroUI", className: "h-12 w-auto" },
-  { name: "DogFidelity", className: "h-12 w-auto" },
-  { name: "Delaveine", className: "h-10 w-auto" },
-  { name: "Zigoh", className: "h-12 w-auto" },
-  { name: "Inmac", className: "h-14 w-auto" },
-  { name: "Vocajob", className: "h-13 w-auto" },
+// label: the client's name, read by screen readers (the logo is its only mark)
+const TRUSTED_LOGOS: { name: LogoName; label: string; className: string }[] = [
+  { name: "Leclerc-custom", label: "E.Leclerc", className: "h-13 w-auto" },
+  { name: "Ticketmaster", label: "Ticketmaster", className: "h-10 w-auto" },
+  { name: "Voyages-Leclerc", label: "Voyages E.Leclerc", className: "h-14 w-auto" },
+  { name: "HeroUI", label: "HeroUI", className: "h-12 w-auto" },
+  { name: "DogFidelity", label: "DogFidelity", className: "h-12 w-auto" },
+  { name: "Delaveine", label: "Delaveine", className: "h-10 w-auto" },
+  { name: "Zigoh", label: "Zigoh", className: "h-12 w-auto" },
+  { name: "Inmac", label: "Inmac", className: "h-14 w-auto" },
+  { name: "Vocajob", label: "Vocajob", className: "h-13 w-auto" },
 ];
 
 /** Scrolling speed, in px/s: the same on every screen, whatever the gap
@@ -107,7 +108,7 @@ export const TrustedBy = () => {
             >
               {[...TRUSTED_LOGOS, ...TRUSTED_LOGOS].map((logo, index) => (
                 <div key={`${group}-${index}`} {...logoProps}>
-                  <Logo name={logo.name} className={`${logo.className} text-white`} />
+                  <Logo name={logo.name} role="img" aria-label={logo.label} className={`${logo.className} text-white`} />
                 </div>
               ))}
             </div>

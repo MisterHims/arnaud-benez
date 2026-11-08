@@ -111,7 +111,10 @@ export const SiteNav = () => {
         // Hidden: moved up past its full height (64 + 48px), so nothing peeks
         animate={visible ? { y: 0, opacity: 1 } : { y: reduceMotion ? 0 : -120, opacity: reduceMotion ? 0 : 1 }}
         transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-        inert={!visible}
+        // Inert on the hero only: once past it, a slid-away bar stays
+        // reachable by keyboard and slides back in when focused
+        inert={!pastHero}
+        onFocus={() => setHidden(false)}
         className="fixed inset-x-0 top-0 z-50 pb-12 pointer-events-none"
       >
         {/* Background: solid page black behind the links, then a long, eased
@@ -179,7 +182,8 @@ export const SiteNav = () => {
             transition={{ duration: reduceMotion ? 0 : 0.25 }}
             className="md:hidden fixed inset-0 z-45 bg-[#07080a] pt-20 flex flex-col"
           >
-            <nav aria-label={t('Nav.label')} className="flex-1 flex flex-col justify-center px-6 md:px-10">
+            <nav aria-label={t('Nav.label')} className="flex-1 flex flex-col">
+              <div className="flex-1 flex flex-col justify-center px-6 md:px-10">
               <ul className="flex flex-col gap-2">
                 {SECTION_IDS.map((id, index) => (
                   <motion.li
@@ -203,10 +207,12 @@ export const SiteNav = () => {
                   </motion.li>
                 ))}
               </ul>
+              </div>
+              {/* Inside the nav landmark (all the menu's content is) */}
+              <div className="px-6 md:px-10 pb-10">
+                <LanguageSwitch />
+              </div>
             </nav>
-            <div className="px-6 md:px-10 pb-10">
-              <LanguageSwitch />
-            </div>
           </motion.div>
         )}
       </AnimatePresence>

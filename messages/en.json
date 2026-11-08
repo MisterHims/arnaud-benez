@@ -8,6 +8,7 @@
     "label": "Language"
   },
   "Nav": {
+    "skip": "Skip to content",
     "label": "Main navigation",
     "open": "Open menu",
     "close": "Close menu",

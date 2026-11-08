@@ -3,6 +3,7 @@
 import { motion, MotionValue } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Icon } from '@/components/ui/Icon';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 interface ScrollIndicatorProps {
   onClick: () => void;
@@ -28,14 +29,16 @@ export const ScrollIndicator = ({
   ariaLabel,
   opacity,
   className = 'bottom-10',
-}: ScrollIndicatorProps) => (
+}: ScrollIndicatorProps) => {
+  // Reduced motion: the wheel / finger hint plays once, no endless loop
+  const reduceMotion = usePrefersReducedMotion();
+  return (
   <motion.button
     type="button"
     style={opacity ? { opacity } : undefined}
     onClick={onClick}
     tabIndex={isVisible ? 0 : -1}
     aria-hidden={!isVisible}
-    aria-label={ariaLabel}
     className={cn(
       'absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-30 cursor-pointer',
       !isVisible && 'pointer-events-none',
@@ -45,8 +48,9 @@ export const ScrollIndicator = ({
     {/* Touch screens: a finger swiping up */}
     <motion.span
       aria-hidden="true"
+      key={reduceMotion ? 'still' : 'loop'}
       animate={{ y: [0, -5, 0] }}
-      transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', repeatDelay: 0.3 }}
+      transition={{ duration: 1.5, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut', repeatDelay: 0.3 }}
       className="hidden pointer-coarse:flex items-center justify-center h-10 text-white/85"
     >
       <Icon name="SwipeUp" size={32} />
@@ -57,16 +61,21 @@ export const ScrollIndicator = ({
       <span className="w-6 h-10 rounded-full border-2 border-white/30 relative block">
         {/* Scroll wheel */}
         <motion.span
+          key={reduceMotion ? 'still' : 'loop'}
           animate={{ y: [0, 4, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', repeatDelay: 0.3 }}
+          transition={{ duration: 1.5, repeat: reduceMotion ? 0 : Infinity, ease: 'easeInOut', repeatDelay: 0.3 }}
           className="absolute top-2 left-1/2 -translate-x-1/2 w-1.5 h-2 rounded-full block bg-white"
         />
       </span>
     </span>
 
+    {/* Accessible name: the visible label first (voice control users say
+        what they see, WCAG 2.5.3), then what the button does */}
     <span className="text-[11px] tracking-[0.2em] uppercase text-gray-400 font-light">
       <span className="pointer-coarse:hidden">{label}</span>
       <span className="hidden pointer-coarse:inline">{touchLabel ?? label}</span>
+      {ariaLabel && <span className="sr-only">{` – ${ariaLabel}`}</span>}
     </span>
   </motion.button>
 );
+};

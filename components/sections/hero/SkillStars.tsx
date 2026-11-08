@@ -2,6 +2,7 @@
 
 import { motion, MotionValue } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { CSSProperties, KeyboardEvent, PointerEvent, useEffect, useState } from 'react';
 
 /** Where a skill star leads: a page section, or a logo in the skills grid. */
@@ -37,6 +38,7 @@ const SKILLS: {
 
 const LensFlareStarIcon = ({ className, style }: { className?: string, style?: CSSProperties }) => (
   <svg
+    aria-hidden="true"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -63,6 +65,8 @@ const fadeMaskStyle: CSSProperties = {
 };
 
 export const SkillStars = ({ x, y, opacity, interactive = true, onStarClick }: SkillStarsProps) => {
+  // Reduced motion: the stars glow once, no endless twinkling
+  const reduceMotion = usePrefersReducedMotion();
   const [shouldAnimate, setShouldAnimate] = useState(!opacity);
   // Touch: the first tap reveals the label, the second one follows the star
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -137,7 +141,10 @@ export const SkillStars = ({ x, y, opacity, interactive = true, onStarClick }: S
             onKeyDown={(e) => onKeyDown(e, skill)}
             onBlur={() => setActiveId((id) => (id === skill.id ? null : id))}
           >
-            <div className="relative flex items-center justify-center p-4">
+            {/* Remounted once the reduced motion preference is known (it is
+                false on the server render): framer doesn't stop a running
+                loop when only its transition changes */}
+            <div key={reduceMotion ? 'still' : 'loop'} className="relative flex items-center justify-center p-4">
 
               {/* 1. BACK GLOW */}
               <motion.div
@@ -148,7 +155,7 @@ export const SkillStars = ({ x, y, opacity, interactive = true, onStarClick }: S
                 }}
                 transition={{
                   duration: 2.5,
-                  repeat: Infinity,
+                  repeat: reduceMotion ? 0 : Infinity,
                   ease: "easeInOut",
                   delay: shouldAnimate ? appearanceDelay + 0.8 : 0,
                 }}
@@ -174,7 +181,7 @@ export const SkillStars = ({ x, y, opacity, interactive = true, onStarClick }: S
                 }}
                 transition={{
                   duration: 3,
-                  repeat: Infinity,
+                  repeat: reduceMotion ? 0 : Infinity,
                   ease: "easeInOut",
                   delay: shouldAnimate ? appearanceDelay + 0.8 : 0,
                 }}
@@ -201,7 +208,7 @@ export const SkillStars = ({ x, y, opacity, interactive = true, onStarClick }: S
                 }}
                 transition={{
                   duration: 2,
-                  repeat: Infinity,
+                  repeat: reduceMotion ? 0 : Infinity,
                   ease: "easeInOut",
                   delay: shouldAnimate ? appearanceDelay + 0.8 : 0,
                 }}

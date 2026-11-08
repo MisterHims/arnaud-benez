@@ -21,7 +21,7 @@ export const Footer = () => {
               <span className="mx-2">•</span>
               <Link
                 href="/legal"
-                className="underline underline-offset-2 hover:text-zinc-300 transition-colors"
+                className="py-1 underline underline-offset-2 hover:text-zinc-300 transition-colors"
               >
                 {t('legal')}
               </Link>
