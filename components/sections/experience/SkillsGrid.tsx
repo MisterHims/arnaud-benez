@@ -2,7 +2,8 @@
 
 import { Logo, LogoName } from "@/components/ui/Logo";
 import { Tooltip } from '@heroui/react';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 
 interface SkillCategoryProps {
@@ -10,7 +11,22 @@ interface SkillCategoryProps {
   icons: LogoName[];
 }
 
-const SkillCard = ({ title, icons }: SkillCategoryProps) => (
+/** How long a tapped tool's name replaces the category title, in ms */
+const TAP_LABEL_DURATION = 2000;
+
+const SkillCard = ({ title, icons }: SkillCategoryProps) => {
+  // Touch screens have no hover, so no tooltip: tapping a logo shows its
+  // name in place of the category title for a moment
+  const [tapped, setTapped] = useState<LogoName | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
+  const showName = (name: LogoName) => {
+    setTapped(name);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setTapped(null), TAP_LABEL_DURATION);
+  };
+
+  return (
   <div className="relative group rounded-xl bg-linear-to-br from-[#101215] to-[#040506] grow sm:grow-0">
     <div
       className="absolute inset-0 rounded-xl pointer-events-none z-20"
@@ -22,26 +38,34 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
         WebkitMaskComposite: 'xor', // Essential for Chrome/Safari
       }}
     />
-    <div className="relative px-4 sm:px-5 pt-5 pb-2.5 flex flex-col items-center justify-center gap-3 z-10">
+    <div className="relative px-4 sm:px-5 compact:px-3 pt-5 compact:pt-3.5 pb-2.5 compact:pb-2 flex flex-col items-center justify-center gap-3 compact:gap-2 z-10">
 
       {/* Glow effect (Top) */}
       <div className="absolute top-0 inset-x-4 h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
 
-      <div className="flex justify-center gap-2.5 sm:gap-3 md:gap-5">
+      <div className="flex justify-center gap-2.5 sm:gap-3 md:gap-5 compact:gap-2.5">
         {icons.map((iconName, i) => (
           // data-skill: target of the hero's skill stars (highlighted on arrival)
-          <div key={i} data-skill={iconName} className="relative flex items-center justify-center rounded-xl">
+          <div
+            key={i}
+            data-skill={iconName}
+            className="relative flex items-center justify-center rounded-xl"
+            onPointerUp={(e) => { if (e.pointerType !== 'mouse') showName(iconName); }}
+          >
 
             <Tooltip delay={0}>
               {/* Name also as visually hidden text (screen readers, search
                   engines) and a visible ring on keyboard focus */}
               <Tooltip.Trigger className="cursor-help rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0a0c0f]">
                 <span className="sr-only">{iconName}</span>
-                <div className="size-7 sm:size-8 flex items-center justify-center">
+                <div className="size-7 sm:size-8 compact:size-7 flex items-center justify-center">
                   <Logo
                     name={iconName}
                     aria-hidden="true"
-                    className="w-full h-full object-contain grayscale-25 hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
+                    className={cn(
+                      'w-full h-full object-contain grayscale-25 hover:grayscale-0 transition-all duration-300 transform hover:scale-110',
+                      tapped === iconName && 'grayscale-0 scale-110'
+                    )}
                   />
                 </div>
               </Tooltip.Trigger>
@@ -56,12 +80,22 @@ const SkillCard = ({ title, icons }: SkillCategoryProps) => (
         ))}
       </div>
 
-      <span className="text-[13px] text-white/95 font-medium tracking-wide mt-1.5 whitespace-nowrap">
-        {title}
+      {/* Category title, or the tapped tool's name (visual only: the names
+          are already given to screen readers) */}
+      <span
+        key={tapped ?? 'title'}
+        aria-hidden={tapped ? true : undefined}
+        className={cn(
+          'text-[13px] compact:text-xs font-medium tracking-wide mt-1.5 compact:mt-1 whitespace-nowrap animate-[fade-in_0.25s_ease-out] motion-reduce:animate-none',
+          tapped ? 'text-white' : 'text-white/95'
+        )}
+      >
+        {tapped ?? title}
       </span>
     </div>
   </div>
-);
+  );
+};
 
 /** Minimal gaps kept between the grid and the top / bottom of the screen
  *  while sticky (bottom: clears the floating back-to-top button) */
@@ -116,9 +150,9 @@ export const SkillsGrid = () => {
 
   return (
     // w-fit + mx-auto: the triangle is centered in its column
-    <div ref={ref} className="flex flex-col gap-3 w-fit max-w-full mx-auto lg:sticky" style={{ top: stickyTop }}>
+    <div ref={ref} className="flex flex-col gap-3 compact:gap-2.5 w-fit max-w-full mx-auto lg:sticky" style={{ top: stickyTop }}>
       {rows.map((row) => (
-        <div key={row.map(({ key }) => key).join('-')} className="flex flex-wrap gap-3">
+        <div key={row.map(({ key }) => key).join('-')} className="flex flex-wrap gap-3 compact:gap-2.5">
           {row.map(({ key, icons }) => (
             <SkillCard key={key} title={t(key)} icons={icons} />
           ))}

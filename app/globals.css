@@ -141,6 +141,11 @@
   }
 }
 
+/* Skills grid, compact: where it sits beside the timeline (lg and up) but
+   the screen is narrow (below xl) or short (below 820px high): it must fit
+   the screen whole to stay in view while the timeline scrolls */
+@custom-variant compact (@media (width >= 64rem) and ((width < 80rem) or (height < 51.25rem)));
+
 @theme inline {
   /* To integrate new fonts, you need to go through layout.tsx to define them */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -189,4 +194,15 @@
 html,
 body {
   overflow-x: clip;
+}
+
+/* Skills grid: the category title / tapped tool name fades in when swapped */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

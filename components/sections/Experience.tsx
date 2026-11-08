@@ -8,7 +8,7 @@ import { SkillsGrid } from "./experience/SkillsGrid";
 export const Experience = () => {
   return (
     <SectionShell variant="contained" className="relative z-10">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-x-10 xl:gap-x-20">
 
         {/* COLONNE GAUCHE (Timeline) - Prend 6 colonnes sur 12 */}
         <BlockContent colSpan={6} className="order-1">

@@ -75,14 +75,14 @@ export const ExperienceItem = ({ id, type, start, end, company, stack = [], comp
             the timeline icon, so both stay aligned. The uppercase text is
             nudged down 1px to look centered (no descenders) */}
         <div className={cn('flex', compact ? 'mb-3' : 'mb-5')}>
-        <p className='inline-flex flex-wrap items-center min-h-8.25 px-3.5 rounded-full bg-white/4 text-xs uppercase tracking-[0.12em]'>
+        <p className='inline-flex flex-wrap items-center min-h-8.25 px-3.5 rounded-full bg-white/4 text-[11px] xl:text-xs uppercase tracking-[0.08em] xl:tracking-[0.12em]'>
           {showType && (
             <>
               <span className="relative top-px font-medium text-zinc-300">{t(`types.${type}`)}</span>
               <span aria-hidden="true" className="mx-3 h-3 w-px bg-white/20" />
             </>
           )}
-          <span className="relative top-px text-zinc-400">{date}</span>
+          <span className="relative top-px text-zinc-400 whitespace-nowrap">{date}</span>
         </p>
         </div>
 
@@ -101,7 +101,7 @@ export const ExperienceItem = ({ id, type, start, end, company, stack = [], comp
         {/* SUMMARY: a notch brighter than the highlights (reading levels).
             Weight 250 (Inter is variable): between extralight, too thin on
             dark, and light, a bit heavy */}
-        <p className='text-[#d0d4da] font-[250] leading-relaxed max-w-2xl mt-3'>
+        <p className='text-[#d0d4da] font-light leading-relaxed max-w-2xl mt-3'>
           {t(`items.${id}.description`)}
         </p>
 
@@ -109,7 +109,7 @@ export const ExperienceItem = ({ id, type, start, end, company, stack = [], comp
         {!compact && highlights.length > 0 && (
           <ul className="mt-3 space-y-1.5 max-w-2xl">
             {highlights.map((item) => (
-              <li key={item} className="relative pl-5 text-[#afb5bd] font-[250] leading-relaxed">
+              <li key={item} className="relative pl-5 text-[#afb5bd] font-light leading-relaxed">
                 <span aria-hidden="true" className="absolute left-0 top-[0.7em] h-1 w-2.5 rounded-full bg-zinc-600" />
                 {item}
               </li>
