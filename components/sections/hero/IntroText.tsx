@@ -31,23 +31,17 @@ export const IntroText = ({ opacity, scale, isVisible }: IntroTextProps) => {
 
         {/* Not an <h1>: the page title is the name on the arrival screen */}
         <div className="text-white text-[clamp(20px,6vw,30px)] md:text-3xl xl:text-5xl font-extrabold uppercase text-center relative z-10">
-          <motion.p
-            initial={{ opacity: 0, letterSpacing: '1em', filter: 'blur(10px)' }}
-            animate={{ opacity: 1, letterSpacing: '0.2635em', filter: 'blur(0px)' }}
-            transition={{ duration: 1.8, ease: 'easeOut' }}
-            className="flex flex-col md:flex-row items-center justify-center md:gap-x-[0.5em] drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
-          >
+          {/* Entrance in CSS (keyframes in globals.css), not framer: it starts
+              with the first paint instead of after the JavaScript has loaded
+              and hydrated (the page's largest text, so its load metric). The
+              resting state is the final one (reduced motion: no animation) */}
+          <p className="flex flex-col md:flex-row items-center justify-center md:gap-x-[0.5em] tracking-[0.2635em] animate-[intro-title_1.8s_ease-out_both] motion-reduce:animate-none drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">
             {t.rich('title', { l: line })}
-          </motion.p>
+          </p>
 
-          <motion.p
-            initial={{ opacity: 0, letterSpacing: '0.5em', filter: 'blur(10px)' }}
-            animate={{ opacity: 1, letterSpacing: '0.2em', filter: 'blur(0px)' }}
-            transition={{ delay: 0.8, duration: 1.6, ease: 'easeOut' }}
-            className="flex flex-col md:flex-row items-center justify-center md:gap-x-[0.5em] mt-4 md:mt-5 text-[clamp(16px,5vw,20px)] md:text-2xl xl:text-3xl font-extralight normal-case drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
-          >
+          <p className="flex flex-col md:flex-row items-center justify-center md:gap-x-[0.5em] mt-4 md:mt-5 text-[clamp(16px,5vw,20px)] md:text-2xl xl:text-3xl font-extralight normal-case tracking-[0.2em] animate-[intro-tagline_1.6s_ease-out_0.8s_both] motion-reduce:animate-none drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
             {t.rich('tagline', { l: line })}
-          </motion.p>
+          </p>
         </div>
       </div>
     </motion.div>

@@ -166,6 +166,23 @@
   }
 }
 
+/* Hero intro text: wide, blurred and transparent, settling into place */
+@keyframes intro-title {
+  from {
+    opacity: 0;
+    letter-spacing: 1em;
+    filter: blur(10px);
+  }
+}
+
+@keyframes intro-tagline {
+  from {
+    opacity: 0;
+    letter-spacing: 0.5em;
+    filter: blur(10px);
+  }
+}
+
 /* Each star floats gently around its spot (translate: independent of the
    parallax transform of its layer) */
 @keyframes star-float {
