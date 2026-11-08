@@ -28,8 +28,8 @@ const SectionShell = forwardRef<HTMLDivElement, SectionShellProps>(({
   // Padding rather than margins: stays inside the section's background and
   // its min-height (no margin collapsing), and 12vh + 12vh instead of the
   // former 20vh + 20vh keeps sections much shorter to scroll through
-  // Below xl: fixed 64 / 80px (12vh made 123px on a tablet held upright)
-  const spacingClasses = 'pt-16 pb-16 md:pt-20 md:pb-20 xl:pt-[12vh] xl:pb-[12vh]';
+  // Below xl: fixed 48 (top) / 64 / 80px (12vh made 123px on a tablet held upright)
+  const spacingClasses = 'pt-12 pb-16 md:pt-20 md:pb-20 xl:pt-[12vh] xl:pb-[12vh]';
 
   return (
     <div

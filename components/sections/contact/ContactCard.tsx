@@ -68,7 +68,7 @@ export const ContactCard = () => {
     >
 
       {/* 2. LA CARTE */}
-      <Card className="flex flex-col h-full bg-linear-to-br from-[#121417] to-[#090a0c] border-3 border-white/10 p-6 sm:p-8 rounded-xl relative z-10 overflow-hidden justify-between gap-9.5">
+      <Card className="flex flex-col h-full bg-linear-to-br from-[#121417] to-[#090a0c] border-3 border-white/10 p-6 sm:p-8 rounded-xl relative z-10 overflow-hidden justify-between gap-7 xl:gap-9.5">
 
         {/* --- FOND SVG --- */}
         <div className="absolute bottom-0 right-0 z-0 pointer-events-none w-[55%] sm:w-[65%] h-auto">
@@ -101,7 +101,7 @@ export const ContactCard = () => {
 
         {/* HEADER : Photo + Nom */}
         <Card.Header className="relative z-10 flex flex-row self-stretch gap-4 sm:gap-6">
-          <div ref={photoRef} className="relative size-20 sm:size-25 rounded-xl overflow-hidden shrink-0">
+          <div ref={photoRef} className="relative size-16 min-[400px]:size-20 sm:size-25 rounded-xl overflow-hidden shrink-0">
             <Image
               src="/assets/card-portrait_min.jpg"
               alt="Arnaud Benez"
@@ -119,8 +119,21 @@ export const ContactCard = () => {
             </motion.div>
           </div>
           <div className="self-stretch py-1.5 inline-flex flex-col justify-center items-start">
-            <h3 className="text-white text-2xl sm:text-3xl lg:max-xl:text-2xl font-semibold uppercase tracking-[4px] sm:tracking-[6px] lg:max-xl:tracking-[4px]">Arnaud Benez</h3>
-            <span className="text-[#bec3ca] text-sm lg:max-xl:text-xs uppercase tracking-wide font-extralight">{t('roles')}</span>
+            {/* Name on one line on every screen (phones: sized to the width) */}
+            <h3 className="text-white text-[min(20px,5.2vw)] sm:text-3xl lg:max-xl:text-2xl font-semibold uppercase tracking-[3px] sm:tracking-[6px] lg:max-xl:tracking-[4px] whitespace-nowrap">Arnaud Benez</h3>
+            {/* Both roles on one line with a "|" between them; when they don't
+                fit, the second one wraps under the first and the "|" goes:
+                each role carries a leading separator, and the 1rem of
+                negative margin, clipped, hides the one starting a line */}
+            <span className="block overflow-hidden text-[#bec3ca] text-sm lg:max-xl:text-xs uppercase tracking-wide font-extralight">
+              <span className="flex flex-wrap -ml-4">
+                {t('roles').split('|').map((role) => (
+                  <span key={role} className="whitespace-nowrap before:content-['|'] before:inline-block before:w-4 before:text-center">
+                    {role.trim()}
+                  </span>
+                ))}
+              </span>
+            </span>
           </div>
         </Card.Header>
 
@@ -166,11 +179,6 @@ export const ContactCard = () => {
             {/* GitHub */}
             <a href="#" aria-label="GitHub" className="-m-1 p-1 rounded-md text-[#dbdee3] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
               <Icon name="GitHub" size={20} />
-            </a>
-
-            {/* Slack */}
-            <a href="#" aria-label="Slack" className="-m-1 p-1 rounded-md text-[#dbdee3] hover:text-white focus-visible:outline-2 focus-visible:outline-white/60 transition-colors">
-              <Icon name="Slack" size={20} />
             </a>
           </div>
         </div>

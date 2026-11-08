@@ -452,6 +452,7 @@ export const Hero = ({ startLanded = false }: HeroProps) => {
               onClick={launchJourney}
               isVisible={isIntroVisible}
               label={t('scrollDown.label')}
+              touchLabel={t('scrollDown.touchLabel')}
               ariaLabel={t('scrollDown.ariaLabel')}
             />
           </>

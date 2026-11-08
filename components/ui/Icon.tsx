@@ -6,7 +6,6 @@ import {
   LocationUser04Icon,
   MailAtSign01Icon,
   NewTwitterIcon,
-  SlackIcon,
 } from '@hugeicons-pro/core-duotone-standard';
 import {
   Agreement02Icon,
@@ -25,6 +24,7 @@ import {
   IdCardIcon,
   Menu01Icon,
   ReplayIcon,
+  SwipeUp04Icon,
 } from '@hugeicons-pro/core-stroke-standard';
 import { cn } from '@/lib/utils';
 
@@ -46,7 +46,6 @@ const ICONS = {
   NewTwitter: NewTwitterIcon,
   Linkedin: Linkedin01Icon,
   GitHub: GithubIcon,
-  Slack: SlackIcon,
   // Stroke standard (buttons, controls): each icon says what the button does
   ChevronUp: ArrowUp01Icon,
   ChevronDown: ArrowDown01Icon,
@@ -58,6 +57,7 @@ const ICONS = {
   Replay: ReplayIcon,
   Menu: Menu01Icon,
   Close: Cancel01Icon,
+  SwipeUp: SwipeUp04Icon,
 } satisfies Record<string, IconSvgElement>;
 
 export type IconName = keyof typeof ICONS;

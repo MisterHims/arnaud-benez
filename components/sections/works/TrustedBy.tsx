@@ -66,7 +66,9 @@ export const TrustedBy = () => {
   const logoProps = {
     onMouseEnter: () => setHoveringLogo(true),
     onMouseLeave: () => setHoveringLogo(false),
-    className: 'shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300',
+    // Phones: logos 70% of their size (zoom, unlike scale, shrinks their
+    // layout box too, so the gaps stay as designed)
+    className: 'shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300 max-md:[zoom:0.7]',
   };
 
   return (

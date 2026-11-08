@@ -18,11 +18,12 @@
   },
   "Hero": {
     "intro": {
-      "title": "Bienvenue dans mon univers",
-      "tagline": "Là où le design rencontre le code."
+      "title": "<l>Bienvenue dans</l> <l>mon univers</l>",
+      "tagline": "<l>Là où le design</l> <l>rencontre le code.</l>"
     },
     "scrollDown": {
       "label": "Défiler",
+      "touchLabel": "Glissez vers le haut",
       "ariaLabel": "Lancer le voyage"
     },
     "identity": {
