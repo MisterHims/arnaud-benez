@@ -49,16 +49,18 @@ export const WhatIDo = () => {
 
       <SectionShell
         variant="contained"
-        className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 col-start-1 row-start-1 z-10 bg-transparent relative"
+        className="grid grid-cols-1 lg:grid-cols-[minmax(0,360px)_minmax(380px,1fr)] xl:grid-cols-[minmax(0,620px)_minmax(380px,1fr)] gap-12 lg:gap-x-20 xl:gap-x-24 col-start-1 row-start-1 z-10 bg-transparent relative"
       >
-        {/* Text in cols 8-12 (a wide gutter with the cards); from 2xl, where the
-            cards are capped at 300px, one column closer to keep that gutter */}
-        <BlockContent isSticky colSpan={5} className="order-1 md:order-2 md:col-start-8 2xl:col-start-7 md:row-start-1">
-          <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-8xl font-black text-[#ebedf0] tracking-tight text-balance mb-8'>
+        {/* Two columns from lg: the cards (two 300px max columns), then the
+            text right after them, with the same gutter at every width (it used
+            to follow the 12-column grid: up to 180px of gap). Stacked below lg,
+            text first */}
+        <BlockContent isSticky className="order-1 lg:order-2 col-span-full lg:col-span-1 lg:col-start-2 lg:row-start-1 max-w-[640px]">
+          <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight text-balance mb-8'>
             {t('title')}
           </h2>
           {/* One positioning statement: the cards carry the details */}
-          <p className='text-lg leading-relaxed font-extralight text-gray-300 max-w-xl'>
+          <p className='text-base xl:text-lg leading-relaxed font-extralight text-gray-300 max-w-xl'>
             {t('intro')}
           </p>
 
@@ -106,7 +108,7 @@ export const WhatIDo = () => {
           </motion.div>
         </BlockContent>
 
-        <BlockContent colSpan={6} className="order-2 md:order-1 md:col-start-1 md:row-start-1 h-[calc(100%-2px)]">
+        <BlockContent className="order-2 lg:order-1 col-span-full lg:col-span-1 lg:col-start-1 lg:row-start-1 h-[calc(100%-2px)]">
           <ServiceList />
         </BlockContent>
 
