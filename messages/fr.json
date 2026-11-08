@@ -133,12 +133,12 @@
     "items": {
       "cloudcastle": {
         "role": "Co-fondateur",
-        "description": "Co-fondation de CloudCastle pour créer Questix, un gestionnaire de campagnes de jeu de rôle assisté par IA.",
-        "highlights": ["Conception de l’UX et du front-end (Next.js) de l’application web", "Outils intelligents pour organiser les parties, les préparer et gérer le lore", "Jeu fluide en ligne comme hors ligne, pipelines CI/CD"]
+        "description": "Co-fondation de CloudCastle pour créer Questix, un gestionnaire de campagnes de jeu de rôle assisté par IA. Alpha prévue prochainement.",
+        "highlights": ["Gestion de projet et administration de la société", "Product design, identité visuelle et maquettes de l’application", "Front-end de l’application web (Next.js), jusqu’à la validation des formulaires", "Outils intelligents pour organiser les parties, les préparer et gérer le lore"]
       },
       "heroui": {
         "role": "Contributeur front-end",
-        "description": "Contribution au développement de HeroUI, une bibliothèque de composants inspirée de Material Design.",
+        "description": "Mission bénévole pour HeroUI, une bibliothèque de composants inspirée de Material Design : accessibilité et design minimaliste.",
         "highlights": ["Portabilité des composants entre frameworks", "Débogage de comportements d’interface complexes", "Mise en conformité de l’accessibilité avec les normes européennes"]
       },
       "contentsquare": {
@@ -158,9 +158,9 @@
         "description": "Participation au développement de plusieurs modules et plugins JavaScript communautaires, pour enrichir l’écosystème de Foundry VTT, son extensibilité et son expérience utilisateur."
       },
       "leclerc": {
-        "role": "UI/UX Designer",
-        "description": "Design UI/UX et développement front-end pour l’écosystème digital E.Leclerc, avec les équipes marketing, produit et tech.",
-        "highlights": ["Refonte de Voyages E.Leclerc", "Composants e-commerce modulaires en React et Next.js", "Emailing, tests utilisateurs et optimisation des parcours", "Projets transverses pour d’autres plateformes et équipes"]
+        "role": "UI/UX Designer & directeur artistique",
+        "description": "Au sein du service e-commerce de Voyages E.Leclerc, passé de 6 à 11 personnes : design UI/UX, direction artistique, et management d’un graphiste puis d’un développeur full-stack.",
+        "highlights": ["Refonte du site : pages, ligne graphique et design system", "Modernisation de l’identité de marque, avec l’agence Havas", "Optimisation des parcours : Contentsquare, A/B tests Kameleoon, SEO", "Kits emailing pour le trafic web, création d’images et de vidéos", "Pendant le Covid, renfort pour E.Leclerc : Drive et prospectus"]
       },
       "freelance": {
         "role": "UI/UX Designer & Développeur",
@@ -169,8 +169,8 @@
       },
       "delaveine": {
         "role": "Webdesigner",
-        "description": "Gestion et développement de la présence en ligne de Delaveine, enseigne de prêt-à-porter masculin.",
-        "highlights": ["Maintenance et évolutions du site", "Publicités et bannières promotionnelles", "Retouche et montage photo des fiches produits", "Intégration des newsletters"]
+        "description": "Premier poste, seul webdesigner d’une petite structure : faire grandir le site e-commerce de Delaveine, enseigne de prêt-à-porter masculin.",
+        "highlights": ["Maintenance et évolutions du site", "Newsletters, publicités et bannières promotionnelles", "Vidéos de présentation des collections", "Retouche et montage photo des fiches produits"]
       },
       "itecomDev": {
         "role": "Développeur Front-End / Intégrateur",

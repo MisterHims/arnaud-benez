@@ -133,12 +133,12 @@
     "items": {
       "cloudcastle": {
         "role": "Co-Founder",
-        "description": "Co-founded CloudCastle to build Questix, an AI-powered tabletop RPG campaign manager.",
-        "highlights": ["Designed the UX and front-end (Next.js) of the web app", "Smart tools to schedule sessions, prepare them and manage lore", "Seamless online and offline play, CI/CD pipelines"]
+        "description": "Co-founded CloudCastle to build Questix, an AI-powered tabletop RPG campaign manager. Alpha coming soon.",
+        "highlights": ["Project management and company administration", "Product design, visual identity and app mockups", "Front-end of the web app (Next.js), down to form validation", "Smart tools to schedule sessions, prepare them and manage lore"]
       },
       "heroui": {
         "role": "Front-End Contributor",
-        "description": "Supported the development of HeroUI, a component library inspired by Material Design.",
+        "description": "Volunteer work for HeroUI, a component library inspired by Material Design: accessibility and minimalist design.",
         "highlights": ["Cross-framework portability of the components", "Debugging complex UI behaviors", "Aligning accessibility with EU compliance standards"]
       },
       "contentsquare": {
@@ -158,9 +158,9 @@
         "description": "Collaborated on the development of several community-driven JavaScript modules and plugins, helping expand Foundry VTT’s ecosystem and enhancing the platform’s extensibility and user experience."
       },
       "leclerc": {
-        "role": "UI/UX Designer",
-        "description": "UI/UX design and front-end development across the E.Leclerc digital ecosystem, with marketing, product and tech teams.",
-        "highlights": ["Redesign of Voyages E.Leclerc", "Modular e-commerce components in React and Next.js", "Emailing, user testing and user flow optimization", "Cross-functional projects for other platforms and teams"]
+        "role": "UI/UX Designer & Art Director",
+        "description": "In the e-commerce department of Voyages E.Leclerc, grown from 6 to 11 people: UI/UX design, art direction, and managing a graphic designer, then a full-stack developer.",
+        "highlights": ["Website redesign: pages, visual style and design system", "Brand identity refresh, with the Havas agency", "User flow optimization: Contentsquare, Kameleoon A/B tests, SEO", "Email kits for web traffic, image and video creation", "During Covid, extra support for E.Leclerc: Drive and flyers"]
       },
       "freelance": {
         "role": "UI/UX Designer & Developer",
@@ -169,8 +169,8 @@
       },
       "delaveine": {
         "role": "Web Designer",
-        "description": "Managed and grew the online presence of Delaveine, a men’s fashion retailer.",
-        "highlights": ["Website maintenance and development", "Promotional ads and banners", "Photo retouching and assembly for product pages", "Newsletter integration"]
+        "description": "First job, sole web designer in a small company: growing the e-commerce website of Delaveine, a men’s fashion retailer.",
+        "highlights": ["Website maintenance and development", "Newsletters, promotional ads and banners", "Collection presentation videos", "Photo retouching and assembly for product pages"]
       },
       "itecomDev": {
         "role": "Front-End Developer / Integrator",
