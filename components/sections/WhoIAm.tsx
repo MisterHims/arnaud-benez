@@ -7,7 +7,8 @@ import { CustomButton } from "../CustomButton";
 import { Icon } from "../ui/Icon";
 import { useTranslations } from "next-intl";
 
-const bold = (chunks: React.ReactNode) => <strong className='font-semibold'>{chunks}</strong>;
+// Bold phrases stay on one line ("e-commerce" no longer splits at its hyphen)
+const bold = (chunks: React.ReactNode) => <strong className='font-semibold whitespace-nowrap'>{chunks}</strong>;
 
 export const WhoIAm = () => {
   const t = useTranslations('WhoIAm');
@@ -15,11 +16,11 @@ export const WhoIAm = () => {
     <SectionShell variant="contained" className="min-h-svh flex flex-col md:flex-row gap-12 md:gap-14 relative overflow-hidden md:items-center z-10">
       {/* LEFT ZONE: Text Content */}
       <BlockContent colSpan={6}>
-        <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-8xl font-black text-[#ebedf0] tracking-tight mb-8'>
+        <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-8'>
           {t('title')}
         </h2>
 
-        <div className='text-lg space-y-6 leading-relaxed font-extralight mb-8'>
+        <div className='text-base xl:text-lg space-y-5 xl:space-y-6 leading-relaxed font-extralight mb-8'>
           <p>{t.rich('p1', { b: bold })}</p>
           <p>{t.rich('p2', { b: bold })}</p>
           <p>{t.rich('p3', { b: bold })}</p>
@@ -47,7 +48,9 @@ export const WhoIAm = () => {
           alt={t('portraitAlt')}
           width={703}
           height={757}
-          className="object-contain object-bottom w-auto max-md:max-w-[min(80%,320px)]"
+          // Fills its column whatever the screen density: with "w-auto", a 2x
+          // screen showed the image at half its size (its 2x file's natural size)
+          className="w-full h-auto object-contain object-bottom max-md:max-w-[min(80%,320px)]"
           priority
         />
       </BlockContent>

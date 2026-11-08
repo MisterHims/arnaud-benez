@@ -33,10 +33,10 @@
   "WhoIAm": {
     "title": "Who I Am",
     "metaDescription": "Who Arnaud Benez is: a UI/UX Designer and Front-End Developer near Paris, with over 15 years of e-commerce projects. Resume and portfolio to download.",
-    "p1": "Hello and welcome to my portfolio. My name is Arnaud, and I’m a <b>UI/UX Designer</b> & <b>Front-End Developer</b> based in <b>Val-de-Marne</b>, near Paris.",
-    "p2": "For over 15 years, I’ve been putting my expertise to work for <b>e-commerce projects</b>, managing their development, evolution and integration while ensuring an optimal <b>user experience</b> through thoughtful, effective <b>design</b>. Along the way, I’ve built a strong background in <b>art direction</b>, backed by solid expertise in <b>project management</b>.",
-    "p3": "Always keeping an eye on what’s new and making the most of <b>today’s tools and methodologies</b>, I deliver <b>high-performing</b>, <b>future-proof</b> solutions, <b>designed</b> around the user.",
-    "p4": "And when I’m not in Figma or VS Code, I’m probably out running, hiking in the woods, dancing awkwardly, or saving the kingdom in a tabletop role-playing campaign.",
+    "p1": "Hello and welcome! I’m Arnaud, a <b>UI/UX Designer</b> & <b>Front-End Developer</b> based in <b>Val-de-Marne</b>, near Paris.",
+    "p2": "For over 15 years, I’ve been designing and growing <b>e-commerce projects</b>, with one priority: a simple, effective <b>user experience</b>. I bring along a strong background in <b>art direction</b> and <b>project management</b>.",
+    "p3": "Always keeping up with <b>today’s tools</b>, I deliver <b>high-performing</b>, <b>future-proof</b> solutions, <b>designed</b> around the user.",
+    "p4": "And away from Figma and VS Code? I run, hike, dance (badly) or save the kingdom at a tabletop role-playing game.",
     "downloadCv": "Download my resume",
     "downloadBook": "Download my portfolio",
     "portraitAlt": "Portrait of Arnaud Benez"
