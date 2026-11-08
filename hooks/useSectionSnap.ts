@@ -6,9 +6,13 @@ import { animate, type AnimationPlaybackControls } from 'framer-motion';
 const SECTION_SELECTOR = '[data-snap-section]';
 const SETTLE_DELAY = 180;      // ms without scrolling before settling
 const USER_INPUT_WINDOW = 1500; // only settle right after the visitor's own scrolling
-const DESKTOP_QUERY = '(min-width: 768px)';
+// After a swipe, the page keeps gliding on its own momentum (phones): that
+// scrolling still counts as the visitor's for this long
+const MOMENTUM_WINDOW = 4000;
 // A section taller than this many screens is "tall": crossing out of it needs intent
-const TALL_SECTION_RATIO = 1.15;
+// (any section taller than the screen: its end must be reachable and readable,
+// e.g. Who I Am's buttons on a phone; 2% tolerance for rounding)
+const TALL_SECTION_RATIO = 1.02;
 // Share of the screen the destination must already occupy before a tall section glides
 const INTENT_THRESHOLD = 0.35;
 // Glide pace: duration grows with the distance (px / GLIDE_SPEED), clamped (seconds)
@@ -31,7 +35,6 @@ const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
  */
 export const useSectionSnap = () => {
   useEffect(() => {
-    const desktop = window.matchMedia(DESKTOP_QUERY);
     const reducedMotion = window.matchMedia(REDUCED_MOTION_QUERY);
 
     let glide: AnimationPlaybackControls | null = null;
@@ -40,6 +43,7 @@ export const useSectionSnap = () => {
     let direction = 1;
     let lastUserInput = 0;
     let isTouching = false;
+    let lastTouchEnd = 0;
 
     const stopGlide = () => {
       glide?.stop();
@@ -47,7 +51,7 @@ export const useSectionSnap = () => {
     };
 
     const settle = () => {
-      if (glide || isTouching || !desktop.matches || reducedMotion.matches) return;
+      if (glide || isTouching || reducedMotion.matches) return;
       if (Date.now() - lastUserInput > USER_INPUT_WINDOW) return;
 
       const y = window.scrollY;
@@ -111,6 +115,9 @@ export const useSectionSnap = () => {
 
     const onScroll = () => {
       const y = window.scrollY;
+      // Momentum after a swipe: still the visitor's scrolling (the settle
+      // then waits for it to come to rest)
+      if (!glide && Date.now() - lastTouchEnd < MOMENTUM_WINDOW) lastUserInput = Date.now();
       if (!glide && y !== lastY) direction = y > lastY ? 1 : -1;
       lastY = y;
       if (!glide) scheduleSettle();
@@ -130,6 +137,7 @@ export const useSectionSnap = () => {
     };
     const onTouchEnd = () => {
       isTouching = false;
+      lastTouchEnd = Date.now();
       lastUserInput = Date.now();
       scheduleSettle();
     };
