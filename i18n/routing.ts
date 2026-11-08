@@ -14,7 +14,7 @@ export const routing = defineRouting({
     '/experience': { fr: '/experiences', en: '/experience' },
     '/works': { fr: '/realisations', en: '/works' },
     '/contact': '/contact',
-    '/legal': '/legal',
+    '/legal': { fr: '/mentions-legales', en: '/legal-notice' },
   },
 });
 

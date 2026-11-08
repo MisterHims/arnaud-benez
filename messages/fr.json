@@ -233,6 +233,41 @@
   },
   "Footer": {
     "rights": "Tous droits réservés",
-    "legal": "Infos légales"
+    "legal": "Mentions légales"
+  },
+  "Legal": {
+    "metaDescription": "Mentions légales du portfolio d’Arnaud Benez : éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.",
+    "back": "Retour au portfolio",
+    "title": "Mentions légales",
+    "updated": "Dernière mise à jour : novembre 2026",
+    "editor": {
+      "title": "Éditeur du site",
+      "p1": "Ce site est le portfolio personnel d’<b>Arnaud Benez</b>, publié à titre non professionnel par un particulier.",
+      "p2": "Contact : <email></email><br></br>Directeur de la publication : Arnaud Benez.",
+      "p3": "Conformément à l’article 6, III, 2 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique (LCEN), l’éditeur, personne physique publiant à titre non professionnel, ne rend pas publique son adresse personnelle ; ses coordonnées ont été communiquées à l’hébergeur."
+    },
+    "host": {
+      "title": "Hébergement",
+      "pending": "À compléter : nom, adresse et téléphone de l’hébergeur.",
+      "phone": "Téléphone : {phone}"
+    },
+    "ip": {
+      "title": "Propriété intellectuelle",
+      "p1": "L’ensemble des contenus de ce site (textes, visuels, logo, mise en page) est la propriété d’Arnaud Benez, sauf mention contraire. Toute reproduction ou réutilisation, totale ou partielle, sans autorisation préalable est interdite.",
+      "p2": "Les marques et logos des entreprises et des outils cités (clients, employeurs, logiciels) appartiennent à leurs propriétaires respectifs. Ils sont présentés uniquement pour illustrer les projets réalisés et les compétences."
+    },
+    "data": {
+      "title": "Données personnelles",
+      "p1": "Le formulaire de contact recueille votre nom (facultatif), votre adresse e-mail et votre message, dans le seul but de vous répondre. Ces informations ne sont ni cédées, ni vendues, ni utilisées à des fins commerciales. Elles sont conservées le temps nécessaire à l’échange, puis supprimées au plus tard trois ans après le dernier contact.",
+      "p2": "Conformément au Règlement général sur la protection des données (RGPD) et à la loi « Informatique et Libertés », vous disposez d’un droit d’accès, de rectification, d’effacement et d’opposition sur vos données. Pour l’exercer, écrivez à <email></email>. Vous pouvez aussi adresser une réclamation à la <cnil>CNIL</cnil>."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "p1": "Ce site n’utilise aucun cookie publicitaire ni de mesure d’audience. Seuls des éléments techniques, indispensables à son fonctionnement, sont enregistrés dans votre navigateur : la langue choisie, et un indicateur qui évite de rejouer l’animation d’arrivée pendant votre visite (effacé à la fermeture de l’onglet). Ils ne nécessitent pas de consentement."
+    },
+    "credits": {
+      "title": "Crédits",
+      "p1": "Conception, design et développement : Arnaud Benez. Icônes : Hugeicons. Police : Inter. Site réalisé avec Next.js."
+    }
   }
 }

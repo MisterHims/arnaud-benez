@@ -234,5 +234,40 @@
   "Footer": {
     "rights": "All rights reserved",
     "legal": "Legal notice"
+  },
+  "Legal": {
+    "metaDescription": "Legal notice of Arnaud Benez’s portfolio: publisher, hosting, intellectual property, personal data and cookies.",
+    "back": "Back to the portfolio",
+    "title": "Legal notice",
+    "updated": "Last updated: November 2026",
+    "editor": {
+      "title": "Publisher",
+      "p1": "This website is the personal portfolio of <b>Arnaud Benez</b>, published on a non-professional basis by a private individual.",
+      "p2": "Contact: <email></email><br></br>Publication director: Arnaud Benez.",
+      "p3": "In accordance with article 6, III, 2 of French law no. 2004-575 of 21 June 2004 on confidence in the digital economy (LCEN), the publisher, a private individual publishing on a non-professional basis, does not disclose his home address; his details have been provided to the hosting provider."
+    },
+    "host": {
+      "title": "Hosting",
+      "pending": "To be completed: name, address and phone number of the hosting provider.",
+      "phone": "Phone: {phone}"
+    },
+    "ip": {
+      "title": "Intellectual property",
+      "p1": "All content on this website (texts, visuals, logo, layout) is the property of Arnaud Benez, unless otherwise stated. Any reproduction or reuse, in whole or in part, without prior permission is prohibited.",
+      "p2": "The trademarks and logos of the companies and tools mentioned (clients, employers, software) belong to their respective owners. They are shown only to illustrate the projects carried out and the skills involved."
+    },
+    "data": {
+      "title": "Personal data",
+      "p1": "The contact form collects your name (optional), your email address and your message, for the sole purpose of replying to you. This information is never shared, sold or used for marketing. It is kept for as long as the conversation requires, then deleted at the latest three years after the last contact.",
+      "p2": "Under the General Data Protection Regulation (GDPR) and the French Data Protection Act, you have the right to access, rectify, erase and object to the processing of your data. To exercise it, write to <email></email>. You may also lodge a complaint with the <cnil>CNIL</cnil> (the French data protection authority)."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "p1": "This website uses no advertising or analytics cookies. Only technical items, essential to how it works, are stored in your browser: the language you chose, and a flag that avoids replaying the arrival animation during your visit (cleared when the tab is closed). They do not require consent."
+    },
+    "credits": {
+      "title": "Credits",
+      "p1": "Concept, design and development: Arnaud Benez. Icons: Hugeicons. Typeface: Inter. Built with Next.js."
+    }
   }
 }

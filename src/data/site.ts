@@ -29,3 +29,12 @@ export const KNOWS_ABOUT = [
   'Project Management',
   'Agile',
 ];
+
+/** Contact email, shown in the legal notice. */
+export const CONTACT_EMAIL = 'arnaud.benez@gmail.com';
+
+/**
+ * Hosting provider, required in the legal notice (LCEN): name, address and
+ * phone. Not chosen yet: the legal notice shows a "to be completed" note.
+ */
+export const HOSTING: { name: string; address: string; phone: string } | null = null;

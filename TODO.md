@@ -22,7 +22,12 @@ Things set aside while building the v2 of the portfolio (`feat/portfolio-v2`).
       e.g. for E.Leclerc / Voyages E.Leclerc (`Experience.items.*.highlights`).
 - [ ] Experience stack tags: check the tools listed per position (`stack` in `src/data/experience.ts`).
 - [ ] Resume and portfolio PDFs to link from the Who I Am buttons.
-- [ ] `/legal` page (linked from the footer, not created yet).
+- [x] Legal notice page (`/mentions-legales`, `/en/legal-notice`), published as a private
+      individual (no address shown, LCEN art. 6-III-2).
+  - [ ] **Hosting provider**: fill `HOSTING` in `src/data/site.ts` once chosen (name,
+        address, phone); the page shows "to be completed" until then.
+  - [ ] Personal data section: once the contact form's sending service is chosen, name it
+        there (the data goes through it).
 - [ ] Contact form: no backend yet (the form doesn't send anything).
 
 ## Decisions pending

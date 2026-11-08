@@ -16,6 +16,7 @@ import {
 } from '@hugeicons-pro/core-solid-standard';
 import {
   ArrowDown01Icon,
+  ArrowLeft01Icon,
   ArrowUp01Icon,
   BookDownloadIcon,
   BubbleChatIcon,
@@ -47,6 +48,7 @@ const ICONS = {
   // Stroke standard (buttons, controls): each icon says what the button does
   ChevronUp: ArrowUp01Icon,
   ChevronDown: ArrowDown01Icon,
+  ChevronLeft: ArrowLeft01Icon,
   Resume: FileDownloadIcon,
   Portfolio: BookDownloadIcon,
   ContactCard: IdCardIcon,
