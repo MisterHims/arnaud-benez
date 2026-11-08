@@ -129,11 +129,20 @@ export const ExperienceList = ({ skillsStrip }: ExperienceListProps) => {
           className="w-full motion-reduce:opacity-100! motion-reduce:transform-none!"
         >
           {/* space-y-20: each experience holds more now, keep them clearly apart */}
-          <div className="relative ml-3 space-y-20 pb-18">
+          {/* Less room at the bottom while the (absolutely placed) "Show more"
+              button closes the list: the call to action comes closer */}
+          <div className={cn('relative ml-3 space-y-20', showButton && !isExpanded ? 'pb-12' : 'pb-18')}>
 
             {/* --- TIMELINE LINE --- */}
+            {/* With "Show more": the line runs down to its dot (centered on
+                it, the dot's black ring leaving the same gap as the icons'),
+                mb-0 cancelling the margin space-y gives every child but the
+                last (it pulled the line's end 80px up) */}
             <div
-              className="absolute top-0 bottom-0 left-0 w-[3px] bg-zinc-900 pointer-events-none"
+              className={cn(
+                'absolute top-0 left-0 w-[3px] bg-zinc-900 pointer-events-none',
+                showButton && !isExpanded ? 'bottom-[22.5px] mb-0!' : 'bottom-0'
+              )}
               style={
                 shouldFade
                   ? {
@@ -170,13 +179,14 @@ export const ExperienceList = ({ skillsStrip }: ExperienceListProps) => {
             )}
 
             {showButton && !isExpanded && (
-              <div className="relative pl-12 pt-2">
-                <div className="absolute -left-[6px] top-5 w-3.25 h-3.25 rounded-full bg-zinc-800 ring-4 ring-black text-[8px] flex items-center justify-center text-black"></div>
+              // Closer to the last entry than two entries are to each other
+              <div className="relative pl-12 pt-2 -mt-8">
+                <div className="absolute -left-[5.5px] top-[27px] size-3.5 rounded-full bg-zinc-800 ring-4 ring-black text-[8px] flex items-center justify-center text-black"></div>
                 <CustomButton
                   size="sm"
                   variant="secondary"
                   onPress={() => setIsExpanded(true)}
-                  className="absolute"
+                  className="absolute top-4"
                 >
                   {t('showMore')}
                   <Icon name="ChevronDown" size={16} />

@@ -36,21 +36,21 @@ export const ExperienceItem = ({ id, type, start, end, company, stack = [], comp
   const t = useTranslations('Experience');
   const format = useFormatter();
 
-  // "2024-09" → "Septembre 2024" / "September 2024"
-  const formatMonth = (value: string) => {
-    const [year, month] = value.split('-').map(Number);
-    const label = format.dateTime(new Date(Date.UTC(year, month - 1, 1)), {
-      month: 'long',
+  // "2024-09" → "Septembre 2024" / "September 2024" (short: "Sept. 2024" / "Sep 2024")
+  const formatMonth = (value: string, month: 'long' | 'short' = 'long') => {
+    const [year, monthIndex] = value.split('-').map(Number);
+    const label = format.dateTime(new Date(Date.UTC(year, monthIndex - 1, 1)), {
+      month,
       year: 'numeric',
       timeZone: 'UTC',
     });
     return label.charAt(0).toUpperCase() + label.slice(1);
   };
 
-  const date = end
-    // En dash: the typographic sign for a range ("Juin 2018 – aujourd’hui")
-    ? `${formatMonth(start)} – ${end === 'present' ? t('present') : formatMonth(end)}`
-    : formatMonth(start);
+  // En dash: the typographic sign for a range ("Juin 2018 – aujourd’hui")
+  const range = (month: 'long' | 'short') => end
+    ? `${formatMonth(start, month)} – ${end === 'present' ? t('present') : formatMonth(end, month)}`
+    : formatMonth(start, month);
 
   const highlights = t.has(`items.${id}.highlights` as never)
     ? (t.raw(`items.${id}.highlights` as never) as string[])
@@ -74,15 +74,22 @@ export const ExperienceItem = ({ id, type, start, end, company, stack = [], comp
         {/* HEADER: type and dates on a soft pill background. Same height as
             the timeline icon, so both stay aligned. The uppercase text is
             nudged down 1px to look centered (no descenders) */}
-        <div className={cn('flex', compact ? 'mb-3' : 'mb-5')}>
-        <p className='inline-flex flex-wrap items-center min-h-8.25 px-3.5 rounded-full bg-white/4 text-[11px] xl:text-xs uppercase tracking-[0.08em] xl:tracking-[0.12em]'>
-          {showType && (
-            <>
-              <span className="relative top-px font-medium text-zinc-300">{t(`types.${type}`)}</span>
-              <span aria-hidden="true" className="mx-3 h-3 w-px bg-white/20" />
-            </>
-          )}
-          <span className="relative top-px text-zinc-400 whitespace-nowrap">{date}</span>
+        <div className={cn('flex', compact ? 'mb-4' : 'mb-7')}>
+        {/* Phones: short months. If type and date still don't fit on one
+            line, the date wraps under the type and the separator goes: each
+            part carries a leading separator, and the negative margin, clipped,
+            hides the one starting a line. rounded-2xl: a pill on one line,
+            a soft rectangle on two */}
+        <p className='inline-flex items-center min-h-8.25 py-1.5 px-3.5 rounded-2xl bg-white/4 text-[11px] xl:text-xs uppercase tracking-[0.08em] xl:tracking-[0.12em]'>
+          <span className="block overflow-hidden">
+            <span className="flex flex-wrap items-center -ml-[25px] [&>span]:before:content-[''] [&>span]:before:inline-block [&>span]:before:w-px [&>span]:before:h-3 [&>span]:before:mx-3 [&>span]:before:bg-white/20 [&>span]:before:align-[-1px]">
+              {showType && <span className="relative top-px font-medium text-zinc-300">{t(`types.${type}`)}</span>}
+              <span className="relative top-px text-zinc-400 whitespace-nowrap">
+                <span className="sm:hidden">{range('short')}</span>
+                <span className="max-sm:hidden">{range('long')}</span>
+              </span>
+            </span>
+          </span>
         </p>
         </div>
 
@@ -119,13 +126,19 @@ export const ExperienceItem = ({ id, type, start, end, company, stack = [], comp
 
         {/* STACK (kept in compact mode: small, and useful at a glance) */}
         {stack.length > 0 && (
-          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Stack">
-            {stack.map((tool) => (
-              <li key={tool} className="px-2.5 py-0.5 rounded-full bg-white/5 text-[13px] text-zinc-400 font-light">
-                {tool}
-              </li>
-            ))}
-          </ul>
+          // Plain text, dot-separated (not chips: they looked too much like the
+          // date pill above). A drawn dot, not a "·" character, so screen readers
+          // don't read it; the dot starting a wrapped line is clipped (leading
+          // dots + negative margin inside an overflow-hidden wrapper)
+          <div className="mt-4 overflow-hidden">
+            <ul className="-ml-[23px] flex flex-wrap gap-y-1 text-[13px] text-zinc-400 font-light" aria-label="Stack">
+              {stack.map((tool) => (
+                <li key={tool} className="whitespace-nowrap before:content-[''] before:inline-block before:size-[3px] before:mx-2.5 before:rounded-full before:bg-zinc-600 before:align-middle">
+                  {tool}
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </div>
     </div>
