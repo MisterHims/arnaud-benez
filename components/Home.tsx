@@ -16,7 +16,7 @@ import type { SectionId } from "@/src/data/sections";
 import { useTranslations } from "next-intl";
 
 interface HomeProps {
-  /** Opened from a section link ("/qui-suis-je", "/en/who-i-am"…) */
+  /** Opened from a section link ("/fr/qui-suis-je", "/en/who-i-am"…) */
   initialSection?: SectionId;
 }
 

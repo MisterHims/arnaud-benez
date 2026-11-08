@@ -1,8 +1,8 @@
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 
-// Next 16 "proxy" (formerly middleware): resolves the locale from the URL,
-// and on a first visit to "/" redirects English-speaking browsers to "/en"
+// Next 16 "proxy" (formerly middleware): resolves the locale from the URL
+// prefix; "/" (no prefix) redirects to "/fr" or "/en" from the browser language
 export default createMiddleware(routing);
 
 export const config = {

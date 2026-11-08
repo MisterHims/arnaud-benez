@@ -48,7 +48,7 @@ const takeSectionOffset = (section: SectionId): number | null => {
 
 /**
  * Keeps the address bar (and the tab title) on the section being read
- * ("/qui-suis-je", "/en/who-i-am"…) without navigating, so the URL can be
+ * ("/fr/qui-suis-je", "/en/who-i-am"…) without navigating, so the URL can be
  * shared as is. On load, a section URL opens the page right on that section.
  */
 export const useSectionUrl = (initialSection?: SectionId) => {

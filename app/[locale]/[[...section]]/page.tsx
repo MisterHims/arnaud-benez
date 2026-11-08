@@ -10,7 +10,7 @@ import { KNOWS_ABOUT, PROFILES, SITE_URL } from '@/src/data/site';
 
 type PageParams = { params: Promise<{ locale: string; section?: string[] }> };
 
-// One page, several URLs: "/" and one per section ("/qui-suis-je",
+// One page, several URLs: "/fr", "/en" and one per section ("/fr/qui-suis-je",
 // "/en/who-i-am"…). A shared section link opens the page right on it.
 export function generateStaticParams() {
   return [{ section: [] }, ...SECTION_IDS.map((id) => ({ section: [id] }))];
@@ -46,7 +46,9 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   return {
     title,
     description,
-    alternates: { canonical: url, languages: { ...languages, 'x-default': languages[routing.defaultLocale] } },
+    // x-default: for the home page, the bare domain (it picks the visitor's
+    // language); for a section, the French page
+    alternates: { canonical: url, languages: { ...languages, 'x-default': section ? languages[routing.defaultLocale] : '/' } },
     // Replaces the layout's openGraph as a whole (no deep merge): full set here
     openGraph: {
       type: 'website',
