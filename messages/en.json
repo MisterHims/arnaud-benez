@@ -1,0 +1,282 @@
+{
+  "Metadata": {
+    "name": "Arnaud Benez",
+    "title": "Arnaud Benez – Portfolio",
+    "description": "Arnaud Benez, UI/UX Designer and Front-End Developer (React, Next.js) based near Paris, France. 15 years of experience in e-commerce, art direction and project management."
+  },
+  "LanguageSwitch": {
+    "label": "Language"
+  },
+  "Nav": {
+    "skip": "Skip to content",
+    "label": "Main navigation",
+    "open": "Open menu",
+    "close": "Close menu",
+    "home": "Back to the arrival screen"
+  },
+  "BackToTop": {
+    "label": "Back to top"
+  },
+  "Hero": {
+    "intro": {
+      "title": "<l>Welcome to</l> <l>my universe</l>",
+      "tagline": "<l>Where design</l> <l>meets code.</l>"
+    },
+    "scrollDown": {
+      "label": "Scroll down",
+      "touchLabel": "Swipe up",
+      "ariaLabel": "Start the journey"
+    },
+    "identity": {
+      "designer": "UI/UX Designer",
+      "developer": "Front-End Developer"
+    },
+    "discover": {
+      "label": "Discover",
+      "ariaLabel": "Discover the rest of the portfolio"
+    },
+    "contact": "Contact",
+    "replay": "Replay the journey"
+  },
+  "WhoIAm": {
+    "title": "Who I Am",
+    "metaDescription": "Who Arnaud Benez is: a UI/UX Designer and Front-End Developer near Paris, with over 15 years of e-commerce projects. Resume and portfolio to download.",
+    "p1": "Hello and welcome! I’m Arnaud, a <b>UI/UX Designer</b> & <b>Front-End Developer</b> based in <b>Val-de-Marne</b>, near Paris.",
+    "p2": "For over 15 years, I’ve been designing and growing <b>e-commerce projects</b>, with one priority: a simple, effective <b>user experience</b>. I bring along a strong background in <b>art direction</b> and <b>project management</b>.",
+    "p3": "Always keeping up with <b>today’s tools</b>, I deliver <b>high-performing</b>, <b>future-proof</b> solutions, <b>designed</b> around the user.",
+    "p4": "And away from Figma and VS Code? I run, hike, dance (badly) or save the kingdom at a tabletop role-playing game.",
+    "downloadCv": "Download my resume",
+    "portraitAlt": "Portrait of Arnaud Benez"
+  },
+  "WhatIDo": {
+    "title": "What I Do",
+    "metaDescription": "UI/UX design, React and Next.js front-end development, e-commerce, art direction, media creation and digital project management.",
+    "intro": "I design and build interfaces, from the first wireframe to production. Fifteen years of e-commerce taught me what makes a journey simple, fast and effective: that’s what I bring to every project.",
+    "methodTitle": "How I work",
+    "steps": [
+      { "title": "Understand", "text": "Your goals, your users and your constraints." },
+      { "title": "Design", "text": "Journeys, mockups and tested prototypes." },
+      { "title": "Build", "text": "Clean, fast and accessible code." },
+      { "title": "Improve", "text": "Measure, adjust, iterate." }
+    ],
+    "cta": "Got a project in mind?",
+    "ctaButton": "Let’s talk"
+  },
+  "Services": {
+    "more": "Learn more",
+    "less": "Show less",
+    "uiux": {
+      "title": "UI/UX Design",
+      "description": "Clear, accessible interfaces designed around your users, validated through prototyping and testing.",
+      "tags": ["Prototyping", "Design Systems", "Accessibility", "User Testing"],
+      "details": "Every journey is designed to simplify navigation and strengthen accessibility (WCAG). I rely on proven UX methods, from user research to wireframes, interactive prototypes, design systems and testing, all the way to a developer-ready interface.",
+      "moreTags": ["Wireframing", "Ergonomics", "Atomic Design", "UX Research", "Figma"]
+    },
+    "artDirection": {
+      "title": "Art Direction",
+      "description": "A strong, consistent visual identity, rolled out across every medium, from print to digital.",
+      "tags": ["Branding", "Visual Identity", "Brand Guidelines"],
+      "details": "I imagine identities tailored to each brand’s values and world: graphic line, brand guidelines and communication strategy. I then lead the creation of visual content, for a clear, consistent creative direction aligned with your goals.",
+      "moreTags": ["Design Strategy", "Storytelling", "Design Thinking", "Print"]
+    },
+    "media": {
+      "title": "Media Creation",
+      "description": "Banners, videos, emails, social media: content that grabs attention and stays true to your brand.",
+      "tags": ["Motion Design", "Video", "Email", "Social Media"],
+      "details": "I produce communication assets for every channel: banners, videos, motion design, email kits, social media visuals and print-ready files. Each piece strengthens the brand image and supports your marketing goals.",
+      "moreTags": ["Sound Design", "Prepress", "Video Production", "Content Strategy", "Generative AI"]
+    },
+    "frontEnd": {
+      "title": "Front‑End Development",
+      "description": "Designs faithfully built in React and Next.js: fast, responsive and easy to evolve.",
+      "tags": ["React / Next.js", "Responsive", "Performance", "Animation"],
+      "details": "I build high-performing, accessible interfaces with modular, maintainable code that follows modern front-end best practices: React, Next.js, TypeScript and Tailwind CSS. SaaS applications, headless sites or PWAs: smooth experiences on every screen.",
+      "moreTags": ["TypeScript", "Tailwind CSS", "PWA", "SaaS", "Headless", "Form Validation"]
+    },
+    "projectManagement": {
+      "title": "Project Management",
+      "description": "From strategy to delivery, I bridge design, development and business so the project keeps moving.",
+      "tags": ["Agile", "Digital Strategy", "Coordination"],
+      "details": "My dual background in design and development eases coordination between teams and keeps the project consistent, from strategy to launch. I organize the work the agile way, with user experience as the common thread.",
+      "moreTags": ["Sprint Planning", "Roadmap", "UX Research", "Digital Consulting"]
+    },
+    "ecommerce": {
+      "title": "E-commerce",
+      "description": "Shopping journeys that convert: structured catalogs, streamlined checkouts and fast sites.",
+      "tags": ["Conversion", "A/B Testing", "SEO", "Product Data"],
+      "details": "I work on complex e‑commerce platforms: catalog structure, PIM/ERP integrations and business data flows, customer journeys, performance and technical SEO. The goal: a site that’s pleasant to browse, and that sells.",
+      "moreTags": ["CRO", "PIM / ERP", "Technical SEO", "Omnichannel", "E-commerce Logistics"]
+    }
+  },
+  "Experience": {
+    "title": "Experience",
+    "metaDescription": "Arnaud Benez’s background: jobs, collaborations and training in UI/UX design and front-end development, and the tools he masters.",
+    "filtersLabel": "Filter experience",
+    "filters": {
+      "all": "All",
+      "job": "Jobs",
+      "collaboration": "Collaborations",
+      "formation": "Training"
+    },
+    "types": {
+      "job": "Job",
+      "collaboration": "Collaboration",
+      "formation": "Training"
+    },
+    "present": "Present",
+    "showMore": "Show more",
+    "cta": "Want to know more?",
+    "contactCta": "Get in touch",
+    "empty": "No experience found for this category.",
+    "skills": {
+      "frontEnd": "Front-End Development",
+      "design": "Design & Animation",
+      "projectManagement": "Project Management",
+      "cms": "CMS & E-commerce",
+      "database": "Databases",
+      "devOps": "DevOps",
+      "devTools": "Dev Tools"
+    },
+    "items": {
+      "cloudcastle": {
+        "role": "Co-Founder",
+        "description": "Co-founded CloudCastle to build Questix, an AI-powered tabletop RPG campaign manager. Alpha coming soon.",
+        "highlights": ["Project management and company administration", "Product design, visual identity and app mockups", "Front-end of the web app (Next.js), down to form validation", "Smart tools to schedule sessions, prepare them and manage lore"]
+      },
+      "heroui": {
+        "role": "Front-End Contributor",
+        "description": "Volunteer work for HeroUI, a component library inspired by Material Design: accessibility and minimalist design.",
+        "highlights": ["Cross-framework portability of the components", "Debugging complex UI behaviors", "Aligning accessibility with EU compliance standards"]
+      },
+      "contentsquare": {
+        "role": "Trainee",
+        "description": "Training on ContentSquare to analyze user behavior (heatmaps, session replays, zoning analysis) and optimize UX and conversion."
+      },
+      "majitv": {
+        "role": "Visual Identity Designer",
+        "description": "Designed a custom pixel-art visual identity and provided branding and layout guidance to support the launch and growth of a new Twitch channel."
+      },
+      "googleAnalytics": {
+        "role": "Certification",
+        "description": "Google Analytics 4 certification: user behavior tracking, event setup and data-driven optimization."
+      },
+      "foundry": {
+        "role": "Module Developer",
+        "description": "Collaborated on the development of several community-driven JavaScript modules and plugins, helping expand Foundry VTT’s ecosystem and enhancing the platform’s extensibility and user experience."
+      },
+      "leclerc": {
+        "role": "UI/UX Designer & Art Director",
+        "description": "In the e-commerce department of Voyages E.Leclerc, grown from 6 to 11 people: UI/UX design, art direction, and managing a graphic designer, then a full-stack developer.",
+        "highlights": ["Website redesign: pages, visual style and design system", "Brand identity refresh, with the Havas agency", "User flow optimization: Contentsquare, Kameleoon A/B tests, SEO", "Email kits for web traffic, image and video creation", "During Covid, extra support for E.Leclerc: Drive and flyers"]
+      },
+      "freelance": {
+        "role": "UI/UX Designer & Developer",
+        "description": "Tailored digital services for a wide range of clients, working directly with each to capture their vision and needs.",
+        "highlights": ["E-commerce photo retouching for La Plateforme du Bâtiment", "Email campaigns for DogFidelity", "Websites for professional photographers", "Brand identity for the non-profit Vocajob"]
+      },
+      "delaveine": {
+        "role": "Web Designer",
+        "description": "First job, sole web designer in a small company: growing the e-commerce website of Delaveine, a men’s fashion retailer.",
+        "highlights": ["Website maintenance and development", "Newsletters, promotional ads and banners", "Collection presentation videos", "Photo retouching and assembly for product pages"]
+      },
+      "itecomDev": {
+        "role": "Front-End Developer / Integrator",
+        "description": "Front-end developer and integrator training: HTML, CSS, JavaScript and responsive design, with a focus on ergonomics, accessibility and SEO."
+      },
+      "itecomPm": {
+        "role": "Web Designer & Project Manager",
+        "description": "Web design and project management training: user needs analysis, website design and end-to-end project management."
+      },
+      "itecomGraphic": {
+        "role": "Graphic Designer & Layout Artist",
+        "description": "Visual identity and graphic design training: page layout, composition and the Adobe suite, from print to digital."
+      },
+      "zigoh": {
+        "role": "Vector Designer",
+        "description": "Managed and enhanced the online presence of Delaveine, a men’s fashion retailer. Responsibilities included website maintenance and development, creating eye-catching ads and banners for promotions, photo retouching, and assembly for online product displays. Also handled the integration of email newsletters, ensuring consistent and effective communication with customers."
+      }
+    }
+  },
+  "Works": {
+    "title": "Works",
+    "metaDescription": "A selection of work: travel agency, component library, streaming, SaaS, e-commerce and recruitment.",
+    "subtitle": "Take a look at my showcase",
+    "categories": {
+      "travelAgency": "Travel Agency",
+      "library": "Component Library",
+      "streaming": "Streaming",
+      "saas": "SaaS",
+      "ecommerce": "E-commerce",
+      "recruitment": "Recruitment",
+      "collaboration": "Collaboration"
+    },
+    "allWorks": {
+      "title": "All my work",
+      "subtitle": "See the full portfolio"
+    },
+    "trustedBy": "They trusted me"
+  },
+  "Contact": {
+    "title": "Contact",
+    "metaDescription": "A project, a question? Get in touch with Arnaud Benez, UI/UX Designer and Front-End Developer near Paris, France.",
+    "intro": "A question? A project? Or simply want to chat? I’m always open to a conversation.",
+    "card": {
+      "roles": "UI/UX Designer | Front-End Developer",
+      "location": "Val-de-Marne, France",
+      "download": "Download Contact Card",
+      "copyEmail": "Copy email address",
+      "copied": "Copied"
+    },
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "john.doe@example.com",
+      "emailError": "Please enter a valid email address",
+      "message": "Your message",
+      "messagePlaceholder": "Tell me about your project…",
+      "required": "Required",
+      "pitch": "Fancy a chat about design, projects or passions?<br></br>You never know what a simple message might spark.",
+      "submit": "Send"
+    }
+  },
+  "Footer": {
+    "rights": "All rights reserved",
+    "legal": "Legal notice"
+  },
+  "Legal": {
+    "metaDescription": "Legal notice of Arnaud Benez’s portfolio: publisher, hosting, intellectual property, personal data and cookies.",
+    "back": "Back to the portfolio",
+    "title": "Legal notice",
+    "updated": "Last updated: November 2026",
+    "editor": {
+      "title": "Publisher",
+      "p1": "This website is the personal portfolio of <b>Arnaud Benez</b>, published on a non-professional basis by a private individual.",
+      "p2": "Contact: <email></email><br></br>Publication director: Arnaud Benez.",
+      "p3": "In accordance with article 6, III, 2 of French law no. 2004-575 of 21 June 2004 on confidence in the digital economy (LCEN), the publisher, a private individual publishing on a non-professional basis, does not disclose his home address; his details have been provided to the hosting provider."
+    },
+    "host": {
+      "title": "Hosting",
+      "pending": "To be completed: name, address and phone number of the hosting provider.",
+      "phone": "Phone: {phone}"
+    },
+    "ip": {
+      "title": "Intellectual property",
+      "p1": "All content on this website (texts, visuals, logo, layout) is the property of Arnaud Benez, unless otherwise stated. Any reproduction or reuse, in whole or in part, without prior permission is prohibited.",
+      "p2": "The trademarks and logos of the companies and tools mentioned (clients, employers, software) belong to their respective owners. They are shown only to illustrate the projects carried out and the skills involved."
+    },
+    "data": {
+      "title": "Personal data",
+      "p1": "The contact form collects your name (optional), your email address and your message, for the sole purpose of replying to you. This information is never shared, sold or used for marketing. It is kept for as long as the conversation requires, then deleted at the latest three years after the last contact.",
+      "p2": "Under the General Data Protection Regulation (GDPR) and the French Data Protection Act, you have the right to access, rectify, erase and object to the processing of your data. To exercise it, write to <email></email>. You may also lodge a complaint with the <cnil>CNIL</cnil> (the French data protection authority)."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "p1": "This website uses no advertising or analytics cookies. Only technical items, essential to how it works, are stored in your browser: the language you chose, and a flag that avoids replaying the arrival animation during your visit (cleared when the tab is closed). They do not require consent."
+    },
+    "credits": {
+      "title": "Credits",
+      "p1": "Concept, design and development: Arnaud Benez. Icons: Hugeicons. Typeface: Inter. Built with Next.js."
+    }
+  }
+}

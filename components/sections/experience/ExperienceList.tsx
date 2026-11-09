@@ -1,141 +1,230 @@
 'use client';
 
-import { useState } from "react"; // 1. Import useState
-import { Tabs } from "@heroui/react";
+import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { useDelayedReveal } from "@/hooks/useDelayedReveal";
+import { AnimatePresence, motion } from "framer-motion";
 import { ExperienceItem } from "./ExperienceItem";
-import { TIMELINE_DATA } from "@/src/data/experience";
+import { TIMELINE_DATA, sortTimeline } from "@/src/data/experience";
 import { CustomButton } from "@/components/CustomButton";
 import { Icon } from "@/components/ui/Icon";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
-export const ExperienceList = () => {
+const FILTER_IDS = ['all', 'job', 'collaboration', 'formation'] as const;
+type FilterId = (typeof FILTER_IDS)[number];
 
-  // 2. State to manage full or limited display
+interface ExperienceListProps {
+  /** Shown under the title below lg (the skills strip); hidden from lg */
+  skillsStrip?: React.ReactNode;
+}
+
+export const ExperienceList = ({ skillsStrip }: ExperienceListProps) => {
+
+  const t = useTranslations('Experience');
+  const tWho = useTranslations('WhoIAm');
+  const reduceMotion = usePrefersReducedMotion();
+  const [selected, setSelected] = useState<FilterId>('all');
+  // Full list or the first 8 items
   const [isExpanded, setIsExpanded] = useState(false);
+  const baseId = useId();
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  // End-of-timeline call to action: shows up 2.5s after reaching it
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const showCta = useDelayedReveal(ctaRef, { delay: 2500, amount: 0.6 });
 
-  const filters = [
-    { id: 'all', label: 'All' },
-    { id: 'job', label: 'Job' },
-    { id: 'collaboration', label: 'Collaboration' },
-    { id: 'formation', label: 'Formation' },
-  ];
+  const select = (id: FilterId) => {
+    setSelected(id);
+    setIsExpanded(false); // each filter starts collapsed
+  };
+
+  // Tabs pattern (WAI-ARIA): arrows / Home / End move and select
+  const onTabKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const last = FILTER_IDS.length - 1;
+    const next =
+      e.key === 'ArrowRight' ? (index === last ? 0 : index + 1)
+      : e.key === 'ArrowLeft' ? (index === 0 ? last : index - 1)
+      : e.key === 'Home' ? 0
+      : e.key === 'End' ? last
+      : null;
+    if (next === null) return;
+    e.preventDefault();
+    select(FILTER_IDS[next]);
+    tabRefs.current[next]?.focus();
+  };
+
+  // Ongoing positions first, then the most recent
+  const categoryItems = sortTimeline(TIMELINE_DATA).filter((item) => selected === 'all' || item.type === selected);
+  const showButton = categoryItems.length > 8;
+  const displayedItems = isExpanded ? categoryItems : categoryItems.slice(0, 8);
+  // The timeline fades out at the end, unless a "Show more" button follows
+  const shouldFade = !showButton || isExpanded;
 
   return (
     <div className="flex flex-col h-full">
 
-      <h2 className='text-xl md:text-8xl font-black text-[#EDEDED] tracking-tight mb-8'>
-        Experience
+      <h2 className='text-[clamp(2.25rem,12vw,3.75rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-8 lg:mb-14'>
+        {t('title')}
       </h2>
 
-      <Tabs
-        aria-label="Experience filters"
-        defaultSelectedKey="all"
-        className="w-full"
-        orientation="horizontal"
-        // 3. IMPORTANT: We collapse the list when changing tabs to avoid display bugs
-        onSelectionChange={() => setIsExpanded(false)}
+      {/* Below lg only (from lg, the grid beside the timeline) */}
+      {skillsStrip && <div className="lg:hidden -mt-2 mb-6">{skillsStrip}</div>}
+
+      {/* Filters: compact pill, the active tab's background slides along.
+          Light fill + hairline drawn as an inset ring (box-shadow), smoother
+          than a border with fractional display scaling. Closer to
+          the timeline it filters than to the title (whose descenders eat
+          into the gap above) */}
+      <div
+        role="tablist"
+        aria-label={t('filtersLabel')}
+        className="self-start inline-flex flex-wrap items-center gap-0.5 p-1 mb-6 lg:mb-10 rounded-full bg-white/4 ring-1 ring-inset ring-white/10"
       >
-        <Tabs.ListContainer>
-          <Tabs.List className="flex flex-row w-fit bg-zinc-900/40 backdrop-blur-sm border-3 border-zinc-800/60 rounded-2xl p-1 mb-12 gap-1">
-            {filters.map((filter) => (
-              <Tabs.Tab
-                key={filter.id}
-                id={filter.id}
-                className="
-                relative px-4 h-9 rounded-xl font-medium text-zinc-400 
-                transition-all duration-300 ease-out cursor-pointer select-none
-                [&::before]:bg-zinc-700
-                [&::before]:content-['']
-                [&::before]:absolute
-                [&::before]:left-[-2px]
-                [&::before]:top-1/2 
-                [&::before]:-translate-y-1/2
-                [&::before]:h-4 
-                [&::before]:w-px
-                [&::before]:transition-opacity 
-                [&::before]:duration-300
-                first:[&::before]:hidden
-                data-[selected=true]:[&::before]:opacity-0
-                hover:[&::before]:opacity-0
-                [&[data-selected=true]+*::before]:opacity-0
-                [&:hover+*::before]:opacity-0
-                hover:bg-white/5 hover:text-zinc-200
-                focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:outline-none
-                data-[selected=true]:bg-white 
-                data-[selected=true]:text-black 
-                data-[selected=true]:shadow-sm
-              "
-              >
-                {filter.label}
-              </Tabs.Tab>
-            ))}
-          </Tabs.List>
-        </Tabs.ListContainer>
-
-        {filters.map((filter) => {
-          const categoryItems = TIMELINE_DATA.filter((item) => {
-            if (filter.id === 'all') return true;
-            return item.type.toLowerCase() === filter.id;
-          });
-
-          const showButton = categoryItems.length > 8;
-          const displayedItems = isExpanded ? categoryItems : categoryItems.slice(0, 8);
-
-          // FADE LOGIC:
-          // We apply the fade ONLY IF:
-          // 1. There's no button (short list)
-          // OR
-          // 2. The list is fully expanded
-          const shouldFade = !showButton || isExpanded;
-
+        {FILTER_IDS.map((id, index) => {
+          const isSelected = id === selected;
           return (
-            <Tabs.Panel key={filter.id} id={filter.id} className="w-full outline-none animate-in fade-in slide-in-from-bottom-2 duration-500">
-
-              <div className="relative ml-3 space-y-12 pb-18">
-
-                {/* --- LIGNE DE TIMELINE --- */}
-                <div
-                  className="absolute top-0 bottom-0 left-0 w-[3px] bg-zinc-900 pointer-events-none"
-                  style={
-                    shouldFade
-                      ? {
-                        maskImage: 'linear-gradient(to bottom, black calc(100% - 100px), transparent 100%)',
-                        WebkitMaskImage: 'linear-gradient(to bottom, black calc(100% - 100px), transparent 100%)'
-                      }
-                      : undefined // If button displayed => No mask => Solid line
-                  }
+            <button
+              key={id}
+              ref={(el) => { tabRefs.current[index] = el; }}
+              type="button"
+              role="tab"
+              id={`${baseId}-tab-${id}`}
+              aria-selected={isSelected}
+              aria-controls={`${baseId}-panel`}
+              tabIndex={isSelected ? 0 : -1}
+              onClick={() => select(id)}
+              onKeyDown={(e) => onTabKeyDown(e, index)}
+              className={cn(
+                'relative isolate h-8 px-3.5 rounded-full text-sm transition-colors duration-300 cursor-pointer select-none',
+                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50',
+                isSelected ? 'text-white' : 'text-zinc-400 hover:text-zinc-200'
+              )}
+            >
+              {isSelected && (
+                <motion.span
+                  layoutId={`${baseId}-active-tab`}
+                  aria-hidden="true"
+                  className="absolute inset-0 -z-10 rounded-full bg-white/10"
+                  transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 35 }}
                 />
-
-                {displayedItems.map((item, index) => (
-                  <ExperienceItem
-                    key={index}
-                    {...item}
-                  />
-                ))}
-
-                {categoryItems.length === 0 && (
-                  <p className="pl-12 text-zinc-600 text-sm italic py-4">No experience found for this category.</p>
-                )}
-
-                {showButton && !isExpanded && (
-                  <div className="relative pl-12 pt-2">
-                    <div className="absolute -left-[6px] top-5 w-3.25 h-3.25 rounded-full bg-zinc-800 ring-4 ring-black text-[8px] flex items-center justify-center text-black"></div>
-                    <CustomButton
-                      size="sm"
-                      variant="secondary"
-                      onPress={() => setIsExpanded(true)}
-                      className="absolute"
-                    >
-                      Show More
-                      <Icon name="ArrowDown" className="w-5 h-5 mt-[5px]" />
-                    </CustomButton>
-                  </div>
-                )}
-
-              </div>
-            </Tabs.Panel>
+              )}
+              <span className="relative">{t(`filters.${id}`)}</span>
+            </button>
           );
         })}
-      </Tabs>
+      </div>
+
+      {/* No initial={false} here: it would also cancel the entries'
+          scroll-in reveal below */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selected}
+          role="tabpanel"
+          id={`${baseId}-panel`}
+          aria-labelledby={`${baseId}-tab-${selected}`}
+          initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduceMotion ? undefined : { opacity: 0, y: -4 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          className="w-full motion-reduce:opacity-100! motion-reduce:transform-none!"
+        >
+          {/* space-y-20: each experience holds more now, keep them clearly apart */}
+          {/* Less room at the bottom while the (absolutely placed) "Show more"
+              button closes the list: the call to action comes closer */}
+          <div className={cn('relative ml-3 space-y-20', showButton && !isExpanded ? 'pb-12' : 'pb-18')}>
+
+            {/* --- TIMELINE LINE --- */}
+            {/* With "Show more": the line runs down to its dot (centered on
+                it, the dot's black ring leaving the same gap as the icons'),
+                mb-0 cancelling the margin space-y gives every child but the
+                last (it pulled the line's end 80px up) */}
+            <div
+              className={cn(
+                'absolute top-0 left-0 w-[3px] bg-zinc-900 pointer-events-none',
+                showButton && !isExpanded ? 'bottom-[22.5px] mb-0!' : 'bottom-0'
+              )}
+              style={
+                shouldFade
+                  ? {
+                    maskImage: 'linear-gradient(to bottom, black calc(100% - 100px), transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, black calc(100% - 100px), transparent 100%)'
+                  }
+                  : undefined // "Show more" below: solid line
+              }
+            />
+
+            {displayedItems.map((item) => (
+              // Each entry fades up gently as it scrolls into view (once).
+              // Reduced motion: forced visible and still in CSS (!important
+              // beats the inline styles), right from the first paint
+              <motion.div
+                key={item.id}
+                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="motion-reduce:opacity-100! motion-reduce:transform-none!"
+              >
+                {/* Trainings stay lighter next to jobs and collaborations */}
+                <ExperienceItem
+                  {...item}
+                  compact={selected === 'all' && item.type === 'formation'}
+                  showType={selected === 'all'}
+                />
+              </motion.div>
+            ))}
+
+            {categoryItems.length === 0 && (
+              <p className="pl-12 text-zinc-400 text-sm italic py-4">{t('empty')}</p>
+            )}
+
+            {showButton && !isExpanded && (
+              // Closer to the last entry than two entries are to each other
+              <div className="relative pl-12 pt-2 -mt-8">
+                <div className="absolute -left-[5.5px] top-[27px] size-3.5 rounded-full bg-zinc-800 ring-4 ring-black text-[8px] flex items-center justify-center text-black"></div>
+                <CustomButton
+                  size="sm"
+                  variant="secondary"
+                  onPress={() => setIsExpanded(true)}
+                  className="absolute top-4"
+                >
+                  {t('showMore')}
+                  <Icon name="ChevronDown" size={16} />
+                </CustomButton>
+              </div>
+            )}
+
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* After reading the whole background: the natural moment to act,
+          either way (resume, or straight to the contact section). Room kept
+          from the start, inert until shown, plain fade with reduced motion */}
+      <motion.div
+        ref={ctaRef}
+        inert={!showCta}
+        initial={false}
+        animate={showCta ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 12 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="ml-3 pl-12 mt-8 flex flex-col gap-4"
+      >
+        <p className="text-[#d0d4da] font-[250]">{t('cta')}</p>
+        <div className="flex flex-wrap gap-3">
+          <CustomButton variant="primary" size="lg">
+            <Icon name="Resume" size={18} />
+            {tWho('downloadCv')}
+          </CustomButton>
+          <CustomButton
+            variant="secondary"
+            size="lg"
+            onPress={() => document.getElementById('contact')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })}
+          >
+            <Icon name="Chat" size={18} />
+            {t('contactCta')}
+          </CustomButton>
+        </div>
+      </motion.div>
     </div>
   );
 };

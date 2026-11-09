@@ -8,16 +8,17 @@ import { SkillsGrid } from "./experience/SkillsGrid";
 export const Experience = () => {
   return (
     <SectionShell variant="contained" className="relative z-10">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-x-10 xl:gap-x-20">
 
         {/* COLONNE GAUCHE (Timeline) - Prend 6 colonnes sur 12 */}
         <BlockContent colSpan={6} className="order-1">
-          <ExperienceList />
+          <ExperienceList skillsStrip={<SkillsGrid variant="strip" />} />
         </BlockContent>
 
         {/* COLONNE DROITE (Skills Bento) - Prend 6 colonnes sur 12 */}
-        {/* isSticky permet de garder les skills visibles si la timeline est longue */}
-        <BlockContent colSpan={6} isSticky className="order-2 pt-8 lg:pt-24">
+        {/* The skills grid handles its own sticky behavior (see SkillsGrid).
+            Below lg it becomes a swipeable strip under the title instead */}
+        <BlockContent colSpan={6} className="order-2 hidden lg:block pt-24">
           <SkillsGrid />
         </BlockContent>
 

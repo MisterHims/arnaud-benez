@@ -1,30 +1,95 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
+import { motion, useAnimationFrame, useInView, useMotionValue } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+
 import { Logo, LogoName } from "../../ui/Logo";
 
-const TRUSTED_LOGOS: { name: LogoName; className: string }[] = [
-  { name: "Leclerc-custom", className: "h-13 w-auto" },
-  { name: "Ticketmaster", className: "h-10 w-auto" },
-  { name: "Voyages-Leclerc", className: "h-14 w-auto" },
-  { name: "HeroUI", className: "h-12 w-auto" },
-  { name: "DogFidelity", className: "h-12 w-auto" },
-  { name: "Delaveine", className: "h-10 w-auto" },
-  { name: "Zigoh", className: "h-12 w-auto" },
-  { name: "Inmac", className: "h-14 w-auto" },
-  { name: "Vocajob", className: "h-13 w-auto" },
+// label: the client's name, read by screen readers (the logo is its only mark)
+const TRUSTED_LOGOS: { name: LogoName; label: string; className: string }[] = [
+  { name: "Leclerc-custom", label: "E.Leclerc", className: "h-13 w-auto" },
+  { name: "Ticketmaster", label: "Ticketmaster", className: "h-10 w-auto" },
+  { name: "Voyages-Leclerc", label: "Voyages E.Leclerc", className: "h-14 w-auto" },
+  { name: "HeroUI", label: "HeroUI", className: "h-12 w-auto" },
+  { name: "DogFidelity", label: "DogFidelity", className: "h-12 w-auto" },
+  { name: "Delaveine", label: "Delaveine", className: "h-10 w-auto" },
+  { name: "Zigoh", label: "Zigoh", className: "h-12 w-auto" },
+  { name: "Inmac", label: "Inmac", className: "h-14 w-auto" },
+  { name: "Vocajob", label: "Vocajob", className: "h-13 w-auto" },
 ];
 
+/** Scrolling speed, in px/s: the same on every screen, whatever the gap
+ *  between the logos (and so the length of the band) */
+const SPEED = 55;
+/** Time constant of the speed easing, in ms: smooth stop and restart */
+const SPEED_EASING = 400;
+
 export const TrustedBy = () => {
-  const seamlessLogos = [...TRUSTED_LOGOS, ...TRUSTED_LOGOS, ...TRUSTED_LOGOS, ...TRUSTED_LOGOS]; // Not used here as we loop manually in JSX, but good practice if you refactor
+  const t = useTranslations('Works');
+  const reduceMotion = usePrefersReducedMotion();
+
+  // Scrolled frame by frame (not a CSS animation, whose pause is instant):
+  // hovering a logo eases the speed down to 0, leaving it eases it back up
+  const bandRef = useRef<HTMLDivElement>(null);
+  const groupRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(bandRef);
+  const x = useMotionValue(0);
+  const speed = useRef(0);
+  const [hoveringLogo, setHoveringLogo] = useState(false);
+  const [groupWidth, setGroupWidth] = useState(0);
+
+  useEffect(() => {
+    const group = groupRef.current;
+    if (!group) return;
+    const measure = () => setGroupWidth(group.offsetWidth);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(group);
+    return () => observer.disconnect();
+  }, []);
+
+  // Elapsed time measured here: framer's own delta is capped at 40ms, which
+  // slowed the band down whenever frames came less often
+  const lastTime = useRef<number | null>(null);
+  useAnimationFrame((time) => {
+    const delta = lastTime.current === null ? 0 : Math.min(time - lastTime.current, 100);
+    lastTime.current = time;
+    if (!inView || !groupWidth) return;
+    const target = reduceMotion || hoveringLogo ? 0 : SPEED;
+    speed.current += (target - speed.current) * (1 - Math.exp(-delta / SPEED_EASING));
+    let next = x.get() - (speed.current * delta) / 1000;
+    if (next <= -groupWidth) next += groupWidth; // seamless loop (group B repeats group A)
+    x.set(next);
+  });
+
+  const logoProps = {
+    onMouseEnter: () => setHoveringLogo(true),
+    onMouseLeave: () => setHoveringLogo(false),
+    // Phones: logos 70% of their size (zoom, unlike scale, shrinks their
+    // layout box too, so the gaps stay as designed)
+    className: 'shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300 max-md:[zoom:0.7]',
+  };
 
   return (
-    <div className="w-full flex flex-col items-center py-24 md:py-36 bg-radial-[at_25%_25%] from-[#080808] to-[#121212] to-75% overflow-hidden">
+    <div className="relative isolate w-full flex flex-col items-center pt-20 md:pt-24 pb-4 overflow-hidden">
+      {/* No rectangular band (its hard top / bottom edges cut the page): a
+          soft elliptical glow behind the logos, fading out in every direction */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 55% 50% at 50% 58%, rgba(255,255,255,0.04), transparent 70%)' }}
+      />
 
-      <h3 className="text-[#c2c2c2] text-2xl md:text-3xl font-bold mb-24 text-center px-4">
-        Ils m'ont fait confiance
+      <h3 className="text-[#bec3ca] text-2xl md:text-3xl font-bold mb-14 md:mb-16 text-center px-4">
+        {t('trustedBy')}
       </h3>
 
+      {/* Moving content (WCAG 2.2.2): pauses while a logo is hovered, and
+          stays still for visitors who asked for reduced motion */}
       <div
+        ref={bandRef}
         className="relative w-full overflow-hidden"
         style={{
           maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
@@ -32,39 +97,23 @@ export const TrustedBy = () => {
         }}
       >
 
-        <div className="flex w-max">
-
-          {/* GROUPE A */}
-          <div className="flex items-center gap-16 md:gap-64 pr-16 md:pr-64 animate-infinite-scroll">
-            {TRUSTED_LOGOS.map((logo, index) => (
-              <div key={`a-${index}`} className="shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <Logo name={logo.name} className={`${logo.className} text-white`} />
-              </div>
-            ))}
-            {/* Repetition for width */}
-            {TRUSTED_LOGOS.map((logo, index) => (
-              <div key={`a2-${index}`} className="shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <Logo name={logo.name} className={`${logo.className} text-white`} />
-              </div>
-            ))}
-          </div>
-
-          {/* GROUPE B (Boucle) */}
-          <div className="flex items-center gap-16 md:gap-64 pr-16 md:pr-64 animate-infinite-scroll" aria-hidden="true">
-            {TRUSTED_LOGOS.map((logo, index) => (
-              <div key={`b-${index}`} className="shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <Logo name={logo.name} className={`${logo.className} text-white`} />
-              </div>
-            ))}
-            {/* Repetition for width */}
-            {TRUSTED_LOGOS.map((logo, index) => (
-              <div key={`b2-${index}`} className="shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <Logo name={logo.name} className={`${logo.className} text-white`} />
-              </div>
-            ))}
-          </div>
-
-        </div>
+        <motion.div className="flex w-max" style={{ x }}>
+          {/* Group A, then group B (identical, for the seamless loop) */}
+          {(['a', 'b'] as const).map((group) => (
+            <div
+              key={group}
+              ref={group === 'a' ? groupRef : undefined}
+              aria-hidden={group === 'b' ? true : undefined}
+              className="flex items-center gap-16 md:gap-32 xl:gap-64 pr-16 md:pr-32 xl:pr-64"
+            >
+              {[...TRUSTED_LOGOS, ...TRUSTED_LOGOS].map((logo, index) => (
+                <div key={`${group}-${index}`} {...logoProps}>
+                  <Logo name={logo.name} role="img" aria-label={logo.label} className={`${logo.className} text-white`} />
+                </div>
+              ))}
+            </div>
+          ))}
+        </motion.div>
 
       </div>
     </div>

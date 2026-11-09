@@ -20,6 +20,63 @@
 /* Import custom utilities and keyframes */
 @import '../styles/utilities.css';
 
+/* --- GRAYS: one subtle slate scale ---
+   zinc / neutral / gray all point to the same cool gray (Tailwind's
+   lightness kept, a light slate tint added, stronger in the mid-tones), so
+   no warm/cool mix between families. Hardcoded grays in the components
+   follow the same rule. */
+@theme {
+  --color-zinc-50: oklch(98.5% 0.0014 257);
+  --color-zinc-100: oklch(96.7% 0.0027 257);
+  --color-zinc-200: oklch(92% 0.0059 257);
+  --color-zinc-300: oklch(87.1% 0.0089 257);
+  --color-zinc-400: oklch(70.5% 0.0158 257);
+  --color-zinc-500: oklch(55.2% 0.0170 257);
+  --color-zinc-600: oklch(44.2% 0.0148 257);
+  --color-zinc-700: oklch(37% 0.0129 257);
+  --color-zinc-800: oklch(27.4% 0.0100 257);
+  --color-zinc-900: oklch(21% 0.0077 257);
+  --color-zinc-950: oklch(14.1% 0.0054 257);
+  --color-neutral-50: oklch(98.5% 0.0014 257);
+  --color-neutral-100: oklch(97% 0.0025 257);
+  --color-neutral-200: oklch(92.2% 0.0057 257);
+  --color-neutral-300: oklch(87% 0.0090 257);
+  --color-neutral-400: oklch(70.8% 0.0157 257);
+  --color-neutral-500: oklch(55.6% 0.0170 257);
+  --color-neutral-600: oklch(43.9% 0.0147 257);
+  --color-neutral-700: oklch(37.1% 0.0129 257);
+  --color-neutral-800: oklch(26.9% 0.0098 257);
+  --color-neutral-900: oklch(20.5% 0.0075 257);
+  --color-neutral-950: oklch(14.5% 0.0055 257);
+  --color-gray-50: oklch(98.5% 0.0014 257);
+  --color-gray-100: oklch(96.7% 0.0027 257);
+  --color-gray-200: oklch(92.8% 0.0054 257);
+  --color-gray-300: oklch(87.2% 0.0089 257);
+  --color-gray-400: oklch(70.7% 0.0157 257);
+  --color-gray-500: oklch(55.1% 0.0170 257);
+  --color-gray-600: oklch(44.6% 0.0149 257);
+  --color-gray-700: oklch(37.3% 0.0129 257);
+  --color-gray-800: oklch(27.8% 0.0102 257);
+  --color-gray-900: oklch(21% 0.0077 257);
+  --color-gray-950: oklch(13% 0.0050 257);
+}
+
+/* HeroUI's dark surfaces (page background, cards, overlays) were slightly
+   violet (hue 286): same lightness, same subtle slate as the rest */
+:root.dark {
+  --background: oklch(12.0% 0.0047 257);
+  --surface: oklch(21.03% 0.0077 257);
+  --surface-secondary: oklch(25.7% 0.0094 257);
+  --surface-tertiary: oklch(27.21% 0.0100 257);
+  --overlay: oklch(21.03% 0.0077 257);
+  --default: oklch(27.4% 0.0100 257);
+  /* No brand accent color (a deliberate monochrome palette): HeroUI's blue
+     accent, also used for its focus rings, becomes the site's off-white */
+  --accent: oklch(94.6% 0.0035 257);
+  --accent-foreground: oklch(15.4% 0.006 257);
+  --focus: var(--accent);
+}
+
 @theme {
   --font-sans: var(--font-inter), sans-serif;
   --max-width-8xl: 88rem;
@@ -29,23 +86,140 @@
 
   /* --- ANIMATION TAILWIND V4 --- */
 
-  /* 1. We register the animation as a variable (Tailwind will create the 'animate-infinite-scroll' class) */
-  --animate-infinite-scroll: infinite-scroll 160s linear infinite;
+  /* Night sky: slow drift of the whole sky, and shooting stars (head at the
+     right end, moving down-right along --angle by --dx / --dy) */
+  --animate-sky-drift: sky-drift 60s ease-in-out infinite alternate;
+  --animate-shooting-star: shooting-star 1.4s ease-in forwards;
 
-  /* 2. Keyframes: We only go to -50% because the list is duplicated */
-  @keyframes infinite-scroll {
+  @keyframes sky-drift {
     from {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
 
     to {
-      transform: translateX(-100%);
+      transform: translate3d(-40px, 14px, 0);
+    }
+  }
+
+  @keyframes shooting-star {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0) rotate(var(--angle));
+    }
+
+    12% {
+      opacity: 1;
+    }
+
+    75% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy)) rotate(var(--angle));
+    }
+  }
+
+  /* 3. Skill highlight: a skill star from the hero points at this logo */
+  --animate-skill-ping: skill-ping 1.8s ease-out 2;
+
+  @keyframes skill-ping {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.55);
+      transform: scale(1);
+    }
+
+    30% {
+      transform: scale(1.18);
+    }
+
+    100% {
+      box-shadow: 0 0 0 18px rgba(255, 255, 255, 0);
+      transform: scale(1);
     }
   }
 }
+
+/* Skills grid, compact: where it sits beside the timeline (lg and up) but
+   the screen is narrow (below xl) or short (below 820px high): it must fit
+   the screen whole to stay in view while the timeline scrolls */
+@custom-variant compact (@media (width >= 64rem) and ((width < 80rem) or (height < 51.25rem)));
 
 @theme inline {
   /* To integrate new fonts, you need to go through layout.tsx to define them */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-roboto-mono), sans-serif;
+}
+
+/* Night sky stars: keyframes used from inline styles (several animations per
+   star), so declared outside @theme: Tailwind only emits @theme keyframes
+   that an animate-* class uses */
+/* Slow twinkle around each star's own opacity (--star-opacity) */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: var(--star-opacity, 0.5);
+  }
+
+  50% {
+    opacity: calc(var(--star-opacity, 0.5) * 0.25);
+  }
+}
+
+/* Hero intro text: wide, blurred and transparent, settling into place */
+@keyframes intro-title {
+  from {
+    opacity: 0;
+    letter-spacing: 1em;
+    filter: blur(10px);
+  }
+}
+
+@keyframes intro-tagline {
+  from {
+    opacity: 0;
+    letter-spacing: 0.5em;
+    filter: blur(10px);
+  }
+}
+
+/* Each star floats gently around its spot (translate: independent of the
+   parallax transform of its layer) */
+@keyframes star-float {
+  0%, 100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: var(--float-x, 0) var(--float-y, 0);
+  }
+}
+
+/* Textarea resize grip, drawn 2px further from the corner than the native
+   one (which hugs the inner focus line): the native resizer area is kept
+   (same hit zone), only its drawing is replaced. Browsers without
+   ::-webkit-resizer (Firefox) keep their native grip */
+@supports selector(::-webkit-resizer) {
+  .resize-grip::-webkit-resizer {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15'%3E%3Cpath d='M2 11 11 2M6 11l5-5' stroke='%23ffffff' stroke-opacity='.4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat left top;
+  }
+}
+
+/* Decorations (mountains, drifting skies) may bleed past the screen edge:
+   clipped, so phones never get a sideways scroll. "clip", unlike "hidden",
+   creates no scroll container and keeps position: sticky working */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* Skills grid: the category title / tapped tool name fades in when swapped */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

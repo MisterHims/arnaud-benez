@@ -1,0 +1,282 @@
+{
+  "Metadata": {
+    "name": "Arnaud Benez",
+    "title": "Arnaud Benez – Portfolio",
+    "description": "Arnaud Benez, UI/UX Designer et développeur front-end (React, Next.js) dans le Val-de-Marne, près de Paris. 15 ans d’expérience en e-commerce, direction artistique et gestion de projet."
+  },
+  "LanguageSwitch": {
+    "label": "Langue"
+  },
+  "Nav": {
+    "skip": "Aller au contenu",
+    "label": "Navigation principale",
+    "open": "Ouvrir le menu",
+    "close": "Fermer le menu",
+    "home": "Revenir à l’écran d’accueil"
+  },
+  "BackToTop": {
+    "label": "Retour en haut"
+  },
+  "Hero": {
+    "intro": {
+      "title": "<l>Bienvenue dans</l> <l>mon univers</l>",
+      "tagline": "<l>Là où le design</l> <l>rencontre le code.</l>"
+    },
+    "scrollDown": {
+      "label": "Défiler",
+      "touchLabel": "Glissez vers le haut",
+      "ariaLabel": "Lancer le voyage"
+    },
+    "identity": {
+      "designer": "UI/UX Designer",
+      "developer": "Développeur Front-End"
+    },
+    "discover": {
+      "label": "Découvrir",
+      "ariaLabel": "Découvrir la suite du portfolio"
+    },
+    "contact": "Contact",
+    "replay": "Revoir le voyage"
+  },
+  "WhoIAm": {
+    "title": "Qui suis-je",
+    "metaDescription": "Qui est Arnaud Benez : UI/UX Designer et développeur front-end dans le Val-de-Marne, plus de 15 ans au service de projets e-commerce. CV et book à télécharger.",
+    "p1": "Bonjour et bienvenue ! Je m’appelle Arnaud, <b>UI/UX Designer</b> & <b>Développeur Front-End</b> dans le <b>Val-de-Marne</b>.",
+    "p2": "Depuis plus de 15 ans, je conçois et fais évoluer des <b>projets e-commerce</b>, avec une priorité : une <b>expérience utilisateur</b> simple et efficace. J’y ajoute une solide culture en <b>direction artistique</b> et en <b>gestion de projets</b>.",
+    "p3": "Toujours en veille, j’utilise les <b>outils les plus actuels</b> pour livrer des solutions <b>performantes</b> et <b>durables</b>, <b>pensées</b> pour l’utilisateur.",
+    "p4": "Et loin de Figma et de VS Code ? Je cours, je randonne, je danse (mal) ou je sauve le royaume autour d’une table de jeu de rôle.",
+    "downloadCv": "Télécharger mon CV",
+    "portraitAlt": "Portrait d’Arnaud Benez"
+  },
+  "WhatIDo": {
+    "title": "Ce que je fais",
+    "metaDescription": "UI/UX design, développement front-end React et Next.js, e-commerce, direction artistique, création de médias et gestion de projets digitaux.",
+    "intro": "Je conçois et je développe des interfaces, de la première maquette à la mise en production. Quinze ans d’e-commerce m’ont appris ce qui rend un parcours simple, rapide et efficace : c’est ce que j’apporte à chaque projet.",
+    "methodTitle": "Ma méthode",
+    "steps": [
+      { "title": "Comprendre", "text": "Vos objectifs, vos utilisateurs et vos contraintes." },
+      { "title": "Concevoir", "text": "Parcours, maquettes et prototypes testés." },
+      { "title": "Développer", "text": "Un code propre, rapide et accessible." },
+      { "title": "Faire évoluer", "text": "Mesurer, ajuster, améliorer." }
+    ],
+    "cta": "Un projet en tête ?",
+    "ctaButton": "Parlons-en"
+  },
+  "Services": {
+    "more": "En savoir plus",
+    "less": "Voir moins",
+    "uiux": {
+      "title": "UI/UX Design",
+      "description": "Des interfaces claires et accessibles, pensées pour vos utilisateurs et validées par le prototypage et les tests.",
+      "tags": ["Prototypage", "Design Systems", "Accessibilité", "Tests utilisateurs"],
+      "details": "Chaque parcours est pensé pour simplifier la navigation et renforcer l’accessibilité (WCAG). Je m’appuie sur des méthodes UX éprouvées, de la recherche utilisateur aux wireframes, prototypes interactifs, design systems et tests, jusqu’à une interface prête à développer.",
+      "moreTags": ["Wireframing", "Ergonomie", "Atomic Design", "Recherche UX", "Figma"]
+    },
+    "artDirection": {
+      "title": "Direction Artistique",
+      "description": "Une identité visuelle forte et cohérente, déclinée sur tous les supports, du print au digital.",
+      "tags": ["Branding", "Identité visuelle", "Charte graphique"],
+      "details": "J’imagine des identités adaptées aux valeurs et à l’univers de chaque marque : ligne graphique, charte et stratégie de communication. Je dirige ensuite la création des contenus visuels, pour une direction créative claire et cohérente, alignée sur vos objectifs.",
+      "moreTags": ["Stratégie de design", "Storytelling", "Design Thinking", "Print"]
+    },
+    "media": {
+      "title": "Création de Médias",
+      "description": "Bannières, vidéos, emailings, réseaux sociaux : des contenus qui captent l’attention, fidèles à votre marque.",
+      "tags": ["Motion Design", "Vidéo", "Emailing", "Réseaux sociaux"],
+      "details": "Je produis les supports de communication de tous les canaux : bannières, vidéos, motion design, kits emailing, visuels pour les réseaux sociaux et fichiers prêts pour l’impression. Chaque création renforce l’image de marque et soutient vos objectifs marketing.",
+      "moreTags": ["Sound Design", "Pré-presse", "Production vidéo", "Stratégie de contenu", "IA générative"]
+    },
+    "frontEnd": {
+      "title": "Développement Front‑End",
+      "description": "Des maquettes fidèlement codées en React et Next.js : rapides, responsives et faciles à faire évoluer.",
+      "tags": ["React / Next.js", "Responsive", "Performance", "Animations"],
+      "details": "J’intègre des interfaces performantes et accessibles, avec un code modulaire et maintenable qui suit les bonnes pratiques du front-end moderne : React, Next.js, TypeScript et Tailwind CSS. Applications SaaS, sites headless ou PWA : des expériences fluides sur tous les écrans.",
+      "moreTags": ["TypeScript", "Tailwind CSS", "PWA", "SaaS", "Headless", "Validation de formulaires"]
+    },
+    "projectManagement": {
+      "title": "Gestion de projets",
+      "description": "De la stratégie à la livraison, je fais le lien entre design, développement et métier pour que le projet avance.",
+      "tags": ["Agile", "Stratégie digitale", "Coordination"],
+      "details": "Ma double compétence en design et en développement facilite la coordination entre les équipes et garantit la cohérence du projet, de la stratégie à la mise en ligne. J’organise le travail en mode agile, avec l’expérience utilisateur comme fil conducteur.",
+      "moreTags": ["Planification de sprints", "Roadmap", "Recherche UX", "Conseil digital"]
+    },
+    "ecommerce": {
+      "title": "E-commerce",
+      "description": "Des parcours d’achat qui convertissent : catalogues structurés, tunnels de commande optimisés et sites rapides.",
+      "tags": ["Conversion", "A/B Testing", "SEO", "Données produit"],
+      "details": "J’interviens sur des plateformes e‑commerce complexes : structuration des catalogues, intégrations PIM/ERP et flux de données métier, parcours clients, performance et SEO technique. L’objectif : un site agréable à parcourir, et qui vend.",
+      "moreTags": ["CRO", "PIM / ERP", "SEO technique", "Multicanal", "Logistique e-commerce"]
+    }
+  },
+  "Experience": {
+    "title": "Expériences",
+    "metaDescription": "Le parcours d’Arnaud Benez : postes, collaborations et formations en design UI/UX et développement front-end, et les outils maîtrisés.",
+    "filtersLabel": "Filtrer les expériences",
+    "filters": {
+      "all": "Tout",
+      "job": "Emplois",
+      "collaboration": "Collaborations",
+      "formation": "Formations"
+    },
+    "types": {
+      "job": "Emploi",
+      "collaboration": "Collaboration",
+      "formation": "Formation"
+    },
+    "present": "aujourd’hui",
+    "showMore": "Voir plus",
+    "cta": "Envie d’en savoir plus ?",
+    "contactCta": "Me contacter",
+    "empty": "Aucune expérience dans cette catégorie.",
+    "skills": {
+      "frontEnd": "Développement Front-End",
+      "design": "Design & Animation",
+      "projectManagement": "Gestion de projets",
+      "cms": "CMS & E-commerce",
+      "database": "Bases de données",
+      "devOps": "DevOps",
+      "devTools": "Outils de dev"
+    },
+    "items": {
+      "cloudcastle": {
+        "role": "Co-fondateur",
+        "description": "Co-fondation de CloudCastle pour créer Questix, un gestionnaire de campagnes de jeu de rôle assisté par IA. Alpha prévue prochainement.",
+        "highlights": ["Gestion de projet et administration de la société", "Product design, identité visuelle et maquettes de l’application", "Front-end de l’application web (Next.js), jusqu’à la validation des formulaires", "Outils intelligents pour organiser les parties, les préparer et gérer le lore"]
+      },
+      "heroui": {
+        "role": "Contributeur front-end",
+        "description": "Mission bénévole pour HeroUI, une bibliothèque de composants inspirée de Material Design : accessibilité et design minimaliste.",
+        "highlights": ["Portabilité des composants entre frameworks", "Débogage de comportements d’interface complexes", "Mise en conformité de l’accessibilité avec les normes européennes"]
+      },
+      "contentsquare": {
+        "role": "Formation",
+        "description": "Formation à ContentSquare pour analyser le comportement des utilisateurs (heatmaps, replays de sessions, analyse par zones) et optimiser l’UX et la conversion."
+      },
+      "majitv": {
+        "role": "Designer d’identité visuelle",
+        "description": "Création d’une identité visuelle sur mesure en pixel art et accompagnement en branding et mise en page pour soutenir le lancement et la croissance d’une nouvelle chaîne Twitch."
+      },
+      "googleAnalytics": {
+        "role": "Certification",
+        "description": "Certification Google Analytics 4 : suivi du comportement utilisateur, configuration d’événements et exploitation des données."
+      },
+      "foundry": {
+        "role": "Développeur de modules",
+        "description": "Participation au développement de plusieurs modules et plugins JavaScript communautaires, pour enrichir l’écosystème de Foundry VTT, son extensibilité et son expérience utilisateur."
+      },
+      "leclerc": {
+        "role": "UI/UX Designer & directeur artistique",
+        "description": "Au sein du service e-commerce de Voyages E.Leclerc, passé de 6 à 11 personnes : design UI/UX, direction artistique, et management d’un graphiste puis d’un développeur full-stack.",
+        "highlights": ["Refonte du site : pages, ligne graphique et design system", "Modernisation de l’identité de marque, avec l’agence Havas", "Optimisation des parcours : Contentsquare, A/B tests Kameleoon, SEO", "Kits emailing pour le trafic web, création d’images et de vidéos", "Pendant le Covid, renfort pour E.Leclerc : Drive et prospectus"]
+      },
+      "freelance": {
+        "role": "UI/UX Designer & Développeur",
+        "description": "Services digitaux sur mesure pour des clients variés, au contact direct de chacun pour cerner sa vision et ses besoins.",
+        "highlights": ["Retouche photo e-commerce pour La Plateforme du Bâtiment", "Campagnes emailing pour DogFidelity", "Sites web pour des photographes professionnels", "Identité de marque pour l’association Vocajob"]
+      },
+      "delaveine": {
+        "role": "Webdesigner",
+        "description": "Premier poste, seul webdesigner d’une petite structure : faire grandir le site e-commerce de Delaveine, enseigne de prêt-à-porter masculin.",
+        "highlights": ["Maintenance et évolutions du site", "Newsletters, publicités et bannières promotionnelles", "Vidéos de présentation des collections", "Retouche et montage photo des fiches produits"]
+      },
+      "itecomDev": {
+        "role": "Développeur Front-End / Intégrateur",
+        "description": "Formation de développeur front-end et intégrateur : HTML, CSS, JavaScript et responsive design, avec un accent sur l’ergonomie, l’accessibilité et le SEO."
+      },
+      "itecomPm": {
+        "role": "Webdesigner & Chef de projet",
+        "description": "Formation en webdesign et gestion de projet : analyse des besoins utilisateurs, conception de sites et pilotage de projets de bout en bout."
+      },
+      "itecomGraphic": {
+        "role": "Graphiste & Maquettiste",
+        "description": "Formation en identité visuelle et design graphique : mise en page, composition et maîtrise de la suite Adobe, du print au digital."
+      },
+      "zigoh": {
+        "role": "Designer vectoriel",
+        "description": "Gestion et développement de la présence en ligne de Delaveine, enseigne de prêt-à-porter masculin : maintenance et évolutions du site, création de publicités et bannières promotionnelles, retouche et montage photo pour les fiches produits, et intégration des newsletters pour une communication client cohérente et efficace."
+      }
+    }
+  },
+  "Works": {
+    "title": "Réalisations",
+    "metaDescription": "Une sélection de réalisations : agence de voyage, bibliothèque de composants, streaming, SaaS, e-commerce et recrutement.",
+    "subtitle": "Une sélection de mes projets",
+    "categories": {
+      "travelAgency": "Agence de voyages",
+      "library": "Bibliothèque de composants",
+      "streaming": "Streaming",
+      "saas": "SaaS",
+      "ecommerce": "E-commerce",
+      "recruitment": "Recrutement",
+      "collaboration": "Collaboration"
+    },
+    "allWorks": {
+      "title": "Toutes mes réalisations",
+      "subtitle": "Voir le portfolio complet"
+    },
+    "trustedBy": "Ils m’ont fait confiance"
+  },
+  "Contact": {
+    "title": "Contact",
+    "metaDescription": "Un projet, une question ? Contactez Arnaud Benez, UI/UX Designer et développeur front-end dans le Val-de-Marne.",
+    "intro": "Une question ? Un projet ? Ou simplement envie d’échanger ? Je suis toujours ouvert à la discussion.",
+    "card": {
+      "roles": "UI/UX Designer | Développeur Front-End",
+      "location": "Val-de-Marne",
+      "download": "Télécharger ma carte de visite",
+      "copyEmail": "Copier l’adresse e-mail",
+      "copied": "Copié"
+    },
+    "form": {
+      "name": "Nom complet",
+      "namePlaceholder": "Jean Dupont",
+      "email": "E-mail",
+      "emailPlaceholder": "jean.dupont@exemple.fr",
+      "emailError": "Veuillez saisir une adresse e-mail valide",
+      "message": "Votre message",
+      "messagePlaceholder": "Parlez-moi de votre projet…",
+      "required": "Obligatoire",
+      "pitch": "Envie de discuter design, projets ou passions ?<br></br>On ne sait jamais ce qu’un simple message peut déclencher.",
+      "submit": "Envoyer"
+    }
+  },
+  "Footer": {
+    "rights": "Tous droits réservés",
+    "legal": "Mentions légales"
+  },
+  "Legal": {
+    "metaDescription": "Mentions légales du portfolio d’Arnaud Benez : éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.",
+    "back": "Retour au portfolio",
+    "title": "Mentions légales",
+    "updated": "Dernière mise à jour : novembre 2026",
+    "editor": {
+      "title": "Éditeur du site",
+      "p1": "Ce site est le portfolio personnel d’<b>Arnaud Benez</b>, publié à titre non professionnel par un particulier.",
+      "p2": "Contact : <email></email><br></br>Directeur de la publication : Arnaud Benez.",
+      "p3": "Conformément à l’article 6, III, 2 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique (LCEN), l’éditeur, personne physique publiant à titre non professionnel, ne rend pas publique son adresse personnelle ; ses coordonnées ont été communiquées à l’hébergeur."
+    },
+    "host": {
+      "title": "Hébergement",
+      "pending": "À compléter : nom, adresse et téléphone de l’hébergeur.",
+      "phone": "Téléphone : {phone}"
+    },
+    "ip": {
+      "title": "Propriété intellectuelle",
+      "p1": "L’ensemble des contenus de ce site (textes, visuels, logo, mise en page) est la propriété d’Arnaud Benez, sauf mention contraire. Toute reproduction ou réutilisation, totale ou partielle, sans autorisation préalable est interdite.",
+      "p2": "Les marques et logos des entreprises et des outils cités (clients, employeurs, logiciels) appartiennent à leurs propriétaires respectifs. Ils sont présentés uniquement pour illustrer les projets réalisés et les compétences."
+    },
+    "data": {
+      "title": "Données personnelles",
+      "p1": "Le formulaire de contact recueille votre nom (facultatif), votre adresse e-mail et votre message, dans le seul but de vous répondre. Ces informations ne sont ni cédées, ni vendues, ni utilisées à des fins commerciales. Elles sont conservées le temps nécessaire à l’échange, puis supprimées au plus tard trois ans après le dernier contact.",
+      "p2": "Conformément au Règlement général sur la protection des données (RGPD) et à la loi « Informatique et Libertés », vous disposez d’un droit d’accès, de rectification, d’effacement et d’opposition sur vos données. Pour l’exercer, écrivez à <email></email>. Vous pouvez aussi adresser une réclamation à la <cnil>CNIL</cnil>."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "p1": "Ce site n’utilise aucun cookie publicitaire ni de mesure d’audience. Seuls des éléments techniques, indispensables à son fonctionnement, sont enregistrés dans votre navigateur : la langue choisie, et un indicateur qui évite de rejouer l’animation d’arrivée pendant votre visite (effacé à la fermeture de l’onglet). Ils ne nécessitent pas de consentement."
+    },
+    "credits": {
+      "title": "Crédits",
+      "p1": "Conception, design et développement : Arnaud Benez. Icônes : Hugeicons. Police : Inter. Site réalisé avec Next.js."
+    }
+  }
+}

@@ -32,13 +32,13 @@ export const WorkCard = ({
   // Cas de secours (si pas d'image du tout)
   if (isCta) {
     return (
-      <Card className={cn(containerClasses, "flex flex-col justify-between p-8 bg-[#050505]")}>
+      <Card className={cn(containerClasses, "flex flex-col justify-between p-8 bg-[#040506]")}>
         <div className="h-12 w-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-white/10 transition-colors">
           <Icon name="ArrowRight" className="text-white" size={20} />
         </div>
         <div>
           <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-          <p className="text-[#A8A8A8] text-sm font-light">
+          <p className="text-[#a2a9b2] text-sm font-light">
             {category || "Explorez l'ensemble de mes créations digitales."}
           </p>
         </div>

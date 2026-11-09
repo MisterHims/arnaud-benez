@@ -10,7 +10,7 @@ export const Showcase = () => {
 
       {/* SOUS-TITRE */}
       <div className="text-center">
-        <h3 className="text-[#A8A8A8] text-2xl md:text-3xl font-bold">
+        <h3 className="text-[#a2a9b2] text-2xl md:text-3xl font-bold">
           Take a look at my showcase
         </h3>
       </div>
@@ -20,7 +20,7 @@ export const Showcase = () => {
 
         {/* 1. TOP LEFT */}
         <WorkCard
-          className="md:col-span-2 md:rounded-tl-3xl"
+          className="md:col-span-2 md:rounded-tl-2xl"
           title="Mouvement E.Leclerc"
           category="Travel Agency"
           logo={<Logo name="Leclerc" className="w-28 h-auto" />}
@@ -29,7 +29,7 @@ export const Showcase = () => {
 
         {/* 2. TOP RIGHT */}
         <WorkCard
-          className="md:rounded-tr-3xl"
+          className="md:rounded-tr-2xl"
           title="HeroUI"
           category="Library"
           logo={<Logo name="HeroUI" className="w-28 h-auto" />}
@@ -62,7 +62,7 @@ export const Showcase = () => {
 
         {/* 6. BOTTOM LEFT */}
         <WorkCard
-          className="md:rounded-bl-3xl"
+          className="md:rounded-bl-2xl"
           title="Vocajob"
           category="Recruitment"
           logo="Vocajob"
@@ -79,7 +79,7 @@ export const Showcase = () => {
 
         {/* 8. BOTTOM RIGHT */}
         <WorkCard
-          className="md:rounded-br-3xl bg-[#050505]"
+          className="md:rounded-br-2xl bg-[#040506]"
           title="Toutes mes réalisations"
           category="Voir le portfolio complet"
           imageSrc="/assets/works/all-real.png"
