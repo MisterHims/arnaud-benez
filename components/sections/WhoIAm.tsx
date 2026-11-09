@@ -23,7 +23,7 @@ export const WhoIAm = () => {
           below lg so the title can span both columns (md) or the portrait
           slot in between title and text (phones) */}
       <div className="contents lg:block">
-        <h2 className='max-md:order-1 md:col-span-2 lg:col-span-1 text-[clamp(2.75rem,15vw,4.5rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-8 md:-mb-4 lg:mb-8'>
+        <h2 className='max-md:order-1 md:col-span-2 lg:col-span-1 text-[clamp(2.25rem,12vw,3.75rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-8 md:-mb-4 lg:mb-8'>
           {t('title')}
         </h2>
 

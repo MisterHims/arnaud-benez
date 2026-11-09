@@ -63,7 +63,7 @@ export const ExperienceList = ({ skillsStrip }: ExperienceListProps) => {
   return (
     <div className="flex flex-col h-full">
 
-      <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-8 lg:mb-14'>
+      <h2 className='text-[clamp(2.25rem,12vw,3.75rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-8 lg:mb-14'>
         {t('title')}
       </h2>
 

@@ -18,7 +18,7 @@ export const Works = () => {
 
         {/* HEADER */}
         <div className="text-center mb-8">
-          <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
+          <h2 className='text-[clamp(2.25rem,12vw,3.75rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
             {t('title')}
           </h2>
 

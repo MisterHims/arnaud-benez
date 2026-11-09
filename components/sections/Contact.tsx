@@ -28,7 +28,7 @@ export const Contact = () => {
 
           {/* 1. HEADER (Titre & Sous-titre) */}
           <BlockContent colSpan={12} className="mb-8 md:max-xl:mb-0 lg:col-span-12">
-            <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
+            <h2 className='text-[clamp(2.25rem,12vw,3.75rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight mb-4'>
               {t('title')}
             </h2>
             <p className="text-zinc-400 text-base xl:text-lg max-w-2xl font-light">

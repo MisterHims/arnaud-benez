@@ -83,7 +83,7 @@ export const WhatIDo = () => {
             text first. From xl, lowered so the title's cap height lines up
             with the top of the second (offset) column of cards */}
         <BlockContent isSticky className="order-1 lg:order-2 col-span-full md:col-span-full lg:col-span-1 lg:col-start-2 lg:row-start-1 max-w-[640px] xl:pt-[67px]">
-          <h2 className='text-[clamp(2.75rem,15vw,4.5rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight text-balance mb-8'>
+          <h2 className='text-[clamp(2.25rem,12vw,3.75rem)] leading-none md:text-7xl xl:text-8xl font-black text-[#ebedf0] tracking-tight text-balance mb-8'>
             {t('title')}
           </h2>
           {/* One positioning statement: the cards carry the details */}
